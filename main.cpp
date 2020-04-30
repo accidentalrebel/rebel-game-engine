@@ -8,7 +8,7 @@ Rebel* g_engine;
 int main()
 {
 	g_engine = new Rebel();
-	if ( !g_engine->initialize() )
+	if ( !g_engine->initialize(800, 600, "Rebel Engine") )
 	{
 		printf("ERROR::MAIN::Error in initialization!");
 	}
@@ -17,7 +17,6 @@ int main()
 
 	while(!g_engine->canClose())
 	{
-		
 	}
 	
 	return 0;

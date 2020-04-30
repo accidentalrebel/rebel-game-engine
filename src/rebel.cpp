@@ -1,10 +1,10 @@
 #include "rebel.h"
 #include <stdio.h>
 
-bool rebel::Rebel::initialize()
+bool rebel::Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
 	window = new Window();
-	if ( !window->initialize(800, 600) )
+	if ( !window->initialize(windowWidth, windowHeight, windowName) )
 	{
 		printf("REBEL::WINDOW::Failed to create GLFW window");
 	}

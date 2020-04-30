@@ -7,7 +7,7 @@ namespace rebel
 	class Window
 	{
 	 public:
-		bool initialize(int windowWidth, int windowHeight);
+		bool initialize(int windowWidth, int windowHeight, const char* windowName);
 		bool canClose();
 	 private:
 		GLFWwindow* glWindow;

@@ -6,7 +6,7 @@ namespace rebel
 	class Rebel
 	{
 	 public:
-		bool initialize();
+		bool initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 		bool canClose();
 
 		Window* window;
