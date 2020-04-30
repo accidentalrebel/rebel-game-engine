@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include "src/rebel.h"
+#include "src/core/window.h"
+
+using namespace rebel;
 
 int main()
 {
-	Rebel rebel(800, 600);
+	Rebel::initialize();
+	Window window(800, 600);
 	printf("Hello world!");
 
-	while(!Rebel::canCloseWindow(&rebel))
+	while(!window.canCloseWindow())
 	{
 		
 	}
