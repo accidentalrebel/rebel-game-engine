@@ -7,7 +7,7 @@ namespace rebel
 	class Sprite
 	{
 	 public:
-		void initialize();
+		void initialize(Shader *shader);
 		void draw();
 	 private:
 		unsigned int VAO;

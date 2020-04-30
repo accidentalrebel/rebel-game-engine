@@ -14,7 +14,8 @@ int main()
 	}
 	Window* window = g_engine->window;
 	Sprite *sprite = new rebel::Sprite();
-	sprite->initialize();
+	Shader *shader = new Shader("shaders/simple.vs", "shaders/simple.fs");
+	sprite->initialize(shader);
 
 	while(!window->canClose())
 	{

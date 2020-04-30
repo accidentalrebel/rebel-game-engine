@@ -4,8 +4,10 @@
 
 using namespace rebel;
 
-void Sprite::initialize()
+void Sprite::initialize(Shader *shader)
 {
+	this->shader = shader;
+	
 	float vertices[] = {  
 		// positions   // texCoords
 		-0.5f,  0.5f,  0.0f, 1.0f,
@@ -33,7 +35,6 @@ void Sprite::initialize()
 	
 	glBindVertexArray(0);
 
-	shader = new Shader("shaders/simple.vs", "shaders/simple.fs");
  	// texture = Shader::LoadTextureFromFile("tile.jpg", "assets/textures");
 }
 
