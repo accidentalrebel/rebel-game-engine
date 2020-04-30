@@ -4,7 +4,7 @@
 
 using namespace rebel;
 
-void Sprite::initialize(Shader *shader)
+void Sprite::initialize(Shader *shader, const char *directory, const char *filename)
 {
 	this->shader = shader;
 	
@@ -35,12 +35,13 @@ void Sprite::initialize(Shader *shader)
 	
 	glBindVertexArray(0);
 
- 	// texture = Shader::LoadTextureFromFile("tile.jpg", "assets/textures");
+ 	texture = Shader::LoadTextureFromFile(directory, filename);
 }
 
 void Sprite::draw()
 {
  	shader->use();
+	shader->setInt("texture1", 0);
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

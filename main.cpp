@@ -13,9 +13,11 @@ int main()
 		std::cout << "ERROR::MAIN::Error in initialization!" << std::endl;
 	}
 	Window* window = g_engine->window;
-	Sprite *sprite = new rebel::Sprite();
+
 	Shader *shader = new Shader("shaders/simple.vs", "shaders/simple.fs");
-	sprite->initialize(shader);
+
+	Sprite *sprite = new rebel::Sprite();
+	sprite->initialize(shader, "assets/textures", "tile.png");
 
 	while(!window->canClose())
 	{
