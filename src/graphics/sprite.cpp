@@ -1,5 +1,7 @@
 #include "sprite.h"
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 
 using namespace rebel;
@@ -42,8 +44,12 @@ void Sprite::draw()
 {
  	shader->use();
 	shader->setInt("texture1", 0);
+
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
+	shader->setMat4("model", model);
+	
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
-
