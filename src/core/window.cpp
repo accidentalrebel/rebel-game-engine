@@ -1,6 +1,9 @@
 #include "window.h"
+#include <iostream>
 
-bool rebel::Window::initialize(int windowWidth, int windowHeight, const char* windowName)
+using namespace rebel;
+
+bool Window::initialize(int windowWidth, int windowHeight, const char* windowName)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -15,14 +18,41 @@ bool rebel::Window::initialize(int windowWidth, int windowHeight, const char* wi
 		return false;
 	}
 	glfwMakeContextCurrent(glWindow);
+	glfwSetFramebufferSizeCallback(glWindow, framebuffer_size_callback);
 
+	if ( !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
 	return true;
 }
 
-bool rebel::Window::canClose()
+bool Window::canClose()
 {
+	return glfwWindowShouldClose(glWindow);
+}
+
+void Window::clear()
+{
+	if(glfwGetKey(glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(glWindow, true);
+
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	glfwSwapBuffers(glWindow);
 	glfwPollEvents();  
-	
-	return glfwWindowShouldClose(glWindow);
+}
+
+void Window::destroy()
+{
+	glfwTerminate();
+}
+
+// CALLBACKS
+// =========
+void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }

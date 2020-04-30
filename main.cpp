@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "src/rebel.h"
+#include <iostream>
 
 using namespace rebel;
 
@@ -10,14 +10,15 @@ int main()
 	g_engine = new Rebel();
 	if ( !g_engine->initialize(800, 600, "Rebel Engine") )
 	{
-		printf("ERROR::MAIN::Error in initialization!");
+		std::cout << "ERROR::MAIN::Error in initialization!" << std::endl;
 	}
+	Window* window = g_engine->window;
 		
-	printf("Hello world!");
-
-	while(!g_engine->canClose())
+	while(!window->canClose())
 	{
+		window->clear();
 	}
-	
+
+	g_engine->destroy();
 	return 0;
 }
