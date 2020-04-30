@@ -13,11 +13,17 @@ int main()
 		std::cout << "ERROR::MAIN::Error in initialization!" << std::endl;
 	}
 	Window* window = g_engine->window;
+	Sprite *sprite = new rebel::Sprite();
+	sprite->initialize();
 		
 	while(!window->canClose())
 	{
 		g_engine->processInput();
 		window->clear();
+
+		sprite->draw();
+
+		window->swap();
 	}
 
 	g_engine->destroy();

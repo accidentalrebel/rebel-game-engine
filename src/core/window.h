@@ -11,6 +11,7 @@ namespace rebel
 		bool canClose();
 
 		void clear();
+		void swap();
 		void destroy();
 		GLFWwindow* glWindow;
 	 private:

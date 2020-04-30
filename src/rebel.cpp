@@ -16,6 +16,8 @@ bool Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, cons
 
 void Rebel::processInput()
 {
+	glfwPollEvents();
+
 	if(glfwGetKey(window->glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window->glWindow, true);
 }
