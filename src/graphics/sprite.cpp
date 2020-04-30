@@ -39,7 +39,7 @@ void Sprite::initialize()
 
 void Sprite::draw()
 {
- 	// shader->use();
+ 	shader->use();
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

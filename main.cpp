@@ -15,7 +15,7 @@ int main()
 	Window* window = g_engine->window;
 	Sprite *sprite = new rebel::Sprite();
 	sprite->initialize();
-		
+
 	while(!window->canClose())
 	{
 		g_engine->processInput();
