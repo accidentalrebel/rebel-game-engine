@@ -16,6 +16,7 @@ int main()
 		
 	while(!window->canClose())
 	{
+		g_engine->processInput();
 		window->clear();
 	}
 

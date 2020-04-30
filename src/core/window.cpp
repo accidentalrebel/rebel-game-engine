@@ -35,9 +35,6 @@ bool Window::canClose()
 
 void Window::clear()
 {
-	if(glfwGetKey(glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(glWindow, true);
-
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 

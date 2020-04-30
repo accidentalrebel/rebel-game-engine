@@ -8,6 +8,8 @@ namespace rebel
 	 public:
 		bool initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 		bool canClose();
+		
+		void processInput();
 		void destroy();
 
 		Window* window;
