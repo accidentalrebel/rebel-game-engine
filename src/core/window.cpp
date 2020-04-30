@@ -1,27 +1,28 @@
 #include "window.h"
-#include <stdio.h>
 
-rebel::Window::Window(int windowWidth, int windowHeight)
+bool rebel::Window::initialize(int windowWidth, int windowHeight)
 {
+	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Uncomment for MacOSX
 
-	window = glfwCreateWindow(windowWidth, windowHeight, "LearnOpenGL", NULL, NULL);
-	if (window == NULL)
+	glWindow = glfwCreateWindow(windowWidth, windowHeight, "LearnOpenGL", NULL, NULL);
+	if (glWindow == NULL)
 	{
-    printf("Failed to create GLFW window");
     glfwTerminate();
-		return;
+		return false;
 	}
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(glWindow);
+
+	return true;
 }
 
-bool rebel::Window::canCloseWindow()
+bool rebel::Window::canClose()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(glWindow);
 	glfwPollEvents();  
 	
-	return glfwWindowShouldClose(window);
+	return glfwWindowShouldClose(glWindow);
 }

@@ -1,14 +1,14 @@
 #pragma once
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "core/window.h"
 
 namespace rebel
 {
 	class Rebel
 	{
 	 public:
-		static bool initialize();
-	 private:
+		bool initialize();
+		bool canClose();
+
+		Window* window;
 	};
 }

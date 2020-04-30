@@ -7,9 +7,9 @@ namespace rebel
 	class Window
 	{
 	 public:
-		Window(int windowWidth, int windowHeight);
-		bool canCloseWindow();
+		bool initialize(int windowWidth, int windowHeight);
+		bool canClose();
 	 private:
-		GLFWwindow* window;
+		GLFWwindow* glWindow;
 	};
 }

@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include "src/rebel.h"
-#include "src/core/window.h"
 
 using namespace rebel;
 
+Rebel* g_engine;
+
 int main()
 {
-	Rebel::initialize();
-	Window window(800, 600);
+	g_engine = new Rebel();
+	if ( !g_engine->initialize() )
+	{
+		printf("ERROR::MAIN::Error in initialization!");
+	}
+		
 	printf("Hello world!");
 
-	while(!window.canCloseWindow())
+	while(!g_engine->canClose())
 	{
 		
 	}
