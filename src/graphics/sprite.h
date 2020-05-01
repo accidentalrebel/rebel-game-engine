@@ -1,6 +1,8 @@
 #pragma once
 
 #include "shader.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace rebel
 {
@@ -8,7 +10,7 @@ namespace rebel
 	{
 	 public:
 		void initialize(Shader *shader, const char *directory, const char *filename);
-		void draw();
+		void draw(glm::vec2 position, float width, float height, glm::vec3 tintColor = glm::vec3(1.0f));
 	 private:
 		unsigned int VAO;
 		unsigned int VBO;

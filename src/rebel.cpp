@@ -10,9 +10,7 @@ bool Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, cons
 {
 	window = new Window();
 	if ( !window->initialize(windowWidth, windowHeight, windowName) )
-	{
 		std::cout << "REBEL::WINDOW::Failed to create GLFW window" << std::endl;
-	}
 
 	return true;
 }

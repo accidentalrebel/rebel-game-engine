@@ -1,7 +1,5 @@
 #include "sprite.h"
 #include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 
 using namespace rebel;
@@ -40,20 +38,22 @@ void Sprite::initialize(Shader *shader, const char *directory, const char *filen
  	texture = Shader::LoadTextureFromFile(directory, filename);
 }
 
-void Sprite::draw()
+void Sprite::draw(glm::vec2 currentPosition, float width, float height, glm::vec3 tintColor)
 {
  	shader->use();
 	shader->setInt("texture1", 0);
 	
 	// glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 100.0f);
-	glm::mat4 projection = glm::ortho(-400.0f, 400.0f, -300.0f, 300.0f, 0.1f, 100.0f);
+	glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
 	
 	glm::mat4 view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::scale(model, glm::vec3(400.0f));
+	model = glm::scale(model, glm::vec3(width, height, 1.0f));
+	model = glm::translate(model, glm::vec3(currentPosition.x / width, currentPosition.y / height, 0.0f));
 
+	shader->setVec3("tint", tintColor);
 	shader->setMat4("projection", projection);
 	shader->setMat4("view", view);
 	shader->setMat4("model", model);
