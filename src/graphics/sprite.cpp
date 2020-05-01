@@ -4,7 +4,7 @@
 
 using namespace rebel;
 
-void Sprite::initialize(Shader *shader, const char *directory, const char *filename)
+Sprite::Sprite(Shader *shader, const char *directory, const char *filename)
 {
 	this->shader = shader;
 	

@@ -19,14 +19,8 @@ int main()
 	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
 
 	Window* window = g_engine->window;
-
-	// TODO: Separate shader class to cpp and header file
 	Shader *shader = new Shader("shaders/simple.vs", "shaders/simple.fs");
-
-	Sprite *sprite = new rebel::Sprite();
-
-	// NOTE: We may have no need for an initializer.
-	sprite->initialize(shader, "assets/textures", "tile.png");
+	Sprite *sprite = new rebel::Sprite(shader, "assets/textures", "tile.png");
 
 	glm::vec3 pinkSquarePosition(400.0, 300.0f, 1.0f);
 

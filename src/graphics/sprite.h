@@ -9,7 +9,8 @@ namespace rebel
 	class Sprite
 	{
 	 public:
-		void initialize(Shader *shader, const char *directory, const char *filename);
+		Sprite(Shader *shader, const char *directory, const char *filename);
+
 		void draw(glm::vec3 position, float width, float height, glm::vec3 tintColor = glm::vec3(1.0f));
 	 private:
 		unsigned int VAO;
