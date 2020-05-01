@@ -19,12 +19,15 @@ bool Window::initialize(int windowWidth, int windowHeight, const char* windowNam
 	}
 	glfwMakeContextCurrent(glWindow);
 	glfwSetFramebufferSizeCallback(glWindow, framebuffer_size_callback);
-
+	
 	if ( !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+
+	glEnable(GL_DEPTH_TEST);
+	
 	return true;
 }
 
@@ -36,7 +39,7 @@ bool Window::canClose()
 void Window::clear()
 {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
 void Window::swap()
