@@ -9,14 +9,14 @@ float g_lastKeyPressed = 0;
 
 // TODO: Transparent images
 // TODO: Camera system
+// TODO: 3D Model Loader
 // TODO: Save system
 // TODO: Text
 // TODO: Audio
 
 int main()
 {
-	g_engine = new Rebel();
-	g_engine->initialize(800, 600, "Rebel Engine");
+	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
 
 	Window* window = g_engine->window;
 

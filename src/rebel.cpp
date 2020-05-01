@@ -6,13 +6,17 @@
 
 using namespace rebel;
 
-bool Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
-{
-	window = new Window();
-	if ( !window->initialize(windowWidth, windowHeight, windowName) )
-		std::cout << "REBEL::WINDOW::Failed to create GLFW window" << std::endl;
+Rebel* Rebel::instance = new Rebel();
 
-	return true;
+Rebel* Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
+{
+	Rebel::instance->window = new Window();
+	if ( !Rebel::instance->window->initialize(windowWidth, windowHeight, windowName) )
+	{
+		std::cout << "REBEL::WINDOW::Failed to create GLFW window" << std::endl;
+	}
+
+	return instance;
 }
 
 void Rebel::processInput()

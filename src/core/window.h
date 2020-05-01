@@ -14,6 +14,9 @@ namespace rebel
 		void swap();
 		void destroy();
 		GLFWwindow* glWindow;
+
+		unsigned int width;
+		unsigned int height;
 	 private:
 		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	};

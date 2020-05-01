@@ -1,10 +1,14 @@
 #include "window.h"
 #include <iostream>
+#include "../rebel.h"
 
 using namespace rebel;
 
 bool Window::initialize(int windowWidth, int windowHeight, const char* windowName)
 {
+	this->width = windowWidth;
+	this->height = windowHeight;
+	
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -54,7 +58,10 @@ void Window::destroy()
 
 // CALLBACKS
 // =========
-void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void Window::framebuffer_size_callback(GLFWwindow* window, int windowWidth, int windowHeight)
 {
-    glViewport(0, 0, width, height);
+	Rebel::instance->window->width = windowWidth;
+	Rebel::instance->window->height = windowHeight;
+
+	glViewport(0, 0, windowWidth, windowHeight);
 }
