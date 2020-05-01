@@ -22,6 +22,7 @@ As much as I want to implement everything myself, these libraries are just bette
   * [Glad](https://github.com/Dav1dde/glad) - OpenGL Loader-Generator
   * [GLFW](https://www.glfw.org/) - For OpenGL and window handling
   * [stb_image](https://github.com/nothings/stb) - Image loader
+  * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
 
 ## Many thanks
 This project wouldn't be possible without these:

@@ -1,5 +1,8 @@
 #pragma once
 
+// This is a recreation of the shader closs from LearnOpenGL.com
+// https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
