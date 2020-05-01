@@ -1,6 +1,7 @@
 #include "sprite.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "../rebel.h"
 
 using namespace rebel;
 
@@ -40,11 +41,14 @@ Sprite::Sprite(Shader *shader, const char *directory, const char *filename)
 
 void Sprite::draw(glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
 {
+	float windowWidth = Rebel::instance->window->width;
+	float windowHeight = Rebel::instance->window->height;
+	
  	shader->use();
 	shader->setInt("texture1", 0);
 	
-	// glm::mat4 projection = glm::perspective(glm::radians(30.0f), 800.0f/600.0f, 0.1f, 100.0f);
-	glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -100.0f, 100.0f);
+	// glm::mat4 projection = glm::perspective(glm::radians(30.0f), windowWidth/windowHeight, 0.1f, 100.0f);
+	glm::mat4 projection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, -100.0f, 100.0f);
 	
 	glm::mat4 view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -30.0f)); 

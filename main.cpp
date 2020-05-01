@@ -9,6 +9,7 @@ float g_lastKeyPressed = 0;
 
 // TODO: Transparent images
 // TODO: Camera system
+// TODO: Input Manager
 // TODO: 3D Model Loader
 // TODO: Save system
 // TODO: Text
@@ -29,7 +30,6 @@ int main()
 		g_engine->processInput();
 		window->clear();
 
-		// TODO: Window width and height should be saved in Window class.
 		// NOTE: Consider having a renderer class where you call draw.
 		// Or maybe change window to renderer? 
 		
