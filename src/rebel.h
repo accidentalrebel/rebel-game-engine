@@ -1,4 +1,5 @@
 #pragma once
+
 #include "core/window.h"
 #include "graphics/sprite.h"
 
@@ -19,4 +20,3 @@ namespace rebel
 		Rebel(void) {}
 	};
 }
-

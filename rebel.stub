@@ -1,0 +1,20 @@
+(c-include "src/lrebel.h")
+
+(c-declare "
+void FreeLSprite(LSprite * t){
+  free(t);
+}
+")
+
+(define-c-struct LSprite
+  predicate: l-sprite?
+  finalizer: FreeLSprite
+  (unsigned-int VAO l-sprite-get-vao l-sprite-set-vao)
+  (unsigned-int VBO l-sprite-get-vbo l-sprite-set-vbo)
+  (unsigned-int texture l-sprite-get-texture l-sprite-set-texture))
+
+(define-c (struct LSprite) (create-sprite CreateSprite) (string string))
+(define-c void (draw-sprite DrawSprite) (LSprite float float)) 
+
+(define-c void (test-func TestFunc) ())
+(define-c string (test-func-2 TestFunc2) ())

@@ -36,4 +36,3 @@ void Rebel::destroy()
 {
 	window->destroy();
 }
-
