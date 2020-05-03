@@ -6,7 +6,7 @@ CC = g++
 
 COMPILER_FLAGS = 
 
-LINKER_FLAGS = -lGL -lX11 -lpthread -ldl -lglfw3
+LINKER_FLAGS = -lGL -lX11 -lpthread -ldl -lglfw3 -lchibi-scheme
 
 INCLUDE_FLAGS = -I/home/arebel/development/tools/glad/include -I/home/arebel/development/tools/glfw/include 
 

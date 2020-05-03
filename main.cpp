@@ -1,5 +1,6 @@
 #include "src/rebel.h"
 #include <iostream>
+#include "chibi/eval.h"
 
 using namespace rebel;
 
@@ -17,6 +18,18 @@ float g_lastKeyPressed = 0;
 
 int main()
 {
+	char load_str[250];
+	sexp ctx;
+
+	ctx = sexp_make_eval_context(NULL, NULL, NULL, 0, 0);
+  sexp_load_standard_env(ctx, NULL, SEXP_SEVEN);
+  sexp_load_standard_ports(ctx, NULL, stdin, stdout, stderr, 1);
+
+	sexp_eval_string(ctx,"(load \"main.scm\")",-1,NULL);
+	sexp_eval_string(ctx,"(init)",-1,NULL);
+
+	sexp_destroy_context(ctx);
+	
 	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
 
 	Window* window = g_engine->window;
