@@ -6,8 +6,6 @@ using namespace rebel;
 
 Rebel* g_engine;
 
-float g_lastKeyPressed = 0;
-
 // TODO: Transparent images
 // TODO: Camera system
 // TODO: Input Manager
@@ -47,7 +45,7 @@ int main()
 		sexp_print_exception(ctx, result, SEXP_FALSE);
 	}
 
-	glm::vec3 pinkSquarePosition(100.0, 100.0f, 1.0f);
+	glm::vec3 pinkSquarePosition(405.0, 305.0f, 1.0f);
 
 	while(!window->canClose())
 	{
@@ -70,7 +68,6 @@ int main()
 		tint.x = 1.0f;
 		DrawSprite(&spr, pos, 50, 50, tint);
 
-		// TODO: Make a simpler to use Input manager. Like Unity's "Input.GetKey"
 		if ( IsKeyDown(KEY_COMMA) )
 			pinkSquarePosition.y += 1;
 		if ( IsKeyDown(KEY_O) )
@@ -80,26 +77,10 @@ int main()
 		if ( IsKeyDown(KEY_E) )
 			pinkSquarePosition.x += 1;
 
-		// TODO: Need an input manager to clean this up
-		if ( glfwGetKey(window->glWindow, GLFW_KEY_PERIOD) == GLFW_PRESS)
-		{
-			g_lastKeyPressed = GLFW_KEY_PERIOD;
-		}
-		else if ( g_lastKeyPressed == GLFW_KEY_PERIOD && glfwGetKey(window->glWindow, GLFW_KEY_PERIOD) == GLFW_RELEASE )
-		{
-			pinkSquarePosition.z = 1;
-			g_lastKeyPressed = 0;
-		}
-		
-		if ( g_lastKeyPressed == 0 && glfwGetKey(window->glWindow, GLFW_KEY_SEMICOLON) == GLFW_PRESS)
-		{
-			g_lastKeyPressed = GLFW_KEY_SEMICOLON;
-		}
-		else if ( g_lastKeyPressed == GLFW_KEY_SEMICOLON && glfwGetKey(window->glWindow, GLFW_KEY_SEMICOLON) == GLFW_RELEASE )
-		{
+		if ( IsKeyUp(KEY_PERIOD) )
+ 			pinkSquarePosition.z = 1;
+		if ( IsKeyUp(KEY_SEMICOLON ) )
 			pinkSquarePosition.z = -1;
-			g_lastKeyPressed = 0;
-		}
 
 		window->swap();
 	}

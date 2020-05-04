@@ -126,3 +126,4 @@ typedef enum {
 } Keys;
 
 bool IsKeyDown(Keys key);
+bool IsKeyUp(Keys key);
