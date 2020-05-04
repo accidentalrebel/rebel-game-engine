@@ -39,8 +39,9 @@ int main()
 										sexp_context_env(ctx),
 										sexp_version,
 										SEXP_ABI_IDENTIFIER);
+	// sexp_eval_string(ctx,"(import (scheme base) (chibi))",-1,NULL);
+	sexp_eval_string(ctx,"(import (chibi))",-1,NULL);
 	sexp_eval_string(ctx,"(load \"main.scm\")",-1,NULL);
-	// sexp_eval_string(ctx,"(guard (err (#t (display \"Error\") (newline) (print-exception err) (newline))) (init))",-1,NULL);
 
 	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
 
@@ -48,8 +49,37 @@ int main()
 	g_shader = new Shader("shaders/simple.vs", "shaders/simple.fs");
 	// LSprite sprite = CreateSprite("assets/textures", "tile.png");
 
-	sexp_eval_string(ctx,"(init)",-1,NULL);
+	sexp_gc_var1(result);
+	
+	// sexp_eval_string(ctx,"(guard (err [#t] (display \"Error\") (newline) (print-exception err) (newline)) (init))",-1,NULL);
+	// sexp_eval_string(ctx,"(guard (err ((display \"Error\") (newline) (print-exception err) (newline))) (init))",-1,NULL);
+	result = sexp_eval_string(ctx,"(init)",-1,NULL);
+	sexp_debug(ctx, "Result: ", result);
+	if (sexp_exceptionp(result))
+	{
+    puts("FAILURE: EXCEPTION:");
+		sexp_print_exception(ctx, result, SEXP_FALSE);
+	}
 
+	result = sexp_eval_string(ctx,
+                            "(import (scheme base)) "
+                            "(guard (e (#t)) "
+                            "  (error \"test\") "
+                            "  #f)",
+                            -1, NULL);
+
+	if (sexp_booleanp(result))
+    printf("Success: %s\n", result == SEXP_TRUE ? "#t" : "#f");
+  else if (sexp_exceptionp(result))
+    puts("Failure: exception");
+  else
+    puts("Big failure");
+
+	sexp_debug(ctx, "import: ", result);
+
+	result = sexp_eval_string(ctx, "(import (scheme base))", -1, NULL);
+	sexp_debug(ctx, "import: ", result);
+	
 	glm::vec3 pinkSquarePosition(400.0, 300.0f, 1.0f);
 
 	while(!window->canClose())
