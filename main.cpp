@@ -67,7 +67,7 @@ int main()
 
 		Vec3 tint;
 		tint.x = 1.0f;
-		DrawSprite(&spr, pos, 50, 50);
+		DrawSprite(&spr, pos, 50, 50, tint);
 
 		// TODO: Make a simpler to use Input manager. Like Unity's "Input.GetKey"
 		if ( glfwGetKey(window->glWindow, GLFW_KEY_COMMA) == GLFW_PRESS)

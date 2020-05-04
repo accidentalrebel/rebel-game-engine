@@ -13,4 +13,4 @@ typedef struct Sprite
 } Sprite;
 
 Sprite CreateSprite(const char *directory, const char *filename);
-void DrawSprite(Sprite *sprite, Vec3 position, float width, float height);
+void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor);

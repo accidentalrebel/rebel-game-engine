@@ -9,5 +9,5 @@
   #t)
 
 (define (draw)
-  (draw-sprite g-spr g-current-pos 50.0 50.0)
+  (draw-sprite g-spr g-current-pos 50.0 50.0 g-current-color)
   #t)

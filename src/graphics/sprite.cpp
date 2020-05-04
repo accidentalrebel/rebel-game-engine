@@ -39,7 +39,7 @@ Sprite CreateSprite(const char *directory, const char *filename)
 }
 
 // void DrawSprite(Sprite sprite, glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
-void DrawSprite(Sprite *sprite, Vec3 position, float width, float height)
+void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor)
 {
 	g_defaultShader->use();
 	g_defaultShader->setInt("texture1", 0);
@@ -58,7 +58,7 @@ void DrawSprite(Sprite *sprite, Vec3 position, float width, float height)
 	
 	model = glm::translate(model, glm::vec3(position.x / 50, position.y / 50, position.z));
 
-	g_defaultShader->setVec3("tint", glm::vec3()); //glm::vec3(tintColor.x, tintColor.y, tintColor.z));
+	g_defaultShader->setVec3("tint", glm::vec3(tintColor.x, tintColor.y, tintColor.z));
 	g_defaultShader->setMat4("projection", projection);
 	g_defaultShader->setMat4("view", view);
 	g_defaultShader->setMat4("model", model);

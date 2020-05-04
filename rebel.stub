@@ -37,4 +37,4 @@ Vec3* MakeVec3(float x, float y, float z)
   (unsigned-int texture sprite-get-texture sprite-set-texture))
 
 (define-c (struct Sprite) (create-sprite CreateSprite) (string string))
-(define-c void (draw-sprite DrawSprite) (Sprite (reference Vec3) float float)) 
+(define-c void (draw-sprite DrawSprite) (Sprite (reference Vec3) float float (reference Vec3))) 
