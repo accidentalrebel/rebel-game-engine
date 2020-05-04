@@ -46,8 +46,8 @@ int main()
     puts("FAILURE: EXCEPTION:");
 		sexp_print_exception(ctx, result, SEXP_FALSE);
 	}
-	
-	glm::vec3 pinkSquarePosition(400.0, 300.0f, 1.0f);
+
+	glm::vec3 pinkSquarePosition(100.0, 100.0f, 1.0f);
 
 	while(!window->canClose())
 	{
