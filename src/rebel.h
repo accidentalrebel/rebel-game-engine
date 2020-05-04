@@ -9,6 +9,7 @@ typedef struct Vec3 {
 #include "core/window.h"
 #include "graphics/sprite.h"
 #include "graphics/shader.h"
+#include "input/keyboard.h"
 
 extern Shader *g_defaultShader;
 

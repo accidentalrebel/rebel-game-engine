@@ -62,15 +62,15 @@ int main()
 		}
 
 		Vec3 pos;
-		pos.x = 200.0f;
-		pos.y = 200.0f;
+		pos.x = pinkSquarePosition.x;
+		pos.y = pinkSquarePosition.y;
 
 		Vec3 tint;
 		tint.x = 1.0f;
 		DrawSprite(&spr, pos, 50, 50, tint);
 
 		// TODO: Make a simpler to use Input manager. Like Unity's "Input.GetKey"
-		if ( glfwGetKey(window->glWindow, GLFW_KEY_COMMA) == GLFW_PRESS)
+		if ( IsKeyDown(KEY_COMMA) )
 			pinkSquarePosition.y += 1;
 		if ( glfwGetKey(window->glWindow, GLFW_KEY_O) == GLFW_PRESS)
 			pinkSquarePosition.y -= 1;

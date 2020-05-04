@@ -7,7 +7,6 @@
 using namespace rebel;
 
 Shader *g_defaultShader;
-
 Rebel* Rebel::instance = new Rebel();
 
 Rebel* Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
