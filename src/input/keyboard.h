@@ -1,7 +1,7 @@
 #pragma once
 
 // Based on the GLFW keys https://www.glfw.org/docs/3.3/group__keys.html
-enum Keys {
+typedef enum {
 	KEY_UNKNOWN = -1,
 	KEY_SPACE = 32,
 	KEY_APOSTROPHE = 39 /* ' */,
@@ -123,7 +123,7 @@ enum Keys {
 	KEY_RIGHT_ALT = 346,
 	KEY_RIGHT_SUPER = 347,
 	KEY_MENU = 348,
-};
+} Keys;
 
 bool IsKeyDown(Keys key);
 int ConvertToGLFWKey(Keys key);
