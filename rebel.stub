@@ -1,17 +1,17 @@
 (c-include "src/graphics/sprite.h")
 
 (c-declare "
-void FreeLSprite(LSprite * t){
+void FreeSprite(Sprite * t){
   free(t);
 }
 ")
 
-(define-c-struct LSprite
+(define-c-struct Sprite
   predicate: l-sprite?
-  finalizer: FreeLSprite
+  finalizer: FreeSprite
   (unsigned-int VAO l-sprite-get-vao l-sprite-set-vao)
   (unsigned-int VBO l-sprite-get-vbo l-sprite-set-vbo)
   (unsigned-int texture l-sprite-get-texture l-sprite-set-texture))
 
-(define-c (struct LSprite) (create-sprite CreateSprite) (string string))
-(define-c void (draw-sprite DrawSprite) (LSprite float float)) 
+(define-c (struct Sprite) (create-sprite CreateSprite) (string string))
+(define-c void (draw-sprite DrawSprite) (Sprite float float)) 

@@ -4,12 +4,12 @@
 
 #include "src/graphics/sprite.h"
 
-void FreeLSprite(LSprite * t){
+void FreeSprite(Sprite * t){
   free(t);
 }
 
 /*
-types: (LSprite)
+types: (Sprite)
 enums: ()
 */
 
@@ -21,30 +21,30 @@ sexp sexp_draw_sprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp 
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg1);
   if (! sexp_flonump(arg2))
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg2);
-  res = ((DrawSprite((struct LSprite*)sexp_cpointer_value(arg0), sexp_flonum_value(arg1), sexp_flonum_value(arg2))), SEXP_VOID);
+  res = ((DrawSprite((struct Sprite*)sexp_cpointer_value(arg0), sexp_flonum_value(arg1), sexp_flonum_value(arg2))), SEXP_VOID);
   return res;
 }
 
 sexp sexp_create_sprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1) {
-  struct LSprite struct_res;
-  struct LSprite* ptr_res;
+  struct Sprite struct_res;
+  struct Sprite* ptr_res;
   sexp res;
   if (! sexp_stringp(arg0))
     return sexp_type_exception(ctx, self, SEXP_STRING, arg0);
   if (! sexp_stringp(arg1))
     return sexp_type_exception(ctx, self, SEXP_STRING, arg1);
   struct_res = CreateSprite(sexp_string_data(arg0), sexp_string_data(arg1));
-  ptr_res = (struct LSprite*) malloc(sizeof(struct LSprite));
-  memcpy(ptr_res, &struct_res, sizeof(struct LSprite));
+  ptr_res = (struct Sprite*) malloc(sizeof(struct Sprite));
+  memcpy(ptr_res, &struct_res, sizeof(struct Sprite));
   res = sexp_make_cpointer(ctx, sexp_unbox_fixnum(sexp_opcode_return_type(self)), ptr_res, SEXP_FALSE, 0);
   return res;
 }
 
-sexp sexp_FreeLSprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
+sexp sexp_FreeSprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
   if (sexp_cpointer_freep(x)) {
-    FreeLSprite(
+    FreeSprite(
 #ifdef __cplusplus
-(LSprite*)
+(Sprite*)
 #endif
 sexp_cpointer_value(x));
     sexp_cpointer_freep(x) = 0;
@@ -52,126 +52,126 @@ sexp_cpointer_value(x));
   return SEXP_VOID;
 }
 
-sexp sexp_LSprite_get_VAO (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
+sexp sexp_Sprite_get_VAO (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
-  return sexp_make_unsigned_integer(ctx, ((struct LSprite*)sexp_cpointer_value(x))->VAO);
+  return sexp_make_unsigned_integer(ctx, ((struct Sprite*)sexp_cpointer_value(x))->VAO);
 }
 
-sexp sexp_LSprite_set_VAO (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
+sexp sexp_Sprite_set_VAO (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
   if (! sexp_exact_integerp(v))
     return sexp_type_exception(ctx, self, SEXP_FIXNUM, v);
-  ((struct LSprite*)sexp_cpointer_value(x))->VAO = sexp_uint_value(v);
+  ((struct Sprite*)sexp_cpointer_value(x))->VAO = sexp_uint_value(v);
   return SEXP_VOID;
 }
 
-sexp sexp_LSprite_get_VBO (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
+sexp sexp_Sprite_get_VBO (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
-  return sexp_make_unsigned_integer(ctx, ((struct LSprite*)sexp_cpointer_value(x))->VBO);
+  return sexp_make_unsigned_integer(ctx, ((struct Sprite*)sexp_cpointer_value(x))->VBO);
 }
 
-sexp sexp_LSprite_set_VBO (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
+sexp sexp_Sprite_set_VBO (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
   if (! sexp_exact_integerp(v))
     return sexp_type_exception(ctx, self, SEXP_FIXNUM, v);
-  ((struct LSprite*)sexp_cpointer_value(x))->VBO = sexp_uint_value(v);
+  ((struct Sprite*)sexp_cpointer_value(x))->VBO = sexp_uint_value(v);
   return SEXP_VOID;
 }
 
-sexp sexp_LSprite_get_texture (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
+sexp sexp_Sprite_get_texture (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
-  return sexp_make_unsigned_integer(ctx, ((struct LSprite*)sexp_cpointer_value(x))->texture);
+  return sexp_make_unsigned_integer(ctx, ((struct Sprite*)sexp_cpointer_value(x))->texture);
 }
 
-sexp sexp_LSprite_set_texture (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
+sexp sexp_Sprite_set_texture (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
   if (! (sexp_pointerp(x) && (sexp_pointer_tag(x) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), x);
   if (! sexp_exact_integerp(v))
     return sexp_type_exception(ctx, self, SEXP_FIXNUM, v);
-  ((struct LSprite*)sexp_cpointer_value(x))->texture = sexp_uint_value(v);
+  ((struct Sprite*)sexp_cpointer_value(x))->texture = sexp_uint_value(v);
   return SEXP_VOID;
 }
 
 
 sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char* version, const sexp_abi_identifier_t abi) {
-  sexp sexp_LSprite_type_obj;
+  sexp sexp_Sprite_type_obj;
   sexp_gc_var3(name, tmp, op);
   if (!(sexp_version_compatible(ctx, version, sexp_version)
         && sexp_abi_compatible(ctx, abi, SEXP_ABI_IDENTIFIER)))
     return SEXP_ABI_ERROR;
   sexp_gc_preserve3(ctx, name, tmp, op);
-  name = sexp_c_string(ctx, "LSprite", -1);
-  sexp_LSprite_type_obj = sexp_register_c_type(ctx, name, sexp_FreeLSprite_stub);
+  name = sexp_c_string(ctx, "Sprite", -1);
+  sexp_Sprite_type_obj = sexp_register_c_type(ctx, name, sexp_FreeSprite_stub);
   tmp = sexp_string_to_symbol(ctx, name);
-  sexp_env_define(ctx, env, tmp, sexp_LSprite_type_obj);
-  sexp_type_slots(sexp_LSprite_type_obj) = SEXP_NULL;
-  sexp_push(ctx, sexp_type_slots(sexp_LSprite_type_obj), sexp_intern(ctx, "texture", -1));
-  sexp_push(ctx, sexp_type_slots(sexp_LSprite_type_obj), sexp_intern(ctx, "VBO", -1));
-  sexp_push(ctx, sexp_type_slots(sexp_LSprite_type_obj), sexp_intern(ctx, "VAO", -1));
-  sexp_type_getters(sexp_LSprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
-  sexp_type_setters(sexp_LSprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
-  tmp = sexp_make_type_predicate(ctx, name, sexp_LSprite_type_obj);
+  sexp_env_define(ctx, env, tmp, sexp_Sprite_type_obj);
+  sexp_type_slots(sexp_Sprite_type_obj) = SEXP_NULL;
+  sexp_push(ctx, sexp_type_slots(sexp_Sprite_type_obj), sexp_intern(ctx, "texture", -1));
+  sexp_push(ctx, sexp_type_slots(sexp_Sprite_type_obj), sexp_intern(ctx, "VBO", -1));
+  sexp_push(ctx, sexp_type_slots(sexp_Sprite_type_obj), sexp_intern(ctx, "VAO", -1));
+  sexp_type_getters(sexp_Sprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
+  sexp_type_setters(sexp_Sprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
+  tmp = sexp_make_type_predicate(ctx, name, sexp_Sprite_type_obj);
   name = sexp_intern(ctx, "l-sprite?", 9);
   sexp_env_define(ctx, env, name, tmp);
-  op = sexp_define_foreign(ctx, env, "l-sprite-set-texture", 2, sexp_LSprite_set_texture);
+  op = sexp_define_foreign(ctx, env, "l-sprite-set-texture", 2, sexp_Sprite_set_texture);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
   }
-  if (sexp_vectorp(sexp_type_setters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_LSprite_type_obj), SEXP_TWO, op);
-  op = sexp_define_foreign(ctx, env, "l-sprite-get-texture", 1, sexp_LSprite_get_texture);
+  if (sexp_vectorp(sexp_type_setters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_Sprite_type_obj), SEXP_TWO, op);
+  op = sexp_define_foreign(ctx, env, "l-sprite-get-texture", 1, sexp_Sprite_get_texture);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
   }
-  if (sexp_vectorp(sexp_type_getters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_LSprite_type_obj), SEXP_TWO, op);
-  op = sexp_define_foreign(ctx, env, "l-sprite-set-vbo", 2, sexp_LSprite_set_VBO);
+  if (sexp_vectorp(sexp_type_getters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_Sprite_type_obj), SEXP_TWO, op);
+  op = sexp_define_foreign(ctx, env, "l-sprite-set-vbo", 2, sexp_Sprite_set_VBO);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
   }
-  if (sexp_vectorp(sexp_type_setters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_LSprite_type_obj), SEXP_ONE, op);
-  op = sexp_define_foreign(ctx, env, "l-sprite-get-vbo", 1, sexp_LSprite_get_VBO);
+  if (sexp_vectorp(sexp_type_setters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_Sprite_type_obj), SEXP_ONE, op);
+  op = sexp_define_foreign(ctx, env, "l-sprite-get-vbo", 1, sexp_Sprite_get_VBO);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
   }
-  if (sexp_vectorp(sexp_type_getters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_LSprite_type_obj), SEXP_ONE, op);
-  op = sexp_define_foreign(ctx, env, "l-sprite-set-vao", 2, sexp_LSprite_set_VAO);
+  if (sexp_vectorp(sexp_type_getters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_Sprite_type_obj), SEXP_ONE, op);
+  op = sexp_define_foreign(ctx, env, "l-sprite-set-vao", 2, sexp_Sprite_set_VAO);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
   }
-  if (sexp_vectorp(sexp_type_setters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_LSprite_type_obj), SEXP_ZERO, op);
-  op = sexp_define_foreign(ctx, env, "l-sprite-get-vao", 1, sexp_LSprite_get_VAO);
+  if (sexp_vectorp(sexp_type_setters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_setters(sexp_Sprite_type_obj), SEXP_ZERO, op);
+  op = sexp_define_foreign(ctx, env, "l-sprite-get-vao", 1, sexp_Sprite_get_VAO);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
   }
-  if (sexp_vectorp(sexp_type_getters(sexp_LSprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_LSprite_type_obj), SEXP_ZERO, op);
-  op = sexp_define_foreign(ctx, env, "FreeLSprite", 1, sexp_FreeLSprite_stub);
+  if (sexp_vectorp(sexp_type_getters(sexp_Sprite_type_obj))) sexp_vector_set(sexp_type_getters(sexp_Sprite_type_obj), SEXP_ZERO, op);
+  op = sexp_define_foreign(ctx, env, "FreeSprite", 1, sexp_FreeSprite_stub);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = SEXP_VOID;
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
   }
   op = sexp_define_foreign(ctx, env, "draw-sprite", 3, sexp_draw_sprite_stub);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = SEXP_VOID;
-    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_FLONUM);
     sexp_opcode_arg3_type(op) = sexp_make_fixnum(SEXP_FLONUM);
   }
   op = sexp_define_foreign(ctx, env, "create-sprite", 2, sexp_create_sprite_stub);
   if (sexp_opcodep(op)) {
-    sexp_opcode_return_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
+    sexp_opcode_return_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(SEXP_STRING);
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_STRING);
   }

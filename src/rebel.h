@@ -3,6 +3,12 @@
 #include "core/window.h"
 #include "graphics/sprite.h"
 
+typedef struct Vector3 {
+    float x;
+    float y;
+    float z;
+} Vector3;
+
 extern Shader *g_defaultShader;
 
 namespace rebel

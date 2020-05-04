@@ -40,7 +40,6 @@ int main()
 
 	sexp_gc_var1(result);
 	result = sexp_eval_string(ctx,"(init)",-1,NULL);
-	sexp_debug(ctx, "Result: ", result);
 	if (sexp_exceptionp(result))
 	{
     puts("FAILURE: EXCEPTION:");
