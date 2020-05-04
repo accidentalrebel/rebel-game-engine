@@ -1,4 +1,4 @@
-OBJS = main.cpp rebel.c src/lrebel.cpp src/rebel.cpp src/core/window.cpp src/graphics/sprite.cpp src/external/glad.c
+OBJS = main.cpp rebel.c src/rebel.cpp src/core/window.cpp src/graphics/sprite.cpp src/external/glad.c
 
 OBJ_NAME = main
 
@@ -13,3 +13,6 @@ INCLUDE_FLAGS = -I/home/arebel/development/tools/glad/include -I/home/arebel/dev
 all: $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o output/$(OBJ_NAME)
 	output/$(OBJ_NAME)
+
+stub:
+	chibi-ffi rebel.stub

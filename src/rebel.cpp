@@ -6,6 +6,8 @@
 
 using namespace rebel;
 
+Shader *g_defaultShader;
+
 Rebel* Rebel::instance = new Rebel();
 
 Rebel* Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
@@ -15,6 +17,8 @@ Rebel* Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, co
 	{
 		std::cout << "REBEL::WINDOW::Failed to create GLFW window" << std::endl;
 	}
+
+	g_defaultShader = new Shader("shaders/simple.vs", "shaders/simple.fs");
 
 	return instance;
 }

@@ -3,6 +3,8 @@
 #include "core/window.h"
 #include "graphics/sprite.h"
 
+extern Shader *g_defaultShader;
+
 namespace rebel
 {
 	class Rebel

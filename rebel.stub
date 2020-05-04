@@ -1,4 +1,4 @@
-(c-include "src/lrebel.h")
+(c-include "src/graphics/sprite.h")
 
 (c-declare "
 void FreeLSprite(LSprite * t){
@@ -15,6 +15,3 @@ void FreeLSprite(LSprite * t){
 
 (define-c (struct LSprite) (create-sprite CreateSprite) (string string))
 (define-c void (draw-sprite DrawSprite) (LSprite float float)) 
-
-(define-c void (test-func TestFunc) ())
-(define-c string (test-func-2 TestFunc2) ())

@@ -2,7 +2,7 @@
 
 #include <chibi/eval.h>
 
-#include "src/lrebel.h"
+#include "src/graphics/sprite.h"
 
 void FreeLSprite(LSprite * t){
   free(t);
@@ -13,32 +13,15 @@ types: (LSprite)
 enums: ()
 */
 
-sexp sexp_test_func_2_stub (sexp ctx, sexp self, sexp_sint_t n) {
-  sexp res;
-  res = sexp_c_string(ctx, TestFunc2(), -1);
-  return res;
-}
-
-sexp sexp_test_func_stub (sexp ctx, sexp self, sexp_sint_t n) {
-  sexp res;
-  res = ((TestFunc()), SEXP_VOID);
-  return res;
-}
-
 sexp sexp_draw_sprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1, sexp arg2) {
-	std::cout << "STUB: DRAWING SPRITE << 0" << std::endl;
   sexp res;
   if (! (sexp_pointerp(arg0) && (sexp_pointer_tag(arg0) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), arg0);
-	std::cout << "STUB: DRAWING SPRITE << 1" << std::endl;
   if (! sexp_flonump(arg1))
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg1);
-	std::cout << "STUB: DRAWING SPRITE << 2" << std::endl;
   if (! sexp_flonump(arg2))
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg2);
-	std::cout << "STUB: DRAWING SPRITE << 3" << std::endl;
   res = ((DrawSprite((struct LSprite*)sexp_cpointer_value(arg0), sexp_flonum_value(arg1), sexp_flonum_value(arg2))), SEXP_VOID);
-	std::cout << "STUB: DRAWING SPRITE << 4" << std::endl;
   return res;
 }
 
@@ -178,14 +161,6 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = SEXP_VOID;
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_LSprite_type_obj));
-  }
-  op = sexp_define_foreign(ctx, env, "test-func-2", 0, sexp_test_func_2_stub);
-  if (sexp_opcodep(op)) {
-    sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_STRING);
-  }
-  op = sexp_define_foreign(ctx, env, "test-func", 0, sexp_test_func_stub);
-  if (sexp_opcodep(op)) {
-    sexp_opcode_return_type(op) = SEXP_VOID;
   }
   op = sexp_define_foreign(ctx, env, "draw-sprite", 3, sexp_draw_sprite_stub);
   if (sexp_opcodep(op)) {
