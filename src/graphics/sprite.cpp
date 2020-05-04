@@ -39,13 +39,11 @@ Sprite CreateSprite(const char *directory, const char *filename)
 }
 
 // void DrawSprite(Sprite sprite, glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
-void DrawSprite(Sprite *sprite, float width, float height)
+void DrawSprite(Sprite *sprite, Vec3 position, float width, float height)
 {
 	g_defaultShader->use();
 	g_defaultShader->setInt("texture1", 0);
 
-	glm::vec3 currentPosition(0.0f);
-	
 	float windowWidth = rebel::Rebel::instance->window->width;
 	float windowHeight = rebel::Rebel::instance->window->height;
 	
@@ -58,9 +56,9 @@ void DrawSprite(Sprite *sprite, float width, float height)
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::scale(model, glm::vec3(50, 50, 1.0f));
 	
-	model = glm::translate(model, glm::vec3(currentPosition.x / 50, currentPosition.y / 50, currentPosition.z));
+	model = glm::translate(model, glm::vec3(position.x / 50, position.y / 50, position.z));
 
-	g_defaultShader->setVec3("tint", glm::vec3(1.0f, 0.0f, 1.0f));
+	g_defaultShader->setVec3("tint", glm::vec3()); //glm::vec3(tintColor.x, tintColor.y, tintColor.z));
 	g_defaultShader->setMat4("projection", projection);
 	g_defaultShader->setMat4("view", view);
 	g_defaultShader->setMat4("model", model);

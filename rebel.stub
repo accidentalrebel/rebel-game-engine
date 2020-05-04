@@ -1,17 +1,40 @@
+(c-include "src/rebel.h")
 (c-include "src/graphics/sprite.h")
 
 (c-declare "
 void FreeSprite(Sprite * t){
   free(t);
 }
+
+void FreeVec3(Vec3 * v){
+  free(v);
+}
+
+Vec3* MakeVec3(float x, float y, float z)
+{
+  Vec3 * v = (Vec3*)malloc(sizeof(Vec3));
+  v->x = x;
+  v->y = y;
+  v->z = z;
+  return v;
+}
 ")
+
+(define-c-struct Vec3
+  predicate: vec3?
+  finalizer: FreeVec3
+  (float x vec3-get-x vec3-set-x)
+  (float y vec3-get-y vec3-set-y)
+  (float z vec3-get-z vec3-set-z))
+
+(define-c (free Vec3) (make-vec3 MakeVec3) (float float float))
 
 (define-c-struct Sprite
   predicate: l-sprite?
   finalizer: FreeSprite
-  (unsigned-int VAO l-sprite-get-vao l-sprite-set-vao)
-  (unsigned-int VBO l-sprite-get-vbo l-sprite-set-vbo)
-  (unsigned-int texture l-sprite-get-texture l-sprite-set-texture))
+  (unsigned-int VAO sprite-get-vao sprite-set-vao)
+  (unsigned-int VBO sprite-get-vbo sprite-set-vbo)
+  (unsigned-int texture sprite-get-texture sprite-set-texture))
 
 (define-c (struct Sprite) (create-sprite CreateSprite) (string string))
-(define-c void (draw-sprite DrawSprite) (Sprite float float)) 
+(define-c void (draw-sprite DrawSprite) (Sprite (reference Vec3) float float)) 

@@ -1,13 +1,14 @@
 #pragma once
 
-#include "core/window.h"
-#include "graphics/sprite.h"
-
-typedef struct Vector3 {
+typedef struct Vec3 {
     float x;
     float y;
     float z;
-} Vector3;
+} Vec3;
+
+#include "core/window.h"
+#include "graphics/sprite.h"
+#include "graphics/shader.h"
 
 extern Shader *g_defaultShader;
 

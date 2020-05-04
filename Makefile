@@ -15,4 +15,6 @@ all: $(OBJS)
 	output/$(OBJ_NAME)
 
 stub:
-	chibi-ffi rebel.stub
+	chibi-ffi rebel.stub	
+
+

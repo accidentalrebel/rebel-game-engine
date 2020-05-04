@@ -35,6 +35,7 @@ int main()
 	sexp_eval_string(ctx,"(load \"main.scm\")",-1,NULL);
 
 	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
+	Sprite spr = CreateSprite("assets/textures", "tile.png");
 
 	Window* window = g_engine->window;
 
@@ -53,7 +54,20 @@ int main()
 		g_engine->processInput();
 		window->clear();
 
-		sexp_eval_string(ctx,"(draw)",-1,NULL);
+		result = sexp_eval_string(ctx,"(draw)",-1,NULL);
+		if (sexp_exceptionp(result))
+		{
+			puts("FAILURE: EXCEPTION:");
+			sexp_print_exception(ctx, result, SEXP_FALSE);
+		}
+
+		Vec3 pos;
+		pos.x = 200.0f;
+		pos.y = 200.0f;
+
+		Vec3 tint;
+		tint.x = 1.0f;
+		DrawSprite(&spr, pos, 50, 50);
 
 		// TODO: Make a simpler to use Input manager. Like Unity's "Input.GetKey"
 		if ( glfwGetKey(window->glWindow, GLFW_KEY_COMMA) == GLFW_PRESS)
@@ -89,6 +103,7 @@ int main()
 		window->swap();
 	}
 
+	sexp_gc_release1(ctx);
 	sexp_destroy_context(ctx);
 		
 	g_engine->destroy();

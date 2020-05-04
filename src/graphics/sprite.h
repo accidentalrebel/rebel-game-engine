@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../rebel.h"
 #include "shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -12,4 +13,4 @@ typedef struct Sprite
 } Sprite;
 
 Sprite CreateSprite(const char *directory, const char *filename);
-void DrawSprite(Sprite *sprite, float width, float height);
+void DrawSprite(Sprite *sprite, Vec3 position, float width, float height);
