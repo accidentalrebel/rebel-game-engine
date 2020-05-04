@@ -64,6 +64,7 @@ int main()
 		Vec3 pos;
 		pos.x = pinkSquarePosition.x;
 		pos.y = pinkSquarePosition.y;
+		pos.z = pinkSquarePosition.z;
 
 		Vec3 tint;
 		tint.x = 1.0f;
@@ -72,11 +73,11 @@ int main()
 		// TODO: Make a simpler to use Input manager. Like Unity's "Input.GetKey"
 		if ( IsKeyDown(KEY_COMMA) )
 			pinkSquarePosition.y += 1;
-		if ( glfwGetKey(window->glWindow, GLFW_KEY_O) == GLFW_PRESS)
+		if ( IsKeyDown(KEY_O) )
 			pinkSquarePosition.y -= 1;
-		if ( glfwGetKey(window->glWindow, GLFW_KEY_A) == GLFW_PRESS)
+		if ( IsKeyDown(KEY_A) )
 			pinkSquarePosition.x -= 1;
-		if ( glfwGetKey(window->glWindow, GLFW_KEY_E) == GLFW_PRESS)
+		if ( IsKeyDown(KEY_E) )
 			pinkSquarePosition.x += 1;
 
 		// TODO: Need an input manager to clean this up

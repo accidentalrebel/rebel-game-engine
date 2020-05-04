@@ -3,8 +3,8 @@
 
 bool IsKeyDown(Keys key)
 {
-	int glfwKey = ConvertToGLFWKey(key);
-	return (glfwGetKey(rebel::Rebel::instance->window->glWindow, glfwKey) == GLFW_PRESS);
+	// int glfwKey = ConvertToGLFWKey(key);
+	return (glfwGetKey(rebel::Rebel::instance->window->glWindow, key) == GLFW_PRESS);
 }
 
 int ConvertToGLFWKey(Keys key)
