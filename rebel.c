@@ -6,6 +6,8 @@
 
 #include "src/graphics/sprite.h"
 
+#include "src/input/keyboard.h"
+
 void FreeSprite(Sprite * t){
   free(t);
 }
@@ -25,8 +27,16 @@ Vec3* MakeVec3(float x, float y, float z)
 
 /*
 types: (Sprite Vec3)
-enums: ()
+enums: ((e-keys . Keys))
 */
+
+sexp sexp_is_key_down_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0) {
+  sexp res;
+  if (! sexp_exact_integerp(arg0))
+    return sexp_type_exception(ctx, self, SEXP_FIXNUM, arg0);
+  res = sexp_make_boolean(IsKeyDown(((Keys)sexp_sint_value(arg0))));
+  return res;
+}
 
 sexp sexp_draw_sprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1, sexp arg2, sexp arg3, sexp arg4) {
   sexp res;
@@ -194,6 +204,248 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
         && sexp_abi_compatible(ctx, abi, SEXP_ABI_IDENTIFIER)))
     return SEXP_ABI_ERROR;
   sexp_gc_preserve3(ctx, name, tmp, op);
+  name = sexp_intern(ctx, "KEY_MENU", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_MENU));
+  name = sexp_intern(ctx, "KEY_RIGHT_SUPER", 15);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT_SUPER));
+  name = sexp_intern(ctx, "KEY_RIGHT_ALT", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT_ALT));
+  name = sexp_intern(ctx, "KEY_RIGHT_CONTROL", 17);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT_CONTROL));
+  name = sexp_intern(ctx, "KEY_RIGHT_SHIFT", 15);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT_SHIFT));
+  name = sexp_intern(ctx, "KEY_LEFT_SUPER", 14);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT_SUPER));
+  name = sexp_intern(ctx, "KEY_LEFT_ALT", 12);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT_ALT));
+  name = sexp_intern(ctx, "KEY_LEFT_CONTROL", 16);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT_CONTROL));
+  name = sexp_intern(ctx, "KEY_LEFT_SHIFT", 14);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT_SHIFT));
+  name = sexp_intern(ctx, "KEY_KP_EQUAL", 12);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_EQUAL));
+  name = sexp_intern(ctx, "KEY_KP_ENTER", 12);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_ENTER));
+  name = sexp_intern(ctx, "KEY_KP_ADD", 10);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_ADD));
+  name = sexp_intern(ctx, "KEY_KP_SUBTRACT", 15);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_SUBTRACT));
+  name = sexp_intern(ctx, "KEY_KP_MULTIPLY", 15);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_MULTIPLY));
+  name = sexp_intern(ctx, "KEY_KP_DIVIDE", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_DIVIDE));
+  name = sexp_intern(ctx, "KEY_KP_DECIMAL", 14);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_DECIMAL));
+  name = sexp_intern(ctx, "KEY_KP_9", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_9));
+  name = sexp_intern(ctx, "KEY_KP_8", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_8));
+  name = sexp_intern(ctx, "KEY_KP_7", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_7));
+  name = sexp_intern(ctx, "KEY_KP_6", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_6));
+  name = sexp_intern(ctx, "KEY_KP_5", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_5));
+  name = sexp_intern(ctx, "KEY_KP_4", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_4));
+  name = sexp_intern(ctx, "KEY_KP_3", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_3));
+  name = sexp_intern(ctx, "KEY_KP_2", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_2));
+  name = sexp_intern(ctx, "KEY_KP_1", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_1));
+  name = sexp_intern(ctx, "KEY_KP_0", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_KP_0));
+  name = sexp_intern(ctx, "KEY_F25", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F25));
+  name = sexp_intern(ctx, "KEY_F24", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F24));
+  name = sexp_intern(ctx, "KEY_F23", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F23));
+  name = sexp_intern(ctx, "KEY_F22", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F22));
+  name = sexp_intern(ctx, "KEY_F21", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F21));
+  name = sexp_intern(ctx, "KEY_F20", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F20));
+  name = sexp_intern(ctx, "KEY_F19", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F19));
+  name = sexp_intern(ctx, "KEY_F18", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F18));
+  name = sexp_intern(ctx, "KEY_F17", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F17));
+  name = sexp_intern(ctx, "KEY_F16", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F16));
+  name = sexp_intern(ctx, "KEY_F15", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F15));
+  name = sexp_intern(ctx, "KEY_F14", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F14));
+  name = sexp_intern(ctx, "KEY_F13", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F13));
+  name = sexp_intern(ctx, "KEY_F12", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F12));
+  name = sexp_intern(ctx, "KEY_F11", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F11));
+  name = sexp_intern(ctx, "KEY_F10", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F10));
+  name = sexp_intern(ctx, "KEY_F9", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F9));
+  name = sexp_intern(ctx, "KEY_F8", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F8));
+  name = sexp_intern(ctx, "KEY_F7", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F7));
+  name = sexp_intern(ctx, "KEY_F6", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F6));
+  name = sexp_intern(ctx, "KEY_F5", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F5));
+  name = sexp_intern(ctx, "KEY_F4", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F4));
+  name = sexp_intern(ctx, "KEY_F3", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F3));
+  name = sexp_intern(ctx, "KEY_F2", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F2));
+  name = sexp_intern(ctx, "KEY_F1", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F1));
+  name = sexp_intern(ctx, "KEY_PAUSE", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_PAUSE));
+  name = sexp_intern(ctx, "KEY_PRINT_SCREEN", 16);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_PRINT_SCREEN));
+  name = sexp_intern(ctx, "KEY_NUM_LOCK", 12);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_NUM_LOCK));
+  name = sexp_intern(ctx, "KEY_SCROLL_LOCK", 15);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_SCROLL_LOCK));
+  name = sexp_intern(ctx, "KEY_CAPS_LOCK", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_CAPS_LOCK));
+  name = sexp_intern(ctx, "KEY_END", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_END));
+  name = sexp_intern(ctx, "KEY_HOME", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_HOME));
+  name = sexp_intern(ctx, "KEY_PAGE_DOWN", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_PAGE_DOWN));
+  name = sexp_intern(ctx, "KEY_PAGE_UP", 11);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_PAGE_UP));
+  name = sexp_intern(ctx, "KEY_UP", 6);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_UP));
+  name = sexp_intern(ctx, "KEY_DOWN", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_DOWN));
+  name = sexp_intern(ctx, "KEY_LEFT", 8);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT));
+  name = sexp_intern(ctx, "KEY_RIGHT", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT));
+  name = sexp_intern(ctx, "KEY_DELETE", 10);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_DELETE));
+  name = sexp_intern(ctx, "KEY_INSERT", 10);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_INSERT));
+  name = sexp_intern(ctx, "KEY_BACKSPACE", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_BACKSPACE));
+  name = sexp_intern(ctx, "KEY_TAB", 7);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_TAB));
+  name = sexp_intern(ctx, "KEY_ENTER", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_ENTER));
+  name = sexp_intern(ctx, "KEY_ESCAPE", 10);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_ESCAPE));
+  name = sexp_intern(ctx, "KEY_WORLD_2", 11);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_WORLD_2));
+  name = sexp_intern(ctx, "KEY_WORLD_1", 11);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_WORLD_1));
+  name = sexp_intern(ctx, "KEY_GRAVE_ACCENT", 16);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_GRAVE_ACCENT));
+  name = sexp_intern(ctx, "KEY_RIGHT_BRACKET", 17);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_RIGHT_BRACKET));
+  name = sexp_intern(ctx, "KEY_BACKSLASH", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_BACKSLASH));
+  name = sexp_intern(ctx, "KEY_LEFT_BRACKET", 16);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_LEFT_BRACKET));
+  name = sexp_intern(ctx, "KEY_Z", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_Z));
+  name = sexp_intern(ctx, "KEY_Y", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_Y));
+  name = sexp_intern(ctx, "KEY_X", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_X));
+  name = sexp_intern(ctx, "KEY_W", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_W));
+  name = sexp_intern(ctx, "KEY_V", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_V));
+  name = sexp_intern(ctx, "KEY_U", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_U));
+  name = sexp_intern(ctx, "KEY_T", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_T));
+  name = sexp_intern(ctx, "KEY_S", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_S));
+  name = sexp_intern(ctx, "KEY_R", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_R));
+  name = sexp_intern(ctx, "KEY_Q", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_Q));
+  name = sexp_intern(ctx, "KEY_P", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_P));
+  name = sexp_intern(ctx, "KEY_O", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_O));
+  name = sexp_intern(ctx, "KEY_N", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_N));
+  name = sexp_intern(ctx, "KEY_M", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_M));
+  name = sexp_intern(ctx, "KEY_L", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_L));
+  name = sexp_intern(ctx, "KEY_K", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_K));
+  name = sexp_intern(ctx, "KEY_J", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_J));
+  name = sexp_intern(ctx, "KEY_I", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_I));
+  name = sexp_intern(ctx, "KEY_H", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_H));
+  name = sexp_intern(ctx, "KEY_G", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_G));
+  name = sexp_intern(ctx, "KEY_F", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_F));
+  name = sexp_intern(ctx, "KEY_E", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_E));
+  name = sexp_intern(ctx, "KEY_D", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_D));
+  name = sexp_intern(ctx, "KEY_C", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_C));
+  name = sexp_intern(ctx, "KEY_B", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_B));
+  name = sexp_intern(ctx, "KEY_A", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_A));
+  name = sexp_intern(ctx, "KEY_EQUAL", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_EQUAL));
+  name = sexp_intern(ctx, "KEY_SEMICOLON", 13);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_SEMICOLON));
+  name = sexp_intern(ctx, "KEY_9", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_9));
+  name = sexp_intern(ctx, "KEY_8", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_8));
+  name = sexp_intern(ctx, "KEY_7", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_7));
+  name = sexp_intern(ctx, "KEY_6", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_6));
+  name = sexp_intern(ctx, "KEY_5", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_5));
+  name = sexp_intern(ctx, "KEY_4", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_4));
+  name = sexp_intern(ctx, "KEY_3", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_3));
+  name = sexp_intern(ctx, "KEY_2", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_2));
+  name = sexp_intern(ctx, "KEY_1", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_1));
+  name = sexp_intern(ctx, "KEY_0", 5);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_0));
+  name = sexp_intern(ctx, "KEY_SLASH", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_SLASH));
+  name = sexp_intern(ctx, "KEY_PERIOD", 10);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_PERIOD));
+  name = sexp_intern(ctx, "KEY_MINUS", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_MINUS));
+  name = sexp_intern(ctx, "KEY_COMMA", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_COMMA));
+  name = sexp_intern(ctx, "KEY_APOSTROPHE", 14);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_APOSTROPHE));
+  name = sexp_intern(ctx, "KEY_SPACE", 9);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_SPACE));
+  name = sexp_intern(ctx, "KEY_UNKNOWN", 11);
+  sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_UNKNOWN));
   name = sexp_c_string(ctx, "Sprite", -1);
   sexp_Sprite_type_obj = sexp_register_c_type(ctx, name, sexp_FreeSprite_stub);
   tmp = sexp_string_to_symbol(ctx, name);
@@ -307,6 +559,11 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = SEXP_VOID;
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
+  }
+  op = sexp_define_foreign(ctx, env, "is-key-down", 1, sexp_is_key_down_stub);
+  if (sexp_opcodep(op)) {
+    sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_BOOLEAN);
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
   }
   op = sexp_define_foreign(ctx, env, "draw-sprite", 5, sexp_draw_sprite_stub);
   if (sexp_opcodep(op)) {

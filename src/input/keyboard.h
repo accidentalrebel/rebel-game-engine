@@ -126,4 +126,3 @@ typedef enum {
 } Keys;
 
 bool IsKeyDown(Keys key);
-int ConvertToGLFWKey(Keys key);
