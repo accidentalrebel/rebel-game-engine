@@ -2,4 +2,8 @@
 
 #include "chibi/eval.h"
 
-sexp InitializeScripting();
+namespace scripting
+{
+	sexp Init();
+	void Destroy();
+}

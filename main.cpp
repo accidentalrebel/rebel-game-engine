@@ -13,7 +13,7 @@ int main()
 {
 	std::cout << g_tebel.x << std::endl;
 	
-	RebelInit(800, 600, "Rebel Engine");
+	rebel::Init(800, 600, "Rebel Engine");
 	Sprite spr = sprite::Create("assets/textures", "tile.png");
 
 	sexp_gc_var1(result);
@@ -26,10 +26,10 @@ int main()
 
 	glm::vec3 pinkSquarePosition(405.0, 305.0f, 1.0f);
 
-	while(!CanCloseWindow())
+	while(!window::CanClose())
 	{
-		ProcessInputs();
-		ClearWindow();
+		rebel::ProcessInputs();
+		window::Clear();
 
 		result = sexp_eval_string(g_rebel.scriptCtx,"(draw)",-1,NULL);
 		if (sexp_exceptionp(result))
@@ -61,12 +61,10 @@ int main()
 		if ( IsKeyUp(KEY_SEMICOLON ) )
 			pinkSquarePosition.z = -1;
 
-		SwapWindows();
+		window::Swap();
 	}
 
 	sexp_gc_release1(g_rebel.scriptCtx);
-	sexp_destroy_context(g_rebel.scriptCtx);
-		
-	DestroyWindow();
+	rebel::Destroy();
 	return 0;
 }

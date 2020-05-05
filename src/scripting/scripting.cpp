@@ -1,6 +1,7 @@
 #include "scripting.h"
+#include "../rebel.h"
 
-sexp InitializeScripting()
+sexp scripting::Init()
 {
 	sexp schemeContext = sexp_make_eval_context(NULL, NULL, NULL, 0, 0);
   sexp_load_standard_env(schemeContext, NULL, SEXP_SEVEN);
@@ -10,4 +11,9 @@ sexp InitializeScripting()
 	sexp_eval_string(schemeContext,"(import (chibi))",-1,NULL);
 	sexp_eval_string(schemeContext,"(load \"main.scm\")",-1,NULL);
 	return schemeContext;
+}
+
+void scripting::Destroy()
+{
+	sexp_destroy_context(g_rebel.scriptCtx);
 }

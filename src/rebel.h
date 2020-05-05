@@ -32,8 +32,9 @@ typedef struct Tebel {
 
 extern Tebel g_tebel;
 
-void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
-void RebelDestroy();
-
-bool CanCloseWindow();
-void ProcessInputs();
+namespace rebel
+{
+	void Init(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
+	void ProcessInputs();
+	void Destroy();
+}

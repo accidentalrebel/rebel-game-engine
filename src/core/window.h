@@ -8,11 +8,13 @@ typedef struct Window {
 	unsigned int height;
 } Window;
 
-Window InitWindow(int windowWidth, int windowHeight, const char* windowName);
+namespace window {
+	Window Init(int windowWidth, int windowHeight, const char* windowName);
 
-bool CanCloseWindow();
-void ClearWindow();
-void SwapWindows();
-void DestroyWindow();
+	bool CanClose();
+	void Clear();
+	void Swap();
+	void Destroy();
+}
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);

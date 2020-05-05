@@ -8,17 +8,23 @@
 Rebel g_rebel;
 Tebel g_tebel;
 
-void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
+void rebel::Init(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
-	g_rebel.window = InitWindow(windowWidth, windowHeight, windowName);
+	g_rebel.window = window::Init(windowWidth, windowHeight, windowName);
 	g_rebel.defaultShader = shader::Create("shaders/simple.vs", "shaders/simple.fs");
-	g_rebel.scriptCtx = InitializeScripting();
+	g_rebel.scriptCtx = scripting::Init();
 }
 
-void ProcessInputs()
+void rebel::ProcessInputs()
 {
 	glfwPollEvents();
 
 	if(glfwGetKey(g_rebel.window.glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
+}
+
+void rebel::Destroy()
+{
+	scripting::Destroy();
+	window::Destroy();
 }
