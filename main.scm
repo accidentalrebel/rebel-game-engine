@@ -9,26 +9,20 @@
   #t)
 
 (define (draw)
-  ;; (if (is-key-down KEY_COMMA)
-  ;;     (vec3-set-y g-current-pos
-  ;; 		  (+ (vec3-get-y g-current-pos) 1)))
-  ;; (if (is-key-down KEY_O)
-  ;;     (vec3-set-y g-current-pos
-  ;; 		  (- (vec3-get-y g-current-pos) 1)))
+  (if (is-key-down KEY_COMMA)
+      (vec3-set-y g-current-pos
+  		  (+ (vec3-get-y g-current-pos) 1)))
+  (if (is-key-down KEY_O)
+      (vec3-set-y g-current-pos
+  		  (- (vec3-get-y g-current-pos) 1)))
   
-  ;; TODO Find out why having the two if's causes a segfault
-  ;; (if (is-key-down KEY_E)
-  ;;     (vec3-set-x g-current-pos
-  ;; 		  (+ (vec3-get-x g-current-pos) 1)))
-  ;; (if (is-key-down KEY_A)
-  ;;     (vec3-set-x g-current-pos
-  ;; 		  (- (vec3-get-x g-current-pos) 1)))
+  (if (is-key-down KEY_E)
+      (vec3-set-x g-current-pos
+  		  (+ (vec3-get-x g-current-pos) 1)))
+  (if (is-key-down KEY_A)
+      (vec3-set-x g-current-pos
+  		  (- (vec3-get-x g-current-pos) 1)))
 
-  (cond ((is-key-down KEY_E) (vec3-set-x g-current-pos (+ (vec3-get-x g-current-pos) 1)))
-  	((is-key-down KEY_A) (vec3-set-x g-current-pos (- (vec3-get-x g-current-pos) 1))))
-  (cond ((is-key-down KEY_COMMA) (vec3-set-y g-current-pos (+ (vec3-get-y g-current-pos) 1)))
-  	((is-key-down KEY_O) (vec3-set-y g-current-pos (- (vec3-get-y g-current-pos) 1))))
-  
   (draw-sprite g-spr g-current-pos 50.0 50.0 g-current-color)
 
   #t)
