@@ -1,4 +1,4 @@
-OBJS = main.cpp rebel.c src/rebel.cpp src/core/window.cpp src/graphics/sprite.cpp src/input/keyboard.cpp src/external/glad.c
+OBJS = main.cpp rebel.c src/rebel.cpp src/core/window.cpp src/graphics/sprite.cpp src/input/keyboard.cpp src/scripting/scripting.cpp src/external/glad.c
 
 OBJ_NAME = main
 

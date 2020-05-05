@@ -1,4 +1,5 @@
 #include "rebel.h"
+#include "scripting/scripting.h"
 #include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -11,6 +12,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 {
 	g_rebel.window = InitWindow(windowWidth, windowHeight, windowName);
 	g_rebel.defaultShader = new Shader("shaders/simple.vs", "shaders/simple.fs");
+	g_rebel.scriptCtx = InitializeScripting();
 }
 
 void ProcessInputs()
