@@ -14,7 +14,7 @@ typedef struct Vec3 {
 #include "input/keyboard.h"
 
 typedef struct Rebel {
-	TShader defaultShader;
+	Shader defaultShader;
 	Window window;
 	sexp scriptCtx;
 } Rebel;
