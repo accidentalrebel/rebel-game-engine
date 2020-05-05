@@ -44,8 +44,8 @@ void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 t
 	g_defaultShader->use();
 	g_defaultShader->setInt("texture1", 0);
 
-	float windowWidth = rebel::Rebel::instance->window->width;
-	float windowHeight = rebel::Rebel::instance->window->height;
+	float windowWidth = g_window->width;
+	float windowHeight = g_window->height;
 	
 	// glm::mat4 projection = glm::perspective(glm::radians(30.0f), windowWidth/windowHeight, 0.1f, 100.0f);
 	glm::mat4 projection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, -100.0f, 100.0f);

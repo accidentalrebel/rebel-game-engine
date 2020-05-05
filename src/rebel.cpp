@@ -7,35 +7,31 @@
 using namespace rebel;
 
 Shader *g_defaultShader;
-Rebel* Rebel::instance = new Rebel();
+Window *g_window;
 
-Rebel* Rebel::initialize(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
+void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
-	Rebel::instance->window = new Window();
-	if ( !Rebel::instance->window->initialize(windowWidth, windowHeight, windowName) )
-	{
+	g_window = new Window();
+	if ( !g_window->initialize(windowWidth, windowHeight, windowName) )
 		std::cout << "REBEL::WINDOW::Failed to create GLFW window" << std::endl;
-	}
 
 	g_defaultShader = new Shader("shaders/simple.vs", "shaders/simple.fs");
-
-	return instance;
 }
 
-void Rebel::processInput()
+void ProcessInputs()
 {
 	glfwPollEvents();
 
-	if(glfwGetKey(window->glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window->glWindow, true);
+	if(glfwGetKey(g_window->glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(g_window->glWindow, true);
 }
 
-bool Rebel::canClose()
+bool CanCloseWindow()
 {
-	return window->canClose();
+	return g_window->canClose();
 }
 
-void Rebel::destroy()
+void RebelDestroy()
 {
-	window->destroy();
+	g_window->destroy();
 }

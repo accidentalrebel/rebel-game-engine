@@ -6,6 +6,7 @@
   (set! g-spr (create-sprite "assets/textures" "tile.png"))
   (set! g-current-pos (make-vec3 400.0 300.0 0.0))
   (set! g-current-color (make-vec3 1.0 0.0 1.0))
+  
   #t)
 
 (define (draw)

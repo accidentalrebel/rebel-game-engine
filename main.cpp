@@ -4,8 +4,6 @@
 
 using namespace rebel;
 
-Rebel* g_engine;
-
 // TODO: Transparent images
 // TODO: Camera system
 // TODO: Input Manager
@@ -22,20 +20,13 @@ int main()
 	ctx = sexp_make_eval_context(NULL, NULL, NULL, 0, 0);
   sexp_load_standard_env(ctx, NULL, SEXP_SEVEN);
   sexp_load_standard_ports(ctx, NULL, stdin, stdout, stderr, 1);
-	sexp_init_library(ctx,
-										NULL,
-										3,
-										sexp_context_env(ctx),
-										sexp_version,
-										SEXP_ABI_IDENTIFIER);
+	sexp_init_library(ctx, NULL, 3, sexp_context_env(ctx), sexp_version, SEXP_ABI_IDENTIFIER);
 	// sexp_eval_string(ctx,"(import (scheme base) (chibi))",-1,NULL);
 	sexp_eval_string(ctx,"(import (chibi))",-1,NULL);
 	sexp_eval_string(ctx,"(load \"main.scm\")",-1,NULL);
 
-	g_engine = Rebel::initialize(800, 600, "Rebel Engine");
+	RebelInit(800, 600, "Rebel Engine");
 	Sprite spr = CreateSprite("assets/textures", "tile.png");
-
-	Window* window = g_engine->window;
 
 	sexp_gc_var1(result);
 	result = sexp_eval_string(ctx,"(init)",-1,NULL);
@@ -47,10 +38,10 @@ int main()
 
 	glm::vec3 pinkSquarePosition(405.0, 305.0f, 1.0f);
 
-	while(!window->canClose())
+	while(!CanCloseWindow())
 	{
-		g_engine->processInput();
-		window->clear();
+		ProcessInputs();
+		g_window->clear();
 
 		result = sexp_eval_string(ctx,"(draw)",-1,NULL);
 		if (sexp_exceptionp(result))
@@ -82,12 +73,12 @@ int main()
 		if ( IsKeyUp(KEY_SEMICOLON ) )
 			pinkSquarePosition.z = -1;
 
-		window->swap();
+		g_window->swap();
 	}
 
 	sexp_gc_release1(ctx);
 	sexp_destroy_context(ctx);
 		
-	g_engine->destroy();
+	RebelDestroy();
 	return 0;
 }
