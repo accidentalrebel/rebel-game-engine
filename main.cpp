@@ -2,8 +2,6 @@
 #include <iostream>
 #include "chibi/eval.h"
 
-using namespace rebel;
-
 // TODO: Transparent images
 // TODO: Camera system
 // TODO: Input Manager
@@ -14,6 +12,8 @@ using namespace rebel;
 
 int main()
 {
+	std::cout << g_tebel.x << std::endl;
+	
 	char load_str[250];
 	sexp ctx;
 
@@ -41,7 +41,7 @@ int main()
 	while(!CanCloseWindow())
 	{
 		ProcessInputs();
-		g_rebel.window->clear();
+		ClearWindow();
 
 		result = sexp_eval_string(ctx,"(draw)",-1,NULL);
 		if (sexp_exceptionp(result))
@@ -73,12 +73,12 @@ int main()
 		if ( IsKeyUp(KEY_SEMICOLON ) )
 			pinkSquarePosition.z = -1;
 
-		g_rebel.window->swap();
+		SwapWindows();
 	}
 
 	sexp_gc_release1(ctx);
 	sexp_destroy_context(ctx);
 		
-	RebelDestroy();
+	DestroyWindow();
 	return 0;
 }

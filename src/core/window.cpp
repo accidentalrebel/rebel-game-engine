@@ -2,12 +2,11 @@
 #include <iostream>
 #include "../rebel.h"
 
-using namespace rebel;
-
-bool Window::initialize(int windowWidth, int windowHeight, const char* windowName)
+Window InitWindow(int windowWidth, int windowHeight, const char* windowName)
 {
-	this->width = windowWidth;
-	this->height = windowHeight;
+	Window window = { 0 };
+	window.width = windowWidth;
+	window.height = windowHeight;
 	
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -15,53 +14,54 @@ bool Window::initialize(int windowWidth, int windowHeight, const char* windowNam
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Uncomment for MacOSX
 
-	glWindow = glfwCreateWindow(windowWidth, windowHeight, windowName, NULL, NULL);
-	if (glWindow == NULL)
+	window.glWindow = glfwCreateWindow(windowWidth, windowHeight, windowName, NULL, NULL);
+	if (window.glWindow == NULL)
 	{
+		std::cout << "Failed to create glfwWindow" << std::endl;
     glfwTerminate();
-		return false;
+		// return { 0 };
 	}
-	glfwMakeContextCurrent(glWindow);
-	glfwSetFramebufferSizeCallback(glWindow, framebuffer_size_callback);
+	glfwMakeContextCurrent(window.glWindow);
+	glfwSetFramebufferSizeCallback(window.glWindow, framebuffer_size_callback);
 	
 	if ( !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
+		// return NULL;
 	}
 
 	glEnable(GL_DEPTH_TEST);
 	
-	return true;
+	return window;
 }
 
-bool Window::canClose()
+bool CanCloseWindow()
 {
-	return glfwWindowShouldClose(glWindow);
+	return glfwWindowShouldClose(g_rebel.window.glWindow);
 }
 
-void Window::clear()
+void ClearWindow()
 {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
-void Window::swap()
+void SwapWindows()
 {
-	glfwSwapBuffers(glWindow);
+	glfwSwapBuffers(g_rebel.window.glWindow);
 }
 
-void Window::destroy()
+void DestroyWindow()
 {
 	glfwTerminate();
 }
 
 // CALLBACKS
 // =========
-void Window::framebuffer_size_callback(GLFWwindow* window, int windowWidth, int windowHeight)
+void framebuffer_size_callback(GLFWwindow* window, int windowWidth, int windowHeight)
 {
-	g_rebel.window->width = windowWidth;
-	g_rebel.window->height = windowHeight;
+	g_rebel.window.width = windowWidth;
+	g_rebel.window.height = windowHeight;
 
 	glViewport(0, 0, windowWidth, windowHeight);
 }

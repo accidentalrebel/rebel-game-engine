@@ -2,22 +2,17 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace rebel
-{
-	class Window
-	{
-	 public:
-		bool initialize(int windowWidth, int windowHeight, const char* windowName);
-		bool canClose();
+typedef struct Window {
+	GLFWwindow* glWindow;
+	unsigned int width;
+	unsigned int height;
+} Window;
 
-		void clear();
-		void swap();
-		void destroy();
-		GLFWwindow* glWindow;
+Window InitWindow(int windowWidth, int windowHeight, const char* windowName);
 
-		unsigned int width;
-		unsigned int height;
-	 private:
-		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	};
-}
+bool CanCloseWindow();
+void ClearWindow();
+void SwapWindows();
+void DestroyWindow();
+
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
