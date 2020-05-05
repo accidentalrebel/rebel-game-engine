@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "../rebel.h"
 
-Sprite CreateSprite(const char *directory, const char *filename)
+Sprite sprite::Create(const char *directory, const char *filename)
 {
 	Sprite sprite;
 	float vertices[] = {  
@@ -39,7 +39,7 @@ Sprite CreateSprite(const char *directory, const char *filename)
 }
 
 // void DrawSprite(Sprite sprite, glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
-void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor)
+void sprite::Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor)
 {
 	shader::Use(&g_rebel.defaultShader);
 	shader::SetInt(&g_rebel.defaultShader, "texture1", 0);

@@ -12,5 +12,8 @@ typedef struct Sprite
 	unsigned int texture;
 } Sprite;
 
-Sprite CreateSprite(const char *directory, const char *filename);
-void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor);
+namespace sprite
+{
+	Sprite Create(const char *directory, const char *filename);
+	void Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor);
+}

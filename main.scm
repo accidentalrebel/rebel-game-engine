@@ -3,7 +3,7 @@
 (define g-current-color 0)
 
 (define (init)
-  (set! g-spr (create-sprite "assets/textures" "tile.png"))
+  (set! g-spr (sprite-create "assets/textures" "tile.png"))
   (set! g-current-pos (make-vec3 400.0 300.0 0.0))
   (set! g-current-color (make-vec3 1.0 0.0 1.0))
   
@@ -24,6 +24,6 @@
       (vec3-set-x g-current-pos
   		  (- (vec3-get-x g-current-pos) 1)))
 
-  (draw-sprite g-spr g-current-pos 50.0 50.0 g-current-color)
+  (sprite-draw g-spr g-current-pos 50.0 50.0 g-current-color)
 
   #t)

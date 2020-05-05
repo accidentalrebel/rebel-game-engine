@@ -14,7 +14,7 @@ int main()
 	std::cout << g_tebel.x << std::endl;
 	
 	RebelInit(800, 600, "Rebel Engine");
-	Sprite spr = CreateSprite("assets/textures", "tile.png");
+	Sprite spr = sprite::Create("assets/textures", "tile.png");
 
 	sexp_gc_var1(result);
 	result = sexp_eval_string(g_rebel.scriptCtx,"(init)",-1,NULL);
@@ -45,7 +45,7 @@ int main()
 
 		Vec3 tint = {};
 		tint.x = 1.0f;
-		DrawSprite(&spr, pos, 50, 50, tint);
+		sprite::Draw(&spr, pos, 50, 50, tint);
 
 		if ( IsKeyDown(KEY_COMMA) )
 			pinkSquarePosition.y += 1;
