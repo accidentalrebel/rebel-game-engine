@@ -32,7 +32,7 @@ int main()
 
 		Vec3 tint = {};
 		tint.x = 1.0f;
-		sprite::Draw(&spr, pos, 50, 50, tint);
+		sprite::Draw(&spr, pos, 50, 50, tint, NULL);
 
 		if ( IsKeyDown(KEY_COMMA) )
 			pinkSquarePosition.y += 1;

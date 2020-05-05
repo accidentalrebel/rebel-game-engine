@@ -15,5 +15,5 @@ typedef struct Sprite
 namespace sprite
 {
 	Sprite Create(const char *directory, const char *filename);
-	void Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor);
+	void Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor, Shader* shader);
 }

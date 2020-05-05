@@ -12,6 +12,10 @@ void FreeSprite(Sprite * t){
   free(t);
 }
 
+void FreeShader(Shader * t){
+  free(t);
+}
+
 void FreeVec3(Vec3 * v){
   free(v);
 }
@@ -26,7 +30,7 @@ Vec3* MakeVec3(float x, float y, float z)
 }
 
 /*
-types: (Sprite Vec3)
+types: (Shader Sprite Vec3)
 enums: ((e-keys . Keys))
 */
 
@@ -38,7 +42,7 @@ sexp sexp_is_key_down_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0) {
   return res;
 }
 
-sexp sexp_sprite_draw_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1, sexp arg2, sexp arg3, sexp arg4) {
+sexp sexp_sprite_draw_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1, sexp arg2, sexp arg3, sexp arg4, sexp arg5) {
   sexp res;
   if (! (sexp_pointerp(arg0) && (sexp_pointer_tag(arg0) == sexp_unbox_fixnum(sexp_opcode_arg1_type(self)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_opcode_arg1_type(self)), arg0);
@@ -50,7 +54,24 @@ sexp sexp_sprite_draw_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp 
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg3);
   if (! (sexp_pointerp(arg4) && (sexp_pointer_tag(arg4) == sexp_unbox_fixnum(sexp_vector_ref(sexp_opcode_argn_type(self), SEXP_ONE)))))
     return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_vector_ref(sexp_opcode_argn_type(self), SEXP_ONE)), arg4);
-  res = ((sprite::Draw((struct Sprite*)sexp_cpointer_value(arg0), *(struct Vec3*)sexp_cpointer_value(arg1), sexp_flonum_value(arg2), sexp_flonum_value(arg3), *(struct Vec3*)sexp_cpointer_value(arg4))), SEXP_VOID);
+  if (! ((sexp_pointerp(arg5) && (sexp_pointer_tag(arg5) == sexp_unbox_fixnum(sexp_vector_ref(sexp_opcode_argn_type(self), SEXP_TWO)))) || sexp_not(arg5)))
+    return sexp_type_exception(ctx, self, sexp_unbox_fixnum(sexp_vector_ref(sexp_opcode_argn_type(self), SEXP_TWO)), arg5);
+  res = ((sprite::Draw((struct Sprite*)sexp_cpointer_value(arg0), *(struct Vec3*)sexp_cpointer_value(arg1), sexp_flonum_value(arg2), sexp_flonum_value(arg3), *(struct Vec3*)sexp_cpointer_value(arg4), (struct Shader*)sexp_cpointer_maybe_null_value(arg5))), SEXP_VOID);
+  return res;
+}
+
+sexp sexp_shader_create_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp arg1) {
+  struct Shader struct_res;
+  struct Shader* ptr_res;
+  sexp res;
+  if (! sexp_stringp(arg0))
+    return sexp_type_exception(ctx, self, SEXP_STRING, arg0);
+  if (! sexp_stringp(arg1))
+    return sexp_type_exception(ctx, self, SEXP_STRING, arg1);
+  struct_res = shader::Create(sexp_string_data(arg0), sexp_string_data(arg1));
+  ptr_res = (struct Shader*) malloc(sizeof(struct Shader));
+  memcpy(ptr_res, &struct_res, sizeof(struct Shader));
+  res = sexp_make_cpointer(ctx, sexp_unbox_fixnum(sexp_opcode_return_type(self)), ptr_res, SEXP_FALSE, 0);
   return res;
 }
 
@@ -79,6 +100,18 @@ sexp sexp_make_vec3_stub (sexp ctx, sexp self, sexp_sint_t n, sexp arg0, sexp ar
     return sexp_type_exception(ctx, self, SEXP_FLONUM, arg2);
   res = sexp_make_cpointer(ctx, sexp_unbox_fixnum(sexp_opcode_return_type(self)), MakeVec3(sexp_flonum_value(arg0), sexp_flonum_value(arg1), sexp_flonum_value(arg2)), SEXP_FALSE, 1);
   return res;
+}
+
+sexp sexp_FreeShader_stub (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
+  if (sexp_cpointer_freep(x)) {
+    FreeShader(
+#ifdef __cplusplus
+(Shader*)
+#endif
+sexp_cpointer_value(x));
+    sexp_cpointer_freep(x) = 0;
+  }
+  return SEXP_VOID;
 }
 
 sexp sexp_FreeSprite_stub (sexp ctx, sexp self, sexp_sint_t n, sexp x) {
@@ -197,6 +230,7 @@ sexp sexp_Vec3_set_z (sexp ctx, sexp self, sexp_sint_t n, sexp x, sexp v) {
 
 
 sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char* version, const sexp_abi_identifier_t abi) {
+  sexp sexp_Shader_type_obj;
   sexp sexp_Sprite_type_obj;
   sexp sexp_Vec3_type_obj;
   sexp_gc_var3(name, tmp, op);
@@ -446,6 +480,17 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
   sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_SPACE));
   name = sexp_intern(ctx, "KEY_UNKNOWN", 11);
   sexp_env_define(ctx, env, name, tmp=sexp_make_integer(ctx, KEY_UNKNOWN));
+  name = sexp_c_string(ctx, "Shader", -1);
+  sexp_Shader_type_obj = sexp_register_c_type(ctx, name, sexp_FreeShader_stub);
+  tmp = sexp_string_to_symbol(ctx, name);
+  sexp_env_define(ctx, env, tmp, sexp_Shader_type_obj);
+  sexp_type_slots(sexp_Shader_type_obj) = SEXP_NULL;
+  sexp_push(ctx, sexp_type_slots(sexp_Shader_type_obj), sexp_intern(ctx, "id", -1));
+  sexp_type_getters(sexp_Shader_type_obj) = sexp_make_vector(ctx, SEXP_ONE, SEXP_FALSE);
+  sexp_type_setters(sexp_Shader_type_obj) = sexp_make_vector(ctx, SEXP_ONE, SEXP_FALSE);
+  tmp = sexp_make_type_predicate(ctx, name, sexp_Shader_type_obj);
+  name = sexp_intern(ctx, "shader?", 7);
+  sexp_env_define(ctx, env, name, tmp);
   name = sexp_c_string(ctx, "Sprite", -1);
   sexp_Sprite_type_obj = sexp_register_c_type(ctx, name, sexp_FreeSprite_stub);
   tmp = sexp_string_to_symbol(ctx, name);
@@ -457,7 +502,7 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
   sexp_type_getters(sexp_Sprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
   sexp_type_setters(sexp_Sprite_type_obj) = sexp_make_vector(ctx, SEXP_THREE, SEXP_FALSE);
   tmp = sexp_make_type_predicate(ctx, name, sexp_Sprite_type_obj);
-  name = sexp_intern(ctx, "l-sprite?", 9);
+  name = sexp_intern(ctx, "sprite?", 7);
   sexp_env_define(ctx, env, name, tmp);
   name = sexp_c_string(ctx, "Vec3", -1);
   sexp_Vec3_type_obj = sexp_register_c_type(ctx, name, sexp_FreeVec3_stub);
@@ -560,20 +605,32 @@ sexp sexp_init_library (sexp ctx, sexp self, sexp_sint_t n, sexp env, const char
     sexp_opcode_return_type(op) = SEXP_VOID;
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
   }
+  op = sexp_define_foreign(ctx, env, "FreeShader", 1, sexp_FreeShader_stub);
+  if (sexp_opcodep(op)) {
+    sexp_opcode_return_type(op) = SEXP_VOID;
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Shader_type_obj));
+  }
   op = sexp_define_foreign(ctx, env, "is-key-down", 1, sexp_is_key_down_stub);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = sexp_make_fixnum(SEXP_BOOLEAN);
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(SEXP_FIXNUM);
   }
-  op = sexp_define_foreign(ctx, env, "sprite-draw", 5, sexp_sprite_draw_stub);
+  op = sexp_define_foreign(ctx, env, "sprite-draw", 6, sexp_sprite_draw_stub);
   if (sexp_opcodep(op)) {
     sexp_opcode_return_type(op) = SEXP_VOID;
     sexp_opcode_arg1_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Sprite_type_obj));
     sexp_opcode_arg2_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Vec3_type_obj));
     sexp_opcode_arg3_type(op) = sexp_make_fixnum(SEXP_FLONUM);
-    sexp_opcode_argn_type(op) = sexp_make_vector(ctx, SEXP_TWO, sexp_make_fixnum(SEXP_OBJECT));
+    sexp_opcode_argn_type(op) = sexp_make_vector(ctx, SEXP_THREE, sexp_make_fixnum(SEXP_OBJECT));
     sexp_vector_set(sexp_opcode_argn_type(op), SEXP_ZERO, sexp_make_fixnum(SEXP_FLONUM));
     sexp_vector_set(sexp_opcode_argn_type(op), SEXP_ONE, sexp_make_fixnum(sexp_type_tag(sexp_Vec3_type_obj)));
+    sexp_vector_set(sexp_opcode_argn_type(op), SEXP_TWO, sexp_make_fixnum(sexp_type_tag(sexp_Shader_type_obj)));
+  }
+  op = sexp_define_foreign(ctx, env, "shader-create", 2, sexp_shader_create_stub);
+  if (sexp_opcodep(op)) {
+    sexp_opcode_return_type(op) = sexp_make_fixnum(sexp_type_tag(sexp_Shader_type_obj));
+    sexp_opcode_arg1_type(op) = sexp_make_fixnum(SEXP_STRING);
+    sexp_opcode_arg2_type(op) = sexp_make_fixnum(SEXP_STRING);
   }
   op = sexp_define_foreign(ctx, env, "sprite-create", 2, sexp_sprite_create_stub);
   if (sexp_opcodep(op)) {
