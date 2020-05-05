@@ -1,6 +1,6 @@
 #include "shader.h"
 
-TShader CreateShader(const char* vertexPath, const char* fragmentPath)
+TShader shader::Create(const char* vertexPath, const char* fragmentPath)
 {
 	string vertexCode;
 	string fragmentCode;
@@ -79,35 +79,35 @@ TShader CreateShader(const char* vertexPath, const char* fragmentPath)
 	return shader;
 }
 
-void ShaderUse(TShader *shader)
+void shader::Use(TShader *shader)
 {
 	glUseProgram(shader->id);
 }
-void ShaderSetBool(TShader *shader, const string &name, bool value)
+void shader::SetBool(TShader *shader, const string &name, bool value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), (int)value);
 }
-void ShaderSetInt(TShader *shader, const string &name, int value)
+void shader::SetInt(TShader *shader, const string &name, int value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), value);
 }
-void ShaderSetFloat(TShader *shader, const string &name, float value)
+void shader::SetFloat(TShader *shader, const string &name, float value)
 {
 	glUniform1f(glGetUniformLocation(shader->id, name.c_str()), value);
 }
-void ShaderSetVec4(TShader *shader, const string &name, float v1, float v2, float v3, float v4)
+void shader::SetVec4(TShader *shader, const string &name, float v1, float v2, float v3, float v4)
 {
 	glUniform4f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3, v4);
 }
-void ShaderSetVec3(TShader *shader, const string &name, float v1, float v2, float v3)
+void shader::SetVec3(TShader *shader, const string &name, float v1, float v2, float v3)
 {
 	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3);
 }
-void ShaderSetVec3(TShader *shader, const string &name, glm::vec3 v)
+void shader::SetVec3(TShader *shader, const string &name, glm::vec3 v)
 {
 	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v.x, v.y, v.z);
 }
-void ShaderSetMat4(TShader *shader, const string &name, glm::mat4 mat)
+void shader::SetMat4(TShader *shader, const string &name, glm::mat4 mat)
 {
 	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
 }

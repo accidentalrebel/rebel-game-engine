@@ -41,8 +41,8 @@ Sprite CreateSprite(const char *directory, const char *filename)
 // void DrawSprite(Sprite sprite, glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
 void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor)
 {
-	ShaderUse(&g_rebel.defaultShader);
-	ShaderSetInt(&g_rebel.defaultShader, "texture1", 0);
+	shader::Use(&g_rebel.defaultShader);
+	shader::SetInt(&g_rebel.defaultShader, "texture1", 0);
 
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
@@ -58,10 +58,10 @@ void DrawSprite(Sprite *sprite, Vec3 position, float width, float height, Vec3 t
 	
 	model = glm::translate(model, glm::vec3(position.x / 50, position.y / 50, position.z));
 
-	ShaderSetVec3(&g_rebel.defaultShader, "tint", glm::vec3(tintColor.x, tintColor.y, tintColor.z));
-	ShaderSetMat4(&g_rebel.defaultShader, "projection", projection);
-	ShaderSetMat4(&g_rebel.defaultShader, "view", view);
-	ShaderSetMat4(&g_rebel.defaultShader, "model", model);
+	shader::SetVec3(&g_rebel.defaultShader, "tint", glm::vec3(tintColor.x, tintColor.y, tintColor.z));
+	shader::SetMat4(&g_rebel.defaultShader, "projection", projection);
+	shader::SetMat4(&g_rebel.defaultShader, "view", view);
+	shader::SetMat4(&g_rebel.defaultShader, "model", model);
 	
 	glBindVertexArray(sprite->VAO);
 	glBindTexture(GL_TEXTURE_2D, sprite->texture);

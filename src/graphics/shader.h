@@ -20,13 +20,18 @@ typedef struct TShader {
 	unsigned int id;
 } TShader;
 
-TShader CreateShader(const char* vertexPath, const char* fragmentPath);
-void ShaderUse(TShader *shader);
-void ShaderSetBool(TShader *shader, const string &name, bool value);
-void ShaderSetInt(TShader *shader, const string &name, int value);
-void ShaderSetFloat(TShader *shader, const string &name, float value);
-void ShaderSetVec4(TShader *shader, const string &name, float v1, float v2, float v3, float v4);
-void ShaderSetVec3(TShader *shader, const string &name, float v1, float v2, float v3);
-void ShaderSetVec3(TShader *shader, const string &name, glm::vec3 v);
-void ShaderSetMat4(TShader *shader, const string &name, glm::mat4 mat);
+namespace shader
+{
+	TShader Create(const char* vertexPath, const char* fragmentPath);
+	void Use(TShader *shader);
+	void SetBool(TShader *shader, const string &name, bool value);
+	void SetInt(TShader *shader, const string &name, int value);
+	void SetFloat(TShader *shader, const string &name, float value);
+	void SetVec4(TShader *shader, const string &name, float v1, float v2, float v3, float v4);
+	void SetVec3(TShader *shader, const string &name, float v1, float v2, float v3);
+	void SetVec3(TShader *shader, const string &name, glm::vec3 v);
+	void SetMat4(TShader *shader, const string &name, glm::mat4 mat);
+}
+
 unsigned int LoadTextureFromFile(const string &directory, char const * fname);
+
