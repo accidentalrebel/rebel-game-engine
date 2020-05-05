@@ -60,8 +60,8 @@ void Window::destroy()
 // =========
 void Window::framebuffer_size_callback(GLFWwindow* window, int windowWidth, int windowHeight)
 {
-	g_window->width = windowWidth;
-	g_window->height = windowHeight;
+	g_rebel.window->width = windowWidth;
+	g_rebel.window->height = windowHeight;
 
 	glViewport(0, 0, windowWidth, windowHeight);
 }

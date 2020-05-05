@@ -41,7 +41,7 @@ int main()
 	while(!CanCloseWindow())
 	{
 		ProcessInputs();
-		g_window->clear();
+		g_rebel.window->clear();
 
 		result = sexp_eval_string(ctx,"(draw)",-1,NULL);
 		if (sexp_exceptionp(result))
@@ -73,7 +73,7 @@ int main()
 		if ( IsKeyUp(KEY_SEMICOLON ) )
 			pinkSquarePosition.z = -1;
 
-		g_window->swap();
+		g_rebel.window->swap();
 	}
 
 	sexp_gc_release1(ctx);

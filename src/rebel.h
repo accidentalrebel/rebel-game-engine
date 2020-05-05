@@ -11,8 +11,14 @@ typedef struct Vec3 {
 #include "graphics/shader.h"
 #include "input/keyboard.h"
 
-extern Shader* g_defaultShader;
-extern rebel::Window* g_window;
+using namespace rebel;
+
+typedef struct Rebel {
+	Shader *defaultShader;
+	Window *window;
+} Rebel;
+
+extern Rebel g_rebel;
 
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDestroy();

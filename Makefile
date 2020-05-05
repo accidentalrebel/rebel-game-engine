@@ -4,7 +4,7 @@ OBJ_NAME = main
 
 CC = g++
 
-COMPILER_FLAGS = 
+COMPILER_FLAGS = -g
 
 LINKER_FLAGS = -lGL -lX11 -lpthread -ldl -lglfw3 -lchibi-scheme
 
