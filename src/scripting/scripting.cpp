@@ -13,6 +13,18 @@ sexp scripting::Init()
 	return schemeContext;
 }
 
+void scripting::Eval(const char* str)
+{
+	sexp_gc_var1(result);
+	result = sexp_eval_string(g_rebel.scriptCtx, str, -1, NULL);
+	if (sexp_exceptionp(result))
+	{
+    puts("FAILURE: EXCEPTION:");
+		sexp_print_exception(g_rebel.scriptCtx, result, SEXP_FALSE);
+	}
+	sexp_gc_release1(g_rebel.scriptCtx);
+}
+
 void scripting::Destroy()
 {
 	sexp_destroy_context(g_rebel.scriptCtx);

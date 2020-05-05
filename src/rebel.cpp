@@ -6,7 +6,6 @@
 #include "external/stb_image.h"
 
 Rebel g_rebel;
-Tebel g_tebel;
 
 void rebel::Init(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {

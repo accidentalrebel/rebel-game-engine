@@ -10,6 +10,7 @@ typedef struct Vec3 {
 #include "chibi/eval.h"
 #include "graphics/sprite.h"
 #include "graphics/shader.h"
+#include "scripting/scripting.h"
 #include "input/keyboard.h"
 
 typedef struct Rebel {
@@ -19,18 +20,6 @@ typedef struct Rebel {
 } Rebel;
 
 extern Rebel g_rebel;
-
-typedef struct Foo {
-	unsigned int bar;
-} Foo;
-
-typedef struct Tebel {
-	Foo foo;
-	unsigned int x;
-	unsigned int y;
-} Tebel;
-
-extern Tebel g_tebel;
 
 namespace rebel
 {

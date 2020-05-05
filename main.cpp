@@ -11,19 +11,11 @@
 
 int main()
 {
-	std::cout << g_tebel.x << std::endl;
-	
 	rebel::Init(800, 600, "Rebel Engine");
 	Sprite spr = sprite::Create("assets/textures", "tile.png");
 
-	sexp_gc_var1(result);
-	result = sexp_eval_string(g_rebel.scriptCtx,"(init)",-1,NULL);
-	if (sexp_exceptionp(result))
-	{
-    puts("FAILURE: EXCEPTION:");
-		sexp_print_exception(g_rebel.scriptCtx, result, SEXP_FALSE);
-	}
-
+	scripting::Eval("(init)");
+	
 	glm::vec3 pinkSquarePosition(405.0, 305.0f, 1.0f);
 
 	while(!window::CanClose())
@@ -31,12 +23,7 @@ int main()
 		rebel::ProcessInputs();
 		window::Clear();
 
-		result = sexp_eval_string(g_rebel.scriptCtx,"(draw)",-1,NULL);
-		if (sexp_exceptionp(result))
-		{
-			puts("FAILURE: EXCEPTION:");
-			sexp_print_exception(g_rebel.scriptCtx, result, SEXP_FALSE);
-		}
+		scripting::Eval("(draw)");
 
 		Vec3 pos;
 		pos.x = pinkSquarePosition.x;
@@ -64,7 +51,6 @@ int main()
 		window::Swap();
 	}
 
-	sexp_gc_release1(g_rebel.scriptCtx);
 	rebel::Destroy();
 	return 0;
 }

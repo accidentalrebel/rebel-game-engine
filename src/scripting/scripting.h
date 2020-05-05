@@ -6,4 +6,5 @@ namespace scripting
 {
 	sexp Init();
 	void Destroy();
+	void Eval(const char* str);
 }
