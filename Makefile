@@ -6,7 +6,7 @@ all:	run
 build:	lib
 
 run:
-	cd src ; chicken-csc ../scripts/main.scm $(INCLUDE_FLAGS) -o ../output/game -L../libs/ -L -lrebel -L/usr/lib/ -L -lX11 -L -lpthread -L -ldl -L -lglfw3 -debug F -c++
+	cd src ; chicken-csc ../scripts/main.scm -o ../output/game -L../libs/ -L -lrebel -L/usr/lib/ -L -lX11 -L -lpthread -L -ldl -L -lglfw3 -debug F -c++
 	output/game
 
 lib: 	objs
