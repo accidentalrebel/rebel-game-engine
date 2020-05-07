@@ -1,7 +1,9 @@
 # Rebel Game Engine
 A simple game engine using C/C++ built with Scheme scripting. Made mostly from scratch for learning purposes.
 
-The engine is an application of the lessons I've learned researching game engines and poking around various open source projects. I don't plan to use it for production but it might eventually evolve into something that will. The primary goal for now is implementing the barest essentials. 
+The engine is an application of the lessons I've learned researching game engines and poking around various open source projects. I don't plan to use it for production but it might eventually evolve into something that will. The primary goal for now is implementing the barest essentials.
+
+Scripting was initially using [Chibi-Scheme](https://github.com/ashinn/chibi-scheme) but later changed to [Chicken-Scheme](https://www.call-cc.org/). 
 
 ## Roadmap
 v1.0
@@ -16,6 +18,9 @@ v1.0
 - [ ] Text
 - [ ] Audio
 - [ ] Save system
+- [ ] Multiplatform system
+- [ ] C examples
+- [ ] Scheme examples
 
 ## Dependencies / External Libraries
 As much as I want to implement everything myself, these libraries are just better so no need to re-invent the wheel.
@@ -24,7 +29,7 @@ As much as I want to implement everything myself, these libraries are just bette
   * [GLFW](https://www.glfw.org/) - For OpenGL and window handling
   * [stb_image](https://github.com/nothings/stb) - Image loader
   * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
-  * [chibi-scheme](https://github.com/ashinn/chibi-scheme) - An excellent library that allows scripting using the Scheme language
+  * [chicken-scheme](https://www.call-cc.org/) - An excellent library that allows scripting using the Scheme language
 
 ## Many thanks
 This project wouldn't be possible without these:
