@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../rebel.h"
 
-Window window::Init(int windowWidth, int windowHeight, const char* windowName)
+Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
 {
 	Window window = { 0 };
 	window.width = windowWidth;
@@ -35,23 +35,23 @@ Window window::Init(int windowWidth, int windowHeight, const char* windowName)
 	return window;
 }
 
-bool window::CanClose()
+bool WindowCanClose()
 {
 	return glfwWindowShouldClose(g_rebel.window.glWindow);
 }
 
-void window::Clear()
+void WindowClear()
 {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
-void window::Swap()
+void WindowSwap()
 {
 	glfwSwapBuffers(g_rebel.window.glWindow);
 }
 
-void window::Destroy()
+void WindowDestroy()
 {
 	glfwTerminate();
 }

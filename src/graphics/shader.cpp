@@ -1,6 +1,6 @@
 #include "shader.h"
 
-Shader shader::Create(const char* vertexPath, const char* fragmentPath)
+Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 {
 	string vertexCode;
 	string fragmentCode;
@@ -58,18 +58,18 @@ Shader shader::Create(const char* vertexPath, const char* fragmentPath)
 		cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << endl;
 	}
 
-	Shader shader = {};
+	Shader *shader = (Shader*)malloc(sizeof(Shader));
 	
 	// Shader program
-	shader.id = glCreateProgram();
-	glAttachShader(shader.id, vertex);
-	glAttachShader(shader.id, fragment);
-	glLinkProgram(shader.id);
+	shader->id = glCreateProgram();
+	glAttachShader(shader->id, vertex);
+	glAttachShader(shader->id, fragment);
+	glLinkProgram(shader->id);
 
-	glGetProgramiv(shader.id, GL_LINK_STATUS, &success);
+	glGetProgramiv(shader->id, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(shader.id, 512, NULL, infoLog);
+		glGetProgramInfoLog(shader->id, 512, NULL, infoLog);
 		cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
 	}
 
@@ -79,35 +79,35 @@ Shader shader::Create(const char* vertexPath, const char* fragmentPath)
 	return shader;
 }
 
-void shader::Use(Shader *shader)
+void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
 }
-void shader::SetBool(Shader *shader, const string &name, bool value)
+void ShaderSetBool(Shader *shader, const string &name, bool value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), (int)value);
 }
-void shader::SetInt(Shader *shader, const string &name, int value)
+void ShaderSetInt(Shader *shader, const string &name, int value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), value);
 }
-void shader::SetFloat(Shader *shader, const string &name, float value)
+void ShaderSetFloat(Shader *shader, const string &name, float value)
 {
 	glUniform1f(glGetUniformLocation(shader->id, name.c_str()), value);
 }
-void shader::SetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4)
+void ShaderSetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4)
 {
 	glUniform4f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3, v4);
 }
-void shader::SetVec3(Shader *shader, const string &name, float v1, float v2, float v3)
+void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float v3)
 {
 	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3);
 }
-void shader::SetVec3(Shader *shader, const string &name, glm::vec3 v)
+void ShaderSetVec3(Shader *shader, const string &name, glm::vec3 v)
 {
 	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v.x, v.y, v.z);
 }
-void shader::SetMat4(Shader *shader, const string &name, glm::mat4 mat)
+void ShaderSetMat4(Shader *shader, const string &name, glm::mat4 mat)
 {
 	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
 }

@@ -1,1 +1,5 @@
 /output/
+/a.out
+/tmp/*
+/output/*
+/libs/*

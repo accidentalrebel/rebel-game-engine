@@ -3,9 +3,9 @@
 #include <GLFW/glfw3.h>
 #include "../rebel.h"
 
-Sprite sprite::Create(const char *directory, const char *filename)
+Sprite* SpriteCreate(const char *directory, const char *filename)
 {
-	Sprite sprite;
+	Sprite* sprite = (Sprite*)malloc(sizeof(Sprite));
 	float vertices[] = {  
 		// positions   // texCoords
 		-0.5f,  0.5f,  0.0f, 1.0f,
@@ -17,12 +17,12 @@ Sprite sprite::Create(const char *directory, const char *filename)
 		0.5f,  0.5f,  1.0f, 1.0f
 	};
 
-	glGenVertexArrays(1, &sprite.VAO);
-	glGenBuffers(1, &sprite.VBO);
+	glGenVertexArrays(1, &sprite->VAO);
+	glGenBuffers(1, &sprite->VBO);
 	
-	glBindVertexArray(sprite.VAO);
+	glBindVertexArray(sprite->VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, sprite.VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
 	
 	glEnableVertexAttribArray(0);
@@ -33,20 +33,20 @@ Sprite sprite::Create(const char *directory, const char *filename)
 	
 	glBindVertexArray(0);
 
- 	sprite.texture = LoadTextureFromFile(directory, filename);
+ 	sprite->texture = LoadTextureFromFile(directory, filename);
 	
 	return sprite;
 }
 
 // void DrawSprite(Sprite sprite, glm::vec3 currentPosition, float width, float height, glm::vec3 tintColor)
-void sprite::Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3 tintColor, Shader* shader)
+void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
 {
 	Shader* shaderToUse = shader;
 	if ( shaderToUse == NULL )
-		shaderToUse = &g_rebel.defaultShader;
+		shaderToUse = g_rebel.defaultShader;
 		
-	shader::Use(shaderToUse);
-	shader::SetInt(shaderToUse, "texture1", 0);
+	ShaderUse(shaderToUse);
+	ShaderSetInt(shaderToUse, "texture1", 0);
 
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
@@ -58,14 +58,14 @@ void sprite::Draw(Sprite *sprite, Vec3 position, float width, float height, Vec3
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -30.0f)); 
 	
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::scale(model, glm::vec3(50, 50, 1.0f));
+	model = glm::scale(model, glm::vec3(width, height, 1.0f));
 	
-	model = glm::translate(model, glm::vec3(position.x / 50, position.y / 50, position.z));
+	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
 
-	shader::SetVec3(shaderToUse, "tint", glm::vec3(tintColor.x, tintColor.y, tintColor.z));
-	shader::SetMat4(shaderToUse, "projection", projection);
-	shader::SetMat4(shaderToUse, "view", view);
-	shader::SetMat4(shaderToUse, "model", model);
+	ShaderSetVec3(shaderToUse, "tint", glm::vec3(tintColor->x, tintColor->y, tintColor->z));
+	ShaderSetMat4(shaderToUse, "projection", projection);
+	ShaderSetMat4(shaderToUse, "view", view);
+	ShaderSetMat4(shaderToUse, "model", model);
 	
 	glBindVertexArray(sprite->VAO);
 	glBindTexture(GL_TEXTURE_2D, sprite->texture);

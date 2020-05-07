@@ -1,5 +1,4 @@
 #include "rebel.h"
-#include "scripting/scripting.h"
 #include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -7,14 +6,13 @@
 
 Rebel g_rebel;
 
-void rebel::Init(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
+void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
-	g_rebel.window = window::Init(windowWidth, windowHeight, windowName);
-	g_rebel.defaultShader = shader::Create("shaders/simple.vs", "shaders/simple.fs");
-	g_rebel.scriptCtx = scripting::Init();
+	g_rebel.window = WindowInit(windowWidth, windowHeight, windowName);
+	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 
-void rebel::ProcessInputs()
+void ProcessInputs()
 {
 	glfwPollEvents();
 
@@ -22,8 +20,16 @@ void rebel::ProcessInputs()
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
 }
 
-void rebel::Destroy()
+Vec3* MakeVec3(float x = 0, float y = 0, float z = 0)
 {
-	scripting::Destroy();
-	window::Destroy();
+	Vec3* v = (Vec3*)malloc(sizeof(Vec3));
+	v->x = x;
+	v->y = y;
+	v->z = z;
+	return v;
+}
+
+void RebelDestroy()
+{
+	WindowDestroy();
 }
