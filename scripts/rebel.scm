@@ -1,4 +1,4 @@
-(import bind coops)
+(import bind)
 (import (chicken gc))
 
 (set-gc-report! #t)

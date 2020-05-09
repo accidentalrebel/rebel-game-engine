@@ -18,7 +18,7 @@ all:	run
 build:	lib
 
 run:
-	cd src ; chicken-csc ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -debug F -c++ -static
+	cd src ; $(CHICKEN_CSC) ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -debug F -c++ -static
 	output/game
 
 lib: 	objs
