@@ -2,8 +2,7 @@ PLATFORM = linux
 CC = g++
 CHICKEN_CSC = csc
 
-INCLUDE_FLAGS = -Isrc/external/glad/include -Isrc/external/glfw/include
-
+INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -Isrc/external/glfw/include 
 LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib/ -L -lglfw3
 
 ifeq ($(PLATFORM),linux)
