@@ -1,4 +1,4 @@
-INCLUDE_FLAGS = -I/home/arebel/development/tools/glad/include -I/home/arebel/development/tools/glfw/include
+INCLUDE_FLAGS = -Isrc/external/glad/include -I/home/arebel/development/tools/glfw/include
 
 LINKER_FLAGS = -lGL -lX11 -lpthread -ldl -lglfw3
 
@@ -13,7 +13,7 @@ lib: 	objs
 	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/stub.o tmp/shader.o tmp/sprite.o tmp/glad.o tmp/keyboard.o
 
 objs:
-	g++ -c src/external/glad.c $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o tmp/glad.o
+	g++ -c src/external/glad/glad.c $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o tmp/glad.o
 	g++ -c src/rebel.cpp $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o tmp/rebel.o
 	g++ -c src/graphics/shader.cpp $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o tmp/shader.o
 	g++ -c src/graphics/sprite.cpp $(INCLUDE_FLAGS) $(LINKER_FLAGS) -o tmp/sprite.o
