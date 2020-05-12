@@ -5,6 +5,8 @@ The engine is an application of the lessons I've learned researching game engine
 
 Scripting was initially using [Chibi-Scheme](https://github.com/ashinn/chibi-scheme) but later changed to [Chicken-Scheme](https://www.call-cc.org/). 
 
+Check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
+
 ## Sample Code
 Simple program that displays a sprite with keyboard movement.
 
@@ -20,13 +22,9 @@ Simple program that displays a sprite with keyboard movement.
    (define (update)
      (window_clear)
 
-     (when (is_key_down KEY_COMMA)
-       (set_vec3_y box-pos (+ (get_vec3_y box-pos) 1)))
-     (when (is_key_down KEY_O)
-       (set_vec3_y box-pos (- (get_vec3_y box-pos) 1)))
-     (when (is_key_down KEY_E)
-       (set_vec3_x box-pos (+ (get_vec3_x box-pos) 1)))
      (when (is_key_down KEY_A)
+       (set_vec3_x box-pos (+ (get_vec3_x box-pos) 1)))
+     (when (is_key_down KEY_D)
        (set_vec3_x box-pos (- (get_vec3_x box-pos) 1)))
 
      (let ((tint (make_vec3 1 0 1)))
@@ -36,7 +34,6 @@ Simple program that displays a sprite with keyboard movement.
      #t)
 ```
 
-
 ## Roadmap
 v1.0
 
@@ -44,15 +41,20 @@ v1.0
 - [x] Drawing sprites
 - [x] Coordinate system
 - [x] Scripting Integration
+- [x] Multiplatform development
 - [ ] Camera System
 - [ ] Loading 3D models
 - [ ] Sprite transparency
 - [ ] Text
 - [ ] Audio
 - [ ] Save system
-- [ ] Multiplatform system
 - [ ] C examples
 - [ ] Scheme examples
+- [ ] Deployment
+- [ ] Optional scripting
+
+## Getting started
+Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).
 
 ## Dependencies / External Libraries
 As much as I want to implement everything myself, these libraries are just better so no need to re-invent the wheel.

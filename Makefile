@@ -1,21 +1,17 @@
-PLATFORM = windows
+PLATFORM = linux
 CC = g++
 CSC = csc
 
-INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -Isrc/external/glfw/include 
+INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include
 LINKER_FLAGS = -L../libs/ -L -lrebel 
 
 ifeq ($(PLATFORM),linux)
-	CSC = chicken-csc # In arch, csc is renamed to chicken-csc
-	LINKER_FLAGS += -L/usr/lib -L -lglfw3 -L -lX11 -L -lpthread
+	LINKER_FLAGS += -L/usr/lib -L -lglfw
 else ifeq ($(PLATFORM),macosx)
 	LINKER_FLAGS += -L/usr/lib -L -lglfw3
 else ifeq ($(PLATFORM),windows)
 	LINKER_FLAGS += -L/c/tools/msys64/mingw64/lib -L -lglfw3
 endif
-
-# Check if really needed
-# LINKER_FLAGS += -L -ldl
 
 all:	run
 
