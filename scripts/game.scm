@@ -6,6 +6,7 @@
 (define cube)
 
 (define current-pos)
+(define cube-positions)
 
 (define MOVEMENT_SPEED 0.05)
 
@@ -14,7 +15,12 @@
   
   (set! cube (cube_create "assets/textures" "awesomeface.png"))
   (set! cube-shader (shader_create "shaders/simple-3d.vs" "shaders/simple.fs"))
-   
+
+  (set!
+   cube-positions (list (make_vec3 0 0 0)
+			(make_vec3 50 0 0)
+			(make_vec3 -50 0 0)))
+  
   (set! current-pos (make_vec3 0 0 0))
   #t)
 
@@ -35,15 +41,22 @@
   (when (is_key_down KEY_SEMICOLON)
     (set_vec3_z current-pos -1))
 
+  (for-each
+   (lambda (position)
+     (let ((tint (make_vec3_ 1 0 1)))
+       (cube_draw cube
+		  position
+		  30 30
+		  tint
+		  cube-shader)
+       (free tint)))
+   cube-positions)
+
   (let ((tint (make_vec3_ 0 0 1)))
     (sprite_draw smile-sprite
 		 current-pos
-		 50 50
+		 30 30
 		 tint #f)
-    (cube_draw cube
-	       (make_vec3 0 0 0)
-	       50 50
-	       (make_vec3 1 0 0) cube-shader)
     (free tint))
   
   (window_swap)
