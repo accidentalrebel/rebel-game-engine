@@ -7,6 +7,7 @@ INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include
 LINKER_FLAGS = -L../libs/ -L -lrebel 
 
 ifeq ($(PLATFORM),linux)
+	CSC = chicken-csc
 	LINKER_FLAGS += -L/usr/lib -L -lglfw
 else ifeq ($(PLATFORM),macosx)
 	LINKER_FLAGS += -L/usr/local/lib -L -lglfw

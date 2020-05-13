@@ -1,5 +1,23 @@
 #pragma once
 
+typedef struct Sprite
+{
+	unsigned int VAO;
+	unsigned int VBO;
+	unsigned int texture;
+} Sprite;
+
+typedef struct Shader {
+	unsigned int id;
+} Shader;
+
+typedef struct Vec3
+{
+	float x;
+	float y;
+	float z;
+} Vec3;
+
 enum Keys {
 	KEY_UNKNOWN = -1,
 	KEY_SPACE = 32,
@@ -123,21 +141,3 @@ enum Keys {
 	KEY_RIGHT_SUPER = 347,
 	KEY_MENU = 348
 };
-
-typedef struct Sprite
-{
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int texture;
-} Sprite;
-
-typedef struct Shader {
-	unsigned int id;
-} Shader;
-
-typedef struct Vec3
-{
-	float x;
-	float y;
-	float z;
-} Vec3;
