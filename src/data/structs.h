@@ -12,6 +12,7 @@ typedef struct RenderObject
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int texture;
+	unsigned int indicesSize;
 } RenderObject;
 
 typedef struct Cube

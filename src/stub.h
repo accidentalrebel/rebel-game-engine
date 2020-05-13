@@ -30,6 +30,7 @@ void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 
 
 // RENDERER
 Cube* CubeCreate(const char *directory, const char *filename);
+void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader);
 
 // SHADER
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);

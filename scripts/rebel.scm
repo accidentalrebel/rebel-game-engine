@@ -49,6 +49,13 @@
 				    (c-pointer (struct "Vec3"))
 				    (c-pointer (struct "Shader"))))
 
+(define cube_draw (foreign-lambda void "CubeDraw"
+				    (c-pointer (struct "Cube"))
+				    (c-pointer (struct "Vec3"))
+				    float float
+				    (c-pointer (struct "Vec3"))
+				    (c-pointer (struct "Shader"))))
+
 (define shader_create_ (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader_create x y) (set-finalizer! (shader_create_ x y) free))
 
