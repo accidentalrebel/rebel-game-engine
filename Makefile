@@ -25,14 +25,17 @@ run:
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/stub.o tmp/shader.o tmp/sprite.o tmp/renderer.o tmp/glad.o tmp/keyboard.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/stub.o tmp/shader.o tmp/renderer.o tmp/glad.o tmp/keyboard.o
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
-	$(CC) -c src/graphics/sprite.cpp $(INCLUDE_FLAGS) -o tmp/sprite.o
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
 	$(CC) -c src/stub.cpp $(INCLUDE_FLAGS) -o tmp/stub.o
+
+clean:
+	rm ./tmp/*.*
+	rm ./libs/*.*

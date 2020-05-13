@@ -61,6 +61,38 @@ Cube* CubeCreate(const char *directory, const char *filename)
 	return cube;
 }
 
+void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
+{
+	RendererDraw(cube->renderObject, position, width, height, tintColor, shader);
+}
+
+Sprite* SpriteCreate(const char *directory, const char *filename)
+{
+	float vertices[] = {  
+		// positions   // texCoords
+		-0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f,  1.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  1.0f, 1.0f
+	};
+
+	Sprite* sprite = (Sprite*)malloc(sizeof(Sprite));
+	sprite->renderObject = InitRenderObject(vertices, sizeof(vertices), 6, 4, 2, 2);
+	
+	stbi_set_flip_vertically_on_load(true);
+ 	sprite->renderObject->texture = LoadTextureFromFile(directory, filename);
+	
+	return sprite;
+}
+
+void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
+{
+	RendererDraw(sprite->renderObject, position, width, height, tintColor, shader);
+}
+
 RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSize, int stride, int positionSize, int texCoordSize)
 {
 	RenderObject* renderObject = (RenderObject*)malloc(sizeof(RenderObject));
@@ -74,20 +106,15 @@ RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSiz
 	glBindBuffer(GL_ARRAY_BUFFER, renderObject->VBO);
 	glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, positionSize, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, texCoordSize, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(positionSize * sizeof(float)));
 	glEnableVertexAttribArray(1);
 	
 	glBindVertexArray(0);
 	
 	return renderObject;
-}
-
-void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
-{
-	RendererDraw(cube->renderObject, position, width, height, tintColor, shader);
 }
 
 void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)

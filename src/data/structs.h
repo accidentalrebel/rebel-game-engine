@@ -1,12 +1,5 @@
 #pragma once
 
-typedef struct Sprite
-{
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int texture;
-} Sprite;
-
 typedef struct RenderObject
 {
 	unsigned int VAO;
@@ -19,6 +12,11 @@ typedef struct Cube
 {
 	RenderObject *renderObject;
 } Cube;
+
+typedef struct Sprite
+{
+	RenderObject *renderObject;
+} Sprite;
 
 typedef struct Shader {
 	unsigned int id;

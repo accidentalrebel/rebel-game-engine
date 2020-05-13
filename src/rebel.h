@@ -3,7 +3,6 @@
 #include <glad/glad.h>
 #include "data/structs.h"
 #include "core/window.h"
-#include "graphics/sprite.h"
 #include "graphics/shader.h"
 #include "input/keyboard.h"
 
