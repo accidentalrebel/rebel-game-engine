@@ -37,6 +37,9 @@
 (define window_swap (foreign-lambda void "WindowSwap"))
 (define window_destroy (foreign-lambda void "WindowDestroy"))
 
+(define cube_create_ (foreign-lambda c-pointer "CubeCreate" c-string c-string))
+(define (cube_create x y) (set-finalizer! (cube_create_ x y) free))
+
 (define sprite_create_ (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
 (define (sprite_create x y) (set-finalizer! (sprite_create_ x y) free))
 (define sprite_draw (foreign-lambda void "SpriteDraw"

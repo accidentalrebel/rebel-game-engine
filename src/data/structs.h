@@ -7,6 +7,18 @@ typedef struct Sprite
 	unsigned int texture;
 } Sprite;
 
+typedef struct RenderObject
+{
+	unsigned int VAO;
+	unsigned int VBO;
+	unsigned int texture;
+} RenderObject;
+
+typedef struct Cube
+{
+	RenderObject *renderObject;
+} Cube;
+
 typedef struct Shader {
 	unsigned int id;
 } Shader;

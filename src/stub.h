@@ -28,5 +28,8 @@ bool IsKeyUp(enum Keys key);
 Sprite* SpriteCreate(const char *directory, const char *filename);
 void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader);
 
+// RENDERER
+Cube* CubeCreate(const char *directory, const char *filename);
+
 // SHADER
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);

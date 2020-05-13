@@ -4,6 +4,7 @@
 (define smile-sprite)
 
 (define cube-shader)
+(define cube)
 
 (define box-pos)
 
@@ -13,6 +14,9 @@
   (set! cube-shader (shader_create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (set! box-sprite (sprite_create "assets/textures" "tile.png"))
   (set! smile-sprite (sprite_create "assets/textures" "awesomeface.png"))
+  
+  (set! cube (cube_create "assets/textures" "awesomeface.png"))
+   
   (set! box-pos (make_vec3 0 0 0))
   #t)
 
