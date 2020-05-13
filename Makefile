@@ -1,6 +1,7 @@
 PLATFORM = linux
 CC = g++
 CSC = csc
+PREDEFINES =
 
 INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include
 LINKER_FLAGS = -L../libs/ -L -lrebel 
@@ -8,7 +9,8 @@ LINKER_FLAGS = -L../libs/ -L -lrebel
 ifeq ($(PLATFORM),linux)
 	LINKER_FLAGS += -L/usr/lib -L -lglfw
 else ifeq ($(PLATFORM),macosx)
-	LINKER_FLAGS += -L/usr/lib -L -lglfw3
+	LINKER_FLAGS += -L/usr/local/lib -L -lglfw
+	PREDEFINES += -D PLATFORM=$(PLATFORM)
 else ifeq ($(PLATFORM),windows)
 	LINKER_FLAGS += -L/c/tools/msys64/mingw64/lib -L -lglfw3
 endif
@@ -30,5 +32,5 @@ objs:
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/sprite.cpp $(INCLUDE_FLAGS) -o tmp/sprite.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
-	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) -o tmp/window.o
+	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
 	$(CC) -c src/stub.cpp $(INCLUDE_FLAGS) -o tmp/stub.o

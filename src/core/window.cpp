@@ -12,8 +12,11 @@ Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Uncomment for MacOSX
-
+#ifdef PLATFORM
+#if PLATFORM==macosx
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Uncomment for MacOSX
+#endif
+#endif
 	window.glWindow = glfwCreateWindow(windowWidth, windowHeight, windowName, NULL, NULL);
 	if (window.glWindow == NULL)
 	{
