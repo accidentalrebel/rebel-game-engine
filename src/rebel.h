@@ -17,7 +17,7 @@ extern Rebel g_rebel;
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDestroy();
 
-void ProcessInputs();
-Vec3* MakeVec3(float x, float y, float z);
+void InputProcess();
+Vec3* Vec3Create(float x, float y, float z);
 
-Camera* GetMainCamera();
+Camera* CameraGetMain();

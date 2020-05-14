@@ -1,6 +1,6 @@
 #include "stub.h"
 
-// bool IsKeyDown(enum Keys key)
+// bool KeyIsDown(enum Keys key)
 // {
 // 	return false;
 // }

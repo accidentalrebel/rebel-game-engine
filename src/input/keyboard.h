@@ -126,5 +126,5 @@
 /* 	KEY_MENU = 348, */
 /* }; */
 
-bool IsKeyDown(enum Keys key);
-bool IsKeyUp(enum Keys key);
+bool KeyIsDown(enum Keys key);
+bool KeyIsUp(enum Keys key);

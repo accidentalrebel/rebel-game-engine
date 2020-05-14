@@ -6,15 +6,15 @@
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDestroy();
 
-void ProcessInputs();
+void InputProcess();
 
 // VECTOR
 //
-Vec3* MakeVec3(float x, float y, float z);
+Vec3* Vec3Create(float x, float y, float z);
 
 // CAMERA
 //
-Camera* GetMainCamera();
+Camera* CameraGetMain();
 
 // WINDOW
 //
@@ -25,8 +25,8 @@ void WindowDestroy();
 
 // KEYBOARD
 //
-bool IsKeyDown(enum Keys key);
-bool IsKeyUp(enum Keys key);
+bool KeyIsDown(enum Keys key);
+bool KeyIsUp(enum Keys key);
 
 // SPRITE
 Sprite* SpriteCreate(const char *directory, const char *filename);

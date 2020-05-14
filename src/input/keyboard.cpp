@@ -3,12 +3,12 @@
 
 Keys c_lastKeyPressed;
 
-bool IsKeyDown(Keys key)
+bool KeyIsDown(Keys key)
 {
 	return (glfwGetKey(g_rebel.window.glWindow, key) == GLFW_PRESS);
 }
 
-bool IsKeyUp(Keys key)
+bool KeyIsUp(Keys key)
 {
 	if (glfwGetKey(g_rebel.window.glWindow, key) == GLFW_PRESS)
 		c_lastKeyPressed = key;

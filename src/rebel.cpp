@@ -13,7 +13,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 
-void ProcessInputs()
+void InputProcess()
 {
 	glfwPollEvents();
 
@@ -21,7 +21,7 @@ void ProcessInputs()
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
 }
 
-Vec3* MakeVec3(float x = 0, float y = 0, float z = 0)
+Vec3* Vec3Create(float x = 0, float y = 0, float z = 0)
 {
 	Vec3* v = (Vec3*)malloc(sizeof(Vec3));
 	v->x = x;
@@ -30,7 +30,7 @@ Vec3* MakeVec3(float x = 0, float y = 0, float z = 0)
 	return v;
 }
 
-Camera* GetMainCamera()
+Camera* CameraGetMain()
 {
 	return g_rebel.mainCamera;
 }

@@ -8,6 +8,6 @@ Camera* CameraCreate()
 	camera->projection = CameraProjection::PERSPECTIVE;
 	camera->size = 5;
 	camera->fov = 45;
-	camera->position = MakeVec3(0, 0, -10);
+	camera->position = Vec3Create(0, 0, -10);
 	return camera;
 }
