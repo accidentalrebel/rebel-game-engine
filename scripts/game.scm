@@ -8,7 +8,7 @@
 (define current-pos)
 (define cube-positions)
 
-(define MOVEMENT_SPEED 0.05)
+(define MOVEMENT_SPEED 0.001)
 
 (define (init)
   (set! smile-sprite (sprite_create "assets/textures" "awesomeface.png"))
@@ -18,8 +18,8 @@
 
   (set!
    cube-positions (list (make_vec3 0 0 0)
-			(make_vec3 50 0 0)
-			(make_vec3 -50 0 0)))
+			(make_vec3 1.25 0 0)
+			(make_vec3 -1.25 0 0)))
   
   (set! current-pos (make_vec3 0 0 0))
   #t)
@@ -53,7 +53,7 @@
      (let ((tint (make_vec3_ 1 0 1)))
        (cube_draw cube
 		  position
-		  20 20 ;30 30
+		  1 1 ;30 30
 		  tint
 		  cube-shader)
        (free tint)))
@@ -62,7 +62,7 @@
   (let ((tint (make_vec3_ 0 0 1)))
     (sprite_draw smile-sprite
 		 current-pos
-		 30 30
+		 1 1
 		 tint #f)
     (free tint))
   
