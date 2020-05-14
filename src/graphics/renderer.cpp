@@ -142,8 +142,9 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	else {
 		projection = glm::ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f);
 	}
-	
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f)); 
+
+	Vec3* cameraPos = g_rebel.mainCamera->position;
+	view = glm::translate(view, glm::vec3(cameraPos->x, cameraPos->y, cameraPos->z)); 
 	model = glm::scale(model, glm::vec3(width, height, height));
 	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
 	// model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));

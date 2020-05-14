@@ -1,15 +1,22 @@
 #pragma once
 
-
 enum CameraProjection {
 	PERSPECTIVE = 0,
 	ORTHOGRAPHIC
 };
 
+typedef struct Vec3
+{
+	float x;
+	float y;
+	float z;
+} Vec3;
+
 typedef struct Camera {
 	enum CameraProjection projection;
 	unsigned int size;
 	float fov;
+	Vec3* position;
 } Camera;
 
 typedef struct RenderObject
@@ -33,13 +40,6 @@ typedef struct Sprite
 typedef struct Shader {
 	unsigned int id;
 } Shader;
-
-typedef struct Vec3
-{
-	float x;
-	float y;
-	float z;
-} Vec3;
 
 enum Keys {
 	KEY_UNKNOWN = -1,
@@ -164,3 +164,4 @@ enum Keys {
 	KEY_RIGHT_SUPER = 347,
 	KEY_MENU = 348
 };
+

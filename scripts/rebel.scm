@@ -37,6 +37,8 @@
 (define camera_get_main (foreign-lambda c-pointer "GetMainCamera"))
 (define (camera_set_projection camera value) (set! (Camera-projection camera) value))
 (define (camera_get_projection camera) (Camera-projection camera))
+(define (get_camera_position camera) (Camera-position camera))
+(define (set_camera_position camera vauel) (set! (Camera-position camera) value))
 
 (define window_can_close (foreign-lambda bool "WindowCanClose"))
 (define window_clear (foreign-lambda void "WindowClear"))
