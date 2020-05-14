@@ -14,7 +14,7 @@
 ;; you need more control over your memory allocations.
 
 (bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
-;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (get_vec3_x and set_vec3_x).
+;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3_x and vec3_x!).
 
 (bind* "#include \"../src/stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
@@ -27,18 +27,21 @@
 (define process_inputs (foreign-lambda void "ProcessInputs"))
 (define make_vec3_ (foreign-lambda c-pointer "MakeVec3" float float float))
 (define (make_vec3 x y z) (set-finalizer! (make_vec3_ x y z) free))
-(define (get_vec3_x p) (Vec3-x p))
-(define (get_vec3_y p) (Vec3-y p))
-(define (set_vec3_x p x) (set! (Vec3-x p) x))
-(define (set_vec3_y p y) (set! (Vec3-y p) y))
-(define (get_vec3_z p) (Vec3-z p))
-(define (set_vec3_z p z) (set! (Vec3-z p) z))
 
-(define camera_get_main (foreign-lambda c-pointer "GetMainCamera"))
-(define (camera_set_projection camera value) (set! (Camera-projection camera) value))
-(define (camera_get_projection camera) (Camera-projection camera))
-(define (get_camera_position camera) (Camera-position camera))
-(define (set_camera_position camera vauel) (set! (Camera-position camera) value))
+(define (vec3_x p) (Vec3-x p))
+(define (vec3_x! p x) (set! (Vec3-x p) x))
+
+(define (vec3_y p) (Vec3-y p))
+(define (vec3_y! p y) (set! (Vec3-y p) y))
+
+(define (vec3_z p) (Vec3-z p))
+(define (vec3_z! p z) (set! (Vec3-z p) z))
+
+(define camera_main (foreign-lambda c-pointer "GetMainCamera"))
+(define (camera_projection! camera value) (set! (Camera-projection camera) value))
+(define (camera_projection camera) (Camera-projection camera))
+(define (camera_position camera) (Camera-position camera))
+(define (camera_position! camera vauel) (set! (Camera-position camera) value))
 
 (define window_can_close (foreign-lambda bool "WindowCanClose"))
 (define window_clear (foreign-lambda void "WindowClear"))
