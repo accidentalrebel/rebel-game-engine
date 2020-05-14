@@ -22,8 +22,8 @@
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer)) 
 
-(define rebel_init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
-(define rebel_destroy (foreign-lambda void "RebelDestroy"))
+(define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
+(define rebel:destroy (foreign-lambda void "RebelDestroy"))
 (define process_inputs (foreign-lambda void "ProcessInputs"))
 (define make_vec3% (foreign-lambda c-pointer "MakeVec3" float float float))
 (define (make_vec3 x y z) (set-finalizer! (make_vec3% x y z) free%))
@@ -38,37 +38,37 @@
 (define (vec3_z! p z) (set! (Vec3-z p) z))
 
 (define camera_main (foreign-lambda c-pointer "GetMainCamera"))
-(define (camera_projection! camera value) (set! (Camera-projection camera) value))
-(define (camera_projection camera) (Camera-projection camera))
-(define (camera_position camera) (Camera-position camera))
-(define (camera_position! camera vauel) (set! (Camera-position camera) value))
+(define (camera:projection! camera value) (set! (Camera-projection camera) value))
+(define (camera:projection camera) (Camera-projection camera))
+(define (camera:position camera) (Camera-position camera))
+(define (camera:position! camera vauel) (set! (Camera-position camera) value))
 
-(define window_can_close (foreign-lambda bool "WindowCanClose"))
-(define window_clear (foreign-lambda void "WindowClear"))
-(define window_swap (foreign-lambda void "WindowSwap"))
-(define window_destroy (foreign-lambda void "WindowDestroy"))
+(define window:can_close (foreign-lambda bool "WindowCanClose"))
+(define window:clear (foreign-lambda void "WindowClear"))
+(define window:swap (foreign-lambda void "WindowSwap"))
+(define window:destroy (foreign-lambda void "WindowDestroy"))
 
-(define cube_create_ (foreign-lambda c-pointer "CubeCreate" c-string c-string))
-(define (cube_create x y) (set-finalizer! (cube_create_ x y) free%))
+(define cube:create% (foreign-lambda c-pointer "CubeCreate" c-string c-string))
+(define (cube:create x y) (set-finalizer! (cube:create% x y) free%))
 
-(define sprite_create_ (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
-(define (sprite_create x y) (set-finalizer! (sprite_create_ x y) free%))
-(define sprite_draw (foreign-lambda void "SpriteDraw"
+(define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
+(define (sprite:create x y) (set-finalizer! (sprite:create% x y) free%))
+(define sprite:draw (foreign-lambda void "SpriteDraw"
 				    (c-pointer (struct "Sprite"))
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))
 				    (c-pointer (struct "Shader"))))
 
-(define cube_draw (foreign-lambda void "CubeDraw"
+(define cube:draw (foreign-lambda void "CubeDraw"
 				    (c-pointer (struct "Cube"))
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))
 				    (c-pointer (struct "Shader"))))
 
-(define shader_create_ (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
-(define (shader_create x y) (set-finalizer! (shader_create_ x y) free%))
+(define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
+(define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
 
 (define key_down? (foreign-lambda bool "IsKeyDown" (enum "Keys")))
 (define key_up? (foreign-lambda bool "IsKeyUp" (enum "Keys")))
