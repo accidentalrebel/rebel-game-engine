@@ -3,8 +3,8 @@
 
 (set-gc-report! #t)
 
-;; Note; Some functions have two versions. One of them has an underscore (make_vec3%),
-;; another does not (make_vec3).
+;; Note; Some functions have two versions. One of them has an underscore (vec3:create%),
+;; another does not (vec3:create).
 ;;
 ;; The one without underscores return pointer objects that are automatically tracked
 ;; by the garbage collector. The one with underscores are not and you'd have to manually
@@ -24,9 +24,9 @@
 
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))
-(define process_inputs (foreign-lambda void "ProcessInputs"))
-(define make_vec3% (foreign-lambda c-pointer "MakeVec3" float float float))
-(define (make_vec3 x y z) (set-finalizer! (make_vec3% x y z) free%))
+(define input:process (foreign-lambda void "ProcessInputs"))
+(define vec3:create% (foreign-lambda c-pointer "MakeVec3" float float float))
+(define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 
 (define (vec3_x p) (Vec3-x p))
 (define (vec3_x! p x) (set! (Vec3-x p) x))
@@ -37,7 +37,7 @@
 (define (vec3_z p) (Vec3-z p))
 (define (vec3_z! p z) (set! (Vec3-z p) z))
 
-(define camera_main (foreign-lambda c-pointer "GetMainCamera"))
+(define camera:main (foreign-lambda c-pointer "GetMainCamera"))
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))
 (define (camera:projection camera) (Camera-projection camera))
 (define (camera:position camera) (Camera-position camera))
@@ -70,7 +70,7 @@
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
 
-(define key_down? (foreign-lambda bool "IsKeyDown" (enum "Keys")))
-(define key_up? (foreign-lambda bool "IsKeyUp" (enum "Keys")))
+(define key:down? (foreign-lambda bool "IsKeyDown" (enum "Keys")))
+(define key:up? (foreign-lambda bool "IsKeyUp" (enum "Keys")))
 
 

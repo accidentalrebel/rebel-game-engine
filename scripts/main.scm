@@ -7,7 +7,7 @@
   (if (window:can_close)
       (exit-program)
       (begin
-	(process_inputs)
+	(input:process)
 	(update)
 	(loop-program))
       ))
