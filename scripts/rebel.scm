@@ -70,7 +70,7 @@
 (define shader_create_ (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader_create x y) (set-finalizer! (shader_create_ x y) free))
 
-(define is_key_down (foreign-lambda bool "IsKeyDown" (enum "Keys")))
-(define is_key_up (foreign-lambda bool "IsKeyUp" (enum "Keys")))
+(define key_down? (foreign-lambda bool "IsKeyDown" (enum "Keys")))
+(define key_up? (foreign-lambda bool "IsKeyUp" (enum "Keys")))
 
 

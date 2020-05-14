@@ -24,27 +24,27 @@
 	 (current-projection (camera_projection main-camera))
 	 (camera-pos (camera_position main-camera)))
     
-    (when (is_key_up KEY_C)
+    (when (key_up? KEY_C)
       (if (= current-projection PERSPECTIVE)
 	  (camera_projection! main-camera ORTHOGRAPHIC)
 	  (camera_projection! main-camera PERSPECTIVE)))
     
-    (when (is_key_down KEY_A)
+    (when (key_down? KEY_A)
       (vec3_x! camera-pos
 		  (+ (vec3_x camera-pos) MOVEMENT_SPEED)))
-    (when (is_key_down KEY_E)
+    (when (key_down? KEY_E)
       (vec3_x! camera-pos
 		  (- (vec3_x camera-pos) MOVEMENT_SPEED)))
-    (when (is_key_down KEY_COMMA)
+    (when (key_down? KEY_COMMA)
       (vec3_z! camera-pos
 		  (+ (vec3_z camera-pos) MOVEMENT_SPEED)))
-    (when (is_key_down KEY_O)
+    (when (key_down? KEY_O)
       (vec3_z! camera-pos
 		  (- (vec3_z camera-pos) MOVEMENT_SPEED))))
   
   (for-each
    (lambda (position)
-     (let ((ti`nt (make_vec3_ 1 0 1)))
+     (let ((tint (make_vec3_ 1 0 1)))
        (cube_draw cube position 1 1 tint cube-shader)
        (free tint)))
    cube-positions)
