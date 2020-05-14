@@ -2,16 +2,16 @@
 
 (define MOVEMENT_SPEED 0.001)
 
-(define cube)
-(define cube-shader)
-(define cube-positions)
+(define *cube*)
+(define *cube-shader*)
+(define *cube-positions*)
 
 (define (init)
-  (set! cube
+  (set! *cube*
 	(cube_create "assets/textures" "awesomeface.png"))
-  (set! cube-shader
+  (set! *cube-shader*
 	(shader_create "shaders/simple-3d.vs" "shaders/simple.fs"))
-  (set! cube-positions
+  (set! *cube-positions*
 	(list (make_vec3 0 0 0)
 	      (make_vec3 1.25 0 0)
 	      (make_vec3 -1.25 0 0)))
@@ -44,10 +44,10 @@
   
   (for-each
    (lambda (position)
-     (let ((tint (make_vec3_ 1 0 1)))
-       (cube_draw cube position 1 1 tint cube-shader)
-       (free tint)))
-   cube-positions)
+     (let ((tint (make_vec3% 1 0 1)))
+       (cube_draw *cube* position 1 1 tint *cube-shader*)
+       (free% tint)))
+   *cube-positions*)
 
   (window_swap)
   ;; (display (conc "GC: " (->string (gc #f))))

@@ -3,7 +3,7 @@
 
 (set-gc-report! #t)
 
-;; Note; Some functions have two versions. One of them has an underscore (make_vec3_),
+;; Note; Some functions have two versions. One of them has an underscore (make_vec3%),
 ;; another does not (make_vec3).
 ;;
 ;; The one without underscores return pointer objects that are automatically tracked
@@ -20,13 +20,13 @@
 
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
-(define free (foreign-lambda void "free" c-pointer)) 
+(define free% (foreign-lambda void "free" c-pointer)) 
 
 (define rebel_init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel_destroy (foreign-lambda void "RebelDestroy"))
 (define process_inputs (foreign-lambda void "ProcessInputs"))
-(define make_vec3_ (foreign-lambda c-pointer "MakeVec3" float float float))
-(define (make_vec3 x y z) (set-finalizer! (make_vec3_ x y z) free))
+(define make_vec3% (foreign-lambda c-pointer "MakeVec3" float float float))
+(define (make_vec3 x y z) (set-finalizer! (make_vec3% x y z) free%))
 
 (define (vec3_x p) (Vec3-x p))
 (define (vec3_x! p x) (set! (Vec3-x p) x))
@@ -49,10 +49,10 @@
 (define window_destroy (foreign-lambda void "WindowDestroy"))
 
 (define cube_create_ (foreign-lambda c-pointer "CubeCreate" c-string c-string))
-(define (cube_create x y) (set-finalizer! (cube_create_ x y) free))
+(define (cube_create x y) (set-finalizer! (cube_create_ x y) free%))
 
 (define sprite_create_ (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
-(define (sprite_create x y) (set-finalizer! (sprite_create_ x y) free))
+(define (sprite_create x y) (set-finalizer! (sprite_create_ x y) free%))
 (define sprite_draw (foreign-lambda void "SpriteDraw"
 				    (c-pointer (struct "Sprite"))
 				    (c-pointer (struct "Vec3"))
@@ -68,7 +68,7 @@
 				    (c-pointer (struct "Shader"))))
 
 (define shader_create_ (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
-(define (shader_create x y) (set-finalizer! (shader_create_ x y) free))
+(define (shader_create x y) (set-finalizer! (shader_create_ x y) free%))
 
 (define key_down? (foreign-lambda bool "IsKeyDown" (enum "Keys")))
 (define key_up? (foreign-lambda bool "IsKeyUp" (enum "Keys")))
