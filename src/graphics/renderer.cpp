@@ -128,20 +128,22 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
-	
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), windowWidth/windowHeight, 0.1f, 100.0f);
-	// glm::mat4 projection = glm::ortho(-windowWidth / 2, windowWidth / 2, -windowHeight / 2, windowHeight / 2, -100.0f, 100.0f);
+
+	glm::mat4 projection;
+	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE ) 
+		projection = glm::perspective(glm::radians(45.0f), windowWidth/windowHeight, 0.1f, 100.0f);
+	else
+		projection = glm::ortho(-windowWidth / 2, windowWidth / 2, -windowHeight / 2, windowHeight / 2, -100.0f, 100.0f);
 	
 	glm::mat4 view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	
 	glm::mat4 model = glm::mat4(1.0f);
 
-	// ORTHO
-	// model = glm::scale(model, glm::vec3(width, height, 1.0f));
-	
-	// PERSPECTIVE
-	model = glm::scale(model, glm::vec3(width * (width / windowWidth), height * ( height / windowHeight), 0.2f));
+	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE ) 
+		model = glm::scale(model, glm::vec3(width * (width / windowWidth), height * ( height / windowHeight), (height * (height / windowHeight))));
+	else
+		model = glm::scale(model, glm::vec3(width, height, 1.0f));
 	
 	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
 	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
