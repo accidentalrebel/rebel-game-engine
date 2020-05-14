@@ -46,7 +46,7 @@
      (let ((tint (make_vec3_ 1 0 1)))
        (cube_draw cube
 		  position
-		  30 30
+		  10 10 ;30 30
 		  tint
 		  cube-shader)
        (free tint)))

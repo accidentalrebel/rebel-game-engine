@@ -9,6 +9,7 @@ Rebel g_rebel;
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
 	g_rebel.window = WindowInit(windowWidth, windowHeight, windowName);
+	g_rebel.mainCamera = CameraCreate();
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 

@@ -152,3 +152,8 @@ enum Keys {
 	KEY_RIGHT_SUPER = 347,
 	KEY_MENU = 348
 };
+
+enum CameraProjection {
+	PERSPECTIVE = 0,
+	ORTHOGRAPHIC
+};

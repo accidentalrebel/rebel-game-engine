@@ -1,13 +1,14 @@
 #pragma once
 
 #include <glad/glad.h>
-#include "data/structs.h"
 #include "core/window.h"
+#include "data/structs.h"
 #include "graphics/shader.h"
-#include "input/keyboard.h"
+#include "graphics/camera.h"
 
 typedef struct Rebel {
 	Shader *defaultShader;
+	Camera *mainCamera;
 	Window window;
 } Rebel;
 
