@@ -8,6 +8,8 @@ enum CameraProjection {
 
 typedef struct Camera {
 	enum CameraProjection projection;
+	unsigned int size;
+	float fov;
 } Camera;
 
 typedef struct RenderObject

@@ -133,21 +133,18 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 model = glm::mat4(1.0f);
 	float screenRatio = windowWidth / windowHeight;
+	float zoom = glm::radians(g_rebel.mainCamera->fov);
+	float size = g_rebel.mainCamera->size;
 	
 	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE )  {
-		projection = glm::perspective(glm::radians(45.0f), screenRatio, 0.1f, 100.0f);
+		projection = glm::perspective(zoom, screenRatio, 0.1f, 100.0f);
 	}
 	else {
-		projection = glm::ortho(-windowWidth / 2, windowWidth / 2, -windowHeight / 2, windowHeight / 2, -100.0f, 100.0f);
+		projection = glm::ortho(-windowWidth / 100 / size, windowWidth / 100 / size, -windowHeight / 100 / size, windowHeight / 100 / size, -100.0f, 100.0f);
 	}
 	
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
-
-	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE ) 
-		model = glm::scale(model, glm::vec3(width / screenRatio, height / screenRatio, height / screenRatio));
-	else
-		model = glm::scale(model, glm::vec3(width * screenRatio * 155, height * screenRatio * 155, 10.0f));
-	
+	model = glm::scale(model, glm::vec3(width, height, height));
 	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
 	// model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
