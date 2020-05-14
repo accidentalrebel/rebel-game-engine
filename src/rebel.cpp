@@ -30,6 +30,11 @@ Vec3* MakeVec3(float x = 0, float y = 0, float z = 0)
 	return v;
 }
 
+Camera* GetMainCamera()
+{
+	return g_rebel.mainCamera;
+}
+
 void RebelDestroy()
 {
 	WindowDestroy();

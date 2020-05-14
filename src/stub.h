@@ -12,6 +12,11 @@ void ProcessInputs();
 //
 Vec3* MakeVec3(float x, float y, float z);
 
+// CAMERA
+//
+Camera* GetMainCamera();
+void CameraSetProjection(Camera* camera, enum CameraProjection projection);
+
 // WINDOW
 //
 bool WindowCanClose();

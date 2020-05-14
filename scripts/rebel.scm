@@ -32,6 +32,11 @@
 (define (get_vec3_z p) (Vec3-z p))
 (define (set_vec3_z p z) (set! (Vec3-z p) z))
 
+(define camera_get_main (foreign-lambda c-pointer "GetMainCamera"))
+(define camera_set_projection (foreign-lambda void "CameraSetProjection"
+					      (c-pointer (struct "Camera"))
+					      (enum "CameraProjection")))
+
 (define window_can_close (foreign-lambda bool "WindowCanClose"))
 (define window_clear (foreign-lambda void "WindowClear"))
 (define window_swap (foreign-lambda void "WindowSwap"))

@@ -1,5 +1,15 @@
 #pragma once
 
+
+enum CameraProjection {
+	PERSPECTIVE = 0,
+	ORTHOGRAPHIC
+};
+
+typedef struct Camera {
+	enum CameraProjection projection;
+} Camera;
+
 typedef struct RenderObject
 {
 	unsigned int VAO;
@@ -151,9 +161,4 @@ enum Keys {
 	KEY_RIGHT_ALT = 346,
 	KEY_RIGHT_SUPER = 347,
 	KEY_MENU = 348
-};
-
-enum CameraProjection {
-	PERSPECTIVE = 0,
-	ORTHOGRAPHIC
 };

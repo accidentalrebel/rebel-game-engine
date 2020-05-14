@@ -36,11 +36,13 @@
   (when (is_key_down KEY_A)
     (set_vec3_x current-pos (- (get_vec3_x current-pos) MOVEMENT_SPEED)))
 
-  (when (is_key_down KEY_PERIOD)
+  (when (is_key_up KEY_PERIOD)
     (set_vec3_z current-pos 1))
-  (when (is_key_down KEY_SEMICOLON)
+  (when (is_key_up KEY_SEMICOLON)
     (set_vec3_z current-pos -1))
-
+  (when (is_key_up KEY_C)
+    (camera_set_projection (camera_get_main) ORTHOGRAPHIC))
+  
   (for-each
    (lambda (position)
      (let ((tint (make_vec3_ 1 0 1)))
