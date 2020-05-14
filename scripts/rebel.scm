@@ -14,6 +14,8 @@
 ;; you need more control over your memory allocations.
 
 (bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
+;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (get_vec3_x and set_vec3_x).
+
 (bind* "#include \"../src/stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
 ;; Used by functions that need a finalizer
@@ -33,9 +35,8 @@
 (define (set_vec3_z p z) (set! (Vec3-z p) z))
 
 (define camera_get_main (foreign-lambda c-pointer "GetMainCamera"))
-(define camera_set_projection (foreign-lambda void "CameraSetProjection"
-					      (c-pointer (struct "Camera"))
-					      (enum "CameraProjection")))
+(define (camera_set_projection camera value) (set! (Camera-projection camera) value))
+(define (camera_get_projection camera) (Camera-projection camera))
 
 (define window_can_close (foreign-lambda bool "WindowCanClose"))
 (define window_clear (foreign-lambda void "WindowClear"))
