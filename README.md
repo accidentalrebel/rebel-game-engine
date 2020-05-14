@@ -11,26 +11,26 @@ Check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/G
 Simple program that displays a sprite with keyboard movement.
 
 ```scheme
-   (define box-sprite)
-   (define box-pos)
+   (define *box-sprite*)
+   (define *box-pos*)
 
    (define (init)
-     (set! box-sprite (sprite_create "assets/textures" "tile.png"))
-     (set! box-pos (make_vec3 400 300 0))
+     (set! *box-sprite* (sprite:create "assets/textures" "tile.png"))
+     (set! *box-pos* (vec3:create 400 300 0))
      #t)
 
    (define (update)
-     (window_clear)
+     (window:clear)
 
-     (when (is_key_down KEY_A)
-       (set_vec3_x box-pos (+ (get_vec3_x box-pos) 1)))
-     (when (is_key_down KEY_D)
-       (set_vec3_x box-pos (- (get_vec3_x box-pos) 1)))
+     (when (key:down? KEY_A)
+       (vec3_x! *box-pos* (+ (vec3_x *box-pos*) 1)))
+     (when (key:down? KEY_D)
+       (vec3_x! *box-pos* (- (vec3_x *box-pos*) 1)))
 
-     (let ((tint (make_vec3 1 0 1)))
-       (sprite_draw box-sprite box-pos 50 50 tint #f))
+     (let ((tint (vec3:create 1 0 1)))
+       (sprite:draw *box-sprite* *box-pos* 50 50 tint #f))
 
-     (window_swap)
+     (window:swap)
      #t)
 ```
 
@@ -42,7 +42,7 @@ v1.0
 - [x] Coordinate system
 - [x] Scripting Integration
 - [x] Multiplatform development
-- [ ] Camera System
+- [-] Camera System
 - [ ] Loading 3D models
 - [ ] Sprite transparency
 - [ ] Text

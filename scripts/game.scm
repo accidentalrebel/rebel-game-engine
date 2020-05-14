@@ -1,5 +1,3 @@
-(import (chicken string))
-
 (define MOVEMENT_SPEED 0.001)
 
 (define *cube*)
