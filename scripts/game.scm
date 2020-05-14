@@ -40,8 +40,13 @@
     (set_vec3_z current-pos 1))
   (when (is_key_up KEY_SEMICOLON)
     (set_vec3_z current-pos -1))
+  
   (when (is_key_up KEY_C)
-    (camera_set_projection (camera_get_main) ORTHOGRAPHIC))
+    (let* ((main-camera (camera_get_main))
+	   (current-projection (camera_get_projection main-camera)))
+      (if (= current-projection PERSPECTIVE)
+	  (camera_set_projection main-camera ORTHOGRAPHIC)
+	  (camera_set_projection main-camera PERSPECTIVE))))
   
   (for-each
    (lambda (position)
