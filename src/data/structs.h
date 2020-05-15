@@ -17,6 +17,8 @@ typedef struct Camera {
 	unsigned int size;
 	float fov;
 	Vec3* position;
+	Vec3* front;
+	Vec3* up;
 } Camera;
 
 typedef struct RenderObject

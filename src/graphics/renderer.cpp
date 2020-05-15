@@ -143,8 +143,13 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 		projection = glm::ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f);
 	}
 
-	Vec3* cameraPos = g_rebel.mainCamera->position;
-	view = glm::translate(view, glm::vec3(cameraPos->x, cameraPos->y, cameraPos->z)); 
+	glm::vec3 cameraPos = glm::vec3(g_rebel.mainCamera->position->x, g_rebel.mainCamera->position->y, g_rebel.mainCamera->position->z);
+	glm::vec3 cameraFront = glm::vec3(g_rebel.mainCamera->front->x, g_rebel.mainCamera->front->y, g_rebel.mainCamera->front->z);
+	glm::vec3 cameraUp = glm::vec3(g_rebel.mainCamera->up->x, g_rebel.mainCamera->up->y, g_rebel.mainCamera->up->z);
+	
+	//view = glm::translate(view, cameraPos);
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
 	model = glm::scale(model, glm::vec3(width, height, height));
 	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
 	// model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));

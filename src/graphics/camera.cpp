@@ -9,5 +9,7 @@ Camera* CameraCreate()
 	camera->size = 5;
 	camera->fov = 45;
 	camera->position = Vec3Create(0, 0, -10);
+	camera->front = Vec3Create(0, 0, 1);
+	camera->up = Vec3Create(0, 1, 0);
 	return camera;
 }
