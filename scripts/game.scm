@@ -42,7 +42,12 @@
     (cond ((key:down? KEY_SEMICOLON)
 	   (camera:yaw! main-camera (- (camera:yaw main-camera) 0.01)))
 	  ((key:down? KEY_PERIOD)
-	   (camera:yaw! main-camera (+ (camera:yaw main-camera) 0.01)))))
+	   (camera:yaw! main-camera (+ (camera:yaw main-camera) 0.01))))
+    (cond ((key:down? KEY_APOSTROPHE)
+	   (camera:pitch! main-camera (+ (camera:pitch main-camera) 0.01)))
+	  ((key:down? KEY_J)
+	   (camera:pitch! main-camera (- (camera:pitch main-camera) 0.01))))
+    )
   
   (for-each
    (lambda (position)

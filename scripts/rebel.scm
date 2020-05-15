@@ -45,6 +45,8 @@
 (define (camera:position! camera vauel) (set! (Camera-position camera) value))
 (define (camera:yaw camera) (Camera-yaw camera))
 (define (camera:yaw! camera value) (set! (Camera-yaw camera) value))
+(define (camera:pitch camera) (Camera-pitch camera))
+(define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
 
 (define window:can_close (foreign-lambda bool "WindowCanClose"))
 (define window:clear (foreign-lambda void "WindowClear"))

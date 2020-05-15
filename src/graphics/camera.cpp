@@ -12,16 +12,19 @@ Camera* CameraCreate()
 	camera->front = Vec3Create(0, 0, 1);
 	camera->up = Vec3Create(0, 1, 0);
 	camera->yaw = 90.0f;
+	camera->pitch = 0.0f;
 	return camera;
 }
 
 void CameraUpdateVectors(Camera* camera)
 {
 	glm::vec3 front;
-	front.x = cos(glm::radians(camera->yaw));
-	front.z = sin(glm::radians(camera->yaw));
+	front.x = cos(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
+	front.y = sin(glm::radians(camera->pitch));
+	front.z = sin(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
 	front = glm::normalize(front);
 
 	camera->front->x = front.x;
+	camera->front->y = front.y;
 	camera->front->z = front.z;
 }

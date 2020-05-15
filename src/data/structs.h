@@ -20,6 +20,7 @@ typedef struct Camera {
 	Vec3* front;
 	Vec3* up;
 	float yaw;
+	float pitch;
 } Camera;
 
 typedef struct RenderObject
