@@ -14,7 +14,7 @@
 ;; you need more control over your memory allocations.
 
 (bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
-;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3_x and vec3_x!).
+;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3:x and vec3:x!).
 
 (bind* "#include \"../src/stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
@@ -28,14 +28,14 @@
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 
-(define (vec3_x p) (Vec3-x p))
-(define (vec3_x! p x) (set! (Vec3-x p) x))
+(define (vec3:x p) (Vec3-x p))
+(define (vec3:x! p x) (set! (Vec3-x p) x))
 
-(define (vec3_y p) (Vec3-y p))
-(define (vec3_y! p y) (set! (Vec3-y p) y))
+(define (vec3:y p) (Vec3-y p))
+(define (vec3:y! p y) (set! (Vec3-y p) y))
 
-(define (vec3_z p) (Vec3-z p))
-(define (vec3_z! p z) (set! (Vec3-z p) z))
+(define (vec3:z p) (Vec3-z p))
+(define (vec3:z! p z) (set! (Vec3-z p) z))
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))

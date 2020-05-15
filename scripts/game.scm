@@ -12,8 +12,7 @@
   (set! *cube-positions*
 	(list (vec3:create 0 0 0)
 	      (vec3:create 1.25 0 0)
-	      (vec3:create -1.25 0 0)))
-  #t)
+	      (vec3:create -1.25 0 0))))
 
 (define (update)
   (window:clear)
@@ -28,25 +27,23 @@
 	  (camera:projection! main-camera PERSPECTIVE)))
     
     (when (key:down? KEY_A)
-      (vec3_x! camera-pos
-		  (+ (vec3_x camera-pos) MOVEMENT_SPEED)))
+      (vec3:x! camera-pos
+		  (+ (vec3:x camera-pos) MOVEMENT_SPEED)))
     (when (key:down? KEY_E)
-      (vec3_x! camera-pos
-		  (- (vec3_x camera-pos) MOVEMENT_SPEED)))
+      (vec3:x! camera-pos
+		  (- (vec3:x camera-pos) MOVEMENT_SPEED)))
     (when (key:down? KEY_COMMA)
-      (vec3_z! camera-pos
-		  (+ (vec3_z camera-pos) MOVEMENT_SPEED)))
+      (vec3:z! camera-pos
+		  (+ (vec3:z camera-pos) MOVEMENT_SPEED)))
     (when (key:down? KEY_O)
-      (vec3_z! camera-pos
-		  (- (vec3_z camera-pos) MOVEMENT_SPEED))))
+      (vec3:z! camera-pos
+		  (- (vec3:z camera-pos) MOVEMENT_SPEED))))
   
   (for-each
    (lambda (position)
-     (let ((tint (vec3:create% 1 0 1)))
-       (cube:draw *cube* position 1 1 tint *cube-shader*)
-       (free% tint)))
+     (let ((%tint% (vec3:create% 1 0 1)))
+       (cube:draw *cube* position 1 1 %tint% *cube-shader*)
+       (free% %tint%)))
    *cube-positions*)
 
-  (window:swap)
-  ;; (display (conc "GC: " (->string (gc #f))))
-  #t)
+  (window:swap))
