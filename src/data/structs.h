@@ -5,6 +5,15 @@ enum CameraProjection {
 	ORTHOGRAPHIC
 };
 
+enum Direction {
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 typedef struct Vec3
 {
 	float x;

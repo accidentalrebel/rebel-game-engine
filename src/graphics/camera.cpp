@@ -1,4 +1,5 @@
 #include "../rebel.h"
+#include "../data/vec3.hpp"
 #include "camera.h"
 #include <cstdlib>
 
@@ -27,4 +28,15 @@ void CameraUpdateVectors(Camera* camera)
 	camera->front->x = front.x;
 	camera->front->y = front.y;
 	camera->front->z = front.z;
+}
+
+void CameraMove(Camera *camera, enum Direction direction, float velocity)
+{
+	if ( direction == FORWARD )
+	{
+		glm::vec3 front = Vec3ToGlm(*camera->front);
+		glm::vec3 position = Vec3ToGlm(*camera->position);
+		position += front * velocity;
+		Vec3FromGlm(camera->position, position);
+	}
 }

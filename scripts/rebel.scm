@@ -43,6 +43,8 @@
 (define (camera:projection camera) (Camera-projection camera))
 (define (camera:position camera) (Camera-position camera))
 (define (camera:position! camera vauel) (set! (Camera-position camera) value))
+(define (camera:front camera) (Camera-front camera))
+(define (camera:front! camera vauel) (set! (Camera-front camera) value))
 (define (camera:yaw camera) (Camera-yaw camera))
 (define (camera:yaw! camera value) (set! (Camera-yaw camera) value))
 (define (camera:pitch camera) (Camera-pitch camera))

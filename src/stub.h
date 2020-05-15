@@ -16,6 +16,7 @@ Vec3* Vec3Create(float x, float y, float z);
 //
 Camera* CameraGetMain();
 void CameraUpdateVectors(Camera* camera);
+void CameraMove(Camera *camera, enum Direction direction, float velocity);
 
 // WINDOW
 //

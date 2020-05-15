@@ -25,10 +25,11 @@ run:
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/stub.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/stub.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
+	$(CC) -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
