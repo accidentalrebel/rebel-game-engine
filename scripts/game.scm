@@ -37,7 +37,12 @@
 		  (+ (vec3:z camera-pos) MOVEMENT_SPEED)))
     (when (key:down? KEY_O)
       (vec3:z! camera-pos
-		  (- (vec3:z camera-pos) MOVEMENT_SPEED))))
+	       (- (vec3:z camera-pos) MOVEMENT_SPEED)))
+    
+    (cond ((key:down? KEY_SEMICOLON)
+	   (camera:yaw! main-camera (- (camera:yaw main-camera) 0.01)))
+	  ((key:down? KEY_PERIOD)
+	   (camera:yaw! main-camera (+ (camera:yaw main-camera) 0.01)))))
   
   (for-each
    (lambda (position)

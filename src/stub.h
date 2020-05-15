@@ -15,6 +15,7 @@ Vec3* Vec3Create(float x, float y, float z);
 // CAMERA
 //
 Camera* CameraGetMain();
+void CameraUpdateVectors(Camera* camera);
 
 // WINDOW
 //

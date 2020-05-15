@@ -19,6 +19,7 @@ typedef struct Camera {
 	Vec3* position;
 	Vec3* front;
 	Vec3* up;
+	float yaw;
 } Camera;
 
 typedef struct RenderObject

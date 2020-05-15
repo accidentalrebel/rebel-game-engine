@@ -9,6 +9,7 @@
       (begin
 	(input:process)
 	(update)
+	(camera:update_vectors (camera:main))
 	(loop-program))
       ))
 

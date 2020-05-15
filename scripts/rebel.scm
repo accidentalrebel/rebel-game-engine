@@ -38,10 +38,13 @@
 (define (vec3:z! p z) (set! (Vec3-z p) z))
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
+(define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))
 (define (camera:projection camera) (Camera-projection camera))
 (define (camera:position camera) (Camera-position camera))
 (define (camera:position! camera vauel) (set! (Camera-position camera) value))
+(define (camera:yaw camera) (Camera-yaw camera))
+(define (camera:yaw! camera value) (set! (Camera-yaw camera) value))
 
 (define window:can_close (foreign-lambda bool "WindowCanClose"))
 (define window:clear (foreign-lambda void "WindowClear"))
