@@ -33,8 +33,7 @@
       (vec3:x! camera-pos
 		  (- (vec3:x camera-pos) MOVEMENT_SPEED)))
     (when (key:down? KEY_COMMA)
-      (vec3:z! camera-pos
-		  (+ (vec3:z camera-pos) MOVEMENT_SPEED)))
+      (camera:move main-camera FORWARD MOVEMENT_SPEED))
     (when (key:down? KEY_O)
       (vec3:z! camera-pos
 	       (- (vec3:z camera-pos) MOVEMENT_SPEED)))

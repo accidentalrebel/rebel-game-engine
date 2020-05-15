@@ -39,6 +39,7 @@
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
+(define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))
 (define (camera:projection camera) (Camera-projection camera))
 (define (camera:position camera) (Camera-position camera))
