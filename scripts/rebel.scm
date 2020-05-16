@@ -86,3 +86,4 @@
 (define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))
 (define (mouse:x) (Mouse-xPos (mouse:instance)))
 (define (mouse:y) (Mouse-yPos (mouse:instance)))
+(define (mouse:initialized?) (Mouse-initialized (mouse:instance)))

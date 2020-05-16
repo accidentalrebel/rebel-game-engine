@@ -17,23 +17,26 @@
 	(y-offset (* (- last-mouse-y (mouse:y)) MOUSE_SENSITIVITY))
 	(computed-pitch (+ (camera:pitch main-camera) y-offset)))
 
-    (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
-    (camera:pitch! main-camera
-		   (cond ((> computed-pitch 89.0)
-			  89.0)
-			 ((< computed-pitch -89.0)
-			  -89.0)
-			 (else
-			  computed-pitch)))
-    
-    (camera:update_vectors main-camera))
+    (when (and (not (= x-offset 0.0))
+	       (not (= y-offset 0.0)))
+      (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
+      (camera:pitch! main-camera
+		     (cond ((> computed-pitch 89.0)
+			    89.0)
+			   ((< computed-pitch -89.0)
+			    -89.0)
+			   (else
+			    computed-pitch)))
+      
+      (camera:update_vectors main-camera)))
   
   (set! last-mouse-x (mouse:x))
   (set! last-mouse-y (mouse:y))
   )
 
 (define (fpcam:update)
-  (fpcam::handle_mouse)
+  (when (mouse:initialized?)
+    (fpcam::handle_mouse))
   
   (let* ((main-camera (camera:main))
 	 (current-projection (camera:projection main-camera))
