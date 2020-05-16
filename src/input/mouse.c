@@ -14,13 +14,13 @@ Mouse* MouseGetInstance()
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
-	g_rebel.mouse->xPos = xPos;
-	g_rebel.mouse->yPos = yPos;
+	g_rebel.mouse->xPos = (float)xPos;
+	g_rebel.mouse->yPos = (float)yPos;
 }
 
 void MouseEnable()
 {
-	/* glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);   */
+	glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(g_rebel.window.glWindow, MouseCallback);
 }
 	

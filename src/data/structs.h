@@ -34,8 +34,8 @@ typedef struct Camera {
 } Camera;
 
 typedef struct Mouse {
-	double xPos;
-	double yPos;
+	float xPos;
+	float yPos;
 } Mouse;
 
 typedef struct RenderObject

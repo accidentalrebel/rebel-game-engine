@@ -1,5 +1,7 @@
 (mouse:enable)
 
+(define MOUSE_SENSITIVITY 0.2)
+
 (define last-mouse-x)
 (define last-mouse-y)
 (define first-mouse 1)
@@ -10,13 +12,22 @@
     (set! last-mouse-y (mouse:y))
     (set! first-mouse 0))
 
-  (let ((x-offset (- (mouse:x) last-mouse-x))
-	(y-offset (- last-mouse-y (mouse:y))))
-    (display x-offset)
-    (display ":")
-    (display y-offset)
-    (newline)
-    )
+  (let* ((main-camera (camera:main))
+	(x-offset (* (- (mouse:x) last-mouse-x) MOUSE_SENSITIVITY))
+	(y-offset (* (- last-mouse-y (mouse:y)) MOUSE_SENSITIVITY))
+	(computed-pitch (+ (camera:pitch main-camera) y-offset)))
+
+    (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
+    (camera:pitch! main-camera
+		   (cond ((> computed-pitch 89.0)
+			  89.0)
+			 ((< computed-pitch -89.0)
+			  -89.0)
+			 (else
+			  computed-pitch)))
+    
+    (camera:update_vectors main-camera))
+  
   (set! last-mouse-x (mouse:x))
   (set! last-mouse-y (mouse:y))
   )
