@@ -17,8 +17,6 @@
 	(y-offset (* (- last-mouse-y (mouse:y)) MOUSE_SENSITIVITY))
 	(computed-pitch (+ (camera:pitch main-camera) y-offset)))
 
-    (when (and (not (= x-offset 0.0))
-	       (not (= y-offset 0.0)))
       (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
       (camera:pitch! main-camera
 		     (cond ((> computed-pitch 89.0)
@@ -28,7 +26,7 @@
 			   (else
 			    computed-pitch)))
       
-      (camera:update_vectors main-camera)))
+      (camera:update_vectors main-camera))
   
   (set! last-mouse-x (mouse:x))
   (set! last-mouse-y (mouse:y))

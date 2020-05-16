@@ -42,7 +42,7 @@ v1.0
 - [x] Coordinate system
 - [x] Scripting Integration
 - [x] Multiplatform development
-- [-] Camera System
+- [x] Camera System
 - [ ] Loading 3D models
 - [ ] Sprite transparency
 - [ ] Text
