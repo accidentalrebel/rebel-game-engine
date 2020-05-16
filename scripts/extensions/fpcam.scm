@@ -1,10 +1,28 @@
 (mouse:enable)
 
+(define last-mouse-x)
+(define last-mouse-y)
+(define first-mouse 1)
+
+(define (fpcam::handle_mouse)
+  (when (= first-mouse 1)
+    (set! last-mouse-x (mouse:x))
+    (set! last-mouse-y (mouse:y))
+    (set! first-mouse 0))
+
+  (let ((x-offset (- (mouse:x) last-mouse-x))
+	(y-offset (- last-mouse-y (mouse:y))))
+    (display x-offset)
+    (display ":")
+    (display y-offset)
+    (newline)
+    )
+  (set! last-mouse-x (mouse:x))
+  (set! last-mouse-y (mouse:y))
+  )
+
 (define (fpcam:update)
-  (display (mouse:x))
-  (display ":")
-  (display (mouse:y))
-  (newline)
+  (fpcam::handle_mouse)
   
   (let* ((main-camera (camera:main))
 	 (current-projection (camera:projection main-camera))
