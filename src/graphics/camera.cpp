@@ -32,11 +32,20 @@ void CameraUpdateVectors(Camera* camera)
 
 void CameraMove(Camera *camera, enum Direction direction, float velocity)
 {
-	if ( direction == FORWARD )
+	glm::vec3 front = Vec3ToGlm(*camera->front);
+	glm::vec3 position = Vec3ToGlm(*camera->position);
+
+	switch ( direction )
 	{
-		glm::vec3 front = Vec3ToGlm(*camera->front);
-		glm::vec3 position = Vec3ToGlm(*camera->position);
-		position += front * velocity;
-		Vec3FromGlm(camera->position, position);
+	 case FORWARD:
+		 position += front * velocity;
+		 break;
+	 case BACKWARD:
+		 position -= front * velocity;
+		 break;
+	 default:
+		 break;
 	}
+
+	Vec3FromGlm(camera->position, position);
 }

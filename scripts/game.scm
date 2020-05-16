@@ -35,8 +35,7 @@
     (when (key:down? KEY_COMMA)
       (camera:move main-camera FORWARD MOVEMENT_SPEED))
     (when (key:down? KEY_O)
-      (vec3:z! camera-pos
-	       (- (vec3:z camera-pos) MOVEMENT_SPEED)))
+      (camera:move main-camera BACKWARD MOVEMENT_SPEED))
     
     (cond ((key:down? KEY_SEMICOLON)
 	   (camera:yaw! main-camera (- (camera:yaw main-camera) 0.01)))
