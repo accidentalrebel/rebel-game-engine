@@ -27,11 +27,9 @@
 	  (camera:projection! main-camera PERSPECTIVE)))
     
     (when (key:down? KEY_A)
-      (vec3:x! camera-pos
-		  (+ (vec3:x camera-pos) MOVEMENT_SPEED)))
+      (camera:move main-camera LEFT MOVEMENT_SPEED))
     (when (key:down? KEY_E)
-      (vec3:x! camera-pos
-		  (- (vec3:x camera-pos) MOVEMENT_SPEED)))
+      (camera:move main-camera RIGHT MOVEMENT_SPEED))
     (when (key:down? KEY_COMMA)
       (camera:move main-camera FORWARD MOVEMENT_SPEED))
     (when (key:down? KEY_O)
