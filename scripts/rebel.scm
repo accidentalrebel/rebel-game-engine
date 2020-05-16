@@ -1,5 +1,6 @@
 (import bind)
 (import (chicken gc))
+(import (chicken string))
 
 (set-gc-report! #t)
 
@@ -20,7 +21,7 @@
 
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
-(define free% (foreign-lambda void "free" c-pointer)) 
+(define free% (foreign-lambda void "free" c-pointer))
 
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))

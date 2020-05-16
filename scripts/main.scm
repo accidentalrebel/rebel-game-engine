@@ -1,7 +1,8 @@
 (include-relative "rebel")
-(include-relative "game")
 
 (rebel:init 800 600 "Rebel Engine")
+
+(include-relative "game")
 
 (define (loop-program)
   (if (window:can_close)

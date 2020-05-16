@@ -1,12 +1,12 @@
 (define MOVEMENT_SPEED 0.001)
 
+(include-relative "extensions/fpcam")
+
 (define *cube*)
 (define *cube-shader*)
 (define *cube-positions*)
 
 (define (init)
-  (mouse:enable)
-  
   (set! *cube*
 	(cube:create "assets/textures" "awesomeface.png"))
   (set! *cube-shader*
@@ -19,38 +19,7 @@
 (define (update)
   (window:clear)
 
-  (display (mouse:x))
-  (display ":")
-  (display (mouse:y))
-  (newline)
-
-  (let* ((main-camera (camera:main))
-	 (current-projection (camera:projection main-camera))
-	 (camera-pos (camera:position main-camera)))
-    
-    (when (key:up? KEY_C)
-      (if (= current-projection PERSPECTIVE)
-	  (camera:projection! main-camera ORTHOGRAPHIC)
-	  (camera:projection! main-camera PERSPECTIVE)))
-    
-    (when (key:down? KEY_A)
-      (camera:move main-camera LEFT MOVEMENT_SPEED))
-    (when (key:down? KEY_E)
-      (camera:move main-camera RIGHT MOVEMENT_SPEED))
-    (when (key:down? KEY_COMMA)
-      (camera:move main-camera FORWARD MOVEMENT_SPEED))
-    (when (key:down? KEY_O)
-      (camera:move main-camera BACKWARD MOVEMENT_SPEED))
-    
-    (cond ((key:down? KEY_SEMICOLON)
-	   (camera:yaw! main-camera (- (camera:yaw main-camera) 0.01)))
-	  ((key:down? KEY_PERIOD)
-	   (camera:yaw! main-camera (+ (camera:yaw main-camera) 0.01))))
-    (cond ((key:down? KEY_APOSTROPHE)
-	   (camera:pitch! main-camera (+ (camera:pitch main-camera) 0.01)))
-	  ((key:down? KEY_J)
-	   (camera:pitch! main-camera (- (camera:pitch main-camera) 0.01))))
-    )
+  (fpcam:update)
   
   (for-each
    (lambda (position)
