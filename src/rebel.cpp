@@ -1,4 +1,5 @@
 #include "rebel.h"
+#include "input/mouse.h"
 #include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -10,6 +11,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 {
 	g_rebel.window = WindowInit(windowWidth, windowHeight, windowName);
 	g_rebel.mainCamera = CameraCreate();
+	g_rebel.mouse = MouseInit();
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 
@@ -19,7 +21,7 @@ void InputProcess()
 
 	if(glfwGetKey(g_rebel.window.glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
-}
+}	
 
 Vec3* Vec3Create(float x = 0, float y = 0, float z = 0)
 {

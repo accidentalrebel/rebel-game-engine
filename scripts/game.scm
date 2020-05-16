@@ -5,6 +5,8 @@
 (define *cube-positions*)
 
 (define (init)
+  (mouse:enable)
+  
   (set! *cube*
 	(cube:create "assets/textures" "awesomeface.png"))
   (set! *cube-shader*
@@ -16,7 +18,12 @@
 
 (define (update)
   (window:clear)
-  
+
+  (display (mouse:x))
+  (display ":")
+  (display (mouse:y))
+  (newline)
+
   (let* ((main-camera (camera:main))
 	 (current-projection (camera:projection main-camera))
 	 (camera-pos (camera:position main-camera)))

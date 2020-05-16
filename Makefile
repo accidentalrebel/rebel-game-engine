@@ -25,7 +25,7 @@ run:
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/stub.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/stub.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
@@ -35,6 +35,7 @@ objs:
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
 	$(CC) -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
+	$(CC) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
 	$(CC) -c src/stub.cpp $(INCLUDE_FLAGS) -o tmp/stub.o
 

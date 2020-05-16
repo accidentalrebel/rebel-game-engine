@@ -33,6 +33,11 @@ typedef struct Camera {
 	float pitch;
 } Camera;
 
+typedef struct Mouse {
+	double xPos;
+	double yPos;
+} Mouse;
+
 typedef struct RenderObject
 {
 	unsigned int VAO;

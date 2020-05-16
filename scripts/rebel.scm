@@ -81,4 +81,7 @@
 (define key:down? (foreign-lambda bool "KeyIsDown" (enum "Keys")))
 (define key:up? (foreign-lambda bool "KeyIsUp" (enum "Keys")))
 
-
+(define mouse:enable (foreign-lambda void "MouseEnable"))
+(define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))
+(define (mouse:x) (Mouse-xPos (mouse:instance)))
+(define (mouse:y) (Mouse-yPos (mouse:instance)))

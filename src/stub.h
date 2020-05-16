@@ -29,6 +29,8 @@ void WindowDestroy();
 //
 bool KeyIsDown(enum Keys key);
 bool KeyIsUp(enum Keys key);
+Mouse* MouseGetInstance();
+void MouseEnable();
 
 // SPRITE
 Sprite* SpriteCreate(const char *directory, const char *filename);

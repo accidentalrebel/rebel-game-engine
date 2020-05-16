@@ -9,6 +9,7 @@
 typedef struct Rebel {
 	Shader *defaultShader;
 	Camera *mainCamera;
+	Mouse *mouse;
 	Window window;
 } Rebel;
 
@@ -18,6 +19,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 void RebelDestroy();
 
 void InputProcess();
+
 Vec3* Vec3Create(float x, float y, float z);
 
 Camera* CameraGetMain();
