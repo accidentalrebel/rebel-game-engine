@@ -3,8 +3,8 @@ CC = g++
 CSC = csc
 PREDEFINES =
 
-INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include
-LINKER_FLAGS = -L../libs/ -L -lrebel 
+INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -I/usr/include
+LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib -L -lcglm
 
 ifeq ($(PLATFORM),linux)
 	CSC = chicken-csc
@@ -29,11 +29,11 @@ lib: 	objs
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
-	$(CC) -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
+	gcc -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
-	$(CC) -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
+	gcc -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	$(CC) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o

@@ -20,41 +20,56 @@ Camera* CameraCreate()
 
 void CameraUpdateVectors(Camera* camera)
 {
-	glm::vec3 front;
-	glm::vec3 right;
-	glm::vec3 up;
-	front.x = cos(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
-	front.y = sin(glm::radians(camera->pitch));
-	front.z = sin(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
-	front = glm::normalize(front);
+	vec3 front;
+	vec3 right;
+	vec3 up;
 
-	right = glm::normalize(glm::cross(front, glm::vec3(0, 1, 0)));
-	up = glm::normalize(glm::cross(right, front));
+	front[0] = cos(glm_rad(camera->yaw)) * cos(glm_rad(camera->pitch));
+	front[1] = sin(glm_rad(camera->pitch));
+	front[2] = sin(glm_rad(camera->yaw)) * cos(glm_rad(camera->pitch));
 	
+	glm_vec3_normalize(front);
+
+	vec3 temp;
+	glm_vec3_zero(temp);
+	temp[1] = 1;
+
+	glm_vec3_cross(front, temp, right);
+	glm_vec3_normalize(right);
+
+	glm_vec3_cross(right, front, up);
+	glm_vec3_normalize(up);
+
 	Vec3FromGlm(camera->front, front);
 	Vec3FromGlm(camera->right, right);
-	Vec3FromGlm(camera->up, up);
 }
 
 void CameraMove(Camera *camera, enum Direction direction, float velocity)
 {
-	glm::vec3 front = Vec3ToGlm(*camera->front);
-	glm::vec3 position = Vec3ToGlm(*camera->position);
-	glm::vec3 right = Vec3ToGlm(*camera->right);
+	vec3 front;
+	vec3 position;
+	vec3 right;
+	Vec3ToGlm(camera->front, front);
+	Vec3ToGlm(camera->position, position);
+	Vec3ToGlm(camera->right, right);
 
 	switch ( direction )
 	{
 	 case FORWARD:
-		 position += front * velocity;
+		 glm_vec3_scale(front, velocity, front);
+		 glm_vec3_add(position, front, position);
 		 break;
 	 case BACKWARD:
-		 position -= front * velocity;
+		 glm_vec3_scale(front, velocity, front);
+		 glm_vec3_sub(position, front, position);
 		 break;
 	 case LEFT:
-		 position -= right * velocity;
+		 glm_vec3_scale(right, velocity, right);
+		 glm_vec3_sub(position, right, position);
 		 break;
 	 case RIGHT:
-		 position += right * velocity;
+		 glm_vec3_scale(right, velocity, right);
+		 glm_vec3_add(position, right, position);
 		 break;
 	 default:
 		 break;

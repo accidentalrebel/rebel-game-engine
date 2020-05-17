@@ -1,13 +1,16 @@
 #include "vec3.hpp"
 
-glm::vec3 Vec3ToGlm(Vec3 vec)
+void Vec3ToGlm(Vec3* vec, vec3 to)
 {
-	return glm::vec3(vec.x, vec.y, vec.z);
+	glm_vec3_zero(to);
+	to[0] = vec->x;
+	to[1] = vec->y;
+	to[2] = vec->z;
 }
 
-void Vec3FromGlm(Vec3* to, glm::vec3 from)
+void Vec3FromGlm(Vec3* to, vec3 from)
 {
-	to->x = from.x;
-	to->y = from.y;
-	to->z = from.z;
+	to->x = from[0];
+	to->y = from[1];
+	to->z = from[2];
 }
