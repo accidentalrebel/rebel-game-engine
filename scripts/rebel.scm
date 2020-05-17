@@ -82,8 +82,14 @@
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
 
-(define key:down? (foreign-lambda bool "KeyIsDown" (enum "Keys")))
-(define key:up? (foreign-lambda bool "KeyIsUp" (enum "Keys")))
+(define key:is_down (foreign-lambda unsigned-integer "KeyIsDown" (enum "Keys")))
+(define key:is_up (foreign-lambda unsigned-integer "KeyIsUp" (enum "Keys")))
+(define (key:down? key)
+  (if (= (key:is_down key) 1)
+      #t #f))
+(define (key:up? key)
+  (if (= (key:is_up key) 1)
+      #t #f))
 
 (define mouse:enable (foreign-lambda void "MouseEnable"))
 (define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))

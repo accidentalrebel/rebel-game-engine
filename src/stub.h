@@ -27,8 +27,8 @@ void WindowDestroy();
 
 // KEYBOARD
 //
-bool KeyIsDown(enum Keys key);
-bool KeyIsUp(enum Keys key);
+unsigned int KeyIsDown(enum Keys key);
+unsigned int KeyIsUp(enum Keys key);
 Mouse* MouseGetInstance();
 void MouseEnable();
 
