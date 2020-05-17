@@ -1,34 +1,10 @@
 #include "shader.h"
+#include "../core/utils.h"
 
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 {
-	string vertexCode;
-	string fragmentCode;
-	ifstream vShaderFile;
-	ifstream fShaderFile;
-
-	vShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-	fShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-	try
-	{
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
-		stringstream vShaderStream, fShaderStream;
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-
-		vShaderFile.close();
-		fShaderFile.close();
-
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-	}
-	catch(ifstream::failure e)
-	{
-		cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ::" << vertexPath << "," << fragmentPath << endl;
-	}
-	const char* vShaderCode = vertexCode.c_str();
-	const char* fShaderCode = fragmentCode.c_str();
+	const char* vShaderCode = UtilsReadFile(vertexPath);
+	const char* fShaderCode = UtilsReadFile(fragmentPath);
 
 	unsigned int vertex, fragment;
 	int success;
@@ -83,9 +59,9 @@ void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
 }
-void ShaderSetBool(Shader *shader, const string &name, bool value)
+void ShaderSetBool(Shader *shader, const char* &name, bool value)
 {
-	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), (int)value);
+	glUniform1i(glGetUniformLocation(shader->id, name), (int)value);
 }
 void ShaderSetInt(Shader *shader, const string &name, int value)
 {

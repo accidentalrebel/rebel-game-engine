@@ -8,10 +8,8 @@
 #include "../data/structs.h"
 #include "../external/stb_image.h"
 
-#include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
