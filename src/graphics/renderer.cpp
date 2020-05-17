@@ -6,6 +6,7 @@
 #include "../external/stb_image.h"
 #include "../rebel.h"
 #include "shader.h"
+#include "../data/vec3.hpp"
 
 Cube* CubeCreate(const char *directory, const char *filename)
 {
@@ -129,32 +130,46 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
 
-	glm::mat4 projection;
-	glm::mat4 view = glm::mat4(1.0f);
-	glm::mat4 model = glm::mat4(1.0f);
+	mat4 projection = GLM_MAT4_IDENTITY_INIT;
+	mat4 view = GLM_MAT4_IDENTITY_INIT;
+	mat4 model = GLM_MAT4_IDENTITY_INIT;
+	
 	float screenRatio = windowWidth / windowHeight;
-	float zoom = glm::radians(g_rebel.mainCamera->fov);
+	float zoom = glm_rad(g_rebel.mainCamera->fov);
 	float size = g_rebel.mainCamera->size;
 	
 	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE )  {
-		projection = glm::perspective(zoom, screenRatio, 0.1f, 100.0f);
+		glm_perspective(zoom, screenRatio, 0.1f, 100.0f, projection);
 	}
 	else {
-		projection = glm::ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f);
+		glm_ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f, projection);
 	}
 
-	glm::vec3 cameraPos = glm::vec3(g_rebel.mainCamera->position->x, g_rebel.mainCamera->position->y, g_rebel.mainCamera->position->z);
-	glm::vec3 cameraFront = glm::vec3(g_rebel.mainCamera->front->x, g_rebel.mainCamera->front->y, g_rebel.mainCamera->front->z);
-	glm::vec3 cameraUp = glm::vec3(g_rebel.mainCamera->up->x, g_rebel.mainCamera->up->y, g_rebel.mainCamera->up->z);
+	vec3 cameraPos;
+	vec3 cameraFront;
+	vec3 cameraUp;
+	Vec3ToGlm(g_rebel.mainCamera->position, cameraPos);
+	Vec3ToGlm(g_rebel.mainCamera->front, cameraFront);
+	Vec3ToGlm(g_rebel.mainCamera->up, cameraUp);
 	
-	//view = glm::translate(view, cameraPos);
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	vec3 temp;
+	glm_vec3_add(cameraPos, cameraFront, temp);
+	glm_lookat(cameraPos, temp, cameraUp, view);
 
-	model = glm::scale(model, glm::vec3(width, height, height));
-	model = glm::translate(model, glm::vec3(position->x / width, position->y / height, position->z));
-	// model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	temp[0] = width;
+	temp[1] = height;
+	temp[2] = height;
+	glm_scale(model, temp);
 
-	ShaderSetVec3(shaderToUse, "tint", glm::vec3(tintColor->x, tintColor->y, tintColor->z));
+	temp[0] = position->x / width;
+	temp[1] = position->y / height;
+	temp[2] = position->z;
+	glm_translate(model, temp);
+
+	temp[0] = tintColor->x;
+	temp[1] = tintColor->y;
+	temp[2] = tintColor->z;
+	ShaderSetVec3(shaderToUse, "tint", temp);
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
 	ShaderSetMat4(shaderToUse, "model", model);

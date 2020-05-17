@@ -103,13 +103,13 @@ void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float
 {
 	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3);
 }
-void ShaderSetVec3(Shader *shader, const string &name, glm::vec3 v)
+void ShaderSetVec3(Shader *shader, const string &name, vec3 v)
 {
-	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v.x, v.y, v.z);
+	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v[0], v[1], v[2]);
 }
-void ShaderSetMat4(Shader *shader, const string &name, glm::mat4 mat)
+void ShaderSetMat4(Shader *shader, const string &name, mat4 mat)
 {
-	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
+	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, (float*)mat);
 }
 
 unsigned int LoadTextureFromFile(const string &directory, char const * fname)

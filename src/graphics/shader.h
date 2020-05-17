@@ -4,9 +4,7 @@
 // https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h
 
 #include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
+#include <cglm/cglm.h>
 #include "../data/structs.h"
 #include "../external/stb_image.h"
 
@@ -24,8 +22,7 @@ void ShaderSetInt(Shader *shader, const string &name, int value);
 void ShaderSetFloat(Shader *shader, const string &name, float value);
 void ShaderSetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4);
 void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float v3);
-void ShaderSetVec3(Shader *shader, const string &name, glm::vec3 v);
-void ShaderSetMat4(Shader *shader, const string &name, glm::mat4 mat);
+void ShaderSetVec3(Shader *shader, const string &name, vec3 v);
+void ShaderSetMat4(Shader *shader, const string &name, mat4 mat);
 
 unsigned int LoadTextureFromFile(const string &directory, char const * fname);
-
