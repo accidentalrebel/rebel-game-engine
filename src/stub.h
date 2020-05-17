@@ -20,7 +20,7 @@ void CameraMove(Camera *camera, enum Direction direction, float velocity);
 
 // WINDOW
 //
-bool WindowCanClose();
+unsigned int WindowCanClose();
 void WindowClear();
 void WindowSwap();
 void WindowDestroy();

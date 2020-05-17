@@ -9,7 +9,7 @@ typedef struct Window {
 } Window;
 
 Window WindowInit(int windowWidth, int windowHeight, const char* windowName);
-bool WindowCanClose();
+unsigned int WindowCanClose();
 void WindowClear();
 void WindowSwap();
 void WindowDestroy();

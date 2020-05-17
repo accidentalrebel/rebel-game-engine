@@ -38,7 +38,7 @@ Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
 	return window;
 }
 
-bool WindowCanClose()
+unsigned int WindowCanClose()
 {
 	return glfwWindowShouldClose(g_rebel.window.glWindow);
 }

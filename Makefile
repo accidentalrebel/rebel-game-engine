@@ -1,5 +1,5 @@
 PLATFORM = linux
-CC = g++
+CC = gcc
 CSC = csc
 PREDEFINES =
 
@@ -29,13 +29,13 @@ lib: 	objs
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
-	gcc -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
+	$(CC) -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
-	gcc -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
+	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
-	gcc -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
+	$(CC) -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
-	$(CC) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
+	g++ -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) -c src/core/window.cpp $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
 	$(CC) -c src/stub.cpp $(INCLUDE_FLAGS) -o tmp/stub.o
 

@@ -52,7 +52,7 @@
 (define (camera:pitch camera) (Camera-pitch camera))
 (define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
 
-(define window:can_close (foreign-lambda bool "WindowCanClose"))
+(define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
 (define window:clear (foreign-lambda void "WindowClear"))
 (define window:swap (foreign-lambda void "WindowSwap"))
 (define window:destroy (foreign-lambda void "WindowDestroy"))
@@ -86,4 +86,4 @@
 (define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))
 (define (mouse:x) (Mouse-xPos (mouse:instance)))
 (define (mouse:y) (Mouse-yPos (mouse:instance)))
-(define (mouse:initialized?) (Mouse-initialized (mouse:instance)))
+(define (mouse:initialized) (Mouse-initialized (mouse:instance)))

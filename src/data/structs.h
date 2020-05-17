@@ -34,7 +34,7 @@ typedef struct Camera {
 } Camera;
 
 typedef struct Mouse {
-	bool initialized;
+	unsigned int initialized;
 	double xPos;
 	double yPos;
 } Mouse;
