@@ -33,7 +33,7 @@
   )
 
 (define (fpcam:update)
-  (when (= (mouse:initialized) 1)
+  (when (mouse:initialized?)
     (fpcam::handle_mouse))
   
   (let* ((main-camera (camera:main))

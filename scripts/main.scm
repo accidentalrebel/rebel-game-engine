@@ -5,7 +5,7 @@
 (include-relative "game")
 
 (define (loop-program)
-  (if (= (window:can_close) 1)
+  (if (window:close?)
       (exit-program)
       (begin
 	(input:process)
