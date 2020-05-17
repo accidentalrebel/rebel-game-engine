@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 
 #include "renderer.h"
-#include <cstdlib>
 #include "../external/stb_image.h"
 #include "../rebel.h"
 #include "../data/vec3.h"
@@ -138,7 +137,7 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	float zoom = glm_rad(g_rebel.mainCamera->fov);
 	float size = g_rebel.mainCamera->size;
 	
-	if ( g_rebel.mainCamera->projection == CameraProjection::PERSPECTIVE )  {
+	if ( g_rebel.mainCamera->projection == PERSPECTIVE )  {
 		glm_perspective(zoom, screenRatio, 0.1f, 100.0f, projection);
 	}
 	else {

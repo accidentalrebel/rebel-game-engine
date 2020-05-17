@@ -1,14 +1,14 @@
 #include "keyboard.h"
 #include "../rebel.h"
 
-Keys c_lastKeyPressed;
+enum Keys c_lastKeyPressed;
 
-unsigned int KeyIsDown(Keys key)
+unsigned int KeyIsDown(enum Keys key)
 {
 	return (glfwGetKey(g_rebel.window.glWindow, key) == GLFW_PRESS);
 }
 
-unsigned int KeyIsUp(Keys key)
+unsigned int KeyIsUp(enum Keys key)
 {
 	if (glfwGetKey(g_rebel.window.glWindow, key) == GLFW_PRESS)
 		c_lastKeyPressed = key;

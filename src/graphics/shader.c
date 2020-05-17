@@ -19,7 +19,8 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-		sprintf("ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n", infoLog);
+		const char* error = "ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n";
+		sprintf("%s %s", infoLog);
 	}
 
 	// FRAGMENT
@@ -75,7 +76,7 @@ void ShaderSetVec4(Shader *shader, const char* name, float v1, float v2, float v
 {
 	glUniform4f(glGetUniformLocation(shader->id, name), v1, v2, v3, v4);
 }
-void ShaderSetVec3(Shader *shader, const char* name, float v1, float v2, float v3)
+void ShaderSetVec3Ex(Shader *shader, const char* name, float v1, float v2, float v3)
 {
 	glUniform3f(glGetUniformLocation(shader->id, name), v1, v2, v3);
 }
