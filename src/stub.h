@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STUB_H
+#define STUB_H
+
 #include "data/structs.h"
 
 // REBEL
@@ -42,3 +44,6 @@ void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintC
 
 // SHADER
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
+
+
+#endif

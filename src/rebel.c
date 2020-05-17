@@ -1,6 +1,5 @@
 #include "rebel.h"
 #include "input/mouse.h"
-#include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "external/stb_image.h"
@@ -23,7 +22,7 @@ void InputProcess()
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
 }	
 
-Vec3* Vec3Create(float x = 0, float y = 0, float z = 0)
+Vec3* Vec3Create(float x, float y, float z)
 {
 	Vec3* v = (Vec3*)malloc(sizeof(Vec3));
 	v->x = x;

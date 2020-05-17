@@ -8,19 +8,16 @@
 #include "../data/structs.h"
 #include "../external/stb_image.h"
 
-#include <iostream>
-#include <string>
-
-using namespace std;
+#include <string.h>
 
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
 void ShaderUse(Shader *shader);
-void ShaderSetBool(Shader *shader, const string &name, bool value);
-void ShaderSetInt(Shader *shader, const string &name, int value);
-void ShaderSetFloat(Shader *shader, const string &name, float value);
-void ShaderSetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4);
-void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float v3);
-void ShaderSetVec3(Shader *shader, const string &name, vec3 v);
-void ShaderSetMat4(Shader *shader, const string &name, mat4 mat);
+void ShaderSetBool(Shader *shader, const char* name, bool value);
+void ShaderSetInt(Shader *shader, const char* name, int value);
+void ShaderSetFloat(Shader *shader, const char* name, float value);
+void ShaderSetVec4(Shader *shader, const char* name, float v1, float v2, float v3, float v4);
+void ShaderSetVec3Ex(Shader *shader, const char* name, float v1, float v2, float v3);
+void ShaderSetVec3(Shader *shader, const char* name, vec3 v);
+void ShaderSetMat4(Shader *shader, const char* name, mat4 mat);
 
-unsigned int LoadTextureFromFile(const string &directory, char const * fname);
+unsigned int LoadTextureFromFile(const char* directory, char const * fname);

@@ -19,7 +19,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	// FRAGMENT
@@ -31,7 +31,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	Shader *shader = (Shader*)malloc(sizeof(Shader));
@@ -46,7 +46,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetProgramInfoLog(shader->id, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::PROGRAM::LINKING_FAILED %s\n", infoLog);
 	}
 
 	glDeleteShader(vertex);
@@ -59,45 +59,47 @@ void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
 }
-void ShaderSetBool(Shader *shader, const char* &name, bool value)
+void ShaderSetBool(Shader *shader, const char* name, bool value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name), (int)value);
 }
-void ShaderSetInt(Shader *shader, const string &name, int value)
+void ShaderSetInt(Shader *shader, const char* name, int value)
 {
-	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(shader->id, name), value);
 }
-void ShaderSetFloat(Shader *shader, const string &name, float value)
+void ShaderSetFloat(Shader *shader, const char* name, float value)
 {
-	glUniform1f(glGetUniformLocation(shader->id, name.c_str()), value);
+	glUniform1f(glGetUniformLocation(shader->id, name), value);
 }
-void ShaderSetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4)
+void ShaderSetVec4(Shader *shader, const char* name, float v1, float v2, float v3, float v4)
 {
-	glUniform4f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3, v4);
+	glUniform4f(glGetUniformLocation(shader->id, name), v1, v2, v3, v4);
 }
-void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float v3)
+void ShaderSetVec3(Shader *shader, const char* name, float v1, float v2, float v3)
 {
-	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3);
+	glUniform3f(glGetUniformLocation(shader->id, name), v1, v2, v3);
 }
-void ShaderSetVec3(Shader *shader, const string &name, vec3 v)
+void ShaderSetVec3(Shader *shader, const char* name, vec3 v)
 {
-	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v[0], v[1], v[2]);
+	glUniform3f(glGetUniformLocation(shader->id, name), v[0], v[1], v[2]);
 }
-void ShaderSetMat4(Shader *shader, const string &name, mat4 mat)
+void ShaderSetMat4(Shader *shader, const char* name, mat4 mat)
 {
-	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, (float*)mat);
+	glUniformMatrix4fv(glGetUniformLocation(shader->id, name), 1, GL_FALSE, (float*)mat);
 }
 
-unsigned int LoadTextureFromFile(const string &directory, char const * fname)
+unsigned int LoadTextureFromFile(const char* directory, const char * fname)
 {
-	string filename = string(fname);
-	filename = directory + '/' + filename;
+	char* filename;
+	strcpy(filename, directory);
+	strcat(filename, "/");
+	strcat(filename, fname);
 		
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
 
 	int width, height, nrComponents;
-	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+	unsigned char *data = stbi_load(filename, &width, &height, &nrComponents, 0);
 	if (data)
 	{
 		GLenum format;
@@ -121,7 +123,7 @@ unsigned int LoadTextureFromFile(const string &directory, char const * fname)
 	}
 	else
 	{
-		cout << "Texture failed to load at path: " << filename.c_str() << endl;
+		sprintf("Texture failed to load at path: %s", filename);
 		stbi_image_free(data);
 	}
 	return textureID;
