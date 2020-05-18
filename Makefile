@@ -1,5 +1,5 @@
 PLATFORM = windows
-CC = gcc
+CC = g++
 CSC = csc
 PREDEFINES =
 
@@ -29,7 +29,7 @@ lib: 	objs
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
-	$(CC) -c src/data/vec3.cpp $(INCLUDE_FLAGS) -o tmp/vec3.o
+	$(CC) -c src/data/vec3.c $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o

@@ -1,5 +1,6 @@
 #include "../rebel.h"
-#include "../data/vec3.hpp"
+
+#include "../data/vec3.h"
 #include "camera.h"
 #include <cstdlib>
 

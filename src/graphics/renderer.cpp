@@ -6,7 +6,7 @@
 #include "../external/stb_image.h"
 #include "../rebel.h"
 #include "shader.h"
-#include "../data/vec3.hpp"
+#include "../data/vec3.h"
 
 Cube* CubeCreate(const char *directory, const char *filename)
 {

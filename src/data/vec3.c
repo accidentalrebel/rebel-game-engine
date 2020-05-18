@@ -1,4 +1,4 @@
-#include "vec3.hpp"
+#include "vec3.h"
 
 void Vec3ToGlm(Vec3* vec, vec3 to)
 {
