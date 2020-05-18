@@ -4,7 +4,7 @@ CSC = csc
 PREDEFINES =
 
 INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -I/usr/include
-LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib -L -lcglm
+LINKER_FLAGS = -L../libs/ -L -lrebel
 
 ifeq ($(PLATFORM),linux)
 	CSC = chicken-csc
