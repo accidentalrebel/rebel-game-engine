@@ -1,10 +1,10 @@
-PLATFORM = linux
+PLATFORM = windows
 CC = gcc
 CSC = csc
 PREDEFINES =
 
-INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -I/usr/include
-LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib -L -lcglm
+INCLUDE_FLAGS = -Isrc/external -Isrc/external/glad/include -Isrc/external/glfw/include -I/usr/include 
+LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib
 
 ifeq ($(PLATFORM),linux)
 	CSC = chicken-csc
@@ -13,7 +13,7 @@ else ifeq ($(PLATFORM),macosx)
 	LINKER_FLAGS += -L/usr/local/lib -L -lglfw
 	PREDEFINES += -D PLATFORM=$(PLATFORM)
 else ifeq ($(PLATFORM),windows)
-	LINKER_FLAGS += -L/c/tools/msys64/mingw64/lib -L -lglfw3
+	LINKER_FLAGS += -L/c/msys64/mingw64/lib -L -lglfw3
 endif
 
 all:	run
