@@ -59,7 +59,7 @@ void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
 }
-void ShaderSetBool(Shader *shader, const char* &name, bool value)
+void ShaderSetBool(Shader *shader, const char* name, bool value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name), (int)value);
 }

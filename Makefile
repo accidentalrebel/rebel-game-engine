@@ -1,6 +1,6 @@
 
 PLATFORM = windows
-CC = g++
+CC = gcc
 CSC = csc
 PREDEFINES =
 
@@ -22,11 +22,11 @@ all:	run
 build:	lib
 
 run:
-	cd src ; $(CSC) -cxx $(CC) ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -debug F -static -c++
+	cd src ; $(CSC) -cxx $(CC) ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -debug F -static
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/stub.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o
 
 objs:
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
@@ -34,11 +34,10 @@ objs:
 	$(CC) -c src/rebel.c $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.c $(INCLUDE_FLAGS) -o tmp/shader.o
 	$(CC) -c src/graphics/renderer.c $(INCLUDE_FLAGS) -o tmp/renderer.o
-	$(CC) -c src/graphics/camera.c $(INCLUDE_FLAGS) tmp/vec3.o -o tmp/camera.o
+	$(CC) -c src/graphics/camera.c $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/input/keyboard.c $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	$(CC) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) -c src/core/window.c $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
-	$(CC) -c src/stub.c $(INCLUDE_FLAGS) -o tmp/stub.o
 
 clean:
 	rm ./tmp/*.*
