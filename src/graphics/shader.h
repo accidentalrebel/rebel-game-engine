@@ -8,7 +8,7 @@
 #include "../data/structs.h"
 #include "../external/stb_image.h"
 
-#include <string>
+#include <string.h>
 
 using namespace std;
 
@@ -22,4 +22,4 @@ void ShaderSetVec3(Shader *shader, const char* name, float v1, float v2, float v
 void ShaderSetVec3(Shader *shader, const char* name, vec3 v);
 void ShaderSetMat4(Shader *shader, const char* name, mat4 mat);
 
-unsigned int LoadTextureFromFile(const string &directory, char const * fname);
+unsigned int LoadTextureFromFile(const char* directory, const char * fname);
