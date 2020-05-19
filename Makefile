@@ -1,3 +1,4 @@
+
 PLATFORM = windows
 CC = g++
 CSC = csc
@@ -25,7 +26,7 @@ run:
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/stub.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o
 
 objs:
 	gcc -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
