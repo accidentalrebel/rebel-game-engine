@@ -32,7 +32,7 @@ objs:
 	$(CC) -c src/data/vec3.c $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.cpp $(INCLUDE_FLAGS) -o tmp/rebel.o
 	$(CC) -c src/graphics/shader.cpp $(INCLUDE_FLAGS) -o tmp/shader.o
-	$(CC) -c src/graphics/renderer.cpp $(INCLUDE_FLAGS) -o tmp/renderer.o
+	$(CC) -c src/graphics/renderer.c $(INCLUDE_FLAGS) -o tmp/renderer.o
 	$(CC) -c src/graphics/camera.cpp $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/input/keyboard.cpp $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	g++ -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o

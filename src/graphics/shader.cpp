@@ -19,7 +19,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	// FRAGMENT
@@ -31,7 +31,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	Shader *shader = (Shader*)malloc(sizeof(Shader));
@@ -46,7 +46,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetProgramInfoLog(shader->id, 512, NULL, infoLog);
-		cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
+		sprintf("ERROR::SHADER::PROGRAM::LINKING_FAILED %s\n", infoLog);
 	}
 
 	glDeleteShader(vertex);
@@ -121,7 +121,7 @@ unsigned int LoadTextureFromFile(const string &directory, char const * fname)
 	}
 	else
 	{
-		cout << "Texture failed to load at path: " << filename.c_str() << endl;
+		sprintf("Texture failed to load at path: %s", filename.c_str());
 		stbi_image_free(data);
 	}
 	return textureID;

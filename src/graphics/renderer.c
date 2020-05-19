@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 
 #include "renderer.h"
-#include <cstdlib>
 #include "../external/stb_image.h"
 #include "../rebel.h"
 #include "shader.h"
