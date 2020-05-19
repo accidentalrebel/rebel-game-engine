@@ -1,5 +1,4 @@
 #include "window.h"
-#include <iostream>
 #include "../rebel.h"
 
 Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
@@ -20,7 +19,7 @@ Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
 	window.glWindow = glfwCreateWindow(windowWidth, windowHeight, windowName, NULL, NULL);
 	if (window.glWindow == NULL)
 	{
-		std::cout << "Failed to create glfwWindow" << std::endl;
+		printf("Failed to create glfwWindow\n");
     glfwTerminate();
 		// return { 0 };
 	}
@@ -29,7 +28,7 @@ Window WindowInit(int windowWidth, int windowHeight, const char* windowName)
 	
 	if ( !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		printf("Failed to initialize GLAD\n");
 		// return NULL;
 	}
 
