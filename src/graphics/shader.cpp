@@ -63,29 +63,29 @@ void ShaderSetBool(Shader *shader, const char* &name, bool value)
 {
 	glUniform1i(glGetUniformLocation(shader->id, name), (int)value);
 }
-void ShaderSetInt(Shader *shader, const string &name, int value)
+void ShaderSetInt(Shader *shader, const char* name, int value)
 {
-	glUniform1i(glGetUniformLocation(shader->id, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(shader->id, name), value);
 }
-void ShaderSetFloat(Shader *shader, const string &name, float value)
+void ShaderSetFloat(Shader *shader, const char* name, float value)
 {
-	glUniform1f(glGetUniformLocation(shader->id, name.c_str()), value);
+	glUniform1f(glGetUniformLocation(shader->id, name), value);
 }
-void ShaderSetVec4(Shader *shader, const string &name, float v1, float v2, float v3, float v4)
+void ShaderSetVec4(Shader *shader, const char* name, float v1, float v2, float v3, float v4)
 {
-	glUniform4f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3, v4);
+	glUniform4f(glGetUniformLocation(shader->id, name), v1, v2, v3, v4);
 }
-void ShaderSetVec3(Shader *shader, const string &name, float v1, float v2, float v3)
+void ShaderSetVec3(Shader *shader, const char* name, float v1, float v2, float v3)
 {
-	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v1, v2, v3);
+	glUniform3f(glGetUniformLocation(shader->id, name), v1, v2, v3);
 }
-void ShaderSetVec3(Shader *shader, const string &name, vec3 v)
+void ShaderSetVec3(Shader *shader, const char* name, vec3 v)
 {
-	glUniform3f(glGetUniformLocation(shader->id, name.c_str()), v[0], v[1], v[2]);
+	glUniform3f(glGetUniformLocation(shader->id, name), v[0], v[1], v[2]);
 }
-void ShaderSetMat4(Shader *shader, const string &name, mat4 mat)
+void ShaderSetMat4(Shader *shader, const char* name, mat4 mat)
 {
-	glUniformMatrix4fv(glGetUniformLocation(shader->id, name.c_str()), 1, GL_FALSE, (float*)mat);
+	glUniformMatrix4fv(glGetUniformLocation(shader->id, name), 1, GL_FALSE, (float*)mat);
 }
 
 unsigned int LoadTextureFromFile(const string &directory, char const * fname)
