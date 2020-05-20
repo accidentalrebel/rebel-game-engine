@@ -174,7 +174,10 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	temp[0] = tintColor->x;
 	temp[1] = tintColor->y;
 	temp[2] = tintColor->z;
-	ShaderSetVec3(shaderToUse, "tint", temp);
+	ShaderSetVec3(shaderToUse, "objectColor", temp);
+
+	ShaderSetVec3(shaderToUse, "lightColor", (vec3){ 1.0f, 1.0f, 1.0f} );
+	
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
 	ShaderSetMat4(shaderToUse, "model", model);
