@@ -186,6 +186,14 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
 	ShaderSetMat4(shaderToUse, "model", model);
+
+	// An inversed model is needed for a normal matrix
+	// Normally, this can be done from inside the shader but is said to be a costly operation
+	// So we are inversing the model using the CPU and passing it as a uniform to the shader
+	// More details here under "One last thing": https://learnopengl.com/Lighting/Basic-Lighting
+	mat4 inversedModel;
+	glm_mat4_inv(model, inversedModel);
+	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
 	
 	glBindVertexArray(rendererObject->VAO);
 	glBindTexture(GL_TEXTURE_2D, rendererObject->texture);

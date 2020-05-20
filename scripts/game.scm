@@ -10,7 +10,7 @@
 
 (define (init)
   (set! *cube*
-	(cube:create "assets/textures" "awesomeface.png"))
+	(cube:create "assets/textures" "tile.png"))
   (set! *cube-shader*
 	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
 

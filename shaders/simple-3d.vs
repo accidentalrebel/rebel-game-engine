@@ -8,6 +8,7 @@ out vec3 FragPos;
 out vec3 Normals;
 
 uniform mat4 model;
+uniform mat4 inversedModel;
 uniform mat4 view;
 uniform mat4 projection;
 
@@ -18,5 +19,5 @@ void main()
 	FragPos = vec3(model * vec4(aPos, 1.0));
 	TexCoords = vec2(aTexCoords.x, aTexCoords.y);
 
-	Normals = aNormals;
+	Normals = mat3(transpose(inversedModel)) * aNormals;  
 }

@@ -20,6 +20,6 @@ void main()
 	float diffuse = max(dot(normals, lightDir), 0.0);
 	
 	vec3 result = (ambient + diffuse)* objectColor;
-	/* FragColor = texture(texture1, TexCoords) * vec4(result, 1.0); */
-	FragColor = vec4(result, 1.0);
+	FragColor = texture(texture1, TexCoords) * vec4(result, 1.0);
+	/* FragColor = vec4(result, 1.0); */
 }
