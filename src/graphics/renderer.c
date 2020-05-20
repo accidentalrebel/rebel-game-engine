@@ -54,7 +54,8 @@ Cube* CubeCreate(const char *directory, const char *filename)
 	}; 
 
 	Cube* cube = (Cube*)malloc(sizeof(Cube));
-	cube->renderObject = InitRenderObject(vertices, sizeof(vertices), 36, 5, 3, 2);
+	unsigned int attributeSizes[] = { 3, 2 };	
+	cube->renderObject = InitRenderObject(vertices, sizeof(vertices), 36, 5, attributeSizes, sizeof(attributeSizes));
 
 	stbi_set_flip_vertically_on_load(true);
  	cube->renderObject->texture = LoadTextureFromFile(directory, filename);
@@ -80,7 +81,8 @@ Sprite* SpriteCreate(const char *directory, const char *filename)
 	};
 
 	Sprite* sprite = (Sprite*)malloc(sizeof(Sprite));
-	sprite->renderObject = InitRenderObject(vertices, sizeof(vertices), 6, 4, 2, 2);
+	unsigned int attributeSizes[] = { 2, 2 };
+	sprite->renderObject = InitRenderObject(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
 	
 	stbi_set_flip_vertically_on_load(true);
  	sprite->renderObject->texture = LoadTextureFromFile(directory, filename);
@@ -93,7 +95,7 @@ void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 
 	RendererDraw(sprite->renderObject, position, width, height, tintColor, shader);
 }
 
-RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSize, int stride, int positionSize, int texCoordSize)
+RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
 {
 	RenderObject* renderObject = (RenderObject*)malloc(sizeof(RenderObject));
 	renderObject->indicesSize = indicesSize;
@@ -106,11 +108,15 @@ RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSiz
 	glBindBuffer(GL_ARRAY_BUFFER, renderObject->VBO);
 	glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, positionSize, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	
-	glVertexAttribPointer(1, texCoordSize, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(positionSize * sizeof(float)));
-	glEnableVertexAttribArray(1);
+ 	for ( unsigned int i = 0 ; i < attributeCount ; i++ )
+	{
+		void* p = 0;
+		if ( i > 0 )
+			p = (void*)(attributeSizes[i-1] * sizeof(float));
+
+		glVertexAttribPointer(i, attributeSizes[i], GL_FLOAT, GL_FALSE, stride * sizeof(float), p);
+		glEnableVertexAttribArray(i);
+	}
 	
 	glBindVertexArray(0);
 	
