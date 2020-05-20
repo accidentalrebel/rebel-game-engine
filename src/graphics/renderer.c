@@ -180,7 +180,8 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	temp[2] = tintColor->z;
 	ShaderSetVec3(shaderToUse, "objectColor", temp);
 
-	ShaderSetVec3(shaderToUse, "lightColor", (vec3){ 1.0f, 1.0f, 1.0f} );
+	ShaderSetVec3(shaderToUse, "lightColor", (vec3){ 1.0f, 1.0f, 1.0f});
+	ShaderSetVec3(shaderToUse, "lightPos", (vec3){ 0.0f, 1.0f, -1.0f} );
 	
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
