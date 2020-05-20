@@ -30,6 +30,10 @@
   (window:clear)
 
   (fpcam:update)
+
+  (when (key:up? KEY_G)
+    (gc #t)
+    (display "GC triggered."))
   
   (for-each
    (lambda (position)

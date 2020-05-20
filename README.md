@@ -3,7 +3,7 @@ A simple game engine using C built with Scheme scripting. Made mostly from scrat
 
 The engine is an application of the lessons I've learned researching game engines and poking around various open source projects. I don't plan to use it for production but it might eventually evolve into something that will. The primary goal for now is implementing the barest essentials.
 
-Scripting uses[Chicken-Scheme Lisp](https://www.call-cc.org/).
+Scripting uses [Chicken-Scheme Lisp](https://www.call-cc.org/).
 
 Check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
 

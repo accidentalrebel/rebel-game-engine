@@ -23,6 +23,4 @@ void RebelDestroy();
 
 void InputProcess();
 
-Vec3* Vec3Create(float x, float y, float z);
-
 Camera* CameraGetMain();
