@@ -43,6 +43,8 @@ v1.0
 - [x] Scripting Integration
 - [x] Multiplatform development
 - [x] Camera System
+- [ ] Basic Lighting
+- [ ] Scenes
 - [ ] Loading 3D models
 - [ ] Sprite transparency
 - [ ] Text

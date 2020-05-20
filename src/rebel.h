@@ -8,9 +8,12 @@
 
 typedef struct Rebel {
 	Shader *defaultShader;
-	Camera *mainCamera;
 	Mouse *mouse;
 	Window window;
+
+	// TODO: Camera and directionLight should be a part of a scene.
+	Camera *mainCamera;
+	DirectionLight* directionLight;
 } Rebel;
 
 extern Rebel g_rebel;

@@ -18,6 +18,10 @@ Camera* CameraGetMain();
 void CameraUpdateVectors(Camera* camera);
 void CameraMove(Camera *camera, enum Direction direction, float velocity);
 
+// LIGHTING
+//
+DirectionLight* DirectionLightCreate(Vec3* position, Vec3* direction, Vec3* color);
+
 // WINDOW
 //
 unsigned int WindowCanClose();

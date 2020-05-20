@@ -180,8 +180,18 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	temp[2] = tintColor->z;
 	ShaderSetVec3(shaderToUse, "objectColor", temp);
 
-	ShaderSetVec3(shaderToUse, "lightColor", (vec3){ 1.0f, 1.0f, 1.0f});
-	ShaderSetVec3(shaderToUse, "lightPos", (vec3){ 0.0f, 1.0f, -1.0f} );
+	if ( g_rebel.directionLight != NULL )
+	{
+		Vec3ToGlm(g_rebel.directionLight->color, temp);
+		ShaderSetVec3(shaderToUse, "lightColor", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->position, temp);
+		ShaderSetVec3(shaderToUse, "lightPos", temp);
+	}
+	else
+	{
+		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
+	}
 	
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
