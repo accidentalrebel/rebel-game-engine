@@ -12,9 +12,9 @@ DirectionLight* DirectionLightCreate(Vec3* position, Vec3* direction, Vec3* colo
 	directionLight->direction = direction;
 	directionLight->color = color;
 
-	directionLight->lightIntensity->ambient = 1.0f;
-	directionLight->lightIntensity->diffuse = 1.0f;
-	directionLight->lightIntensity->specular = 1.0f;
+	/* directionLight->lightIntensity->ambient = 1.0f; */
+	/* directionLight->lightIntensity->diffuse = 1.0f; */
+	/* directionLight->lightIntensity->specular = 1.0f; */
 
 	g_rebel.directionLight = directionLight;
 	return directionLight;
