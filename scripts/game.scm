@@ -32,8 +32,9 @@
   (fpcam:update)
 
   (when (key:up? KEY_G)
-    (gc #t)
-    (display "GC triggered."))
+    (display "GC triggered.\n")
+    (display (gc #t))
+    (newline))
   
   (for-each
    (lambda (position)
