@@ -185,11 +185,12 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 		Vec3ToGlm(g_rebel.directionLight->color, temp);
 		ShaderSetVec3(shaderToUse, "lightColor", temp);
 
-		Vec3ToGlm(g_rebel.directionLight->position, temp);
-		ShaderSetVec3(shaderToUse, "lightPos", temp);
+		Vec3ToGlm(g_rebel.directionLight->direction, temp);
+		ShaderSetVec3(shaderToUse, "lightDirection", temp);
 	}
 	else
 	{
+		// TODO: The renderer should still work even without a direction light
 		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
 	}
 	

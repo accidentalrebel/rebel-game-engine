@@ -16,8 +16,7 @@ Simple program that displays a sprite with keyboard movement.
 
    (define (init)
      (set! *box-sprite* (sprite:create "assets/textures" "tile.png"))
-     (set! *box-pos* (vec3:create 400 300 0))
-     #t)
+     (set! *box-pos* (vec3:create 400 300 0)))
 
    (define (update)
      (window:clear)
@@ -30,8 +29,7 @@ Simple program that displays a sprite with keyboard movement.
      (let ((tint (vec3:create 1 0 1)))
        (sprite:draw *box-sprite* *box-pos* 50 50 tint #f))
 
-     (window:swap)
-     #t)
+     (window:swap))
 ```
 
 ## Roadmap

@@ -20,7 +20,7 @@ void CameraMove(Camera *camera, enum Direction direction, float velocity);
 
 // LIGHTING
 //
-DirectionLight* DirectionLightCreate(Vec3* position, Vec3* direction, Vec3* color);
+DirectionLight* DirectionLightCreate(Vec3* direction, Vec3* color);
 
 // WINDOW
 //

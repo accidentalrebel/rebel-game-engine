@@ -42,7 +42,6 @@ typedef struct LightIntensity
 
 typedef struct DirectionLight
 {
-	Vec3* position;
 	Vec3* direction;
 	Vec3* color;
 	LightIntensity* lightIntensity;

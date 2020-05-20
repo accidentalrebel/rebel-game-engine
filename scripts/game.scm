@@ -9,7 +9,7 @@
 (define *cube-positions*)
 
 (define (init)
-  (light:directional:create (vec3:create 0 1 -1) (vec3:create 0 0 -1) (vec3:create 1 1 1))
+  (light:directional:create (vec3:create 0 -1 1) (vec3:create 1 1 1))
   
   (set! *cube*
 	(cube:create "assets/textures" "tile.png"))

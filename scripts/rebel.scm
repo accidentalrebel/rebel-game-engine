@@ -54,7 +54,6 @@
 
 (define light:directional:create (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
-						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))))
 
 (define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
