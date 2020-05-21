@@ -193,7 +193,8 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 		// TODO: The renderer should still work even without a direction light
 		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
 	}
-	
+
+	ShaderSetVec3(shaderToUse, "viewPos", cameraPos);
 	ShaderSetMat4(shaderToUse, "projection", projection);
 	ShaderSetMat4(shaderToUse, "view", view);
 	ShaderSetMat4(shaderToUse, "model", model);
