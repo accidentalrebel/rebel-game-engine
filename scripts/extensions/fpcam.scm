@@ -1,5 +1,6 @@
 (mouse:enable)
 
+(define MOVEMENT_SPEED 0.001)
 (define MOUSE_SENSITIVITY 0.2)
 
 (define last-mouse-x)
@@ -50,7 +51,7 @@
     (when (key:down? KEY_E)
       (camera:move main-camera RIGHT MOVEMENT_SPEED))
     (when (key:down? KEY_COMMA)
-      (camera:move main-camera FORWARD MOVEMENT_SPEED))
+      (camera:move main-camera FORWARD (* 5 (time:elapsed))))
     (when (key:down? KEY_O)
       (camera:move main-camera BACKWARD MOVEMENT_SPEED))
     

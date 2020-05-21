@@ -46,3 +46,6 @@ void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintC
 
 // SHADER
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
+
+// UTILS
+double GetCurrentTime();

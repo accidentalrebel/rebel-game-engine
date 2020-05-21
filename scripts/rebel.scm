@@ -25,7 +25,10 @@
 
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))
+(define time:current (foreign-lambda double "GetCurrentTime"))
+(define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))
+
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 

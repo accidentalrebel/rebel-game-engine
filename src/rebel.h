@@ -24,3 +24,4 @@ void RebelDestroy();
 void InputProcess();
 
 Camera* CameraGetMain();
+double GetCurrentTime();

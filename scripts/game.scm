@@ -1,5 +1,3 @@
-(define MOVEMENT_SPEED 0.001)
-
 (include-relative "extensions/fpcam")
 
 (define *cube*)
@@ -27,14 +25,15 @@
 	      (vec3:create -1.25 0 0))))
 
 (define (update)
-  (window:clear)
-
   (fpcam:update)
 
   (when (key:up? KEY_G)
     (display "GC triggered.\n")
     (display (gc #t))
-    (newline))
+    (newline)))
+
+(define (render)
+  (window:clear)
   
   (for-each
    (lambda (position)

@@ -20,7 +20,12 @@ void InputProcess()
 
 	if(glfwGetKey(g_rebel.window.glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(g_rebel.window.glWindow, true);
-}	
+}
+
+double GetCurrentTime()
+{
+	return glfwGetTime();
+}
 
 Camera* CameraGetMain()
 {
