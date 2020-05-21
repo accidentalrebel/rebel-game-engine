@@ -14,24 +14,23 @@
     (set! first-mouse 0))
 
   (let* ((main-camera (camera:main))
-	(x-offset (* (- (mouse:x) last-mouse-x) MOUSE_SENSITIVITY))
-	(y-offset (* (- last-mouse-y (mouse:y)) MOUSE_SENSITIVITY))
-	(computed-pitch (+ (camera:pitch main-camera) y-offset)))
+	 (x-offset (* (- (mouse:x) last-mouse-x) MOUSE_SENSITIVITY))
+	 (y-offset (* (- last-mouse-y (mouse:y)) MOUSE_SENSITIVITY))
+	 (computed-pitch (+ (camera:pitch main-camera) y-offset)))
 
-      (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
-      (camera:pitch! main-camera
-		     (cond ((> computed-pitch 89.0)
-			    89.0)
-			   ((< computed-pitch -89.0)
-			    -89.0)
-			   (else
-			    computed-pitch)))
-      
-      (camera:update_vectors main-camera))
+    (camera:yaw! main-camera (+ (camera:yaw main-camera) x-offset))
+    (camera:pitch! main-camera
+		   (cond ((> computed-pitch 89.0)
+			  89.0)
+			 ((< computed-pitch -89.0)
+			  -89.0)
+			 (else
+			  computed-pitch)))
+    
+    (camera:update_vectors main-camera))
   
   (set! last-mouse-x (mouse:x))
-  (set! last-mouse-y (mouse:y))
-  )
+  (set! last-mouse-y (mouse:y)))
 
 (define (fpcam:update)
   (when (mouse:initialized?)
@@ -54,13 +53,4 @@
     (when (key:down? KEY_COMMA)
       (camera:move main-camera FORWARD move-speed))
     (when (key:down? KEY_O)
-      (camera:move main-camera BACKWARD move-speed))
-    
-    (cond ((key:down? KEY_SEMICOLON)
-	   (camera:yaw! main-camera (- (camera:yaw main-camera) 0.01)))
-	  ((key:down? KEY_PERIOD)
-	   (camera:yaw! main-camera (+ (camera:yaw main-camera) 0.01))))
-    (cond ((key:down? KEY_APOSTROPHE)
-	   (camera:pitch! main-camera (+ (camera:pitch main-camera) 0.01)))
-	  ((key:down? KEY_J)
-	   (camera:pitch! main-camera (- (camera:pitch main-camera) 0.01))))))
+      (camera:move main-camera BACKWARD move-speed))))
