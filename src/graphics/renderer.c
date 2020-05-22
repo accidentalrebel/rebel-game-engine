@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include "renderer.h"
+#include "material.h"
 #include "../external/stb_image.h"
 #include "../rebel.h"
 #include "shader.h"
@@ -99,7 +100,8 @@ RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSiz
 {
 	RenderObject* renderObject = (RenderObject*)malloc(sizeof(RenderObject));
 	renderObject->indicesSize = indicesSize;
-
+	renderObject->material = MaterialCreate();
+	
 	glGenVertexArrays(1, &renderObject->VAO);
 	glGenBuffers(1, &renderObject->VBO);
 	
@@ -173,10 +175,17 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	/* temp[0] = tintColor->x; */
 	/* temp[1] = tintColor->y; */
 	/* temp[2] = tintColor->z; */
-	ShaderSetVec3(shaderToUse, "material.ambient", (vec3){ 1.0f, 0.5f, 0.31f });
-	ShaderSetVec3(shaderToUse, "material.diffuse", (vec3){ 1.0f, 0.5f, 0.31f });
-	ShaderSetVec3(shaderToUse, "material.specular", (vec3){ 0.5f, 0.5f, 0.5f });
-	ShaderSetFloat(shaderToUse, "material.shininess", 32.0);
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	Vec3ToGlm(rendererObject->material->ambient, ambient);
+	Vec3ToGlm(rendererObject->material->diffuse, diffuse);
+	Vec3ToGlm(rendererObject->material->specular, specular);
+		
+	ShaderSetVec3(shaderToUse, "material.ambient", ambient);
+	ShaderSetVec3(shaderToUse, "material.diffuse", diffuse);
+	ShaderSetVec3(shaderToUse, "material.specular", specular);
+	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 
 	if ( g_rebel.directionLight != NULL )
 	{

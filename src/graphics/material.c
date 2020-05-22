@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include "../data/vec3.h"
 
-Material* MaterialCreate(Vec3 *ambient, Vec3 *diffuse, Vec3* specular)
+Material* MaterialCreate()
 {
 	Material* mat = (Material*)malloc(sizeof(Material));
-	mat->ambient = Vec3Copy(ambient);
-	mat->diffuse = Vec3Copy(diffuse);
-	mat->specular = Vec3Copy(specular);
+	mat->ambient = Vec3Create(1.0, 1.0, 1.0);
+	mat->diffuse = Vec3Create(0.0, 0.0, 0.0);
+	mat->specular = Vec3Create(0.0, 0.0, 0.0);
+	mat->shininess = 1.0f;
 	return mat;
 }
