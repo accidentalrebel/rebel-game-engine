@@ -8,6 +8,7 @@
 
 typedef struct Rebel {
 	Shader *defaultShader;
+	Shader *currentShader;
 	Mouse *mouse;
 	Window window;
 

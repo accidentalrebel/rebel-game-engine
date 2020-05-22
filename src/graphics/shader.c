@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "../rebel.h"
 #include "../core/utils.h"
 
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
@@ -58,6 +59,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
+	g_rebel.currentShader = shader;
 }
 void ShaderSetBool(Shader *shader, const char* name, bool value)
 {

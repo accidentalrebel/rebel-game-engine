@@ -76,16 +76,15 @@
 				    (c-pointer (struct "Sprite"))
 				    (c-pointer (struct "Vec3"))
 				    float float
-				    (c-pointer (struct "Vec3"))
-				    (c-pointer (struct "Shader"))))
+				    (c-pointer (struct "Vec3"))))
 
 (define cube:draw (foreign-lambda void "CubeDraw"
 				    (c-pointer (struct "Cube"))
 				    (c-pointer (struct "Vec3"))
 				    float float
-				    (c-pointer (struct "Vec3"))
-				    (c-pointer (struct "Shader"))))
+				    (c-pointer (struct "Vec3"))))
 
+(define shader:use (foreign-lambda void "ShaderUse" (c-pointer (struct "Shader"))))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
 

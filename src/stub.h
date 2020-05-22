@@ -36,15 +36,14 @@ unsigned int KeyIsUp(enum Keys key);
 Mouse* MouseGetInstance();
 void MouseEnable();
 
-// SPRITE
-Sprite* SpriteCreate(const char *directory, const char *filename);
-void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader);
-
 // RENDERER
+Sprite* SpriteCreate(const char *directory, const char *filename);
+void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor);
 Cube* CubeCreate(const char *directory, const char *filename);
-void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader);
+void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor);
 
 // SHADER
+void ShaderUse(Shader* shader);
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
 
 // UTILS

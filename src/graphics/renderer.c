@@ -62,9 +62,9 @@ Cube* CubeCreate(const char *directory, const char *filename)
 	return cube;
 }
 
-void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
+void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
-	RendererDraw(cube->renderObject, position, width, height, tintColor, shader);
+	RendererDraw(cube->renderObject, position, width, height, tintColor);
 }
 
 Sprite* SpriteCreate(const char *directory, const char *filename)
@@ -90,9 +90,9 @@ Sprite* SpriteCreate(const char *directory, const char *filename)
 	return sprite;
 }
 
-void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
+void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
-	RendererDraw(sprite->renderObject, position, width, height, tintColor, shader);
+	RendererDraw(sprite->renderObject, position, width, height, tintColor);
 }
 
 RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
@@ -127,13 +127,14 @@ RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSiz
 	return renderObject;
 }
 
-void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor, Shader* shader)
+void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
-	Shader* shaderToUse = shader;
-	if ( shaderToUse == NULL )
+	Shader* shaderToUse;
+	if ( g_rebel.currentShader != NULL )
+		shaderToUse = g_rebel.currentShader;
+	else
 		shaderToUse = g_rebel.defaultShader;
 		
-	ShaderUse(shaderToUse);
 	ShaderSetInt(shaderToUse, "texture1", 0);
 
 	float windowWidth = g_rebel.window.width;
