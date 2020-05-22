@@ -37,10 +37,9 @@ Mouse* MouseGetInstance();
 void MouseEnable();
 
 // RENDERER
-Sprite* SpriteCreate(const char *directory, const char *filename);
-void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor);
-Cube* CubeCreate(const char *directory, const char *filename);
-void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor);
+Renderer* SpriteCreate(const char *directory, const char *filename);
+Renderer* CubeCreate(const char *directory, const char *filename);
+void RendererDraw(Renderer* cube, Vec3 *position, float width, float height, Vec3 *tintColor);
 
 // SHADER
 void ShaderUse(Shader* shader);

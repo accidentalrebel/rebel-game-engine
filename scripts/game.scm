@@ -39,7 +39,7 @@
   (for-each
    (lambda (position)
      (let ((%tint% (vec3:create% 1 0 1)))
-       (cube:draw *cube* position 1 1 %tint%)
+       (renderer:draw *cube* position 1 1 %tint%)
        (free% %tint%)))
    *cube-positions*)
 
@@ -47,7 +47,7 @@
 
   (let ((%pos% (vec3:create% 0 1.25 0))
 	(%tint% (vec3:create% 1 1 1)))
-    (sprite:draw *sprite* %pos% 1 1 %tint%)
+    (renderer:draw *sprite* %pos% 1 1 %tint%)
     (free% %pos%)
     (free% %tint%))
 

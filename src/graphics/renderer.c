@@ -8,7 +8,7 @@
 #include "shader.h"
 #include "../data/vec3.h"
 
-Cube* CubeCreate(const char *directory, const char *filename)
+Renderer* CubeCreate(const char *directory, const char *filename)
 {
 	float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
@@ -54,21 +54,15 @@ Cube* CubeCreate(const char *directory, const char *filename)
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
-	Cube* cube = (Cube*)malloc(sizeof(Cube));
 	unsigned int attributeSizes[] = { 3, 3, 2 };	
-	cube->renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
+	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
 	stbi_set_flip_vertically_on_load(true);
- 	cube->renderer->texture = LoadTextureFromFile(directory, filename);
-	return cube;
+ 	renderer->texture = LoadTextureFromFile(directory, filename);
+	return renderer;
 }
 
-void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor)
-{
-	RendererDraw(cube->renderer, position, width, height, tintColor);
-}
-
-Sprite* SpriteCreate(const char *directory, const char *filename)
+Renderer* SpriteCreate(const char *directory, const char *filename)
 {
 	float vertices[] = {  
 		// positions   // texCoords
@@ -81,19 +75,13 @@ Sprite* SpriteCreate(const char *directory, const char *filename)
 		0.5f,  0.5f,  1.0f, 1.0f
 	};
 
-	Sprite* sprite = (Sprite*)malloc(sizeof(Sprite));
 	unsigned int attributeSizes[] = { 2, 2 };
-	sprite->renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
+	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
 	
 	stbi_set_flip_vertically_on_load(true);
- 	sprite->renderer->texture = LoadTextureFromFile(directory, filename);
+ 	renderer->texture = LoadTextureFromFile(directory, filename);
 	
-	return sprite;
-}
-
-void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor)
-{
-	RendererDraw(sprite->renderer, position, width, height, tintColor);
+	return renderer;
 }
 
 Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)

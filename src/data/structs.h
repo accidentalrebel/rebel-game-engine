@@ -76,16 +76,6 @@ typedef struct Renderer
 	Material* material;
 } Renderer;
 
-typedef struct Cube
-{
-	Renderer *renderer;
-} Cube;
-
-typedef struct Sprite
-{
-	Renderer *renderer;
-} Sprite;
-
 enum Keys {
 	KEY_UNKNOWN = -1,
 	KEY_SPACE = 32,

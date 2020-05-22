@@ -72,14 +72,9 @@
 
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
 (define (sprite:create x y) (set-finalizer! (sprite:create% x y) free%))
-(define sprite:draw (foreign-lambda void "SpriteDraw"
-				    (c-pointer (struct "Sprite"))
-				    (c-pointer (struct "Vec3"))
-				    float float
-				    (c-pointer (struct "Vec3"))))
 
-(define cube:draw (foreign-lambda void "CubeDraw"
-				    (c-pointer (struct "Cube"))
+(define renderer:draw (foreign-lambda void "RendererDraw"
+				    (c-pointer (struct "Renderer"))
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
