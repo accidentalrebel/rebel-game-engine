@@ -178,7 +178,10 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	temp[0] = tintColor->x;
 	temp[1] = tintColor->y;
 	temp[2] = tintColor->z;
-	ShaderSetVec3(shaderToUse, "objectColor", temp);
+	ShaderSetVec3(shaderToUse, "material.ambient", (vec3){ 1.0f, 0.5f, 0.31f });
+	ShaderSetVec3(shaderToUse, "material.diffuse", (vec3){ 1.0f, 0.5f, 0.31f });
+	ShaderSetVec3(shaderToUse, "material.specular", (vec3){ 0.5f, 0.5f, 0.5f });
+	ShaderSetFloat(shaderToUse, "material.shininess", 32.0);
 
 	if ( g_rebel.directionLight != NULL )
 	{
