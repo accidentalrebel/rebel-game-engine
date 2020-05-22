@@ -79,6 +79,11 @@
 				    float float
 				    (c-pointer (struct "Vec3"))))
 
+;; Note: Sets the color of the renderer. Overwrites the material.
+;; If you more control over the material just use the material: functions below
+(define renderer:color! (foreign-lambda void "RendererSetColor"
+					(c-pointer (struct "Renderer"))
+					(c-pointer (struct "Vec3"))))
 (define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
 (define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) a))
 

@@ -117,6 +117,16 @@ Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int
 	return renderer;
 }
 
+// Note: Sets the color of the renderer. Overwrites the material by resseting the material to default values.
+// If you more control over the material, manipulate the values directly
+void RendererSetColor(Renderer* renderObject, Vec3* color)
+{
+	renderObject->material->ambient = Vec3Copy(color);
+	Vec3Set(renderObject->material->diffuse, 0.0f, 0.0f, 0.0f);
+	Vec3Set(renderObject->material->specular, 0.0f, 0.0f, 0.0f);
+	renderObject->material->shininess = 1.0f;
+}
+
 void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
 	Shader* shaderToUse;

@@ -19,6 +19,7 @@
   (set! *sprite-shader*
 	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
 
+  (renderer:color! *sprite* (vec3:create 0.0 0.0 1.0))
   (material:ambient! *cube* (vec3:create 1.0 0.0 0.0))
 
   (set! *cube-positions*
