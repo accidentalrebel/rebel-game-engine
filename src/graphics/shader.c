@@ -2,6 +2,11 @@
 #include "../rebel.h"
 #include "../core/utils.h"
 
+Shader* ShaderDefault()
+{
+	return g_rebel.defaultShader;
+}
+
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 {
 	const char* vShaderCode = UtilsReadFile(vertexPath);

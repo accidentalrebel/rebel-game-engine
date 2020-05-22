@@ -11,6 +11,8 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.window = WindowInit(windowWidth, windowHeight, windowName);
 	g_rebel.mainCamera = CameraCreate();
 	g_rebel.mouse = MouseInit();
+
+	//TODO: Make separate default shader files
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 

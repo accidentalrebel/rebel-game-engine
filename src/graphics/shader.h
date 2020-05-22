@@ -10,6 +10,7 @@
 
 #include <string.h>
 
+Shader* ShaderDefault();
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
 void ShaderUse(Shader *shader);
 void ShaderSetBool(Shader *shader, const char* name, bool value);

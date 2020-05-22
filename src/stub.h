@@ -44,6 +44,7 @@ void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintC
 
 // SHADER
 void ShaderUse(Shader* shader);
+Shader* ShaderDefault();
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
 
 // UTILS

@@ -51,4 +51,6 @@
     (free% %pos%)
     (free% %tint%))
 
+  (shader:use (shader:default))
+
   (window:swap))

@@ -85,6 +85,7 @@
 				    (c-pointer (struct "Vec3"))))
 
 (define shader:use (foreign-lambda void "ShaderUse" (c-pointer (struct "Shader"))))
+(define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
 
