@@ -56,16 +56,16 @@ Cube* CubeCreate(const char *directory, const char *filename)
 
 	Cube* cube = (Cube*)malloc(sizeof(Cube));
 	unsigned int attributeSizes[] = { 3, 3, 2 };	
-	cube->renderObject = InitRenderObject(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
+	cube->renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
 	stbi_set_flip_vertically_on_load(true);
- 	cube->renderObject->texture = LoadTextureFromFile(directory, filename);
+ 	cube->renderer->texture = LoadTextureFromFile(directory, filename);
 	return cube;
 }
 
 void CubeDraw(Cube* cube, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
-	RendererDraw(cube->renderObject, position, width, height, tintColor);
+	RendererDraw(cube->renderer, position, width, height, tintColor);
 }
 
 Sprite* SpriteCreate(const char *directory, const char *filename)
@@ -83,31 +83,31 @@ Sprite* SpriteCreate(const char *directory, const char *filename)
 
 	Sprite* sprite = (Sprite*)malloc(sizeof(Sprite));
 	unsigned int attributeSizes[] = { 2, 2 };
-	sprite->renderObject = InitRenderObject(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
+	sprite->renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
 	
 	stbi_set_flip_vertically_on_load(true);
- 	sprite->renderObject->texture = LoadTextureFromFile(directory, filename);
+ 	sprite->renderer->texture = LoadTextureFromFile(directory, filename);
 	
 	return sprite;
 }
 
 void SpriteDraw(Sprite *sprite, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
-	RendererDraw(sprite->renderObject, position, width, height, tintColor);
+	RendererDraw(sprite->renderer, position, width, height, tintColor);
 }
 
-RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
+Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
 {
-	RenderObject* renderObject = (RenderObject*)malloc(sizeof(RenderObject));
-	renderObject->indicesSize = indicesSize;
-	renderObject->material = MaterialCreate();
+	Renderer* renderer = (Renderer*)malloc(sizeof(Renderer));
+	renderer->indicesSize = indicesSize;
+	renderer->material = MaterialCreate();
 	
-	glGenVertexArrays(1, &renderObject->VAO);
-	glGenBuffers(1, &renderObject->VBO);
+	glGenVertexArrays(1, &renderer->VAO);
+	glGenBuffers(1, &renderer->VBO);
 	
-	glBindVertexArray(renderObject->VAO);
+	glBindVertexArray(renderer->VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, renderObject->VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer->VBO);
 	glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
 
 	unsigned int pointerPos = 0;
@@ -126,10 +126,10 @@ RenderObject* InitRenderObject(float *vertices, int verticesSize, int indicesSiz
 
 	glBindVertexArray(0);
 	
-	return renderObject;
+	return renderer;
 }
 
-void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
+void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )

@@ -66,7 +66,7 @@ typedef struct Material
 	float shininess;
 } Material;
 
-typedef struct RenderObject
+typedef struct Renderer
 {
 	unsigned int VAO;
 	unsigned int VBO;
@@ -74,16 +74,16 @@ typedef struct RenderObject
 	unsigned int indicesSize;
 
 	Material* material;
-} RenderObject;
+} Renderer;
 
 typedef struct Cube
 {
-	RenderObject *renderObject;
+	Renderer *renderer;
 } Cube;
 
 typedef struct Sprite
 {
-	RenderObject *renderObject;
+	Renderer *renderer;
 } Sprite;
 
 enum Keys {
