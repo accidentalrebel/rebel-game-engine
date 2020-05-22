@@ -165,19 +165,13 @@ void RendererDraw(RenderObject *rendererObject, Vec3 *position, float width, flo
 	glm_vec3_add(cameraPos, cameraFront, temp);
 	glm_lookat(cameraPos, temp, cameraUp, view);
 
-	temp[0] = width;
-	temp[1] = height;
-	temp[2] = height;
-	glm_scale(model, temp);
+	glm_scale(model, (vec3){ width, height, height });
 
-	temp[0] = position->x / width;
-	temp[1] = position->y / height;
-	temp[2] = position->z;
-	glm_translate(model, temp);
+	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z});
 
-	temp[0] = tintColor->x;
-	temp[1] = tintColor->y;
-	temp[2] = tintColor->z;
+	/* temp[0] = tintColor->x; */
+	/* temp[1] = tintColor->y; */
+	/* temp[2] = tintColor->z; */
 	ShaderSetVec3(shaderToUse, "material.ambient", (vec3){ 1.0f, 0.5f, 0.31f });
 	ShaderSetVec3(shaderToUse, "material.diffuse", (vec3){ 1.0f, 0.5f, 0.31f });
 	ShaderSetVec3(shaderToUse, "material.specular", (vec3){ 0.5f, 0.5f, 0.5f });
