@@ -18,7 +18,9 @@
 	(sprite:create "assets/textures" "awesomeface.png"))
   (set! *sprite-shader*
 	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
-  
+
+  (material:ambient! *cube* (vec3:create 1.0 0.0 0.0))
+
   (set! *cube-positions*
 	(list (vec3:create 0 0 0)
 	      (vec3:create 1.25 0 0)

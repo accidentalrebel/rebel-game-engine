@@ -79,6 +79,9 @@
 				    float float
 				    (c-pointer (struct "Vec3"))))
 
+(define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
+(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) a))
+
 (define shader:use (foreign-lambda void "ShaderUse" (c-pointer (struct "Shader"))))
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
