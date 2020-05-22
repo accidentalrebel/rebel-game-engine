@@ -9,6 +9,11 @@ Vec3* Vec3Create(float x, float y, float z)
 	return v;
 }
 
+Vec3* Vec3Copy(Vec3* from)
+{
+	return Vec3Create(from->x, from->y, from->z);
+}
+
 void Vec3ToGlm(Vec3* vec, vec3 to)
 {
 	glm_vec3_zero(to);

@@ -47,11 +47,24 @@ typedef struct DirectionLight
 	LightIntensity* lightIntensity;
 } DirectionLight;
 
-typedef struct Mouse {
+typedef struct Mouse
+{
 	unsigned int initialized;
 	double xPos;
 	double yPos;
 } Mouse;
+
+typedef struct Shader {
+	unsigned int id;
+} Shader;
+
+typedef struct Material
+{
+	Vec3* ambient;
+	Vec3* diffuse;
+	Vec3* specular;
+	float shininess;
+} Material;
 
 typedef struct RenderObject
 {
@@ -59,6 +72,8 @@ typedef struct RenderObject
 	unsigned int VBO;
 	unsigned int texture;
 	unsigned int indicesSize;
+
+	Material* material;
 } RenderObject;
 
 typedef struct Cube
@@ -70,10 +85,6 @@ typedef struct Sprite
 {
 	RenderObject *renderObject;
 } Sprite;
-
-typedef struct Shader {
-	unsigned int id;
-} Shader;
 
 enum Keys {
 	KEY_UNKNOWN = -1,
