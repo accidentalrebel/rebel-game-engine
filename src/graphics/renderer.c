@@ -179,9 +179,8 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	Vec3ToGlm(rendererObject->material->ambient, ambient);
 	Vec3ToGlm(rendererObject->material->diffuse, diffuse);
 	Vec3ToGlm(rendererObject->material->specular, specular);
-		
-	ShaderSetVec3(shaderToUse, "material.ambient", ambient);
-	ShaderSetVec3(shaderToUse, "material.diffuse", diffuse);
+
+	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0); // TODO: Move to initialization
 	ShaderSetVec3(shaderToUse, "material.specular", specular);
 	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 

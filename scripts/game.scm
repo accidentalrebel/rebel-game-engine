@@ -7,15 +7,14 @@
 (define *cube-positions*)
 
 (define (init)
-  (let ((dir-light (light:directional:create
-		    (vec3:create 0.0 -1.0 1.0)
-		    (vec3:create 0.0 0.0 0.6)
-		    (vec3:create 0.0 0.6 0.0)
-		    (vec3:create 1.0 1.0 1.0))))
-    (light:directional:ambient! dir-light (vec3:create 0.6 0.0 0.0)))
-  
+  (light:directional:create
+   (vec3:create 1.2 -1.0 2.0)
+   (vec3:create 0.2 0.2 0.2)
+   (vec3:create 0.5 0.5 0.5)
+   (vec3:create 1.0 1.0 1.0))
+
   (set! *cube*
-	(cube:create "assets/textures" "tile.png"))
+	(cube:create "assets/textures" "container.png"))
   (set! *cube-shader*
 	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
 
@@ -24,11 +23,9 @@
   (set! *sprite-shader*
 	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
 
-  (renderer:color! *sprite* (vec3:create 0.0 0.0 1.0))
-  (material:ambient! *cube* (vec3:create 0.135 0.2225 0.1575))
-  (material:diffuse! *cube* (vec3:create 0.54 0.89 0.63))
-  (material:specular! *cube* (vec3:create 0.3162 0.3162 0.3162))
-  (material:shininess! *cube* 32.0)
+  ;; TODO; Remove material.ambient and material.diffuse
+  (material:specular! *cube* (vec3:create 0.5 0.5 0.5))
+  (material:shininess! *cube* 64.0)
 
   (set! *cube-positions*
 	(list (vec3:create 0 0 0)
