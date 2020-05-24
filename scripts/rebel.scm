@@ -32,12 +32,16 @@
   (newline)
   (free% v))
 
+;; REBEL
+;; =====
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))
 (define time:current (foreign-lambda double "GetCurrentTime"))
 (define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))
 
+;; VECTORS
+;; =======
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 (define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
@@ -48,17 +52,17 @@
 ;; For example, "(light:directional:create #f #f)" if you don't want to specify a direction or color
 (define (vec3:check_copy% x) (if (not (boolean? x)) (vec3:copy% x) x))
 
-;; TODO; Use descriptive variable names
-;; TODO; Add separators for organization
-(define (vec3:x p) (Vec3-x p))
-(define (vec3:x! p x) (set! (Vec3-x p) x))
+(define (vec3:x vec) (Vec3-x vec))
+(define (vec3:x! vec x) (set! (Vec3-x vec) x))
 
-(define (vec3:y p) (Vec3-y p))
-(define (vec3:y! p y) (set! (Vec3-y p) y))
+(define (vec3:y vec) (Vec3-y vec))
+(define (vec3:y! vec y) (set! (Vec3-y vec) y))
 
-(define (vec3:z p) (Vec3-z p))
-(define (vec3:z! p z) (set! (Vec3-z p) z))
+(define (vec3:z vec) (Vec3-z vec))
+(define (vec3:z! vec z) (set! (Vec3-z vec) z))
 
+;; CAMERA
+;; ======
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
@@ -74,12 +78,12 @@
 (define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
 
 ;; LIGHT
-;;
-(define (light:ambient! l vec)
-  (set! (Light-ambient l) vec))
+;; =====
+(define (light:ambient! light vec)
+  (set! (Light-ambient light) vec))
 
 ;; DIRECTIONAL_LIGHT
-;;
+;; =================
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))
@@ -91,12 +95,12 @@
    (vec3:check_copy% ambient)
    (vec3:check_copy% diffuse)
    (vec3:check_copy% specular)))
-(define (light:directional:light l) (DirectionLight-light l))
-(define (light:directional:ambient! l vec)
-  (light:ambient! (light:directional:light l) vec))
+(define (light:directional:light light) (DirectionLight-light light))
+(define (light:directional:ambient! light vec)
+  (light:ambient! (light:directional:light light) vec))
 
 ;; WINDOW
-;;
+;; ======
 (define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
 (define (window:close?)
   (if (= (window:can_close) 1)
@@ -105,11 +109,13 @@
 (define window:swap (foreign-lambda void "WindowSwap"))
 (define window:destroy (foreign-lambda void "WindowDestroy"))
 
+;; RENDERER
+;; ========
 (define cube:create% (foreign-lambda c-pointer "CubeCreate" c-string c-string))
-(define (cube:create x y) (set-finalizer! (cube:create% x y) free%))
+(define (cube:create directory filename) (set-finalizer! (cube:create% directory filename) free%))
 
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
-(define (sprite:create x y) (set-finalizer! (sprite:create% x y) free%))
+(define (sprite:create directory filename) (set-finalizer! (sprite:create% directory filename) free%))
 
 (define renderer:draw (foreign-lambda void "RendererDraw"
 				    (c-pointer (struct "Renderer"))
@@ -122,21 +128,29 @@
 (define renderer:color!_ (foreign-lambda void "RendererSetColor"
 					(c-pointer (struct "Renderer"))
 					(c-pointer (struct "Vec3"))))
-(define (renderer:color! x y) (renderer:color!_ x (vec3:check_copy% y)))
-(define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
-(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) (vec3:check_copy% a)))
-(define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
-(define (material:diffuse! renderer a) (set! (Material-diffuse (Renderer-material renderer)) (vec3:check_copy% a)))
-(define (material:specular renderer) (Material-specular (Renderer-material renderer)))
-(define (material:specular! renderer a) (set! (Material-specular (Renderer-material renderer)) (vec3:check_copy% a)))
-(define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
-(define (material:shininess! renderer a) (set! (Material-shininess (Renderer-material renderer)) a))
+(define (renderer:color! render-object color)
+  (renderer:color!_ render-object (vec3:check_copy% color)))
 
+;; MATERIAL
+;; ========
+(define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
+(define (material:ambient! renderer ambient) (set! (Material-ambient (Renderer-material renderer)) (vec3:check_copy% ambient)))
+(define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
+(define (material:diffuse! renderer diffuse) (set! (Material-diffuse (Renderer-material renderer)) (vec3:check_copy% diffuse)))
+(define (material:specular renderer) (Material-specular (Renderer-material renderer)))
+(define (material:specular! renderer spec) (set! (Material-specular (Renderer-material renderer)) (vec3:check_copy% spec)))
+(define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
+(define (material:shininess! renderer shine) (set! (Material-shininess (Renderer-material renderer)) shine))
+
+;; SHADER
+;; ======
 (define shader:use (foreign-lambda void "ShaderUse" (c-pointer (struct "Shader"))))
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
-(define (shader:create x y) (set-finalizer! (shader:create% x y) free%))
+(define (shader:create vertexPath fragmentPath) (set-finalizer! (shader:create% vertexPath fragmentPath) free%))
 
+;; KEYBOARD
+;; ========
 (define key:is_down (foreign-lambda unsigned-integer "KeyIsDown" (enum "Keys")))
 (define key:is_up (foreign-lambda unsigned-integer "KeyIsUp" (enum "Keys")))
 (define (key:down? key)
@@ -146,6 +160,8 @@
   (if (= (key:is_up key) 1)
       #t #f))
 
+;; MOUSE
+;; =====
 (define mouse:enable (foreign-lambda void "MouseEnable"))
 (define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))
 (define (mouse:x) (Mouse-xPos (mouse:instance)))
