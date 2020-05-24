@@ -48,6 +48,8 @@
 ;; For example, "(light:directional:create #f #f)" if you don't want to specify a direction or color
 (define (vec3:check_copy% x) (if (not (boolean? x)) (vec3:copy% x) x))
 
+;; TODO; Use descriptive variable names
+;; TODO; Add separators for organization
 (define (vec3:x p) (Vec3-x p))
 (define (vec3:x! p x) (set! (Vec3-x p) x))
 
@@ -80,10 +82,15 @@
 ;;
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
+						 (c-pointer (struct "Vec3"))
+						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))))
-(define (light:directional:create x y) (light:directional:create_
-					(vec3:check_copy% x)
-					(vec3:check_copy% y)))
+(define (light:directional:create direction ambient diffuse specular)
+  (light:directional:create_
+   (vec3:check_copy% direction)
+   (vec3:check_copy% ambient)
+   (vec3:check_copy% diffuse)
+   (vec3:check_copy% specular)))
 (define (light:directional:light l) (DirectionLight-light l))
 (define (light:directional:ambient! l vec)
   (light:ambient! (light:directional:light l) vec))

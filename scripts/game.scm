@@ -7,7 +7,11 @@
 (define *cube-positions*)
 
 (define (init)
-  (let ((dir-light (light:directional:create (vec3:create 0.0 -1.0 1.0) #f)))
+  (let ((dir-light (light:directional:create
+		    (vec3:create 0.0 -1.0 1.0)
+		    (vec3:create 0.0 0.0 0.6)
+		    (vec3:create 0.0 0.6 0.0)
+		    (vec3:create 1.0 1.0 1.0))))
     (light:directional:ambient! dir-light (vec3:create 0.6 0.0 0.0)))
   
   (set! *cube*
