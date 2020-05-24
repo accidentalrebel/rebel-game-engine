@@ -121,7 +121,7 @@ Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int
 // If you more control over the material, manipulate the values directly
 void RendererSetColor(Renderer* renderObject, Vec3* color)
 {
-	renderObject->material->ambient = Vec3Copy(color);
+	renderObject->material->ambient = color;
 	Vec3Set(renderObject->material->diffuse, 0.0f, 0.0f, 0.0f);
 	Vec3Set(renderObject->material->specular, 0.0f, 0.0f, 0.0f);
 	renderObject->material->shininess = 1.0f;
