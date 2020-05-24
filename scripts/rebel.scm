@@ -22,6 +22,15 @@
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
+(define (free_vector_debug% v)
+  (display "FREED: ")
+  (display (vec3:x v))
+  (display " ")
+  (display (vec3:y v))
+  (display " ")
+  (display (vec3:z v))
+  (newline)
+  (free% v))
 
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))
@@ -31,7 +40,8 @@
 
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
-(define vec3:copy (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
+(define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
+(define (vec3:copy x) (set-finalizer! (vec3:copy% x) free_vector%))
 
 (define (vec3:x p) (Vec3-x p))
 (define (vec3:x! p x) (set! (Vec3-x p) x))
@@ -59,7 +69,7 @@
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))))
-(define (light:directional:create x y) (light:directional:create_ (vec3:copy x) (vec3:copy y)))
+(define (light:directional:create x y) (light:directional:create_ (vec3:copy% x) (vec3:copy% y)))
 
 (define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
 (define (window:close?)
@@ -86,13 +96,13 @@
 (define renderer:color!_ (foreign-lambda void "RendererSetColor"
 					(c-pointer (struct "Renderer"))
 					(c-pointer (struct "Vec3"))))
-(define (renderer:color! x y) (renderer:color!_ x (vec3:copy y)))
+(define (renderer:color! x y) (renderer:color!_ x (vec3:copy% y)))
 (define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
-(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) (vec3:copy a)))
+(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) (vec3:copy% a)))
 (define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
-(define (material:diffuse! renderer a) (set! (Material-diffuse (Renderer-material renderer)) (vec3:copy a)))
+(define (material:diffuse! renderer a) (set! (Material-diffuse (Renderer-material renderer)) (vec3:copy% a)))
 (define (material:specular renderer) (Material-specular (Renderer-material renderer)))
-(define (material:specular! renderer a) (set! (Material-specular (Renderer-material renderer)) (vec3:copy a)))
+(define (material:specular! renderer a) (set! (Material-specular (Renderer-material renderer)) (vec3:copy% a)))
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
 (define (material:shininess! renderer a) (set! (Material-shininess (Renderer-material renderer)) a))
 
