@@ -97,7 +97,7 @@
    (vec3:check_copy% specular)))
 (define (light:directional:light light) (DirectionLight-light light))
 (define (light:directional:ambient! light vec)
-  (light:ambient! (light:directional:light light) vec))
+  (light:ambient! (light:directional:light light) (vec3:check_copy% vec)))
 
 ;; WINDOW
 ;; ======
