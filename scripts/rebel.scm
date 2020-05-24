@@ -111,11 +111,11 @@
 
 ;; RENDERER
 ;; ========
-(define cube:create% (foreign-lambda c-pointer "CubeCreate" c-string c-string))
-(define (cube:create directory filename) (set-finalizer! (cube:create% directory filename) free%))
+(define cube:create% (foreign-lambda c-pointer "CubeCreate" c-string))
+(define (cube:create file-path) (set-finalizer! (cube:create% file-path) free%))
 
-(define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string c-string))
-(define (sprite:create directory filename) (set-finalizer! (sprite:create% directory filename) free%))
+(define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string))
+(define (sprite:create file-path) (set-finalizer! (sprite:create% file-path) free%))
 
 (define renderer:draw (foreign-lambda void "RendererDraw"
 				    (c-pointer (struct "Renderer"))

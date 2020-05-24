@@ -95,18 +95,13 @@ void ShaderSetMat4(Shader *shader, const char* name, mat4 mat)
 	glUniformMatrix4fv(glGetUniformLocation(shader->id, name), 1, GL_FALSE, (float*)mat);
 }
 
-unsigned int LoadTextureFromFile(const char* directory, const char * fname)
+unsigned int LoadTextureFromFile(const char* filePath)
 {
-	char filename[256];
-	strcpy(filename, directory);
-	strcat(filename, "/");
-	strcat(filename, fname);
-		
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
 
 	int width, height, nrComponents;
-	unsigned char *data = stbi_load(filename, &width, &height, &nrComponents, 0);
+	unsigned char *data = stbi_load(filePath, &width, &height, &nrComponents, 0);
 	if (data)
 	{
 		GLenum format;
@@ -130,7 +125,7 @@ unsigned int LoadTextureFromFile(const char* directory, const char * fname)
 	}
 	else
 	{
-		sprintf("Texture failed to load at path: %s", filename);
+		sprintf("Texture failed to load at path: %s", filePath);
 		stbi_image_free(data);
 	}
 	return textureID;

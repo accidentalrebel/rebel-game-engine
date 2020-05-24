@@ -38,8 +38,8 @@ Mouse* MouseGetInstance();
 void MouseEnable();
 
 // RENDERER
-Renderer* SpriteCreate(const char *directory, const char *filename);
-Renderer* CubeCreate(const char *directory, const char *filename);
+Renderer* SpriteCreate(const char *filePath);
+Renderer* CubeCreate(const char *filePath);
 void RendererDraw(Renderer* cube, Vec3 *position, float width, float height, Vec3 *tintColor);
 void RendererSetColor(Renderer* renderObject, Vec3* color);
 

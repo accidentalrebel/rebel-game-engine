@@ -14,12 +14,12 @@
    (vec3:create 1.0 1.0 1.0))
 
   (set! *cube*
-	(cube:create "assets/textures" "container.png"))
+	(cube:create "assets/textures/container.png"))
   (set! *cube-shader*
 	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
 
   (set! *sprite*
-	(sprite:create "assets/textures" "awesomeface.png"))
+	(sprite:create "assets/textures/awesomeface.png"))
   (set! *sprite-shader*
 	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
 
