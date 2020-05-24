@@ -7,7 +7,8 @@
 (define *cube-positions*)
 
 (define (init)
-  (light:directional:create (vec3:create 0.0 -1.0 1.0) (vec3:create 0.6 0.0 0.0))
+  (let ((dir-light (light:directional:create (vec3:create 0.0 -1.0 1.0) #f)))
+    (light:directional:ambient! dir-light (vec3:create 0.6 0.0 0.0)))
   
   (set! *cube*
 	(cube:create "assets/textures" "tile.png"))

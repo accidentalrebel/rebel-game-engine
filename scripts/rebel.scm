@@ -71,13 +71,25 @@
 (define (camera:pitch camera) (Camera-pitch camera))
 (define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
 
+;; LIGHT
+;;
+(define (light:ambient! l vec)
+  (set! (Light-ambient l) vec))
+
+;; DIRECTIONAL_LIGHT
+;;
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))))
 (define (light:directional:create x y) (light:directional:create_
 					(vec3:check_copy% x)
 					(vec3:check_copy% y)))
+(define (light:directional:light l) (DirectionLight-light l))
+(define (light:directional:ambient! l vec)
+  (light:ambient! (light:directional:light l) vec))
 
+;; WINDOW
+;;
 (define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
 (define (window:close?)
   (if (= (window:can_close) 1)
