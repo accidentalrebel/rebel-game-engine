@@ -33,18 +33,17 @@ typedef struct Camera {
 	float pitch;
 } Camera;
 
-typedef struct LightIntensity
+typedef struct Light
 {
-	float ambient;
-	float diffuse;
-	float specular;
-} LightIntensity;
+	Vec3* ambient;
+	Vec3* diffuse;
+	Vec3* specular;
+} Light;
 
 typedef struct DirectionLight
 {
 	Vec3* direction;
-	Vec3* color;
-	LightIntensity* lightIntensity;
+	Light* light;
 } DirectionLight;
 
 typedef struct Mouse

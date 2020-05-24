@@ -27,7 +27,7 @@ uniform vec3 viewPos;
 
 void main()
 {
-	vec3 ambient = material.ambient; // * directionLight.ambient;
+	vec3 ambient = directionLight.ambient;// * material.ambient;
 
 	vec3 normals = normalize(Normals);
 	vec3 lightDir = normalize(-directionLight.direction - FragPos);

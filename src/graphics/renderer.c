@@ -187,10 +187,14 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	if ( g_rebel.directionLight != NULL )
 	{
-		Vec3ToGlm(g_rebel.directionLight->color, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.ambient", (vec3){ 1.0f, 0.0f, 0.0f});
-		ShaderSetVec3(shaderToUse, "directionLight.diffuse", (vec3){ 1.0f, 0.0f, 0.0f});
-		ShaderSetVec3(shaderToUse, "directionLight.specular", (vec3){ 1.0f, 0.5f, 0.5f});
+		Vec3ToGlm(g_rebel.directionLight->light->ambient, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.ambient", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->light->diffuse, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.diffuse", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->light->specular, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.specular", temp);
 
 		Vec3ToGlm(g_rebel.directionLight->direction, temp);
 		ShaderSetVec3(shaderToUse, "directionLight.direction", temp);
