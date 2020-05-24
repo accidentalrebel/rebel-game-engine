@@ -86,6 +86,12 @@
 					(c-pointer (struct "Vec3"))))
 (define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
 (define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) a))
+(define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
+(define (material:diffuse! renderer a) (set! (Material-diffuse (Renderer-material renderer)) a))
+(define (material:specular renderer) (Material-specular (Renderer-material renderer)))
+(define (material:specular! renderer a) (set! (Material-specular (Renderer-material renderer)) a))
+(define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
+(define (material:shininess! renderer a) (set! (Material-shininess (Renderer-material renderer)) a))
 
 (define shader:use (foreign-lambda void "ShaderUse" (c-pointer (struct "Shader"))))
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
