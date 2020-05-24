@@ -11,6 +11,7 @@ void InputProcess();
 // VECTOR
 //
 Vec3* Vec3Create(float x, float y, float z);
+Vec3* Vec3Copy(Vec3* from);
 
 // CAMERA
 //

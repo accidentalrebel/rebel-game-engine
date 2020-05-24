@@ -31,6 +31,7 @@
 
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
+(define vec3:copy (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
 
 (define (vec3:x p) (Vec3-x p))
 (define (vec3:x! p x) (set! (Vec3-x p) x))
@@ -55,9 +56,11 @@
 (define (camera:pitch camera) (Camera-pitch camera))
 (define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
 
-(define light:directional:create (foreign-lambda c-pointer "DirectionLightCreate"
+(define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))))
+(define (light:directional:create x y) (light:directional:create_
+					(vec3:copy x) y))
 
 (define window:can_close (foreign-lambda unsigned-integer "WindowCanClose"))
 (define (window:close?)
@@ -85,7 +88,7 @@
 					(c-pointer (struct "Renderer"))
 					(c-pointer (struct "Vec3"))))
 (define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
-(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) a))
+(define (material:ambient! renderer a) (set! (Material-ambient (Renderer-material renderer)) (vec3:copy a)))
 (define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
 (define (material:diffuse! renderer a) (set! (Material-diffuse (Renderer-material renderer)) a))
 (define (material:specular renderer) (Material-specular (Renderer-material renderer)))
