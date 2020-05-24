@@ -1,4 +1,5 @@
 #include "direction_light.h"
+#include "light.h"
 #include "../../rebel.h"
 #include <stdlib.h>
 
@@ -13,10 +14,7 @@ DirectionLight* DirectionLightCreate(Vec3* direction, Vec3* color)
 	// This is so that those pointers can be safely cleaned up by the GC without affecting these values
 	directionLight->direction = Vec3Create(direction->x, direction->y, direction->z);
 
-	directionLight->light = (Light*)malloc(sizeof(Light));
-	directionLight->light->ambient = Vec3Create(color->x, color->y, color->z);
-	directionLight->light->diffuse = Vec3Create(0.0, 0.0f, 1.0f);
-	directionLight->light->specular = Vec3Create(1.0f, 0.5f, 0.5f);
+	directionLight->light = LightCreate(color);
 
 	g_rebel.directionLight = directionLight;
 	return directionLight;
