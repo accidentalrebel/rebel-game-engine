@@ -58,7 +58,7 @@ Renderer* CubeCreate(const char *filePath)
 	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
 	stbi_set_flip_vertically_on_load(true);
- 	renderer->texture = LoadTextureFromFile(filePath);
+ 	renderer->texture = TextureLoad(filePath);
 	return renderer;
 }
 
@@ -79,7 +79,7 @@ Renderer* SpriteCreate(const char *filePath)
 	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
 	
 	stbi_set_flip_vertically_on_load(true);
- 	renderer->texture = LoadTextureFromFile(filePath);
+ 	renderer->texture = TextureLoad(filePath);
 	
 	return renderer;
 }
