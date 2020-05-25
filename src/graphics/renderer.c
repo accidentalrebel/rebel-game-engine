@@ -8,7 +8,7 @@
 #include "shader.h"
 #include "../data/vec3.h"
 
-Renderer* CubeCreate(const char *filePath)
+Renderer* CubeCreate()
 {
 	float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
@@ -58,11 +58,10 @@ Renderer* CubeCreate(const char *filePath)
 	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
 	stbi_set_flip_vertically_on_load(true);
- 	renderer->texture = TextureLoad(filePath);
 	return renderer;
 }
 
-Renderer* SpriteCreate(const char *filePath)
+Renderer* SpriteCreate()
 {
 	float vertices[] = {  
 		// positions   // texCoords
@@ -79,7 +78,6 @@ Renderer* SpriteCreate(const char *filePath)
 	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
 	
 	stbi_set_flip_vertically_on_load(true);
- 	renderer->texture = TextureLoad(filePath);
 	
 	return renderer;
 }

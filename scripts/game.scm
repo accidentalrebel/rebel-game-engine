@@ -13,15 +13,16 @@
    (vec3:create 0.5 0.5 0.5)
    (vec3:create 1.0 1.0 1.0))
 
-  (set! *cube*
-	(cube:create "assets/textures/container.png"))
+  (set! *cube* (cube:create))
   (set! *cube-shader*
 	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
 
-  (set! *sprite*
-	(sprite:create "assets/textures/awesomeface.png"))
+  (set! *sprite* (sprite:create))
   (set! *sprite-shader*
 	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
+
+  (renderer:texture! *cube* (texture:load "assets/textures/container.png"))
+  (renderer:texture! *sprite* (texture:load "assets/textures/awesomeface.png"))
 
   ;; TODO; Remove material.ambient and material.diffuse
   (material:specular! *cube* (vec3:create 0.5 0.5 0.5))

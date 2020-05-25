@@ -111,17 +111,18 @@
 
 ;; RENDERER
 ;; ========
-(define cube:create% (foreign-lambda c-pointer "CubeCreate" c-string))
-(define (cube:create file-path) (set-finalizer! (cube:create% file-path) free%))
+(define cube:create% (foreign-lambda c-pointer "CubeCreate"))
+(define (cube:create) (set-finalizer! (cube:create%) free%))
 
-(define sprite:create% (foreign-lambda c-pointer "SpriteCreate" c-string))
-(define (sprite:create file-path) (set-finalizer! (sprite:create% file-path) free%))
+(define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
+(define (sprite:create) (set-finalizer! (sprite:create%) free%))
 
 (define renderer:draw (foreign-lambda void "RendererDraw"
 				    (c-pointer (struct "Renderer"))
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
+(define (renderer:texture! renderer texture) (set! (Renderer-texture renderer) texture))
 
 ;; Note: Sets the color of the renderer. Overwrites the material.
 ;; If you more control over the material just use the material: functions below
@@ -148,6 +149,11 @@
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create vertexPath fragmentPath) (set-finalizer! (shader:create% vertexPath fragmentPath) free%))
+
+;; TEXTURE
+;; =======
+(define texture:load (foreign-lambda unsigned-integer "TextureLoad" c-string))
+(define texture:unload (foreign-lambda void "TextureUnload" unsigned-integer))
 
 ;; KEYBOARD
 ;; ========
