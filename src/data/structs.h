@@ -59,8 +59,6 @@ typedef struct Shader {
 
 typedef struct Material
 {
-	Vec3* ambient;
-	Vec3* diffuse;
 	Vec3* specular;
 	float shininess;
 } Material;

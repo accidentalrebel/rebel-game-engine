@@ -5,8 +5,6 @@
 Material* MaterialCreate()
 {
 	Material* mat = (Material*)malloc(sizeof(Material));
-	mat->ambient = Vec3Create(1.0f, 1.0f, 1.0f);
-	mat->diffuse = Vec3Create(0.0f, 0.0f, 0.0f);
 	mat->specular = Vec3Create(0.0f, 0.0f, 0.0f);
 	mat->shininess = 1.0f;
 	return mat;

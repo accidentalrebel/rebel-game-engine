@@ -115,16 +115,6 @@ Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int
 	return renderer;
 }
 
-// Note: Sets the color of the renderer. Overwrites the material by resseting the material to default values.
-// If you more control over the material, manipulate the values directly
-void RendererSetColor(Renderer* renderObject, Vec3* color)
-{
-	renderObject->material->ambient = color;
-	Vec3Set(renderObject->material->diffuse, 0.0f, 0.0f, 0.0f);
-	Vec3Set(renderObject->material->specular, 0.0f, 0.0f, 0.0f);
-	renderObject->material->shininess = 1.0f;
-}
-
 void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
 {
 	Shader* shaderToUse;
@@ -168,14 +158,7 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z});
 
-	/* temp[0] = tintColor->x; */
-	/* temp[1] = tintColor->y; */
-	/* temp[2] = tintColor->z; */
-	vec3 ambient;
-	vec3 diffuse;
 	vec3 specular;
-	Vec3ToGlm(rendererObject->material->ambient, ambient);
-	Vec3ToGlm(rendererObject->material->diffuse, diffuse);
 	Vec3ToGlm(rendererObject->material->specular, specular);
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0); // TODO: Move to initialization

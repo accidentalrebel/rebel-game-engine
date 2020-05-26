@@ -124,14 +124,6 @@
 				    (c-pointer (struct "Vec3"))))
 (define (renderer:texture! renderer texture) (set! (Renderer-texture renderer) texture))
 
-;; Note: Sets the color of the renderer. Overwrites the material.
-;; If you more control over the material just use the material: functions below
-(define renderer:color!_ (foreign-lambda void "RendererSetColor"
-					(c-pointer (struct "Renderer"))
-					(c-pointer (struct "Vec3"))))
-(define (renderer:color! render-object color)
-  (renderer:color!_ render-object (vec3:check_copy% color)))
-
 ;; MATERIAL
 ;; ========
 (define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
