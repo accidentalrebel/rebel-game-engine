@@ -8,7 +8,7 @@
 
 (define (init)
   (light:directional:create
-   (vec3:create 1.2 -1.0 2.0)
+   (vec3:create 1.2 -1.0 -1.0)
    (vec3:create 0.05 0.05 0.05)
    (vec3:create 0.4 0.4 0.4)
    (vec3:create 0.5 0.5 0.5))

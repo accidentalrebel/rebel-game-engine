@@ -9,11 +9,11 @@ Camera* CameraCreate()
 	camera->projection = PERSPECTIVE;
 	camera->size = 5;
 	camera->fov = 45;
-	camera->position = Vec3Create(0, 0, -10);
+	camera->position = Vec3Create(0, 0, 10);
 	camera->front = Vec3Create(0, 0, 1);
 	camera->up = Vec3Create(0, 1, 0);
 	camera->right = Vec3Create(1, 0, 0);
-	camera->yaw = 90.0f;
+	camera->yaw = -90.0f;
 	camera->pitch = 0.0f;
 	return camera;
 }
