@@ -156,10 +156,6 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z});
 
-	vec3 specular;
-	Vec3ToGlm(rendererObject->material->specular, specular);
-
-	ShaderSetVec3(shaderToUse, "material.specular", specular);
 	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 
 	if ( g_rebel.directionLight != NULL )
@@ -198,11 +194,11 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	glBindVertexArray(rendererObject->VAO);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, rendererObject->textureDiffuse1);
-	if ( rendererObject->textureSpecular1 > 0 )
+	glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureDiffuse1);
+	if ( rendererObject->material->textureSpecular1 > 0 )
 	{
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, rendererObject->textureSpecular1);
+		glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureSpecular1);
 	}
 
 	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);

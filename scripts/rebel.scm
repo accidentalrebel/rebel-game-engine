@@ -122,19 +122,21 @@
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
-(define (renderer:texture_diffuse! renderer texture) (set! (Renderer-textureDiffuse1 renderer) texture))
-(define (renderer:texture_specular! renderer texture) (set! (Renderer-textureSpecular1 renderer) texture))
-
 ;; MATERIAL
 ;; ========
-(define (material:ambient renderer) (Material-ambient (Renderer-material renderer)))
-(define (material:ambient! renderer ambient) (set! (Material-ambient (Renderer-material renderer)) (vec3:check_copy% ambient)))
-(define (material:diffuse renderer) (Material-diffuse (Renderer-material renderer)))
-(define (material:diffuse! renderer diffuse) (set! (Material-diffuse (Renderer-material renderer)) (vec3:check_copy% diffuse)))
-(define (material:specular renderer) (Material-specular (Renderer-material renderer)))
-(define (material:specular! renderer spec) (set! (Material-specular (Renderer-material renderer)) (vec3:check_copy% spec)))
+(define (material:texture_diffuse! renderer texture)
+  (set! (Material-textureDiffuse1
+	 (Renderer-material renderer))
+	texture))
+(define (material:texture_specular! renderer texture)
+  (set! (Material-textureSpecular1
+	 (Renderer-material renderer))
+	texture))
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
-(define (material:shininess! renderer shine) (set! (Material-shininess (Renderer-material renderer)) shine))
+(define (material:shininess! renderer shine)
+  (set! (Material-shininess
+	 (Renderer-material renderer))
+	shine))
 
 ;; SHADER
 ;; ======

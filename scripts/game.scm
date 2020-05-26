@@ -15,14 +15,13 @@
 
   (set! *cube* (cube:create))
   (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
-  (renderer:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
-  (renderer:texture_specular! *cube* (texture:load "assets/textures/container-specular.png"))
-  (material:specular! *cube* (vec3:create 0.5 0.5 0.5))
+  (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
+  (material:texture_specular! *cube* (texture:load "assets/textures/container-specular.png"))
   (material:shininess! *cube* 64.0)
 
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
-  (renderer:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
+  (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
 
   (set! *cube-positions*
 	(list (vec3:create 0 0 0)

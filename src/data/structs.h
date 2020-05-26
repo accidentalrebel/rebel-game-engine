@@ -59,7 +59,8 @@ typedef struct Shader {
 
 typedef struct Material
 {
-	Vec3* specular;
+	unsigned int textureDiffuse1;
+	unsigned int textureSpecular1;
 	float shininess;
 } Material;
 
@@ -67,8 +68,6 @@ typedef struct Renderer
 {
 	unsigned int VAO;
 	unsigned int VBO;
-	unsigned int textureDiffuse1;
-	unsigned int textureSpecular1;
 	unsigned int indicesSize;
 
 	Material* material;
