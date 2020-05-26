@@ -123,8 +123,6 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	else
 		shaderToUse = g_rebel.defaultShader;
 		
-	ShaderSetInt(shaderToUse, "texture1", 0);
-
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
 
@@ -161,7 +159,6 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	vec3 specular;
 	Vec3ToGlm(rendererObject->material->specular, specular);
 
-	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0); // TODO: Move to initialization
 	ShaderSetVec3(shaderToUse, "material.specular", specular);
 	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 
@@ -199,7 +196,14 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
 	
 	glBindVertexArray(rendererObject->VAO);
-	glBindTexture(GL_TEXTURE_2D, rendererObject->texture);
-	// glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, rendererObject->textureDiffuse1);
+	if ( rendererObject->textureSpecular1 > 0 )
+	{
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, rendererObject->textureSpecular1);
+	}
+
 	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);
 }

@@ -122,7 +122,8 @@
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
-(define (renderer:texture! renderer texture) (set! (Renderer-texture renderer) texture))
+(define (renderer:texture_diffuse! renderer texture) (set! (Renderer-textureDiffuse1 renderer) texture))
+(define (renderer:texture_specular! renderer texture) (set! (Renderer-textureSpecular1 renderer) texture))
 
 ;; MATERIAL
 ;; ========

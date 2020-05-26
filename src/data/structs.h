@@ -67,7 +67,8 @@ typedef struct Renderer
 {
 	unsigned int VAO;
 	unsigned int VBO;
-	unsigned int texture;
+	unsigned int textureDiffuse1;
+	unsigned int textureSpecular1;
 	unsigned int indicesSize;
 
 	Material* material;

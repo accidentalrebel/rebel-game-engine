@@ -65,6 +65,9 @@ void ShaderUse(Shader *shader)
 {
 	glUseProgram(shader->id);
 	g_rebel.currentShader = shader;
+
+	ShaderSetInt(shader, "material.texture_diffuse1", 0);
+	ShaderSetInt(shader, "material.texture_specular1", 1);
 }
 void ShaderSetBool(Shader *shader, const char* name, bool value)
 {
