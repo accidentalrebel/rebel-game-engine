@@ -9,9 +9,9 @@
 (define (init)
   (light:directional:create
    (vec3:create 1.2 -1.0 2.0)
-   (vec3:create 0.2 0.2 0.2)
-   (vec3:create 0.5 0.5 0.5)
-   (vec3:create 1.0 1.0 1.0))
+   (vec3:create 0.05 0.05 0.05)
+   (vec3:create 0.4 0.4 0.4)
+   (vec3:create 0.5 0.5 0.5))
 
   (set! *cube* (cube:create))
   (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
@@ -25,7 +25,7 @@
 
   (set! *cube-positions*
 	(list (vec3:create 0 0 0)
-	      (vec3:create 1.25 0 0)
+	      (vec3:create 2.25 0 0)
 	      (vec3:create -1.25 0 0))))
 
 (define (update)
