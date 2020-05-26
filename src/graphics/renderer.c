@@ -193,10 +193,13 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	
 	glBindVertexArray(rendererObject->VAO);
 
+	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureDiffuse1);
+	
 	if ( rendererObject->material->textureSpecular1 > 0 )
 	{
+		ShaderSetInt(shaderToUse, "material.texture_specular1", 1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureSpecular1);
 	}
