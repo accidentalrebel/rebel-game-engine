@@ -26,14 +26,15 @@ struct PointLight {
 	vec3 specular;
 };
 
-#define POINT_LIGHTS_COUNT 4
-uniform PointLight pointLights[POINT_LIGHTS_COUNT];
+#define POINT_LIGHTS_MAX 4
+uniform PointLight pointLights[POINT_LIGHTS_MAX];
 
 out vec4 FragColor;
 in vec3 FragPos;
 in vec3 Normals;
 in vec2 TexCoords;
 
+uniform int pointLightsCount;
 uniform DirectionLight directionLight;
 uniform Material material;
 uniform vec3 viewPos;
@@ -46,7 +47,12 @@ void main()
 	vec3 normal = normalize(Normals);
 	vec3 viewDir = normalize(viewPos - FragPos);
 	vec3 result = CalculateDirectionalLight(directionLight, normal, viewDir);
-	result += CalculatePointLight(pointLights[0], normal, viewDir);
+
+	for ( int i = 0; i < pointLightsCount ; i++ )
+	{
+		result += CalculatePointLight(pointLights[i], normal, viewDir);
+	}
+
 	FragColor = vec4(result, 1.0);
 }
 
