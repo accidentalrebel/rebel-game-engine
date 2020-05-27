@@ -37,7 +37,6 @@ objs:
 	$(CC) -c src/graphics/camera.c $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) -c src/graphics/material.c $(INCLUDE_FLAGS) -o tmp/material.o
 	$(CC) -c src/graphics/lighting/light.c $(INCLUDE_FLAGS) -o tmp/light.o
-	$(CC) -c src/graphics/lighting/direction_light.c $(INCLUDE_FLAGS) -o tmp/direction_light.o
 	$(CC) -c src/input/keyboard.c $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	$(CC) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) -c src/core/window.c $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o

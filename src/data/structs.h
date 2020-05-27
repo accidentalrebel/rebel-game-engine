@@ -46,6 +46,16 @@ typedef struct DirectionLight
 	Light* light;
 } DirectionLight;
 
+typedef struct PointLight
+{
+	Vec3* position;
+	Light* light;
+
+	float constant;
+	float linear;
+	float quadratic;
+} PointLight;
+
 typedef struct Mouse
 {
 	unsigned int initialized;
