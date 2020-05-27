@@ -2,10 +2,29 @@
 #include "../../rebel.h"
 #include <stdlib.h>
 
-Light* LightCreate()
+Light* LightCreate(Vec3* ambient, Vec3* diffuse, Vec3* specular)
 {
 	Light* light = (Light*)malloc(sizeof(Light));
+	light->ambient = Vec3Copy(ambient);
+	light->diffuse = Vec3Copy(diffuse);
+	light->specular = Vec3Copy(specular);
+
 	return light;
+}
+
+PointLight* PointLightCreate(Vec3* position, Vec3* ambient, Vec3* diffuse, Vec3* specular, float constant, float linear, float quadratic)
+{
+	PointLight* pointLight = (PointLight*)malloc(sizeof(PointLight));
+	pointLight->position = Vec3Create(position->x, position->y, position->z);
+	pointLight->constant = constant;
+	pointLight->linear = linear;
+	pointLight->quadratic = quadratic;
+	
+	pointLight->light = LightCreate(ambient, diffuse, specular);
+
+	g_rebel.pointLights[g_rebel.pointLightIndex++] = pointLight;
+	
+	return pointLight;
 }
 
 DirectionLight* DirectionLightCreate(Vec3* direction, Vec3* ambient, Vec3* diffuse, Vec3* specular)
@@ -19,10 +38,7 @@ DirectionLight* DirectionLightCreate(Vec3* direction, Vec3* ambient, Vec3* diffu
 	// This is so that those pointers can be safely cleaned up by the GC without affecting these values
 	directionLight->direction = Vec3Create(direction->x, direction->y, direction->z);
 
-	directionLight->light = LightCreate();
-	directionLight->light->ambient = Vec3Copy(ambient);
-	directionLight->light->diffuse = Vec3Copy(diffuse);
-	directionLight->light->specular = Vec3Copy(specular);
+	directionLight->light = LightCreate(ambient, diffuse, specular);
 
 	g_rebel.directionLight = directionLight;
 	return directionLight;

@@ -15,6 +15,8 @@ typedef struct Rebel {
 	// TODO: Camera and directionLight should be a part of a scene.
 	Camera *mainCamera;
 	DirectionLight* directionLight;
+	PointLight* pointLights[4];
+	unsigned int pointLightIndex;
 } Rebel;
 
 extern Rebel g_rebel;

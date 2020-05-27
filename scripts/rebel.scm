@@ -95,6 +95,20 @@
    (vec3:check_copy% ambient)
    (vec3:check_copy% diffuse)
    (vec3:check_copy% specular)))
+
+(define light:point:create_ (foreign-lambda c-pointer "PointLightCreate"
+						 (c-pointer (struct "Vec3"))
+						 (c-pointer (struct "Vec3"))
+						 (c-pointer (struct "Vec3"))
+						 (c-pointer (struct "Vec3"))
+						 float float float))
+(define (light:point:create direction ambient diffuse specular constant linear quadratic)
+  (light:light:create_
+   (vec3:check_copy% direction)
+   (vec3:check_copy% ambient)
+   (vec3:check_copy% diffuse)
+   (vec3:check_copy% specular)
+   constant linear quadratic))
 (define (light:directional:light light) (DirectionLight-light light))
 (define (light:directional:ambient! light vec)
   (light:ambient! (light:directional:light light) (vec3:check_copy% vec)))
