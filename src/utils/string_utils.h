@@ -1,29 +1,24 @@
 #include <stdio.h>
 
-void StringInsert(const char* str, const char* insert, unsigned int atIndex)
+void StringInsert(char *output, const char* str, const char* insert, unsigned int atIndex)
 {
-	char output[80];
-
 	unsigned int i = 0;
 	while ( *str != '\0' )
 	{
 		if ( i < atIndex || *insert == '\0')
 		{
-			output[i] = *str;
+			*output = *str;
 			str++;
 		}
 		else if ( *insert != '\0' )
 		{
-			output[i] = *insert;
+			*output = *insert;
 			insert++;
 		}
 		
-		printf("%c", output[i]);
-		
+		output++;
 		i++;
 	}
-	output[i] = '\0';
-
-	printf("\n%s", output);
+	*output = '\0';
 }
 

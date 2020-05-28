@@ -2,6 +2,8 @@
 
 int main(void)
 {
-	StringInsert("test", "karlo", 2);
+	char output[80];
+	StringInsert(output, "test", "karlo", 2);
+	printf(output);
 	return 0;
 }
