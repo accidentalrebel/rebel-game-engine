@@ -13,6 +13,20 @@
    (vec3:create 0.4 0.4 0.4)
    (vec3:create 0.5 0.5 0.5))
 
+  (light:point:create
+   (vec3:create 1.25 0.0 -1.0)
+   (vec3:create 0.1 0.05 0.05)
+   (vec3:create 0.8 0.2 0.2)
+   (vec3:create 1.0 0.2 0.2)
+   1.0 0.09 0.032)
+
+  (light:point:create
+   (vec3:create -1.25 0.0 -1.0)
+   (vec3:create 0.05 0.05 0.1)
+   (vec3:create 0.2 0.2 0.8)
+   (vec3:create 0.2 0.2 1.0)
+   1.0 0.09 0.032)
+
   (set! *cube* (cube:create))
   (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))

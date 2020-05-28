@@ -13,6 +13,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.mouse = MouseInit();
 
 	//TODO: Make separate default shader files
+	g_rebel.pointLightCount = 0;
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 }
 

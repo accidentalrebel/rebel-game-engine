@@ -22,7 +22,7 @@ PointLight* PointLightCreate(Vec3* position, Vec3* ambient, Vec3* diffuse, Vec3*
 	
 	pointLight->light = LightCreate(ambient, diffuse, specular);
 
-	g_rebel.pointLights[g_rebel.pointLightIndex++] = pointLight;
+	g_rebel.pointLights[g_rebel.pointLightCount++] = pointLight;
 	
 	return pointLight;
 }

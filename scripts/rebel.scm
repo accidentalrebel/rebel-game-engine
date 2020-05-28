@@ -103,7 +103,7 @@
 						 (c-pointer (struct "Vec3"))
 						 float float float))
 (define (light:point:create direction ambient diffuse specular constant linear quadratic)
-  (light:light:create_
+  (light:point:create_
    (vec3:check_copy% direction)
    (vec3:check_copy% ambient)
    (vec3:check_copy% diffuse)

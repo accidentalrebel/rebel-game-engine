@@ -16,7 +16,7 @@ typedef struct Rebel {
 	Camera *mainCamera;
 	DirectionLight* directionLight;
 	PointLight* pointLights[4];
-	unsigned int pointLightIndex;
+	unsigned int pointLightCount;
 } Rebel;
 
 extern Rebel g_rebel;

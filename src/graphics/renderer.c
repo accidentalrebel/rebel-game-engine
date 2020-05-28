@@ -158,23 +158,48 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 
-	ShaderSetInt(shaderToUse, "pointLightsCount", 2);
-	
-	ShaderSetVec3(shaderToUse, "pointLights[0].position", (vec3){ 1.25f, 0.0f, -1.0f });
-	ShaderSetVec3(shaderToUse, "pointLights[0].ambient", (vec3){ 0.1f, 0.05f, 0.05f });
-	ShaderSetVec3(shaderToUse, "pointLights[0].diffuse", (vec3){ 0.8f, 0.2f, 0.2f });
-	ShaderSetVec3(shaderToUse, "pointLights[0].specular", (vec3){ 1.0f, 0.2f, 0.2f });
-	ShaderSetFloat(shaderToUse, "pointLights[0].constant", 1.0f);
-	ShaderSetFloat(shaderToUse, "pointLights[0].linear", 0.09f);
-	ShaderSetFloat(shaderToUse, "pointLights[0].quadratic", 0.032f);
+	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
 
-	ShaderSetVec3(shaderToUse, "pointLights[1].position", (vec3){ -1.25f, -0.5f, -1.0f });
-	ShaderSetVec3(shaderToUse, "pointLights[1].ambient", (vec3){ 0.05f, 0.05f, 0.1f });
-	ShaderSetVec3(shaderToUse, "pointLights[1].diffuse", (vec3){ 0.2f, 0.2f, 0.8f });
-	ShaderSetVec3(shaderToUse, "pointLights[1].specular", (vec3){ 0.2f, 0.2f, 1.0f });
-	ShaderSetFloat(shaderToUse, "pointLights[1].constant", 1.0f);
-	ShaderSetFloat(shaderToUse, "pointLights[1].linear", 0.09f);
-	ShaderSetFloat(shaderToUse, "pointLights[1].quadratic", 0.032f);
+	for ( unsigned int i = 0 ; i < g_rebel.pointLightCount ; i++ )
+	{
+		PointLight* pointLight = g_rebel.pointLights[i];
+		if ( i == 0 )
+		{
+			Vec3ToGlm(pointLight->position, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[0].position", temp);
+
+			Vec3ToGlm(pointLight->light->ambient, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[0].ambient", temp);
+
+ 			Vec3ToGlm(pointLight->light->ambient, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[0].diffuse", temp);
+
+			Vec3ToGlm(pointLight->light->specular, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[0].specular", temp);
+
+			ShaderSetFloat(shaderToUse, "pointLights[0].constant", pointLight->constant);
+			ShaderSetFloat(shaderToUse, "pointLights[0].linear", pointLight->linear);
+			ShaderSetFloat(shaderToUse, "pointLights[0].quadratic", pointLight->quadratic);
+		}
+		else
+		{
+			Vec3ToGlm(pointLight->position, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[1].position", temp);
+
+			Vec3ToGlm(pointLight->light->ambient, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[1].ambient", temp);
+
+ 			Vec3ToGlm(pointLight->light->ambient, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[1].diffuse", temp);
+
+			Vec3ToGlm(pointLight->light->specular, temp);
+			ShaderSetVec3(shaderToUse, "pointLights[1].specular", temp);
+
+			ShaderSetFloat(shaderToUse, "pointLights[1].constant", pointLight->constant);
+			ShaderSetFloat(shaderToUse, "pointLights[1].linear", pointLight->linear);
+			ShaderSetFloat(shaderToUse, "pointLights[1].quadratic", pointLight->quadratic);
+		}
+	}
 
 	if ( g_rebel.directionLight != NULL )
 	{
