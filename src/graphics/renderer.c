@@ -174,7 +174,7 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 		sprintf(base, "pointLights[%u].ambient", i);
 		ShaderSetVec3(shaderToUse, base, temp);
 
-		Vec3ToGlm(pointLight->light->ambient, temp);
+		Vec3ToGlm(pointLight->light->diffuse, temp);
 		sprintf(base, "pointLights[%u].diffuse", i);
 		ShaderSetVec3(shaderToUse, base, temp);
 
