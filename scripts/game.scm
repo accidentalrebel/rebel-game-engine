@@ -5,6 +5,14 @@
 (define *sprite*)
 (define *sprite-shader*)
 (define *cube-positions*)
+(define *tile*)
+(define *tile-shader*)
+(define *tile-map*
+  '(0 0 0 0 0
+      0 0 0 0 0
+      0 0 0 0 0
+      0 0 0 0 0
+      0 0 0 0 0))
 
 (define (init)
   (light:directional:create
@@ -26,6 +34,12 @@
    (vec3:create 0.2 0.2 0.8)
    (vec3:create 0.2 0.2 1.0)
    1.0 0.09 0.032)
+
+  (set! *tile* (cube:create))
+  (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
+  (material:texture_diffuse! *tile* (texture:load "assets/textures/tile.png"))
+  (material:texture_specular! *tile* (texture:load "assets/textures/container-specular.png"))
+  (material:shininess! *tile* 12.0)
 
   (set! *cube* (cube:create))
   (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
@@ -60,6 +74,24 @@
        (renderer:draw *cube* position 1 1 %tint%)
        (free% %tint%)))
    *cube-positions*)
+
+  (shader:use *tile-shader*)
+
+  (let ((current-col 0)
+	(current-row 0))
+    (for-each
+     (lambda (tile-value)
+       (let ((%pos% (vec3:create% current-col (sub1 tile-value) current-row)))
+	 (renderer:draw *tile* %pos% 1 1 #f)
+	 (free% %pos%))
+
+       (set! current-col (add1 current-col))
+       (when (>= current-col 5)
+	 (set! current-col 0)
+	 (set! current-row (add1 current-row))
+	 )
+       )
+     *tile-map*))
 
   (shader:use *sprite-shader*)
 
