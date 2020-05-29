@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string.h>
 
 #include "renderer.h"
 #include "material.h"
@@ -160,45 +161,35 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
 
+	char base[30];
 	for ( unsigned int i = 0 ; i < g_rebel.pointLightCount ; i++ )
 	{
 		PointLight* pointLight = g_rebel.pointLights[i];
-		if ( i == 0 )
-		{
-			Vec3ToGlm(pointLight->position, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[0].position", temp);
 
-			Vec3ToGlm(pointLight->light->ambient, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[0].ambient", temp);
+		Vec3ToGlm(pointLight->position, temp);
+		sprintf(base, "pointLights[%u].position", i);
+		ShaderSetVec3(shaderToUse, base, temp);
 
- 			Vec3ToGlm(pointLight->light->ambient, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[0].diffuse", temp);
+		Vec3ToGlm(pointLight->light->ambient, temp);
+		sprintf(base, "pointLights[%u].ambient", i);
+		ShaderSetVec3(shaderToUse, base, temp);
 
-			Vec3ToGlm(pointLight->light->specular, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[0].specular", temp);
+		Vec3ToGlm(pointLight->light->ambient, temp);
+		sprintf(base, "pointLights[%u].diffuse", i);
+		ShaderSetVec3(shaderToUse, base, temp);
 
-			ShaderSetFloat(shaderToUse, "pointLights[0].constant", pointLight->constant);
-			ShaderSetFloat(shaderToUse, "pointLights[0].linear", pointLight->linear);
-			ShaderSetFloat(shaderToUse, "pointLights[0].quadratic", pointLight->quadratic);
-		}
-		else
-		{
-			Vec3ToGlm(pointLight->position, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[1].position", temp);
+		Vec3ToGlm(pointLight->light->specular, temp);
+		sprintf(base, "pointLights[%u].specular", i);
+		ShaderSetVec3(shaderToUse, base, temp);
 
-			Vec3ToGlm(pointLight->light->ambient, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[1].ambient", temp);
+		sprintf(base, "pointLights[%u].constant", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->constant);
+			
+		sprintf(base, "pointLights[%u].linear", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->linear);
 
- 			Vec3ToGlm(pointLight->light->ambient, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[1].diffuse", temp);
-
-			Vec3ToGlm(pointLight->light->specular, temp);
-			ShaderSetVec3(shaderToUse, "pointLights[1].specular", temp);
-
-			ShaderSetFloat(shaderToUse, "pointLights[1].constant", pointLight->constant);
-			ShaderSetFloat(shaderToUse, "pointLights[1].linear", pointLight->linear);
-			ShaderSetFloat(shaderToUse, "pointLights[1].quadratic", pointLight->quadratic);
-		}
+		sprintf(base, "pointLights[%u].linear", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->quadratic);
 	}
 
 	if ( g_rebel.directionLight != NULL )
