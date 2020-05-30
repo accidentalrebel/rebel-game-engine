@@ -7,12 +7,18 @@
 (define *cube-positions*)
 (define *tile*)
 (define *tile-shader*)
+
+(define *TILE_MAP_COLS* 8)
+(define *TILE_MAP_ROWS* 8)
 (define *tile-map*
-  '(0 0 0 0 0
-      0 0 0 0 0
-      0 0 0 0 0
-      0 0 0 0 0
-      0 0 0 0 0))
+  '(0 0 0 0 0 0 0 0
+      0 1 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0
+      0 0 0 0 0 1 0 0
+      0 0 0 0 0 0 0 0
+      0 0 0 0 0 0 0 0))
 
 (define (init)
   (light:directional:create
@@ -86,7 +92,7 @@
 	 (free% %pos%))
 
        (set! current-col (add1 current-col))
-       (when (>= current-col 5)
+       (when (>= current-col *TILE_MAP_COLS*)
 	 (set! current-col 0)
 	 (set! current-row (add1 current-row))
 	 )
