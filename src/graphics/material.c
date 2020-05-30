@@ -5,6 +5,8 @@
 Material* MaterialCreate()
 {
 	Material* mat = (Material*)malloc(sizeof(Material));
+	mat->textureDiffuse1 = 0;
+	mat->textureSpecular1 = 0;
 	mat->shininess = 1.0f;
 	return mat;
 }
