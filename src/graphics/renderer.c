@@ -227,6 +227,12 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	
 	glBindVertexArray(rendererObject->VAO);
 
+	if ( rendererObject->material->color != NULL )
+	{
+		Vec3ToGlm(rendererObject->material->color, temp);
+		ShaderSetVec3(shaderToUse, "material.color", temp);
+	}
+
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureDiffuse1);

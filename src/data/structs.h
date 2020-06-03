@@ -72,6 +72,7 @@ typedef struct Material
 	unsigned int textureDiffuse1;
 	unsigned int textureSpecular1;
 	float shininess;
+	Vec3* color;
 } Material;
 
 typedef struct Renderer

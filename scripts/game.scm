@@ -8,6 +8,9 @@
 (define *tile*)
 (define *tile-shader*)
 
+(define *light*)
+(define *light-shader*)
+
 (define *TILE_MAP_COLS* 8)
 (define *TILE_MAP_ROWS* 8)
 (define *tile-map*
@@ -52,6 +55,10 @@
   (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
   (material:texture_specular! *cube* (texture:load "assets/textures/container-specular.png"))
   (material:shininess! *cube* 64.0)
+
+  (set! *light* (cube:create))
+  (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs"))
+  (material:color! *light* (vec3:create 1.0 0.0 0.0))
 
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
@@ -101,11 +108,18 @@
 
   (shader:use *sprite-shader*)
 
+  ;; TODO; Make sure to use float values
   (let ((%pos% (vec3:create% 0 1.25 0))
 	(%tint% (vec3:create% 1 1 1)))
     (renderer:draw *sprite* %pos% 1 1 %tint%)
     (free% %pos%)
     (free% %tint%))
+
+  (shader:use *light-shader*)
+
+  (let ((%pos% (vec3:create% 2.0 2.0 2.0)))
+    (renderer:draw *light* %pos% 1 1 #f)
+    (free% %pos%))
 
   (shader:use (shader:default))
 

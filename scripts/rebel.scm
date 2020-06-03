@@ -146,6 +146,12 @@
   (set! (Material-textureSpecular1
 	 (Renderer-material renderer))
 	texture))
+(define (material:color renderer) (Material-color (Renderer-material renderer)))
+(define (material:color! renderer color)
+  (set! (Material-color
+	 (Renderer-material renderer))
+	(vec3:check_copy% color)))
+
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
 (define (material:shininess! renderer shine)
   (set! (Material-shininess
