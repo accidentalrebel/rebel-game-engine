@@ -155,7 +155,7 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	glm_scale(model, (vec3){ width, height, height });
 
-	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z});
+	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z / height});
 
 	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
 

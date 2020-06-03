@@ -35,18 +35,26 @@
   (set! *point-lights*
 	(list
 	 (light:point:create
-	  (vec3:create 7.0 0.0 4.0)
+	  (vec3:create 7.0 -0.25 4.0)
 	  (vec3:create 0.1 0.05 0.05)
 	  (vec3:create 0.8 0.2 0.2)
 	  (vec3:create 1.0 0.2 0.2)
 	  1.0 0.09 0.032)
 
 	 (light:point:create
-	  (vec3:create -1.25 0.0 -1.0)
+	  (vec3:create 1.0 -0.25 3.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.2 0.8)
 	  (vec3:create 0.2 0.2 1.0)
+	  1.0 0.09 0.032)
+	
+	 (light:point:create
+	  (vec3:create 4.0 -0.25 6.0)
+	  (vec3:create 0.05 0.05 0.1)
+	  (vec3:create 0.2 0.8 0.2)
+	  (vec3:create 0.2 0.2 1.0)
 	  1.0 0.09 0.032)))
+	
 
   (set! *tile* (cube:create))
   (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
@@ -62,7 +70,6 @@
 
   (set! *light* (cube:create))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs"))
-  (material:color! *light* (vec3:create 1.0 0.0 0.0))
 
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
@@ -127,8 +134,8 @@
 
   (for-each
    (lambda (point-light)
-     (renderer:draw *light* (light:point:position point-light) 1.0 1.0 #f)
-     )
+     (material:color! *light* (light:point:diffuse point-light))
+     (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
    *point-lights*)
 
   (shader:use (shader:default))
