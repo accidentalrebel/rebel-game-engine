@@ -81,6 +81,8 @@
 ;; =====
 (define (light:ambient! light vec)
   (set! (Light-ambient light) vec))
+(define (light:diffuse light)
+  (Light-diffuse light))
 
 ;; DIRECTIONAL_LIGHT
 ;; =================
@@ -109,6 +111,11 @@
    (vec3:check_copy% diffuse)
    (vec3:check_copy% specular)
    constant linear quadratic))
+(define (light:point:light point-light) (PointLight-light point-light))
+(define (light:point:position point-light)
+  (PointLight-position point-light))
+(define (light:point:diffuse point-light)
+  (light:diffuse (light:point:light point-light)))
 (define (light:directional:light light) (DirectionLight-light light))
 (define (light:directional:ambient! light vec)
   (light:ambient! (light:directional:light light) (vec3:check_copy% vec)))

@@ -23,26 +23,30 @@
       0 0 0 0 0 0 0 0
       0 0 0 0 0 0 0 0))
 
+(define gpoint-lights* '())
+
 (define (init)
   (light:directional:create
    (vec3:create 1.2 -1.0 -1.0)
    (vec3:create 0.05 0.05 0.05)
    (vec3:create 0.4 0.4 0.4)
    (vec3:create 0.5 0.5 0.5))
+  
+  (set! *point-lights*
+	(list
+	 (light:point:create
+	  (vec3:create 7.0 0.0 4.0)
+	  (vec3:create 0.1 0.05 0.05)
+	  (vec3:create 0.8 0.2 0.2)
+	  (vec3:create 1.0 0.2 0.2)
+	  1.0 0.09 0.032)
 
-  (light:point:create
-   (vec3:create 2.25 0.0 -1.0)
-   (vec3:create 0.1 0.05 0.05)
-   (vec3:create 0.8 0.2 0.2)
-   (vec3:create 1.0 0.2 0.2)
-   1.0 0.09 0.032)
-
-  (light:point:create
-   (vec3:create -1.25 0.0 -1.0)
-   (vec3:create 0.05 0.05 0.1)
-   (vec3:create 0.2 0.2 0.8)
-   (vec3:create 0.2 0.2 1.0)
-   1.0 0.09 0.032)
+	 (light:point:create
+	  (vec3:create -1.25 0.0 -1.0)
+	  (vec3:create 0.05 0.05 0.1)
+	  (vec3:create 0.2 0.2 0.8)
+	  (vec3:create 0.2 0.2 1.0)
+	  1.0 0.09 0.032)))
 
   (set! *tile* (cube:create))
   (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
@@ -117,9 +121,15 @@
 
   (shader:use *light-shader*)
 
-  (let ((%pos% (vec3:create% 2.0 2.0 2.0)))
-    (renderer:draw *light* %pos% 1 1 #f)
-    (free% %pos%))
+  ;; (let ((%pos% (vec3:create% 2.0 2.0 2.0)))
+  ;;   (renderer:draw *light* %pos% 1 1 #f)
+  ;;   (free% %pos%))
+
+  (for-each
+   (lambda (point-light)
+     (renderer:draw *light* (light:point:position point-light) 1.0 1.0 #f)
+     )
+   *point-lights*)
 
   (shader:use (shader:default))
 
