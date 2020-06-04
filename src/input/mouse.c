@@ -27,4 +27,3 @@ void MouseEnable()
 	glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(g_rebel.window.glWindow, MouseCallback);
 }
-	

@@ -39,22 +39,21 @@
 	  (vec3:create 0.1 0.05 0.05)
 	  (vec3:create 0.8 0.2 0.2)
 	  (vec3:create 1.0 0.2 0.2)
-	  1.0 0.09 0.032)
+	  1.0 0.7 1.8)
 
 	 (light:point:create
 	  (vec3:create 1.0 -0.25 3.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.2 0.8)
 	  (vec3:create 0.2 0.2 1.0)
-	  1.0 0.09 0.032)
+	  1.0 0.7 1.8)
 	
 	 (light:point:create
 	  (vec3:create 4.0 -0.25 6.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.8 0.2)
 	  (vec3:create 0.2 0.2 1.0)
-	  1.0 0.09 0.032)))
-	
+	  1.0 0.7 1.8)))
 
   (set! *tile* (cube:create))
   (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
