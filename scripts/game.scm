@@ -1,15 +1,19 @@
-(include-relative "extensions/fpcam")
+(include-relative "extensions/fpcam") ;; Setup first person camera movement
+
+;; TODO; Use a lisp list in place of vec3s
+;; TODO; Point lights debugging should be done in the engine
 
 (define *cube*)
-(define *cube-shader*)
 (define *sprite*)
-(define *sprite-shader*)
-(define *cube-positions*)
 (define *tile*)
-(define *tile-shader*)
-
 (define *light*)
+
+(define *cube-shader*)
+(define *sprite-shader*)
+(define *tile-shader*)
 (define *light-shader*)
+
+(define *cube-positions*)
 
 (define *TILE_MAP_COLS* 8)
 (define *TILE_MAP_ROWS* 8)
@@ -23,7 +27,7 @@
       0 2 1 0 0 0 0 0
       0 0 0 0 0 0 0 0))
 
-(define gpoint-lights* '())
+(define *point-lights* '())
 
 (define (init)
   (light:directional:create
