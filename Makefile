@@ -1,5 +1,5 @@
 
-PLATFORM = linux
+PLATFORM = windows
 CC = gcc
 CSC = csc
 PREDEFINES =

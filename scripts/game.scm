@@ -58,7 +58,7 @@
 	 (light:point:create
 	  (vec3:create 5.0 -0.25 6.0)
 	  (vec3:create 0.1 0.1 0.05)
-	  (vec3:create 0.8 0.8Testing  0.2)
+	  (vec3:create 0.8 0.8 0.2)
 	  (vec3:create 1.0 1.0 0.2)
 	  1.0 0.7 1.8)))
 
