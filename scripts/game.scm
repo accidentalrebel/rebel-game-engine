@@ -35,21 +35,21 @@
   (set! *point-lights*
 	(list
 	 (light:point:create
-	  (vec3:create 7.0 -0.25 4.0)
+	  (vec3:create 2.0 -0.25 2.0)
 	  (vec3:create 0.1 0.05 0.05)
 	  (vec3:create 0.8 0.2 0.2)
 	  (vec3:create 1.0 0.2 0.2)
 	  1.0 0.7 1.8)
 
 	 (light:point:create
-	  (vec3:create 1.0 -0.25 3.0)
+	  (vec3:create 3.0 -0.25 3.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.2 0.8)
 	  (vec3:create 0.2 0.2 1.0)
 	  1.0 0.7 1.8)
 	
 	 (light:point:create
-	  (vec3:create 4.0 -0.25 6.0)
+	  (vec3:create 4.0 -0.25 4.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.8 0.2)
 	  (vec3:create 0.2 0.2 1.0)
@@ -75,9 +75,9 @@
   (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
 
   (set! *cube-positions*
-	(list (vec3:create 0 0 0)
-	      (vec3:create 2.25 0 0)
-	      (vec3:create -1.25 0 0))))
+	(list (vec3:create 0.0 0.0 0.0)
+	      (vec3:create 2.25 0.0 0.0)
+	      (vec3:create -1.25 0.0 0.0))))
 
 (define (update)
   (fpcam:update)
@@ -94,7 +94,7 @@
   (for-each
    (lambda (position)
      (let ((%tint% (vec3:create% 1 0 1)))
-       (renderer:draw *cube* position 1 1 %tint%)
+       (renderer:draw *cube* position 1.0 1.0 %tint%)
        (free% %tint%)))
    *cube-positions*)
 
@@ -105,7 +105,7 @@
     (for-each
      (lambda (tile-value)
        (let ((%pos% (vec3:create% current-col (sub1 tile-value) current-row)))
-	 (renderer:draw *tile* %pos% 1 1 #f)
+	 (renderer:draw *tile* %pos% 1.0 1.0 #f)
 	 (free% %pos%))
 
        (set! current-col (add1 current-col))
@@ -118,18 +118,13 @@
 
   (shader:use *sprite-shader*)
 
-  ;; TODO; Make sure to use float values
-  (let ((%pos% (vec3:create% 0 1.25 0))
-	(%tint% (vec3:create% 1 1 1)))
-    (renderer:draw *sprite* %pos% 1 1 %tint%)
+  (let ((%pos% (vec3:create% 0.0 1.25 0.0))
+	(%tint% (vec3:create% 1.0 1.0 1.0)))
+    (renderer:draw *sprite* %pos% 1.0 1.0 %tint%)
     (free% %pos%)
     (free% %tint%))
 
   (shader:use *light-shader*)
-
-  ;; (let ((%pos% (vec3:create% 2.0 2.0 2.0)))
-  ;;   (renderer:draw *light* %pos% 1 1 #f)
-  ;;   (free% %pos%))
 
   (for-each
    (lambda (point-light)
