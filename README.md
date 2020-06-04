@@ -34,24 +34,22 @@ Simple program that displays a sprite with keyboard movement.
 
 ## Roadmap
 v1.0
-
 - [x] Window management
 - [x] Drawing sprites
 - [x] Coordinate system
 - [x] Scripting Integration
 - [x] Multiplatform development
 - [x] Camera System
-- [ ] Basic Lighting
-- [ ] Scenes
+- [x] Basic Lighting
 - [ ] Loading 3D models
 - [ ] Sprite transparency
+- [ ] Cubemaps
+- [ ] Scenes
 - [ ] Text
 - [ ] Audio
 - [ ] Save system
-- [ ] C examples
 - [ ] Scheme examples
 - [ ] Deployment
-- [ ] Optional scripting
 
 ## Getting started
 Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).

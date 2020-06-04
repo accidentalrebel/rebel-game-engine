@@ -16,21 +16,21 @@
 (define *tile-map*
   '(0 0 0 0 0 0 0 0
       0 1 0 0 0 0 0 0
-      0 0 0 0 0 0 0 0
+      0 0 0 0 0 2 0 0
       0 0 0 0 0 0 0 0
       0 0 0 0 0 0 0 0
       0 0 0 0 0 1 0 0
-      0 0 0 0 0 0 0 0
+      0 2 1 0 0 0 0 0
       0 0 0 0 0 0 0 0))
 
 (define gpoint-lights* '())
 
 (define (init)
   (light:directional:create
-   (vec3:create 1.2 -1.0 -1.0)
+   (vec3:create 1.0 -1.0 1.0)
    (vec3:create 0.05 0.05 0.05)
-   (vec3:create 0.4 0.4 0.4)
-   (vec3:create 0.5 0.5 0.5))
+   (vec3:create 0.1 0.1 0.1)
+   (vec3:create 0.2 0.2 0.2))
   
   (set! *point-lights*
 	(list
@@ -40,19 +40,26 @@
 	  (vec3:create 0.8 0.2 0.2)
 	  (vec3:create 1.0 0.2 0.2)
 	  1.0 0.7 1.8)
+	 
+	 (light:point:create
+	  (vec3:create 5.0 -0.75 2.0)
+	  (vec3:create 0.05 0.05 0.1)
+	  (vec3:create 0.2 0.8 0.2)
+	  (vec3:create 0.2 0.2 1.0)
+	  1.0 0.7 1.8)
 
 	 (light:point:create
-	  (vec3:create 3.0 -0.25 3.0)
+	  (vec3:create 2.0 0.75 6.0)
 	  (vec3:create 0.05 0.05 0.1)
 	  (vec3:create 0.2 0.2 0.8)
 	  (vec3:create 0.2 0.2 1.0)
 	  1.0 0.7 1.8)
-	
+
 	 (light:point:create
-	  (vec3:create 4.0 -0.25 4.0)
-	  (vec3:create 0.05 0.05 0.1)
-	  (vec3:create 0.2 0.8 0.2)
-	  (vec3:create 0.2 0.2 1.0)
+	  (vec3:create 5.0 -0.25 6.0)
+	  (vec3:create 0.1 0.1 0.05)
+	  (vec3:create 0.8 0.8Testing  0.2)
+	  (vec3:create 1.0 1.0 0.2)
 	  1.0 0.7 1.8)))
 
   (set! *tile* (cube:create))
@@ -89,14 +96,14 @@
 
 (define (render)
   (window:clear)
-  (shader:use *cube-shader*)
+  ;; (shader:use *cube-shader*)
   
-  (for-each
-   (lambda (position)
-     (let ((%tint% (vec3:create% 1 0 1)))
-       (renderer:draw *cube* position 1.0 1.0 %tint%)
-       (free% %tint%)))
-   *cube-positions*)
+  ;; (for-each
+  ;;  (lambda (position)
+  ;;    (let ((%tint% (vec3:create% 1 0 1)))
+  ;;      (renderer:draw *cube* position 1.0 1.0 %tint%)
+  ;;      (free% %tint%)))
+  ;;  *cube-positions*)
 
   (shader:use *tile-shader*)
 
@@ -118,7 +125,7 @@
 
   (shader:use *sprite-shader*)
 
-  (let ((%pos% (vec3:create% 0.0 1.25 0.0))
+  (let ((%pos% (vec3:create% 1.0 0.0 1.51))
 	(%tint% (vec3:create% 1.0 1.0 1.0)))
     (renderer:draw *sprite* %pos% 1.0 1.0 %tint%)
     (free% %pos%)
