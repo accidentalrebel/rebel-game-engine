@@ -7,6 +7,8 @@ Scripting uses [Chicken-Scheme Lisp](https://www.call-cc.org/).
 
 Check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
 
+![screenshot-1](https://raw.githubusercontent.com/accidentalrebel/rebel-game-engine/master/images/rebel-screenshot-1.png)
+
 ## Sample Code
 Simple program that displays a sprite with keyboard movement.
 
