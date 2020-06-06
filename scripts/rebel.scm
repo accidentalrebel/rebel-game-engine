@@ -1,4 +1,5 @@
 (import bind)
+(import (srfi-1))
 (import (chicken gc))
 (import (chicken string))
 
@@ -42,6 +43,8 @@
 
 ;; VECTORS
 ;; =======
+(define (vec3:create_ l)
+  (vec3:create (first l) (second l) (third l)))
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 (define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
@@ -93,10 +96,10 @@
 						 (c-pointer (struct "Vec3"))))
 (define (light:directional:create direction ambient diffuse specular)
   (light:directional:create_
-   (vec3:check_copy% direction)
-   (vec3:check_copy% ambient)
-   (vec3:check_copy% diffuse)
-   (vec3:check_copy% specular)))
+   (vec3:create_ direction)
+   (vec3:create_ ambient)
+   (vec3:create_ diffuse)
+   (vec3:create_ specular)))
 
 (define light:point:create_ (foreign-lambda c-pointer "PointLightCreate"
 						 (c-pointer (struct "Vec3"))

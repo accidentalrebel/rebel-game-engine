@@ -31,10 +31,10 @@
 
 (define (init)
   (light:directional:create
-   (vec3:create 1.0 -1.0 1.0)
-   (vec3:create 0.05 0.05 0.05)
-   (vec3:create 0.1 0.1 0.1)
-   (vec3:create 0.2 0.2 0.2))
+   '(1.0 -1.0 1.0)
+   '(0.05 0.05 0.05)
+   '(0.1 0.1 0.1)
+   '(0.2 0.2 0.2))
   
   (set! *point-lights*
 	(list
