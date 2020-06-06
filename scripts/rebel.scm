@@ -43,8 +43,6 @@
 
 ;; VECTORS
 ;; =======
-(define (list_to_vec3 l)
-  (vec3:create (first l) (second l) (third l)))
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 (define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
@@ -63,6 +61,17 @@
 
 (define (vec3:z vec) (Vec3-z vec))
 (define (vec3:z! vec z) (set! (Vec3-z vec) z))
+
+;; VEC3 CONVERTERS
+;; ===============
+(define (list_to_vec3 l)
+  (if (not (boolean? l))
+      (vec3:create (first l) (second l) (third l))
+      l))
+(define (vec3_to_list v)
+  (if (not (boolean? v))
+      (list (vec3:x v) (vec3:y v) (vec3:z v))
+      v))
 
 ;; CAMERA
 ;; ======
@@ -147,6 +156,9 @@
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
+(define (renderer:draw2 a b c d e)
+  (renderer:draw a (list_to_vec3 b) c d (list_to_vec3 e)))
+
 ;; MATERIAL
 ;; ========
 (define (material:texture_diffuse! renderer texture)

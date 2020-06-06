@@ -130,11 +130,8 @@
 
   (shader:use *sprite-shader*)
 
-  (let ((%pos% (vec3:create% 1.0 0.0 1.51))
-	(%tint% (vec3:create% 1.0 1.0 1.0)))
-    (renderer:draw *sprite* %pos% 1.0 1.0 %tint%)
-    (free% %pos%)
-    (free% %tint%))
+  (let ((pos '(1.0 0.0 1.51)))
+    (renderer:draw2 *sprite* pos 1.0 1.0 #f))
 
   (shader:use *light-shader*)
 
