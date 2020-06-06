@@ -39,31 +39,31 @@
   (set! *point-lights*
 	(list
 	 (light:point:create
-	  (vec3:create 2.0 -0.25 2.0)
-	  (vec3:create 0.1 0.05 0.05)
-	  (vec3:create 0.8 0.2 0.2)
-	  (vec3:create 1.0 0.2 0.2)
+	  '(2.0 -0.25 2.0)
+	  '(0.1 0.05 0.05)
+	  '(0.8 0.2 0.2)
+	  '(1.0 0.2 0.2)
 	  1.0 0.7 1.8)
 	 
 	 (light:point:create
-	  (vec3:create 5.0 -0.75 2.0)
-	  (vec3:create 0.05 0.05 0.1)
-	  (vec3:create 0.2 0.8 0.2)
-	  (vec3:create 0.2 0.2 1.0)
+	  '(5.0 -0.75 2.0)
+	  '(0.05 0.05 0.1)
+	  '(0.2 0.8 0.2)
+	  '(0.2 0.2 1.0)
 	  1.0 0.7 1.8)
 
 	 (light:point:create
-	  (vec3:create 2.0 0.75 6.0)
-	  (vec3:create 0.05 0.05 0.1)
-	  (vec3:create 0.2 0.2 0.8)
-	  (vec3:create 0.2 0.2 1.0)
+	  '(2.0 0.75 6.0)
+	  '(0.05 0.05 0.1)
+	  '(0.2 0.2 0.8)
+	  '(0.2 0.2 1.0)
 	  1.0 0.7 1.8)
 
 	 (light:point:create
-	  (vec3:create 5.0 -0.25 6.0)
-	  (vec3:create 0.1 0.1 0.05)
-	  (vec3:create 0.8 0.8 0.2)
-	  (vec3:create 1.0 1.0 0.2)
+	  '(5.0 -0.25 6.0)
+	  '(0.1 0.1 0.05)
+	  '(0.8 0.8 0.2)
+	  '(1.0 1.0 0.2)
 	  1.0 0.7 1.8)))
 
   (set! *tile* (cube:create))

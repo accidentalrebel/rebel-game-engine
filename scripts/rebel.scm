@@ -109,11 +109,12 @@
 						 float float float))
 (define (light:point:create direction ambient diffuse specular constant linear quadratic)
   (light:point:create_
-   (vec3:check_copy% direction)
-   (vec3:check_copy% ambient)
-   (vec3:check_copy% diffuse)
-   (vec3:check_copy% specular)
+   (vec3:create_ direction)
+   (vec3:create_ ambient)
+   (vec3:create_ diffuse)
+   (vec3:create_ specular)
    constant linear quadratic))
+
 (define (light:point:light point-light) (PointLight-light point-light))
 (define (light:point:position point-light)
   (PointLight-position point-light))
