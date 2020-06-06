@@ -43,7 +43,7 @@
 
 ;; VECTORS
 ;; =======
-(define (vec3:create_ l)
+(define (list_to_vec3 l)
   (vec3:create (first l) (second l) (third l)))
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
@@ -96,10 +96,10 @@
 						 (c-pointer (struct "Vec3"))))
 (define (light:directional:create direction ambient diffuse specular)
   (light:directional:create_
-   (vec3:create_ direction)
-   (vec3:create_ ambient)
-   (vec3:create_ diffuse)
-   (vec3:create_ specular)))
+   (list_to_vec3 direction)
+   (list_to_vec3 ambient)
+   (list_to_vec3 diffuse)
+   (list_to_vec3 specular)))
 
 (define light:point:create_ (foreign-lambda c-pointer "PointLightCreate"
 						 (c-pointer (struct "Vec3"))
@@ -109,10 +109,10 @@
 						 float float float))
 (define (light:point:create direction ambient diffuse specular constant linear quadratic)
   (light:point:create_
-   (vec3:create_ direction)
-   (vec3:create_ ambient)
-   (vec3:create_ diffuse)
-   (vec3:create_ specular)
+   (list_to_vec3 direction)
+   (list_to_vec3 ambient)
+   (list_to_vec3 diffuse)
+   (list_to_vec3 specular)
    constant linear quadratic))
 
 (define (light:point:light point-light) (PointLight-light point-light))

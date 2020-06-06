@@ -85,10 +85,11 @@
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
 
-  (set! *cube-positions*
-	(list (vec3:create 0.0 0.0 0.0)
-	      (vec3:create 2.25 0.0 0.0)
-	      (vec3:create -1.25 0.0 0.0))))
+  ;; (set! *cube-positions*
+  ;; 	(list (vec3:create 0.0 0.0 0.0)
+  ;; 	      (vec3:create 2.25 0.0 0.0)
+  ;; 	      (vec3:create -1.25 0.0 0.0)))
+  )
 
 (define (update)
   (fpcam:update)
