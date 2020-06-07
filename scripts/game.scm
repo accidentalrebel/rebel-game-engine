@@ -113,33 +113,29 @@
   (shader:use *tile-shader*)
 
   (let ((current-col 0)
-	(current-row 0))
+  	(current-row 0))
     (for-each
      (lambda (tile-value)
-       (let ((%pos% (vec3:create% current-col (sub1 tile-value) current-row)))
-	 (renderer:draw *tile* %pos% 1.0 1.0 #f)
-	 (free% %pos%))
+       (renderer:draw2 *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0 #f)
 
        (set! current-col (add1 current-col))
        (when (>= current-col *TILE_MAP_COLS*)
-	 (set! current-col 0)
-	 (set! current-row (add1 current-row))
-	 )
+  	 (set! current-col 0)
+  	 (set! current-row (add1 current-row))
+  	 )
        )
      *tile-map*))
 
   (shader:use *sprite-shader*)
-
-  (let ((pos '(1.0 0.0 1.51)))
-    (renderer:draw2 *sprite* pos 1.0 1.0 #f))
+  (renderer:draw2 *sprite* '(1.0 0.0 1.51) 1.0 1.0 #f)
 
   (shader:use *light-shader*)
 
-  (for-each
-   (lambda (point-light)
-     (material:color! *light* (light:point:diffuse point-light))
-     (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
-   *point-lights*)
+  ;; (for-each
+  ;;  (lambda (point-light)
+  ;;    (material:color! *light* (light:point:diffuse point-light))
+  ;;    (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
+  ;;  *point-lights*)
 
   (shader:use (shader:default))
 

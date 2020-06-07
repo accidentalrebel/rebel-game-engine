@@ -245,4 +245,7 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	}
 
 	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);
+
+	free(position);
+	free(tintColor);
 }

@@ -46,7 +46,7 @@
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 (define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
 (define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
-(define (vec3:copy x) (set-finalizer! (vec3:copy% x) free_vector%))
+(define (vec3:copy x) (set-finalizer! (vec3:copy% x) free%))
 
 ;; This functios checks if a vector is not a boolean before copying it.
 ;; This is useful because we can pass #f if we don't want to pass a vector value
@@ -66,7 +66,7 @@
 ;; ===============
 (define (list_to_vec3 l)
   (if (not (boolean? l))
-      (vec3:create (first l) (second l) (third l))
+      (vec3:create% (first l) (second l) (third l))
       l))
 (define (vec3_to_list v)
   (if (not (boolean? v))
