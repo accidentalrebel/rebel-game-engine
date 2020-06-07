@@ -42,7 +42,7 @@ void MouseEnable();
 // ========
 Renderer* SpriteCreate();
 Renderer* CubeCreate();
-void RendererDraw(Renderer* cube, Vec3 *position, float width, float height, Vec3 *tintColor);
+void RendererDraw(Renderer* cube, Vec3 *position, float width, float height);
 
 // SHADER
 // ======

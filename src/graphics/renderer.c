@@ -116,7 +116,7 @@ Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int
 	return renderer;
 }
 
-void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height, Vec3 *tintColor)
+void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
@@ -247,5 +247,4 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);
 
 	free(position);
-	free(tintColor);
 }

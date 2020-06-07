@@ -43,9 +43,9 @@ v1.0
 - [x] Multiplatform development
 - [x] Camera System
 - [x] Basic Lighting
-- [ ] Loading 3D models
 - [ ] Sprite transparency
 - [ ] Cubemaps
+- [ ] Loading 3D models
 - [ ] Scenes
 - [ ] Text
 - [ ] Audio

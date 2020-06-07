@@ -146,10 +146,9 @@
 (define renderer:draw_ (foreign-lambda void "RendererDraw"
 				    (c-pointer (struct "Renderer"))
 				    (c-pointer (struct "Vec3"))
-				    float float
-				    (c-pointer (struct "Vec3"))))
+				    float float))
 (define (renderer:draw a b c d e)
-  (renderer:draw_ a (list_to_vec3 b) c d (list_to_vec3 e)))
+  (renderer:draw_ a (list_to_vec3 b) c d))
 
 ;; MATERIAL
 ;; ========
