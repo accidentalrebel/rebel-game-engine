@@ -151,13 +151,13 @@
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
 (define (sprite:create) (set-finalizer! (sprite:create%) free%))
 
-(define renderer:draw (foreign-lambda void "RendererDraw"
+(define renderer:draw_ (foreign-lambda void "RendererDraw"
 				    (c-pointer (struct "Renderer"))
 				    (c-pointer (struct "Vec3"))
 				    float float
 				    (c-pointer (struct "Vec3"))))
-(define (renderer:draw2 a b c d e)
-  (renderer:draw a (list_to_vec3 b) c d (list_to_vec3 e)))
+(define (renderer:draw a b c d e)
+  (renderer:draw_ a (list_to_vec3 b) c d (list_to_vec3 e)))
 
 ;; MATERIAL
 ;; ========

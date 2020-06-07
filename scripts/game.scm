@@ -116,7 +116,7 @@
   	(current-row 0))
     (for-each
      (lambda (tile-value)
-       (renderer:draw2 *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0 #f)
+       (renderer:draw *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0 #f)
 
        (set! current-col (add1 current-col))
        (when (>= current-col *TILE_MAP_COLS*)
@@ -127,14 +127,14 @@
      *tile-map*))
 
   (shader:use *sprite-shader*)
-  (renderer:draw2 *sprite* '(1.0 0.0 1.51) 1.0 1.0 #f)
+  (renderer:draw *sprite* '(1.0 0.0 1.51) 1.0 1.0 #f)
 
   (shader:use *light-shader*)
 
   (for-each
    (lambda (point-light)
      (material:color! *light* (light:point:diffuse point-light))
-     (renderer:draw2 *light* (light:point:position point-light) 0.5 0.5 #f))
+     (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
    *point-lights*)
 
   (shader:use (shader:default))
