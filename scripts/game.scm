@@ -1,6 +1,5 @@
 (include-relative "extensions/fpcam") ;; Setup first person camera movement
 
-;; TODO; Use a lisp list in place of vec3s
 ;; TODO; Point lights debugging should be done in the engine
 
 (define *cube*)
@@ -116,7 +115,7 @@
   	(current-row 0))
     (for-each
      (lambda (tile-value)
-       (renderer:draw *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0 #f)
+       (renderer:draw *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0)
 
        (set! current-col (add1 current-col))
        (when (>= current-col *TILE_MAP_COLS*)
@@ -127,14 +126,14 @@
      *tile-map*))
 
   (shader:use *sprite-shader*)
-  (renderer:draw *sprite* '(1.0 0.0 1.51) 1.0 1.0 #f)
+  (renderer:draw *sprite* '(1.0 0.0 1.51) 1.0 1.0)
 
   (shader:use *light-shader*)
 
   (for-each
    (lambda (point-light)
      (material:color! *light* (light:point:diffuse point-light))
-     (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
+     (renderer:draw *light* (light:point:position point-light) 0.5 0.5))
    *point-lights*)
 
   (shader:use (shader:default))

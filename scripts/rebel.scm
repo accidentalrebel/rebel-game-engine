@@ -147,7 +147,7 @@
 				    (c-pointer (struct "Renderer"))
 				    (c-pointer (struct "Vec3"))
 				    float float))
-(define (renderer:draw a b c d e)
+(define (renderer:draw a b c d)
   (renderer:draw_ a (list_to_vec3 b) c d))
 
 ;; MATERIAL
