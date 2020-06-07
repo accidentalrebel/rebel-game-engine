@@ -1,11 +1,11 @@
 # Rebel Game Engine
-A simple game engine using C built with Scheme scripting. Made mostly from scratch for learning purposes.
+A 3D game engine using C with Lisp scripting.
 
 The engine is an application of the lessons I've learned researching game engines and poking around various open source projects. I don't plan to use it for production but it might eventually evolve into something that will. The primary goal for now is implementing the barest essentials.
 
-Scripting uses [Chicken-Scheme Lisp](https://www.call-cc.org/).
+For more information check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
 
-Check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
+### Engine is still under heavy development
 
 ![screenshot-1](https://raw.githubusercontent.com/accidentalrebel/rebel-game-engine/master/images/rebel-screenshot-1.png)
 
@@ -64,7 +64,7 @@ As much as I want to implement everything myself, these libraries are just bette
   * [CGLM](https://github.com/recp/cglm) - Highly optimized graphics math for C
   * [stb_image](https://github.com/nothings/stb) - Image loader
   * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
-  * [chicken-scheme](https://www.call-cc.org/) - An excellent library that allows scripting using the Scheme language
+  * [chicken-scheme](https://www.call-cc.org/) - Enables lisp scripting
 
 ## Many thanks
 This project wouldn't be possible without these:
