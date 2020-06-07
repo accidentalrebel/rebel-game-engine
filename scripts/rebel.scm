@@ -44,14 +44,6 @@
 ;; VECTORS
 ;; =======
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
-(define (vec3:create x y z) (set-finalizer! (vec3:create% x y z) free%))
-(define vec3:copy% (foreign-lambda c-pointer "Vec3Copy" (c-pointer (struct "Vec3"))))
-(define (vec3:copy x) (set-finalizer! (vec3:copy% x) free%))
-
-;; This functios checks if a vector is not a boolean before copying it.
-;; This is useful because we can pass #f if we don't want to pass a vector value
-;; For example, "(light:directional:create #f #f)" if you don't want to specify a direction or color
-(define (vec3:check_copy% x) (if (not (boolean? x)) (vec3:copy% x) x))
 
 (define (vec3:x vec) (Vec3-x vec))
 (define (vec3:x! vec x) (set! (Vec3-x vec) x))
@@ -92,9 +84,9 @@
 ;; LIGHT
 ;; =====
 (define (light:ambient! light vec)
-  (set! (Light-ambient light) vec))
+  (set! (Light-ambient light) (list_to_vec3 vec)))
 (define (light:diffuse light)
-  (Light-diffuse light))
+  (vec3_to_list (Light-diffuse light)))
 
 ;; DIRECTIONAL_LIGHT
 ;; =================
@@ -131,7 +123,7 @@
   (light:diffuse (light:point:light point-light)))
 (define (light:directional:light light) (DirectionLight-light light))
 (define (light:directional:ambient! light vec)
-  (light:ambient! (light:directional:light light) (vec3:check_copy% vec)))
+  (light:ambient! (light:directional:light light) vec))
 
 ;; WINDOW
 ;; ======
@@ -173,7 +165,7 @@
 (define (material:color! renderer color)
   (set! (Material-color
 	 (Renderer-material renderer))
-	(vec3:check_copy% color)))
+	(list_to_vec3 color)))
 
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
 (define (material:shininess! renderer shine)
