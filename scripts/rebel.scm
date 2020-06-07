@@ -126,7 +126,7 @@
 
 (define (light:point:light point-light) (PointLight-light point-light))
 (define (light:point:position point-light)
-  (PointLight-position point-light))
+  (vec3_to_list (PointLight-position point-light)))
 (define (light:point:diffuse point-light)
   (light:diffuse (light:point:light point-light)))
 (define (light:directional:light light) (DirectionLight-light light))

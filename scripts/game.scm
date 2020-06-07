@@ -131,11 +131,11 @@
 
   (shader:use *light-shader*)
 
-  ;; (for-each
-  ;;  (lambda (point-light)
-  ;;    (material:color! *light* (light:point:diffuse point-light))
-  ;;    (renderer:draw *light* (light:point:position point-light) 0.5 0.5 #f))
-  ;;  *point-lights*)
+  (for-each
+   (lambda (point-light)
+     (material:color! *light* (light:point:diffuse point-light))
+     (renderer:draw2 *light* (light:point:position point-light) 0.5 0.5 #f))
+   *point-lights*)
 
   (shader:use (shader:default))
 
