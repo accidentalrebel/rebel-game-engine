@@ -71,11 +71,11 @@
   (material:texture_specular! *tile* (texture:load "assets/textures/container-specular.png"))
   (material:shininess! *tile* 12.0)
 
-  (set! *cube* (cube:create))
-  (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
-  (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
-  (material:texture_specular! *cube* (texture:load "assets/textures/container-specular.png"))
-  (material:shininess! *cube* 64.0)
+  ;; (set! *cube* (cube:create))
+  ;; (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
+  ;; (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
+  ;; (material:texture_specular! *cube* (texture:load "assets/textures/container-specular.png"))
+  ;; (material:shininess! *cube* 64.0)
 
   (set! *light* (cube:create))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs"))
@@ -115,25 +115,30 @@
   	(current-row 0))
     (for-each
      (lambda (tile-value)
-       (renderer:draw *tile* (list current-col (sub1 tile-value) current-row) 1.0 1.0)
+       ;; TODO; The width and height of the object should probably be moved to the renderer?
+       (renderer:draw *tile*
+		      (list current-col (sub1 tile-value) current-row)
+		      1.0 1.0)
 
        (set! current-col (add1 current-col))
        (when (>= current-col *TILE_MAP_COLS*)
   	 (set! current-col 0)
-  	 (set! current-row (add1 current-row))
-  	 )
-       )
+  	 (set! current-row (add1 current-row))))
      *tile-map*))
 
   (shader:use *sprite-shader*)
-  (renderer:draw *sprite* '(1.0 0.0 1.51) 1.0 1.0)
+  (renderer:draw *sprite*
+		 '(1.0 0.0 1.51)
+		 1.0 1.0)
 
   (shader:use *light-shader*)
 
   (for-each
    (lambda (point-light)
      (material:color! *light* (light:point:diffuse point-light))
-     (renderer:draw *light* (light:point:position point-light) 0.5 0.5))
+     (renderer:draw *light*
+		    (light:point:position point-light)
+		    0.5 0.5))
    *point-lights*)
 
   (shader:use (shader:default))
