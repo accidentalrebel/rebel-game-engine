@@ -72,6 +72,8 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 
 	unsigned int attributeSizes[] = { 3, 3, 2 };	
 	testRenderer = RendererCreate2(mesh, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
+
+	testRenderer->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 }
 
 void RebelDraw()
