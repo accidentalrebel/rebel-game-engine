@@ -18,8 +18,9 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 
 	// TESTING
-	Vertex* vertex;
+	Vertex* vertex; //= ParseVertex();
 	Mesh* mesh = MeshCreate(vertex);
+	Model* model = ModelCreate(mesh);
 }
 
 void InputProcess()
