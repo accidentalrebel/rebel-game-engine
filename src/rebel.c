@@ -1,5 +1,6 @@
 #include "rebel.h"
 #include "input/mouse.h"
+#include "graphics/mesh.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "external/stb_image.h"
@@ -15,6 +16,10 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	//TODO: Make separate default shader files
 	g_rebel.pointLightCount = 0;
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
+
+	// TESTING
+	Vertex* vertex;
+	Mesh* mesh = MeshCreate(vertex);
 }
 
 void InputProcess()
