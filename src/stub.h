@@ -4,6 +4,7 @@
 // REBEL
 // =====
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
+void RebelDraw();
 void RebelDestroy();
 
 void InputProcess();

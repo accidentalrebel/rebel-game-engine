@@ -37,6 +37,7 @@
 ;; =====
 (define rebel:init (foreign-lambda void "RebelInit" unsigned-integer unsigned-integer c-string))
 (define rebel:destroy (foreign-lambda void "RebelDestroy"))
+(define rebel:draw (foreign-lambda void "RebelDraw"))
 (define time:current (foreign-lambda double "GetCurrentTime"))
 (define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))

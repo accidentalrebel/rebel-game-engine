@@ -19,7 +19,7 @@
 	  (input:process)
 	  (update)
 	  (camera:update_vectors (camera:main))
-	  
+
 	  (render)
 	  (set! previous-time current-time))
 	(loop-program))

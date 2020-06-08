@@ -116,6 +116,39 @@ Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int
 	return renderer;
 }
 
+Renderer* RendererCreate2(Mesh* mesh, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
+{
+	Renderer* renderer = (Renderer*)malloc(sizeof(Renderer));
+	renderer->indicesSize = indicesSize;
+	renderer->material = MaterialCreate();
+	
+	glGenVertexArrays(1, &mesh->VAO);
+	glGenBuffers(1, &mesh->VBO);
+	
+	glBindVertexArray(mesh->VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
+	glBufferData(GL_ARRAY_BUFFER, verticesSize, mesh->vertices[0], GL_STATIC_DRAW);
+
+	unsigned int pointerPos = 0;
+ 	for ( unsigned int i = 0 ; i < attributeCount ; i++ )
+	{
+		void* p = 0;
+		if ( i > 0 )
+		{
+			pointerPos += attributeSizes[i-1];
+			p = (void*)(pointerPos * sizeof(float));
+		}
+
+		glVertexAttribPointer(i, attributeSizes[i], GL_FLOAT, GL_FALSE, stride * sizeof(float), p);
+		glEnableVertexAttribArray(i);
+	}
+
+	glBindVertexArray(0);
+	
+	return renderer;
+}
+
 void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float height)
 {
 	Shader* shaderToUse;

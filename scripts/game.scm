@@ -100,36 +100,31 @@
 
 (define (render)
   (window:clear)
-  ;; (shader:use *cube-shader*)
-  
-  ;; (for-each
-  ;;  (lambda (position)
-  ;;    (let ((%tint% (vec3:create% 1 0 1)))
-  ;;      (renderer:draw *cube* position 1.0 1.0 %tint%)
-  ;;      (free% %tint%)))
-  ;;  *cube-positions*)
 
   (shader:use *tile-shader*)
+  (rebel:draw)
+  
+  ;; (shader:use *tile-shader*)
 
-  (let ((current-col 0)
-  	(current-row 0))
-    (for-each
-     (lambda (tile-value)
-       ;; TODO; The width and height of the object should probably be moved to the renderer?
-       (renderer:draw *tile*
-		      (list current-col (sub1 tile-value) current-row)
-		      1.0 1.0)
+  ;; (let ((current-col 0)
+  ;; 	(current-row 0))
+  ;;   (for-each
+  ;;    (lambda (tile-value)
+  ;;      ;; TODO; The width and height of the object should probably be moved to the renderer?
+  ;;      (renderer:draw *tile*
+  ;; 		      (list current-col (sub1 tile-value) current-row)
+  ;; 		      1.0 1.0)
 
-       (set! current-col (add1 current-col))
-       (when (>= current-col *TILE_MAP_COLS*)
-  	 (set! current-col 0)
-  	 (set! current-row (add1 current-row))))
-     *tile-map*))
+  ;;      (set! current-col (add1 current-col))
+  ;;      (when (>= current-col *TILE_MAP_COLS*)
+  ;; 	 (set! current-col 0)
+  ;; 	 (set! current-row (add1 current-row))))
+  ;;    *tile-map*))
 
-  (shader:use *sprite-shader*)
-  (renderer:draw *sprite*
-		 '(1.0 0.0 1.51)
-		 1.0 1.0)
+  ;; (shader:use *sprite-shader*)
+  ;; (renderer:draw *sprite*
+  ;; 		 '(1.0 0.0 1.51)
+  ;; 		 1.0 1.0)
 
   (shader:use *light-shader*)
 
