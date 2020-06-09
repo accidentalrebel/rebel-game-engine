@@ -12,6 +12,8 @@
 (define *tile-shader*)
 (define *light-shader*)
 
+(define *basic-shader*)
+
 (define *cube-positions*)
 
 (define *TILE_MAP_COLS* 8)
@@ -80,6 +82,8 @@
   (set! *light* (cube:create))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs"))
 
+  (set! *basic-shader* (shader:create "shaders/basic.vs" "shaders/basic.fs"))
+
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
@@ -101,30 +105,30 @@
 (define (render)
   (window:clear)
 
-  (shader:use *tile-shader*)
+  (shader:use *basic-shader*)
   (rebel:draw)
   
   ;; (shader:use *tile-shader*)
 
-  (let ((current-col 0)
-  	(current-row 0))
-    (for-each
-     (lambda (tile-value)
-       ;; TODO; The width and height of the object should probably be moved to the renderer?
-       (renderer:draw *tile*
-  		      (list current-col (sub1 tile-value) current-row)
-  		      1.0 1.0)
+  ;; (let ((current-col 0)
+  ;; 	(current-row 0))
+  ;;   (for-each
+  ;;    (lambda (tile-value)
+  ;;      ;; TODO; The width and height of the object should probably be moved to the renderer?
+  ;;      (renderer:draw *tile*
+  ;; 		      (list current-col (sub1 tile-value) current-row)
+  ;; 		      1.0 1.0)
 
-       (set! current-col (add1 current-col))
-       (when (>= current-col *TILE_MAP_COLS*)
-  	 (set! current-col 0)
-  	 (set! current-row (add1 current-row))))
-     *tile-map*))
+  ;;      (set! current-col (add1 current-col))
+  ;;      (when (>= current-col *TILE_MAP_COLS*)
+  ;; 	 (set! current-col 0)
+  ;; 	 (set! current-row (add1 current-row))))
+  ;;    *tile-map*))
 
-  (shader:use *sprite-shader*)
-  (renderer:draw *sprite*
-  		 '(1.0 0.0 1.51)
-  		 1.0 1.0)
+  ;; (shader:use *sprite-shader*)
+  ;; (renderer:draw *sprite*
+  ;; 		 '(1.0 0.0 1.51)
+  ;; 		 1.0 1.0)
 
   (shader:use *light-shader*)
 

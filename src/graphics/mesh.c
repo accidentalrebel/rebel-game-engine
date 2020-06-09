@@ -11,12 +11,12 @@ Mesh* MeshCreate()
 Model* ModelCreate(Mesh *mesh)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
-	model->meshes = (Mesh**)calloc(2, sizeof(Mesh));
+	model->meshes = (Mesh**)calloc(1, sizeof(Mesh));
 	model->meshes[0] = mesh;
 	return model;
 }
 
-void MeshSetup(Mesh* mesh)
+void MeshSetup(Mesh* mesh, float* vertices)
 {
 	glGenVertexArrays(1, &mesh->VAO);
 	glGenBuffers(1, &mesh->VBO);
@@ -24,6 +24,13 @@ void MeshSetup(Mesh* mesh)
 	glBindVertexArray(mesh->VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
+
+	printf("POSX %f\n", mesh->vertices[0]->position[0]);
+	printf("POSY %f\n", mesh->vertices[0]->position[1]);
+	printf("POSZ %f\n", mesh->vertices[0]->position[2]);
+
+	printf("POSZ %f\n", vertices[0]);
+	
 	glBufferData(GL_ARRAY_BUFFER, mesh->verticesSize, &mesh->vertices[0], GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
@@ -32,7 +39,7 @@ void MeshSetup(Mesh* mesh)
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
-	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 	
 	glBindVertexArray(0);
@@ -40,14 +47,18 @@ void MeshSetup(Mesh* mesh)
 
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 {
+	// TTEST
+	verticesSize = 36;
+	printf("VerticesSize: %i\n", verticesSize);
+	
 	mesh->vertices = (Vertex**)calloc(verticesSize, sizeof(Vertex));
 	mesh->verticesSize = verticesSize;
 	
-	for ( unsigned int i = 0; i < (verticesSize / stride) ; i++ )
+	for ( unsigned int i = 0; i < verticesSize ; i++ )
 	{
-		int x = 0;
-		int y = 0;
-		int z = 0;
+		float x = 0;
+		float y = 0;
+		float z = 0;
 		Vertex* vertex = (Vertex*)malloc(sizeof(Vertex));
 		for ( unsigned int j = 0; j < stride ; j++ )
 		{
@@ -75,9 +86,29 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 				vertex->texCoords[0] = x;
 				vertex->texCoords[1] = y;
 			}
-			mesh->vertices[i] = vertex;
 		}
+		mesh->vertices[i] = vertex;
 	}
 
-	MeshSetup(mesh);
+	printf("POSX %f\n", mesh->vertices[0]->position[0]);
+	printf("POSY %f\n", mesh->vertices[0]->position[1]);
+	printf("POSZ %f\n", mesh->vertices[0]->position[2]);
+
+	printf("NORMALX %f\n", mesh->vertices[0]->normal[0]);
+	printf("NORMALY %f\n", mesh->vertices[0]->normal[1]);
+	printf("NORMALZ %f\n", mesh->vertices[0]->normal[2]);
+
+	printf("TEXX %f\n", mesh->vertices[0]->texCoords[0]);
+	printf("TEXY %f\n", mesh->vertices[0]->texCoords[1]);
+
+	printf("POSX %f\n", mesh->vertices[35]->position[0]);
+	printf("POSY %f\n", mesh->vertices[35]->position[1]);
+	printf("POSZ %f\n", mesh->vertices[35]->position[2]);
+
+	printf("NORMALX %f\n", mesh->vertices[35]->normal[0]);
+	printf("NORMALY %f\n", mesh->vertices[35]->normal[1]);
+	printf("NORMALZ %f\n", mesh->vertices[35]->normal[2]);
+
+	printf("TEXX %f\n", mesh->vertices[35]->texCoords[0]);
+	printf("TEXY %f\n", mesh->vertices[35]->texCoords[1]);
 }

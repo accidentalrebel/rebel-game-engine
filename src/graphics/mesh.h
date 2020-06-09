@@ -27,5 +27,5 @@ typedef struct Model {
 
 Mesh* MeshCreate();
 Model* ModelCreate(Mesh *mesh);
-void MeshSetup(Mesh* mesh);
+void MeshSetup(Mesh* mesh, float* vertices);
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride);

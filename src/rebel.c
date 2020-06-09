@@ -10,6 +10,8 @@
 Rebel g_rebel;
 
 Renderer* testRenderer;
+Mesh* mesh;
+Model* model;
 
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName)
 {
@@ -66,19 +68,23 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
-	Mesh* mesh = MeshCreate();
+	mesh = MeshCreate();
 	ParseVertex(mesh, vertices, sizeof(vertices), 8);
+	MeshSetup(mesh, vertices);
 	/* model = ModelCreate(mesh); */
 
-	unsigned int attributeSizes[] = { 3, 3, 2 };	
-	testRenderer = RendererCreate2(mesh, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
+	/* unsigned int attributeSizes[] = { 3, 3, 2 }; */
+	//testRenderer = RendererCreate2(mesh, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
-	testRenderer->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
+	/* testRenderer->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png"); */
 }
 
 void RebelDraw()
 {
-	RendererDraw(testRenderer, Vec3Create(0, 0, 0), 1.0f, 1.0f);
+	glBindVertexArray(mesh->VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	//RendererDraw(testRenderer, Vec3Create(0, 0, 0), 1.0f, 1.0f);
 }
 
 void InputProcess()
