@@ -69,7 +69,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	}; 
 
 	mesh = MeshCreate();
-	ParseVertex(mesh, vertices, sizeof(vertices), 8);
+	//ParseVertex(mesh, vertices, sizeof(vertices), 8);
 	MeshSetup(mesh, vertices);
 	/* model = ModelCreate(mesh); */
 

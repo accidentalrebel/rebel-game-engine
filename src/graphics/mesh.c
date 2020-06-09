@@ -25,13 +25,8 @@ void MeshSetup(Mesh* mesh, float* vertices)
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
 
-	printf("POSX %f\n", mesh->vertices[0]->position[0]);
-	printf("POSY %f\n", mesh->vertices[0]->position[1]);
-	printf("POSZ %f\n", mesh->vertices[0]->position[2]);
-
-	printf("POSZ %f\n", vertices[0]);
-	
-	glBufferData(GL_ARRAY_BUFFER, mesh->verticesSize, &mesh->vertices[0], GL_STATIC_DRAW);
+	// TODO; The 36 should not be a magic number
+	glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -52,7 +47,7 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 	printf("VerticesSize: %i\n", verticesSize);
 	
 	mesh->vertices = (Vertex**)calloc(verticesSize, sizeof(Vertex));
-	mesh->verticesSize = verticesSize;
+	/* mesh->verticesSize = verticesSize; */
 	
 	for ( unsigned int i = 0; i < verticesSize ; i++ )
 	{
