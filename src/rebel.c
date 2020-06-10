@@ -68,7 +68,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
 	
 	mesh = MeshCreate();
  	ParseVertex(mesh, vertices, 36, 8);

@@ -27,18 +27,38 @@ void MeshSetup(Mesh* mesh)
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
 
+	printf(">>>> %i\n", mesh->verticesSize * sizeof(Vertex));
+	printf(">>>> %i\n", sizeof(Vertex));
+	printf(">>>> %i\n", sizeof(float));
+
+	int stride = 8;
+	
 	float* vertices = malloc(mesh->verticesSize * sizeof(Vertex));
 	for ( unsigned int i = 0 ; i < mesh->verticesSize ; i++ )
 	{
-		vertices[i * sizeof(float) + 0] = mesh->vertices[i]->position[0];
-		vertices[i * sizeof(float) + 1] = mesh->vertices[i]->position[1];
-		vertices[i * sizeof(float) + 2] = mesh->vertices[i]->position[2];
-		vertices[i * sizeof(float) + 3] = mesh->vertices[i]->normal[0];
-		vertices[i * sizeof(float) + 4] = mesh->vertices[i]->normal[1];
-		vertices[i * sizeof(float) + 5] = mesh->vertices[i]->normal[2];
-		vertices[i * sizeof(float) + 6] = mesh->vertices[i]->texCoords[0];
-		vertices[i * sizeof(float) + 7] = mesh->vertices[i]->texCoords[1];
+		vertices[i * stride + 0] = mesh->vertices[i]->position[0];
+		vertices[i * stride + 1] = mesh->vertices[i]->position[1];
+		vertices[i * stride + 2] = mesh->vertices[i]->position[2];
+		vertices[i * stride + 3] = mesh->vertices[i]->normal[0];
+		vertices[i * stride + 4] = mesh->vertices[i]->normal[1];
+		vertices[i * stride + 5] = mesh->vertices[i]->normal[2];
+		vertices[i * stride + 6] = mesh->vertices[i]->texCoords[0];
+		vertices[i * stride + 7] = mesh->vertices[i]->texCoords[1];
 	}
+
+	printf(">>> %f\n", vertices[(18 * 8)]);
+	printf(">>> %f\n", vertices[(18 * 8) + 1]);
+	printf(">>> %f\n", vertices[(18 * 8) + 2]);
+	printf(">>> %f\n", vertices[(19 * 8)]);
+	printf(">>> %f\n", vertices[(19 * 8) + 1]);
+	printf(">>> %f\n", vertices[(19 * 8) + 2]);
+
+	printf("\n>>> %f\n", mesh->vertices[18]->position[0]);
+	printf(">>> %f\n", mesh->vertices[18]->position[1]);
+	printf(">>> %f\n", mesh->vertices[18]->position[2]);
+	printf(">>> %f\n", mesh->vertices[19]->position[0]);
+	printf(">>> %f\n", mesh->vertices[19]->position[1]);
+	printf(">>> %f\n", mesh->vertices[19]->position[2]);
 
 	glBufferData(GL_ARRAY_BUFFER, mesh->verticesSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 	free(vertices);
@@ -63,14 +83,24 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 	for ( unsigned int i = 0; i < verticesSize ; i++ )
 	{
 		mesh->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
-		mesh->vertices[i]->position[0] = vertices[i * sizeof(float) + 0];
-		mesh->vertices[i]->position[1] = vertices[i * sizeof(float) + 1];
-		mesh->vertices[i]->position[2] = vertices[i * sizeof(float) + 2];
-		mesh->vertices[i]->normal[0] = vertices[i * sizeof(float) + 3];
-		mesh->vertices[i]->normal[1] = vertices[i * sizeof(float) + 4];
-		mesh->vertices[i]->normal[2] = vertices[i * sizeof(float) + 5];
-		mesh->vertices[i]->texCoords[0] = vertices[i * sizeof(float) + 6];
-		mesh->vertices[i]->texCoords[1] = vertices[i * sizeof(float) + 7];
+		mesh->vertices[i]->position[0] = vertices[i * stride + 0];
+		mesh->vertices[i]->position[1] = vertices[i * stride + 1];
+		mesh->vertices[i]->position[2] = vertices[i * stride + 2];
+		mesh->vertices[i]->normal[0] = vertices[i * stride + 3];
+		mesh->vertices[i]->normal[1] = vertices[i * stride + 4];
+		mesh->vertices[i]->normal[2] = vertices[i * stride + 5];
+		mesh->vertices[i]->texCoords[0] = vertices[i * stride + 6];
+		mesh->vertices[i]->texCoords[1] = vertices[i * stride + 7];
+
+		if ( i == 19 )
+		{
+			printf(">>> %f\n", vertices[i * stride + 0]);
+			printf(">>> %f\n", vertices[i * stride + 1]);
+			printf(">>> %f\n", vertices[i * stride + 2]);
+			printf(">>> %f\n", mesh->vertices[i]->position[0]);
+			printf(">>> %f\n", mesh->vertices[i]->position[1]);
+			printf(">>> %f\n\n", mesh->vertices[i]->position[2]);
+		}
 
 		// TODO: Find out what went wrong below
 		/* float x = 0; */
