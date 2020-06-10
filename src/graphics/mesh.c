@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include "material.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -13,6 +14,7 @@ Model* ModelCreate(Mesh *mesh)
 	Model* model = (Model*)malloc(sizeof(Model));
 	model->meshes = (Mesh**)calloc(1, sizeof(Mesh));
 	model->meshes[0] = mesh;
+	model->material = MaterialCreate();
 	return model;
 }
 
@@ -24,10 +26,6 @@ void MeshSetup(Mesh* mesh)
 	glBindVertexArray(mesh->VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
-
-	mesh->vertices[0]->position[0] = -0.5f;
-	mesh->vertices[0]->position[1] = -0.5f;
-	mesh->vertices[0]->position[2] = 0.0f;
 
 	float* vertices = malloc(mesh->verticesSize * sizeof(Vertex));
 	for ( unsigned int i = 0 ; i < mesh->verticesSize ; i++ )

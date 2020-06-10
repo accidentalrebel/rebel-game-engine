@@ -281,3 +281,136 @@ void RendererDraw(Renderer *rendererObject, Vec3 *position, float width, float h
 
 	free(position);
 }
+
+void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height)
+{
+	Shader* shaderToUse;
+	if ( g_rebel.currentShader != NULL )
+		shaderToUse = g_rebel.currentShader;
+	else
+		shaderToUse = g_rebel.defaultShader;
+		
+	float windowWidth = g_rebel.window.width;
+	float windowHeight = g_rebel.window.height;
+
+	mat4 projection = GLM_MAT4_IDENTITY_INIT;
+	mat4 view = GLM_MAT4_IDENTITY_INIT;
+	mat4 model = GLM_MAT4_IDENTITY_INIT;
+	
+	float screenRatio = windowWidth / windowHeight;
+	float zoom = glm_rad(g_rebel.mainCamera->fov);
+	float size = g_rebel.mainCamera->size;
+	
+	if ( g_rebel.mainCamera->projection == PERSPECTIVE )  {
+		glm_perspective(zoom, screenRatio, 0.1f, 100.0f, projection);
+	}
+	else {
+		glm_ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f, projection);
+	}
+
+	vec3 cameraPos;
+	vec3 cameraFront;
+	vec3 cameraUp;
+	Vec3ToGlm(g_rebel.mainCamera->position, cameraPos);
+	Vec3ToGlm(g_rebel.mainCamera->front, cameraFront);
+	Vec3ToGlm(g_rebel.mainCamera->up, cameraUp);
+	
+	vec3 temp;
+	glm_vec3_add(cameraPos, cameraFront, temp);
+	glm_lookat(cameraPos, temp, cameraUp, view);
+
+	glm_scale(model, (vec3){ width, height, height });
+
+	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z / height});
+
+	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
+
+	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
+
+	char base[30];
+	for ( unsigned int i = 0 ; i < g_rebel.pointLightCount ; i++ )
+	{
+		PointLight* pointLight = g_rebel.pointLights[i];
+
+		Vec3ToGlm(pointLight->position, temp);
+		sprintf(base, "pointLights[%u].position", i);
+		ShaderSetVec3(shaderToUse, base, temp);
+
+		Vec3ToGlm(pointLight->light->ambient, temp);
+		sprintf(base, "pointLights[%u].ambient", i);
+		ShaderSetVec3(shaderToUse, base, temp);
+
+		Vec3ToGlm(pointLight->light->diffuse, temp);
+		sprintf(base, "pointLights[%u].diffuse", i);
+		ShaderSetVec3(shaderToUse, base, temp);
+
+		Vec3ToGlm(pointLight->light->specular, temp);
+		sprintf(base, "pointLights[%u].specular", i);
+		ShaderSetVec3(shaderToUse, base, temp);
+
+		sprintf(base, "pointLights[%u].constant", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->constant);
+			
+		sprintf(base, "pointLights[%u].linear", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->linear);
+
+		sprintf(base, "pointLights[%u].linear", i);
+		ShaderSetFloat(shaderToUse, base, pointLight->quadratic);
+	}
+
+	if ( g_rebel.directionLight != NULL )
+	{
+		Vec3ToGlm(g_rebel.directionLight->light->ambient, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.ambient", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->light->diffuse, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.diffuse", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->light->specular, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.specular", temp);
+
+		Vec3ToGlm(g_rebel.directionLight->direction, temp);
+		ShaderSetVec3(shaderToUse, "directionLight.direction", temp);
+	}
+	else
+	{
+		// TODO: The renderer should still work even without a direction light
+		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
+	}
+
+	ShaderSetVec3(shaderToUse, "viewPos", cameraPos);
+	ShaderSetMat4(shaderToUse, "projection", projection);
+	ShaderSetMat4(shaderToUse, "view", view);
+	ShaderSetMat4(shaderToUse, "model", model);
+
+	// An inversed model is needed for a normal matrix
+	// Normally, this can be done from inside the shader but is said to be a costly operation
+	// So we are inversing the model using the CPU and passing it as a uniform to the shader
+	// More details here under "One last thing": https://learnopengl.com/Lighting/Basic-Lighting
+	mat4 inversedModel;
+	glm_mat4_inv(model, inversedModel);
+	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
+	
+	glBindVertexArray(modelObject->meshes[0]->VAO);
+
+	if ( modelObject->material->color != NULL )
+	{
+		Vec3ToGlm(modelObject->material->color, temp);
+		ShaderSetVec3(shaderToUse, "material.color", temp);
+	}
+
+	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureDiffuse1);
+	
+	if ( modelObject->material->textureSpecular1 > 0 )
+	{
+		ShaderSetInt(shaderToUse, "material.texture_specular1", 1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1);
+	}
+
+	glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
+
+	free(position);
+}

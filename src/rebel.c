@@ -68,25 +68,25 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	mesh = MeshCreate();
  	ParseVertex(mesh, vertices, 36, 8);
 	MeshSetup(mesh);
-	/* model = ModelCreate(mesh); */
+	model = ModelCreate(mesh);
 
 	/* unsigned int attributeSizes[] = { 3, 3, 2 }; */
 	//testRenderer = RendererCreate2(mesh, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
 
-	/* testRenderer->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png"); */
+	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 }
 
 void RebelDraw()
 {
-	glBindVertexArray(mesh->VAO);
-	glDrawArrays(GL_TRIANGLES, 0, mesh->verticesSize);
+	/* glBindVertexArray(model->meshes[0]->VAO); */
+	/* glDrawArrays(GL_TRIANGLES, 0, model->meshes[0]->verticesSize); */
 
-	//RendererDraw(testRenderer, Vec3Create(0, 0, 0), 1.0f, 1.0f);
+	RendererDraw2(model, Vec3Create(0, 0, 0), 1.0f, 1.0f);
 }
 
 void InputProcess()

@@ -23,6 +23,7 @@ typedef struct Mesh {
 
 typedef struct Model {
 	Mesh** meshes;
+	Material* material;
 } Model;
 
 Mesh* MeshCreate();

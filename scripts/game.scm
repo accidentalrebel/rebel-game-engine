@@ -105,7 +105,7 @@
 (define (render)
   (window:clear)
 
-  (shader:use *basic-shader*)
+  (shader:use *tile-shader*)
   (rebel:draw)
   
   ;; (shader:use *tile-shader*)
