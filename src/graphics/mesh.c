@@ -25,27 +25,65 @@ void MeshSetup(Mesh* mesh, float* vertices)
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
 
-	// TODO; The 36 should not be a magic number
-	glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	mesh->vertices[0]->position[0] = -0.5f;
+	mesh->vertices[0]->position[1] = -0.5f;
+	mesh->vertices[0]->position[2] = 0.0f;
+
+	printf(">> %i\n", sizeof(float));
+	printf(">> %p\n", (void*)&mesh->vertices[0]->position[0]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->position[1]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->position[2]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->normal[0]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->normal[1]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->normal[2]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->texCoords[0]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->texCoords[1]);
+	printf(">> %p\n", (void*)&mesh->vertices[0]->texCoords[2]);
+	printf("\n>> %p\n", (void*)&mesh->vertices[1]->position[0]);
+	printf(">> %p\n", (void*)&mesh->vertices[1]->position[1]);
+	printf(">> %p\n", (void*)&mesh->vertices[1]->position[2]);
+
+	printf("\n>> %p\n", (void*)&mesh->vertices[0]);
+	printf(">> %p\n", (void*)&mesh->vertices[1]);
+
+	printf("\n>> %p\n", (void*)&mesh->vertices);
+	
+	/* mesh->vertices[1]->position[0] = 0.5f; */
+	/* mesh->vertices[1]->position[1] = -0.5f; */
+	/* mesh->vertices[1]->position[2] = 0.0f; */
+	/* mesh->vertices[2]->position[0] = 0.0f; */
+	/* mesh->vertices[2]->position[1] = 0.5f; */
+	/* mesh->vertices[2]->position[2] = 0.0f; */
+
+	// NOTE: So the cause of the weird bug was: I was trying to pass in my mesh->vertices to glBufferData. But since the object is a pointer to an array, the data memory layout for vertices[0] and vertices[1] are not next to each other. The LearnOpenGL tutorial I'm following is using a vertex, where memory layout of each entry are next to each other.
+
+	float* v = malloc(3 * sizeof(Vertex));
+	v[0] = -0.5f;
+	v[1] = -0.5f;
+	v[2] = -0.5f;
+	v[8] = 0.5f;
+	v[9] = -0.5f;
+	v[10] = -0.5f;
+	v[16] = 0.5f;
+	v[17] = 0.5f;
+	v[18] = -0.5f;
+	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), v, GL_STATIC_DRAW);
+	free(v);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));//offsetof(Vertex, normal));
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))); //offsetof(Vertex, texCoords));
 	
 	glBindVertexArray(0);
 }
 
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 {
-	// TTEST
-	verticesSize = 36;
-	printf("VerticesSize: %i\n", verticesSize);
-	
 	mesh->vertices = (Vertex**)calloc(verticesSize, sizeof(Vertex));
 	/* mesh->verticesSize = verticesSize; */
 	
