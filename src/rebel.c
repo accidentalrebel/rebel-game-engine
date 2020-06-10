@@ -68,11 +68,11 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	mesh = MeshCreate();
  	ParseVertex(mesh, vertices, 36, 8);
-	MeshSetup(mesh, vertices);
+	MeshSetup(mesh);
 	/* model = ModelCreate(mesh); */
 
 	/* unsigned int attributeSizes[] = { 3, 3, 2 }; */
@@ -84,7 +84,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 void RebelDraw()
 {
 	glBindVertexArray(mesh->VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawArrays(GL_TRIANGLES, 0, mesh->verticesSize);
 
 	//RendererDraw(testRenderer, Vec3Create(0, 0, 0), 1.0f, 1.0f);
 }

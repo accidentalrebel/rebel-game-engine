@@ -15,7 +15,7 @@ typedef struct Vertex {
 
 typedef struct Mesh {
 	Vertex** vertices;
-	/* unsigned int verticesSize; */
+	unsigned int verticesSize;
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
@@ -27,5 +27,5 @@ typedef struct Model {
 
 Mesh* MeshCreate();
 Model* ModelCreate(Mesh *mesh);
-void MeshSetup(Mesh* mesh, float* vertices);
+void MeshSetup(Mesh* mesh);
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride);
