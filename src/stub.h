@@ -10,6 +10,7 @@ typedef struct vec3test
 
 // REBEL
 // =====
+void RebelTest_(Renderer* r, float v1, float v2, float v3, float x, float y);
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDraw();
 void RebelDestroy();
