@@ -31,8 +31,6 @@
 (define *point-lights* '())
 
 (define (init)
-  (rebel:test (list 8.0 9.0 10.0))
-  
   (light:directional:create
    '(1.0 -1.0 1.0)
    '(0.05 0.05 0.05)
@@ -94,6 +92,8 @@
   ;; 	(list (vec3:create 0.0 0.0 0.0)
   ;; 	      (vec3:create 2.25 0.0 0.0)
   ;; 	      (vec3:create -1.25 0.0 0.0)))
+
+  (rebel:test *sprite* (list 8.0 9.0 10.0) 11.0 12.0)
   )
 
 (define (update)

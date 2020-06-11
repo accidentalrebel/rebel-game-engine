@@ -28,9 +28,10 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 }
 
-void RebelTest(vec3 v)
+void RebelTest(Renderer* r, vec3 v, float x, float y)
 {
 	printf("######################## %f, %f, %f\n", v[0], v[1], v[2]);
+	printf("######################## %f, %f", x, y);
 }
 
 void RebelDraw()

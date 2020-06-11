@@ -44,11 +44,15 @@
 (define rebel:test_
   (foreign-lambda*
    void
-   ((float a0)
+   (((c-pointer (struct "Renderer")) a0)
     (float a1)
-    (float a2))
-   "RebelTest((float[3]){a0 , a1 , a2});"))
-(define (rebel:test v) (rebel:test_ (first v) (second v) (third v)))
+    (float a2)
+    (float a3)
+    (float a4)
+    (float a5))
+   "RebelTest(a0, (float[3]){a1 , a2, a3}, a4, a5);"))
+(define (rebel:test a b c d)
+  (rebel:test_ a (first b) (second b) (third b) c d))
 
 ;; VECTORS
 ;; =======

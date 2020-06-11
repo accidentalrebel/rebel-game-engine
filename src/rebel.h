@@ -21,7 +21,7 @@ typedef struct Rebel {
 
 extern Rebel g_rebel;
 
-void RebelTest(vec3 v);
+void RebelTest(Renderer* r, vec3 v, float x, float y);
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDestroy();
 
