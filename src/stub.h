@@ -1,16 +1,15 @@
 #pragma once
 #include "data/structs.h"
 
-typedef struct Vec3Test
+typedef struct vec3test
 {
 	float x;
 	float y;
 	float z;
-} Vec3Test;
+} vec3test;
 
 // REBEL
 // =====
-void RebelTest2(float x, float y, float z);
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDraw();
 void RebelDestroy();

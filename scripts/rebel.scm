@@ -41,20 +41,14 @@
 (define time:current (foreign-lambda double "GetCurrentTime"))
 (define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))
-(define rebel:test_ (foreign-lambda void "RebelTest2" float float float))
+(define rebel:test_
+  (foreign-lambda*
+   void
+   ((float a0)
+    (float a1)
+    (float a2))
+   "RebelTest((float[3]){a0 , a1 , a2});"))
 (define (rebel:test v) (rebel:test_ (first v) (second v) (third v)))
-;; (define rebel:test
-;;   (foreign-lambda*
-;;    void
-;;    ((float a0)
-;;     (float a1)
-;;     (float a2))
-;;    "RebelTest2(a0 , a1 , a2);"))
-;; (define rebel:test
-;;   (foreign-lambda*
-;;    void
-;;    ((c-pointer (struct "Vec3") a0))
-;;    "RebelTest(a0);"))
 
 ;; VECTORS
 ;; =======
