@@ -76,50 +76,50 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 	}
 }
 
-Mesh* MeshGenerateCube()
+Mesh* MeshGenerateCube(float width, float height, float length)
 {
 	float vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
+    -width/2, -height/2, -length/2,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		width/2, -height/2, -length/2,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
+		width/2,  height/2, -length/2,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+		width/2,  height/2, -length/2,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+    -width/2,  height/2, -length/2,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+    -width/2, -height/2, -length/2,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
+    -width/2, -height/2,  length/2,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
+		width/2, -height/2,  length/2,  0.0f,  0.0f, 1.0f,  1.0f, 0.0f,
+		width/2,  height/2,  length/2,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
+		width/2,  height/2,  length/2,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
+    -width/2,  height/2,  length/2,  0.0f,  0.0f, 1.0f,  0.0f, 1.0f,
+    -width/2, -height/2,  length/2,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
 
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    -width/2,  height/2,  length/2, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    -width/2,  height/2, -length/2, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    -width/2, -height/2, -length/2, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -width/2, -height/2, -length/2, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -width/2, -height/2,  length/2, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    -width/2,  height/2,  length/2, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		width/2,  height/2,  length/2,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		width/2,  height/2, -length/2,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		width/2, -height/2, -length/2,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		width/2, -height/2, -length/2,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		width/2, -height/2,  length/2,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		width/2,  height/2,  length/2,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+    -width/2, -height/2, -length/2,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+		width/2, -height/2, -length/2,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+		width/2, -height/2,  length/2,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+		width/2, -height/2,  length/2,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    -width/2, -height/2,  length/2,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+    -width/2, -height/2, -length/2,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
+    -width/2,  height/2, -length/2,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+		width/2,  height/2, -length/2,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+		width/2,  height/2,  length/2,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+		width/2,  height/2,  length/2,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    -width/2,  height/2,  length/2,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+    -width/2,  height/2, -length/2,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
 	}; 
 
 	Mesh* mesh = MeshCreate();

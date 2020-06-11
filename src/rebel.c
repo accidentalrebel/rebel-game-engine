@@ -22,7 +22,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.pointLightCount = 0;
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 
-	Mesh* mesh = MeshGenerateCube();
+	Mesh* mesh = MeshGenerateCube(1.0f, 1.0f, 1.0f);
 	model = ModelCreate(mesh);
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 }
