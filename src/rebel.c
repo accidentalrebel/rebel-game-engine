@@ -1,6 +1,7 @@
 #include "rebel.h"
 #include "input/mouse.h"
 #include "graphics/mesh.h"
+#include "graphics/model.h"
 #include "graphics/renderer.h"
 #include "data/vec3.h"
 
@@ -23,7 +24,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	g_rebel.defaultShader = ShaderCreate("shaders/simple.vs", "shaders/simple.fs");
 
 	Mesh* mesh = MeshGenerateCube(1.0f, 1.0f, 1.0f);
-	model = ModelCreate(mesh);
+	model = ModelLoadFromMesh(mesh);
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 }
 
