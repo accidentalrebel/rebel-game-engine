@@ -30,3 +30,5 @@ Mesh* MeshCreate();
 Model* ModelCreate(Mesh *mesh);
 void MeshSetup(Mesh* mesh);
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride);
+
+Mesh* MeshGenerateCube();

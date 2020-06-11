@@ -27,10 +27,6 @@ void MeshSetup(Mesh* mesh)
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
 
-	printf(">>>> %i\n", mesh->verticesSize * sizeof(Vertex));
-	printf(">>>> %i\n", sizeof(Vertex));
-	printf(">>>> %i\n", sizeof(float));
-
 	int stride = 8;
 	
 	float* vertices = malloc(mesh->verticesSize * sizeof(Vertex));
@@ -45,20 +41,6 @@ void MeshSetup(Mesh* mesh)
 		vertices[i * stride + 6] = mesh->vertices[i]->texCoords[0];
 		vertices[i * stride + 7] = mesh->vertices[i]->texCoords[1];
 	}
-
-	printf(">>> %f\n", vertices[(18 * 8)]);
-	printf(">>> %f\n", vertices[(18 * 8) + 1]);
-	printf(">>> %f\n", vertices[(18 * 8) + 2]);
-	printf(">>> %f\n", vertices[(19 * 8)]);
-	printf(">>> %f\n", vertices[(19 * 8) + 1]);
-	printf(">>> %f\n", vertices[(19 * 8) + 2]);
-
-	printf("\n>>> %f\n", mesh->vertices[18]->position[0]);
-	printf(">>> %f\n", mesh->vertices[18]->position[1]);
-	printf(">>> %f\n", mesh->vertices[18]->position[2]);
-	printf(">>> %f\n", mesh->vertices[19]->position[0]);
-	printf(">>> %f\n", mesh->vertices[19]->position[1]);
-	printf(">>> %f\n", mesh->vertices[19]->position[2]);
 
 	glBufferData(GL_ARRAY_BUFFER, mesh->verticesSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 	free(vertices);
@@ -91,49 +73,58 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 		mesh->vertices[i]->normal[2] = vertices[i * stride + 5];
 		mesh->vertices[i]->texCoords[0] = vertices[i * stride + 6];
 		mesh->vertices[i]->texCoords[1] = vertices[i * stride + 7];
-
-		if ( i == 19 )
-		{
-			printf(">>> %f\n", vertices[i * stride + 0]);
-			printf(">>> %f\n", vertices[i * stride + 1]);
-			printf(">>> %f\n", vertices[i * stride + 2]);
-			printf(">>> %f\n", mesh->vertices[i]->position[0]);
-			printf(">>> %f\n", mesh->vertices[i]->position[1]);
-			printf(">>> %f\n\n", mesh->vertices[i]->position[2]);
-		}
-
-		// TODO: Find out what went wrong below
-		/* float x = 0; */
-		/* float y = 0; */
-		/* float z = 0; */
-		/* Vertex* vertex = (Vertex*)malloc(sizeof(Vertex)); */
-		/* for ( unsigned int j = 0; j < stride ; j++ ) */
-		/* { */
-		/* 	if ( j == 0 || j == 3 || j == 6 ) */
-		/* 		x = vertices[(i * stride) + j]; */
-		/* 	else if ( j == 1 || j == 4 || j == 7 ) */
-		/* 		y = vertices[(i * stride) + j]; */
-		/* 	else if ( j == 2 || j == 5 ) */
-		/* 		z = vertices[(i * stride) + j]; */
-			
-		/* 	if ( j == 2 ) */
-		/* 	{ */
-		/* 		vertex->position[0] = x; */
-		/* 		vertex->position[1] = y; */
-		/* 		vertex->position[2] = z; */
-		/* 	} */
-		/* 	else if ( j == 5 ) */
-		/* 	{ */
-		/* 		vertex->normal[0] = x; */
-		/* 		vertex->normal[1] = y; */
-		/* 		vertex->normal[2] = z; */
-		/* 	} */
-		/* 	else if ( j == 7 ) */
-		/* 	{ */
-		/* 		vertex->texCoords[0] = x; */
-		/* 		vertex->texCoords[1] = y; */
-		/* 	} */
-		/* } */
-		/* mesh->vertices[i] = vertex; */
 	}
+}
+
+Mesh* MeshGenerateCube()
+{
+	float vertices[] = {
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
+	}; 
+
+	Mesh* mesh = MeshCreate();
+ 	ParseVertex(mesh, vertices, 36, 8);
+	MeshSetup(mesh);
+
+	return mesh;
 }
