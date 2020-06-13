@@ -1,7 +1,7 @@
 ; TODO; Have a Metafile https://github.com/yashrk/raylib-scm/blob/c0aad6866057a479cc58d1b9c2932d2c6d571494/raylib-scm.meta
 
-(import (chicken foreign))
-(import foreigners)
+;; (import (chicken foreign))
+;; (import foreigners)
 
 (foreign-declare "#include \"../src/ffi-test.h\"")
 
@@ -25,7 +25,7 @@
    (((c-pointer (struct "Vector3")) a0))
    "Vector3Accept(*a0);"))
 
-(vector3 0 0 0)
+(vector3 8.0 9.0 10.0)
 (string_accept "Test")
 (vector3_accept (vector3 1.0 2.0 3.0))
 
