@@ -51,7 +51,7 @@ void MouseEnable();
 // ========
 Renderer* SpriteCreate();
 Renderer* CubeCreate();
-void RendererDraw(Renderer* cube, Vec3 *position, float width, float height);
+void RendererDraw_(Renderer *rendererObject, float x, float y, float z, float width, float height);
 
 // SHADER
 // ======
