@@ -412,8 +412,3 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 
 	free(position);
 }
-
-void RendererDraw_(Renderer *rendererObject, float x, float y, float z, float width, float height)
-{
-	RendererDraw(rendererObject, (vec3){x, y, z}, width, height);
-}
