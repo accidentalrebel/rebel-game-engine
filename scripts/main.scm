@@ -1,33 +1,34 @@
-(include-relative "rebel")
+(include-relative "ffi-test")
+;; (include-relative "rebel")
 
-(rebel:init 800 600 "Rebel Engine")
+;; (rebel:init 800 600 "Rebel Engine")
 
-(include-relative "game")
+;; (include-relative "game")
 
-(define previous-time (time:current))
-(define elapsed-time 0)
+;; (define previous-time (time:current))
+;; (define elapsed-time 0)
 
-(define (loop-program)
-  (if (window:close?)
-      (exit-program)
-      (begin
+;; (define (loop-program)
+;;   (if (window:close?)
+;;       (exit-program)
+;;       (begin
 
-	(let* ((current-time (time:current)))
+;; 	(let* ((current-time (time:current)))
 	  
-	  (set! elapsed-time (- current-time previous-time))
+;; 	  (set! elapsed-time (- current-time previous-time))
 	  
-	  (input:process)
-	  (update)
-	  (camera:update_vectors (camera:main))
+;; 	  (input:process)
+;; 	  (update)
+;; 	  (camera:update_vectors (camera:main))
 
-	  (render)
-	  (set! previous-time current-time))
-	(loop-program))
-      ))
+;; 	  (render)
+;; 	  (set! previous-time current-time))
+;; 	(loop-program))
+;;       ))
 
-(define (exit-program)
-  (rebel:destroy)
-  (print "Program exited."))
+;; (define (exit-program)
+;;   (rebel:destroy)
+;;   (print "Program exited."))
 
-(init)
-(loop-program)
+;; (init)
+;; (loop-program)
