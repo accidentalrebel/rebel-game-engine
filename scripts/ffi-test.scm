@@ -5,12 +5,28 @@
 
 (foreign-declare "#include \"../src/ffi-test.h\"")
 
-(define-foreign-record-type (vector-3 Vector3))
+;; (define-foreign-record-type (vector-3 Vector3))
 
-(define vector-3
+(define vector3
+  (foreign-lambda*
+   (c-pointer (struct "Vector3"))
+   ((float a0)
+    (float a1)
+    (float a2))
+   "C_return(MakeVector3(a0, a1, a2));"))
+(define string_accept
   (foreign-lambda*
    void
-   ()
-   "FFITest();"))
+   ((c-string a0))
+   "StringAccept(a0);"))
+(define vector3_accept
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Vector3")) a0))
+   "Vector3Accept(*a0);"))
 
-(vector-3)
+(vector3 0 0 0)
+(string_accept "Test")
+(vector3_accept (vector3 1.0 2.0 3.0))
+
+
