@@ -11,17 +11,24 @@
    ((float a0)
     (float a1)
     (float a2))
-   "C_return(MakeVector3(a0, a1, a2));"))
+   "Vector3* v = (Vector3*)malloc(sizeof(Vector3));
+v->x = a0;
+v->y = a1;
+v->z = a2;
+C_return(v);"))
+
 (define string_accept
   (foreign-lambda*
    void
    ((c-string a0))
    "StringAccept(a0);"))
+
 (define vector3_accept
   (foreign-lambda*
    void
    (((c-pointer (struct "Vector3")) a0))
    "Vector3Accept(*a0);"))
+
 (define set_camera_projection
   (foreign-lambda*
    void

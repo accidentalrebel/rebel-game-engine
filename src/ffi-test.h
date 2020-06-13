@@ -11,4 +11,3 @@ void FFITest();
 void StringAccept(char* v);
 void Vector3Accept(Vector3 v);
 void SetCameraProjection(int projection);
-Vector3* MakeVector3(float x, float y, float z);
