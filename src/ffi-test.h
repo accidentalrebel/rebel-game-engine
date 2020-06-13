@@ -1,3 +1,6 @@
+#define ORTHOGRAPHIC 0
+#define PERSPECTIVE 1
+
 typedef struct Vector3 {
 	float x;
 	float y;
@@ -7,4 +10,5 @@ typedef struct Vector3 {
 void FFITest();
 void StringAccept(char* v);
 void Vector3Accept(Vector3 v);
+void SetCameraProjection(int projection);
 Vector3* MakeVector3(float x, float y, float z);

@@ -25,3 +25,8 @@ Vector3* MakeVector3(float x, float y, float z)
 	v->z = z;
 	return v;
 }
+
+void SetCameraProjection(int projection)
+{
+	printf("## Camera projection: %i", projection);
+}
