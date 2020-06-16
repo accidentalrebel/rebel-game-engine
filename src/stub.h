@@ -51,7 +51,6 @@ void MouseEnable();
 // ========
 Renderer* SpriteCreate();
 Renderer* CubeCreate();
-void RendererDraw_(Renderer *rendererObject, float x, float y, float z, float width, float height);
 
 // SHADER
 // ======
