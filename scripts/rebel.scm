@@ -46,10 +46,6 @@
 (define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))
 
-(define rebel:test_ (foreign-lambda void "RebelTest_" (c-pointer (struct "Renderer")) float float float float float))
-(define (rebel:test a b c d)
-  (rebel:test_ a (first b) (second b) (third b) c d))
-
 ;; VECTORS
 ;; =======
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
