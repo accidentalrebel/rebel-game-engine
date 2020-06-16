@@ -1,10 +1,5 @@
 #pragma once
 
-enum CameraProjection {
-	PERSPECTIVE = 0,
-	ORTHOGRAPHIC
-};
-
 enum Direction {
 	FORWARD,
 	BACKWARD,
@@ -20,18 +15,6 @@ typedef struct Vec3
 	float y;
 	float z;
 } Vec3;
-
-typedef struct Camera {
-	enum CameraProjection projection;
-	unsigned int size;
-	float fov;
-	Vec3* position;
-	Vec3* front;
-	Vec3* up;
-	Vec3* right;
-	float yaw;
-	float pitch;
-} Camera;
 
 typedef struct Light
 {

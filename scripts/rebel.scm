@@ -82,6 +82,15 @@
 
 ;; CAMERA
 ;; ======
+(define-foreign-enum-type (camera-projection int)
+  (camera-projection->int camera-projection->keys)
+  ((perspective camera-projection/perspective) PERSPECTIVE)
+  ((orthographic camera-projection/orthographic) ORTHOGRAPHIC))
+
+(define-foreign-record-type (camera Camera)
+  (camera-projection projection Camera-projection Camera-projection!)
+  ((c-pointer (struct "Vec3")) position Camera-position Camera-position!))
+
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
