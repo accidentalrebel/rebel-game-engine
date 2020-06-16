@@ -1,5 +1,6 @@
 #pragma once
 #include "../data/structs.h"
+#include "../external/cglm/cglm.h"
 
 enum CameraProjection {
 	PERSPECTIVE = 0,
