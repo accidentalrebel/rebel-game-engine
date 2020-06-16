@@ -8,6 +8,8 @@ Material* MaterialCreate()
 	mat->textureDiffuse1 = 0;
 	mat->textureSpecular1 = 0;
 	mat->shininess = 1.0f;
-	mat->color = NULL;
+
+	glm_vec3_zero(mat->color);
+	
 	return mat;
 }

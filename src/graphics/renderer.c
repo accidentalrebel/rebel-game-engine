@@ -261,10 +261,7 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 	glBindVertexArray(rendererObject->VAO);
 
 	if ( rendererObject->material->color != NULL )
-	{
-		Vec3ToGlm(rendererObject->material->color, temp);
-		ShaderSetVec3(shaderToUse, "material.color", temp);
-	}
+		ShaderSetVec3(shaderToUse, "material.color", rendererObject->material->color);
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 	glActiveTexture(GL_TEXTURE0);
@@ -392,10 +389,7 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 	glBindVertexArray(modelObject->meshes[0]->VAO);
 
 	if ( modelObject->material->color != NULL )
-	{
-		Vec3ToGlm(modelObject->material->color, temp);
-		ShaderSetVec3(shaderToUse, "material.color", temp);
-	}
+		ShaderSetVec3(shaderToUse, "material.color", modelObject->material->color);
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 	glActiveTexture(GL_TEXTURE0);

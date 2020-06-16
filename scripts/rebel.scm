@@ -2,6 +2,8 @@
 (import (srfi-1))
 (import (chicken gc))
 (import (chicken string))
+(import (chicken foreign))
+(import foreigners)
 
 (set-gc-report! #t)
 
@@ -22,6 +24,7 @@
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
+(foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
 
 ;; Used by functions that need a finalizer
@@ -161,16 +164,22 @@
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
+(define-foreign-record-type (material Material)
+  (unsigned-integer textureDiffuse1 Material-textureDiffuse1 Material-textureDiffuse1!)
+  (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
+  (float shininess Material-shininess Material-shininess!))
+
+(define-foreign-record-type (renderer Renderer)
+  ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
+
 ;; MATERIAL
 ;; ========
 (define (material:texture_diffuse! renderer texture)
-  (set! (Material-textureDiffuse1
-	 (Renderer-material renderer))
-	texture))
+  (Material-textureDiffuse1! (Renderer-material renderer) texture))
+
 (define (material:texture_specular! renderer texture)
-  (set! (Material-textureSpecular1
-	 (Renderer-material renderer))
-	texture))
+  (Material-textureSpecular1! (Renderer-material renderer) texture))
+
 (define (material:color renderer) (Material-color (Renderer-material renderer)))
 (define (material:color! renderer color)
   (set! (Material-color
@@ -178,10 +187,9 @@
 	(list_to_vec3 color)))
 
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
+
 (define (material:shininess! renderer shine)
-  (set! (Material-shininess
-	 (Renderer-material renderer))
-	shine))
+  (Material-shininess! (Renderer-material renderer) shine))
 
 ;; SHADER
 ;; ======

@@ -67,23 +67,6 @@ typedef struct Shader {
 	unsigned int id;
 } Shader;
 
-typedef struct Material
-{
-	unsigned int textureDiffuse1;
-	unsigned int textureSpecular1;
-	float shininess;
-	Vec3* color;
-} Material;
-
-typedef struct Renderer
-{
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int indicesSize;
-
-	Material* material;
-} Renderer;
-
 enum Keys {
 	KEY_UNKNOWN = -1,
 	KEY_SPACE = 32,

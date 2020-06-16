@@ -21,11 +21,6 @@ typedef struct Mesh {
 	unsigned int EBO;
 } Mesh;
 
-typedef struct Model {
-	Mesh** meshes;
-	Material* material;
-} Model;
-
 Mesh* MeshCreate();
 void MeshSetup(Mesh* mesh);
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride);

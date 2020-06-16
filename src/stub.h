@@ -1,13 +1,6 @@
 #pragma once
 #include "data/structs.h"
 
-typedef struct vec3test
-{
-	float x;
-	float y;
-	float z;
-} vec3test;
-
 // REBEL
 // =====
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
@@ -40,11 +33,6 @@ unsigned int KeyIsDown(enum Keys key);
 unsigned int KeyIsUp(enum Keys key);
 Mouse* MouseGetInstance();
 void MouseEnable();
-
-// RENDERER
-// ========
-Renderer* SpriteCreate();
-Renderer* CubeCreate();
 
 // SHADER
 // ======
