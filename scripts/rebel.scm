@@ -23,6 +23,7 @@
 (bind* "#include \"stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
+(foreign-declare "#include \"rebel.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")

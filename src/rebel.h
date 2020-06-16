@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include "external/glad/include/glad/glad.h"
 #include "core/window.h"
 #include "data/structs.h"
 #include "graphics/shader.h"
@@ -23,6 +23,7 @@ extern Rebel g_rebel;
 
 void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
 void RebelDestroy();
+void RebelDraw();
 
 void InputProcess();
 

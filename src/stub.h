@@ -1,14 +1,6 @@
 #pragma once
 #include "data/structs.h"
 
-// REBEL
-// =====
-void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* windowName);
-void RebelDraw();
-void RebelDestroy();
-
-void InputProcess();
-
 // VECTOR
 // ======
 Vec3* Vec3Create(float x, float y, float z);
