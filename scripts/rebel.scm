@@ -79,6 +79,12 @@
   (if (not (boolean? v))
       (list (vec3:x v) (vec3:y v) (vec3:z v))
       v))
+(define (vec3_to_list2 v)
+  (if (not (boolean? v))
+      (let ((l (list (vec3:x v) (vec3:y v) (vec3:z v))))
+	(free% v)
+	l)
+      v))
 
 ;; CAMERA
 ;; ======
@@ -90,21 +96,12 @@
 (define-foreign-record-type (camera Camera)
   (camera-projection projection Camera-projection Camera-projection!))
 
-(define Camera-position-x
+(define Camera-position
   (foreign-lambda*
-   float
+   (c-pointer (struct "Vec3"))
    (((c-pointer (struct "Camera")) a0))
-   "C_return(a0->position[0]);"))
-(define Camera-position-y
-  (foreign-lambda*
-   float
-   (((c-pointer (struct "Camera")) a0))
-   "C_return(a0->position[1]);"))
-(define Camera-position-z
-  (foreign-lambda*
-   float
-   (((c-pointer (struct "Camera")) a0))
-   "C_return(a0->position[2]);"))
+   "Vec3* v = Vec3Create(a0->position[0], a0->position[1], a0->position[2]);
+C_return(v);"))
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
@@ -112,11 +109,9 @@
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))
 (define (camera:projection camera) (Camera-projection camera))
 
-; TODO; Use a vector3 with accessors
 (define (camera:position camera)
-  (list (Camera-position-x camera)
-	(Camera-position-y camera)
-	(Camera-position-z camera)))
+  (vec3_to_list2 (Camera-position camera)))
+
 ;(define (camera:position! camera value) (set! (Camera-position camera) value))
 (define (camera:front camera) (Camera-front camera))
 (define (camera:front! camera value) (set! (Camera-front camera) value))
