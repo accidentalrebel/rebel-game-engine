@@ -22,7 +22,7 @@ all:	run
 build:	lib
 
 run:
-	cd src ; $(CSC) -cxx $(CC) ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -debug F -static
+	cd src ; $(CSC) -cxx $(CC) ../scripts/main.scm -o ../output/game $(LINKER_FLAGS) -I../src/ -debug F -static
 	output/game
 
 lib: 	objs

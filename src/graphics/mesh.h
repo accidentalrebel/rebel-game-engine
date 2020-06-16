@@ -1,6 +1,6 @@
 #pragma once
 #include "../data/structs.h"
-#include <cglm/cglm.h>
+#include "../external/cglm/cglm.h"
 
 typedef struct Texture {
 	unsigned int id;

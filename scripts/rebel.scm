@@ -18,7 +18,7 @@
 (bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
 ;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3:x and vec3:x!).
 
-(bind* "#include \"../src/stub.h\"") ;; stub.h is where c declarations used by the defines below are found
+(bind* "#include \"stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
@@ -148,8 +148,8 @@
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
 (define (sprite:create) (set-finalizer! (sprite:create%) free%))
 
-(foreign-declare "#include \"../src/external/cglm/cglm.h\"")
-(foreign-declare "void RendererDraw(Renderer* rendererObject, vec3 position, float width, float height);")
+(foreign-declare "#include \"external/cglm/cglm.h\"")
+(foreign-declare "#include \"graphics/renderer.h\"")
 
 (define renderer:draw_
   (foreign-lambda*
