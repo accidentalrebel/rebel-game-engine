@@ -88,16 +88,36 @@
   ((orthographic camera-projection/orthographic) ORTHOGRAPHIC))
 
 (define-foreign-record-type (camera Camera)
-  (camera-projection projection Camera-projection Camera-projection!)
-  ((c-pointer (struct "Vec3")) position Camera-position Camera-position!))
+  (camera-projection projection Camera-projection Camera-projection!))
+
+(define Camera-position-x
+  (foreign-lambda*
+   float
+   (((c-pointer (struct "Camera")) a0))
+   "C_return(a0->position[0]);"))
+(define Camera-position-y
+  (foreign-lambda*
+   float
+   (((c-pointer (struct "Camera")) a0))
+   "C_return(a0->position[1]);"))
+(define Camera-position-z
+  (foreign-lambda*
+   float
+   (((c-pointer (struct "Camera")) a0))
+   "C_return(a0->position[2]);"))
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
 (define (camera:projection! camera value) (set! (Camera-projection camera) value))
 (define (camera:projection camera) (Camera-projection camera))
-(define (camera:position camera) (Camera-position camera))
-(define (camera:position! camera value) (set! (Camera-position camera) value))
+
+; TODO; Use a vector3 with accessors
+(define (camera:position camera)
+  (list (Camera-position-x camera)
+	(Camera-position-y camera)
+	(Camera-position-z camera)))
+;(define (camera:position! camera value) (set! (Camera-position camera) value))
 (define (camera:front camera) (Camera-front camera))
 (define (camera:front! camera value) (set! (Camera-front camera) value))
 (define (camera:yaw camera) (Camera-yaw camera))

@@ -9,7 +9,7 @@ Camera* CameraCreate()
 	camera->projection = PERSPECTIVE;
 	camera->size = 5;
 	camera->fov = 45;
-	camera->position = Vec3Create(0, 0, 10);
+	glm_vec3_copy((vec3){0, 0, 10}, camera->position);
 	camera->front = Vec3Create(0, 0, 1);
 	camera->up = Vec3Create(0, 1, 0);
 	camera->right = Vec3Create(1, 0, 0);
@@ -47,33 +47,29 @@ void CameraUpdateVectors(Camera* camera)
 void CameraMove(Camera *camera, enum Direction direction, float velocity)
 {
 	vec3 front;
-	vec3 position;
 	vec3 right;
 	Vec3ToGlm(camera->front, front);
-	Vec3ToGlm(camera->position, position);
 	Vec3ToGlm(camera->right, right);
 
 	switch ( direction )
 	{
 	 case FORWARD:
 		 glm_vec3_scale(front, velocity, front);
-		 glm_vec3_add(position, front, position);
+		 glm_vec3_add(camera->position, front, camera->position);
 		 break;
 	 case BACKWARD:
 		 glm_vec3_scale(front, velocity, front);
-		 glm_vec3_sub(position, front, position);
+		 glm_vec3_sub(camera->position, front, camera->position);
 		 break;
 	 case LEFT:
 		 glm_vec3_scale(right, velocity, right);
-		 glm_vec3_sub(position, right, position);
+		 glm_vec3_sub(camera->position, right, camera->position);
 		 break;
 	 case RIGHT:
 		 glm_vec3_scale(right, velocity, right);
-		 glm_vec3_add(position, right, position);
+		 glm_vec3_add(camera->position, right, camera->position);
 		 break;
 	 default:
 		 break;
 	}
-
-	Vec3FromGlm(camera->position, position);
 }

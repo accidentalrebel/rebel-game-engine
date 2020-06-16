@@ -92,6 +92,7 @@
   ;; 	(list (vec3:create 0.0 0.0 0.0)
   ;; 	      (vec3:create 2.25 0.0 0.0)
   ;; 	      (vec3:create -1.25 0.0 0.0)))
+  (display (first (camera:position (camera:main))))
   )
 
 (define (update)

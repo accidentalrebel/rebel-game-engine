@@ -10,7 +10,7 @@ typedef struct Camera {
 	enum CameraProjection projection;
 	unsigned int size;
 	float fov;
-	Vec3* position;
+	vec3 position;
 	Vec3* front;
 	Vec3* up;
 	Vec3* right;

@@ -38,7 +38,6 @@
   
   (let* ((main-camera (camera:main))
 	 (current-projection (camera:projection main-camera))
-	 (camera-pos (camera:position main-camera))
 	 (move-speed (* MOVEMENT_SPEED (time:elapsed))))
     
     (when (key:up? KEY_C)
