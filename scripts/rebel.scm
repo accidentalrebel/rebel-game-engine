@@ -20,6 +20,10 @@
 
 (bind* "#include \"stub.h\"") ;; stub.h is where c declarations used by the defines below are found
 
+(foreign-declare "#include \"external/cglm/cglm.h\"")
+(foreign-declare "#include \"graphics/renderer.h\"")
+(foreign-declare "#include \"graphics/lighting/light.h\"")
+
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
@@ -147,9 +151,6 @@
 
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
 (define (sprite:create) (set-finalizer! (sprite:create%) free%))
-
-(foreign-declare "#include \"external/cglm/cglm.h\"")
-(foreign-declare "#include \"graphics/renderer.h\"")
 
 (define renderer:draw_
   (foreign-lambda*

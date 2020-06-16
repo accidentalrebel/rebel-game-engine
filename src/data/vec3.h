@@ -1,7 +1,7 @@
 #pragma once
 
 #include "structs.h"
-#include <cglm/cglm.h>
+#include "../external/cglm/cglm.h"
 
 Vec3* Vec3Create(float x, float y, float z);
 Vec3* Vec3Copy(Vec3* from);
