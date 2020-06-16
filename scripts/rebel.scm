@@ -79,6 +79,8 @@
   (if (not (boolean? v))
       (list (vec3:x v) (vec3:y v) (vec3:z v))
       v))
+
+;; Converts vec3 to list and then frees the vector afterwards
 (define (vec3_to_list2 v)
   (if (not (boolean? v))
       (let ((l (list (vec3:x v) (vec3:y v) (vec3:z v))))
@@ -94,7 +96,9 @@
   ((orthographic camera-projection/orthographic) ORTHOGRAPHIC))
 
 (define-foreign-record-type (camera Camera)
-  (camera-projection projection Camera-projection Camera-projection!))
+  (camera-projection projection Camera-projection Camera-projection!)
+  (float pitch Camera-pitch Camera-pitch!)
+  (float yaw Camera-yaw Camera-yaw!))
 
 (define Camera-position
   (foreign-lambda*
@@ -116,9 +120,9 @@ C_return(v);"))
 (define (camera:front camera) (Camera-front camera))
 (define (camera:front! camera value) (set! (Camera-front camera) value))
 (define (camera:yaw camera) (Camera-yaw camera))
-(define (camera:yaw! camera value) (set! (Camera-yaw camera) value))
+(define (camera:yaw! camera value) (Camera-yaw! camera value))
 (define (camera:pitch camera) (Camera-pitch camera))
-(define (camera:pitch! camera value) (set! (Camera-pitch camera) value))
+(define (camera:pitch! camera value) (Camera-pitch! camera value))
 
 ;; LIGHT
 ;; =====
