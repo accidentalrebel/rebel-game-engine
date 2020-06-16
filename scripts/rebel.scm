@@ -148,10 +148,19 @@
 (define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
 (define (sprite:create) (set-finalizer! (sprite:create%) free%))
 
-(define renderer:draw_ (foreign-lambda void "RendererDraw_"
-				    (c-pointer (struct "Renderer"))
-				    float float float
-				    float float))
+(foreign-declare "#include \"../src/external/cglm/cglm.h\"")
+(foreign-declare "void RendererDraw(Renderer* rendererObject, vec3 position, float width, float height);")
+
+(define renderer:draw_
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Renderer")) a0)
+    (float a1)
+    (float a2)
+    (float a3)
+    (float a4)
+    (float a5))
+   "RendererDraw(a0, (vec3){ a1, a2, a3 }, a4, a5);"))
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
