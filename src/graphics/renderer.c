@@ -175,12 +175,9 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 		glm_ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f, projection);
 	}
 
-	vec3 cameraUp;
-	Vec3ToGlm(g_rebel.mainCamera->up, cameraUp);
-	
 	vec3 temp;
 	glm_vec3_add(g_rebel.mainCamera->position, g_rebel.mainCamera->front, temp);
-	glm_lookat(g_rebel.mainCamera->position, temp, cameraUp, view);
+	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
 	glm_scale(model, (vec3){ width, height, height });
 
@@ -299,12 +296,9 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 		glm_ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f, projection);
 	}
 
-	vec3 cameraUp;
-	Vec3ToGlm(g_rebel.mainCamera->up, cameraUp);
-	
 	vec3 temp;
 	glm_vec3_add(g_rebel.mainCamera->position, g_rebel.mainCamera->front, temp);
-	glm_lookat(g_rebel.mainCamera->position, temp, cameraUp, view);
+	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
 	glm_scale(model, (vec3){ width, height, height });
 

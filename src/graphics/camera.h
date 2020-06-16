@@ -12,8 +12,8 @@ typedef struct Camera {
 	float fov;
 	vec3 position;
 	vec3 front;
-	Vec3* up;
-	Vec3* right;
+	vec3 up;
+	vec3 right;
 	float yaw;
 	float pitch;
 } Camera;
