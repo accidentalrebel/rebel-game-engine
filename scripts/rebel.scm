@@ -164,7 +164,6 @@
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
-
 (define-foreign-record-type (renderer Renderer)
   ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
 
@@ -182,7 +181,7 @@
     (float a1)
     (float a2)
     (float a3))
-   "glm_vec3_copy(a0->color, (vec3){ a1, a2, a3 });"))
+   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
 
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))
