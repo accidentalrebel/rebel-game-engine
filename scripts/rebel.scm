@@ -164,16 +164,26 @@
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
-(define-foreign-record-type (material Material)
-  (unsigned-integer textureDiffuse1 Material-textureDiffuse1 Material-textureDiffuse1!)
-  (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
-  (float shininess Material-shininess Material-shininess!))
 
 (define-foreign-record-type (renderer Renderer)
   ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
 
 ;; MATERIAL
 ;; ========
+(define-foreign-record-type (material Material)
+  (unsigned-integer textureDiffuse1 Material-textureDiffuse1 Material-textureDiffuse1!)
+  (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
+  (float shininess Material-shininess Material-shininess!))
+
+(define Material-color!
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Material")) a0)
+    (float a1)
+    (float a2)
+    (float a3))
+   "glm_vec3_copy(a0->color, (vec3){ a1, a2, a3 });"))
+
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))
 
@@ -181,10 +191,10 @@
   (Material-textureSpecular1! (Renderer-material renderer) texture))
 
 (define (material:color renderer) (Material-color (Renderer-material renderer)))
+
+;; TODO; Make a macro for "(first color) (second color) (third color)"
 (define (material:color! renderer color)
-  (set! (Material-color
-	 (Renderer-material renderer))
-	(list_to_vec3 color)))
+  (Material-color! (Renderer-material renderer) (first color) (second color) (third color)))
 
 (define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
 
