@@ -24,6 +24,7 @@
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
+(foreign-declare "#include \"graphics/camera.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
