@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../data/structs.h"
-#include <glad/glad.h>
+#include "../external/glad/include/glad/glad.h"
 #include "../core/window.h"
 
 Mouse* MouseInit();

@@ -24,10 +24,13 @@
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
+(foreign-declare "#include \"core/window.h\"")
 (foreign-declare "#include \"graphics/camera.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
+(foreign-declare "#include \"input/keyboard.h\"")
+(foreign-declare "#include \"input/mouse.h\"")
 
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
