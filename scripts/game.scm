@@ -98,7 +98,7 @@
 (define (update)
   (fpcam:update)
 
-  (when (key:up? KEY_G)
+  (when (key:up? keys/G)
     (display "GC triggered.\n")
     (display (gc #t))
     (newline)))

@@ -91,9 +91,9 @@
 ;; CAMERA
 ;; ======
 (define-foreign-enum-type (camera-projection int)
-  (camera-projection->int camera-projection->keys)
-  ((perspective camera-projection/perspective) PERSPECTIVE)
-  ((orthographic camera-projection/orthographic) ORTHOGRAPHIC))
+  (camera-projection->int int->camera-projection)
+  ((perspective camera-projection/PERSPECTIVE) PERSPECTIVE)
+  ((orthographic camera-projection/ORTHOGRAPHIC) ORTHOGRAPHIC))
 
 (define-foreign-record-type (camera Camera)
   (camera-projection projection Camera-projection Camera-projection!)
@@ -249,6 +249,15 @@ C_return(v);"))
 
 ;; KEYBOARD
 ;; ========
+(define-foreign-enum-type (keys unsigned-integer)
+  (keys->unsigned-integer unsigned-integer->keys)
+  ((a keys/A) KEY_A)
+  ((c keys/C) KEY_C)
+  ((e keys/E) KEY_E)
+  ((g keys/G) KEY_G)
+  ((o keys/O) KEY_O)
+  ((comma keys/COMMA) KEY_COMMA))
+
 (define key:is_down (foreign-lambda unsigned-integer "KeyIsDown" (enum "Keys")))
 (define key:is_up (foreign-lambda unsigned-integer "KeyIsUp" (enum "Keys")))
 (define (key:down? key)
