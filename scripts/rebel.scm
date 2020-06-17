@@ -42,6 +42,18 @@
 	(float a3))
        "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->"variable-name");")))))
 
+(define-syntax make_vector_getter
+  (syntax-rules ()
+    ((make_vector_setter function-name struct-name variable-name body ...)
+     (define function-name
+       (foreign-lambda*
+	(c-pointer (struct "Vec3"))
+	(((c-pointer (struct struct-name)) a0))
+	"Vec3* v = Vec3Create(a0->"variable-name"[0], a0->"variable-name"[1], a0->"variable-name"[2]);
+C_return(v);")))))
+
+;; UTILS
+;; =====
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
@@ -122,12 +134,7 @@
   (float pitch Camera-pitch Camera-pitch!)
   (float yaw Camera-yaw Camera-yaw!))
 
-(define Camera-position
-  (foreign-lambda*
-   (c-pointer (struct "Vec3"))
-   (((c-pointer (struct "Camera")) a0))
-   "Vec3* v = Vec3Create(a0->position[0], a0->position[1], a0->position[2]);
-C_return(v);"))
+(make_vector_getter Camera-position "Camera" "position")
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
