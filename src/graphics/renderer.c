@@ -194,17 +194,14 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 		sprintf(base, "pointLights[%u].position", i);
 		ShaderSetVec3(shaderToUse, base, pointLight->position);
 
-		Vec3ToGlm(pointLight->light->ambient, temp);
 		sprintf(base, "pointLights[%u].ambient", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->ambient);
 
-		Vec3ToGlm(pointLight->light->diffuse, temp);
 		sprintf(base, "pointLights[%u].diffuse", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->diffuse);
 
-		Vec3ToGlm(pointLight->light->specular, temp);
 		sprintf(base, "pointLights[%u].specular", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->specular);
 
 		sprintf(base, "pointLights[%u].constant", i);
 		ShaderSetFloat(shaderToUse, base, pointLight->constant);
@@ -218,15 +215,9 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 
 	if ( g_rebel.directionLight != NULL )
 	{
-		Vec3ToGlm(g_rebel.directionLight->light->ambient, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.ambient", temp);
-
-		Vec3ToGlm(g_rebel.directionLight->light->diffuse, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.diffuse", temp);
-
-		Vec3ToGlm(g_rebel.directionLight->light->specular, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.specular", temp);
-
+		ShaderSetVec3(shaderToUse, "directionLight.ambient", g_rebel.directionLight->light->ambient);
+		ShaderSetVec3(shaderToUse, "directionLight.diffuse", g_rebel.directionLight->light->diffuse);
+		ShaderSetVec3(shaderToUse, "directionLight.specular", g_rebel.directionLight->light->specular);
 		ShaderSetVec3(shaderToUse, "directionLight.direction", g_rebel.directionLight->direction);
 	}
 	else
@@ -313,17 +304,14 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 		sprintf(base, "pointLights[%u].position", i);
 		ShaderSetVec3(shaderToUse, base, pointLight->position);
 
-		Vec3ToGlm(pointLight->light->ambient, temp);
 		sprintf(base, "pointLights[%u].ambient", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->ambient);
 
-		Vec3ToGlm(pointLight->light->diffuse, temp);
 		sprintf(base, "pointLights[%u].diffuse", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->diffuse);
 
-		Vec3ToGlm(pointLight->light->specular, temp);
 		sprintf(base, "pointLights[%u].specular", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->light->specular);
 
 		sprintf(base, "pointLights[%u].constant", i);
 		ShaderSetFloat(shaderToUse, base, pointLight->constant);
@@ -337,15 +325,9 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 
 	if ( g_rebel.directionLight != NULL )
 	{
-		Vec3ToGlm(g_rebel.directionLight->light->ambient, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.ambient", temp);
-
-		Vec3ToGlm(g_rebel.directionLight->light->diffuse, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.diffuse", temp);
-
-		Vec3ToGlm(g_rebel.directionLight->light->specular, temp);
-		ShaderSetVec3(shaderToUse, "directionLight.specular", temp);
-
+		ShaderSetVec3(shaderToUse, "directionLight.ambient", g_rebel.directionLight->light->ambient);
+		ShaderSetVec3(shaderToUse, "directionLight.diffuse", g_rebel.directionLight->light->diffuse);
+		ShaderSetVec3(shaderToUse, "directionLight.specular", g_rebel.directionLight->light->specular);
 		ShaderSetVec3(shaderToUse, "directionLight.direction", g_rebel.directionLight->direction);
 	}
 	else

@@ -5,9 +5,9 @@
 Light* LightCreate(Vec3* ambient, Vec3* diffuse, Vec3* specular)
 {
 	Light* light = (Light*)malloc(sizeof(Light));
-	light->ambient = Vec3Copy(ambient);
-	light->diffuse = Vec3Copy(diffuse);
-	light->specular = Vec3Copy(specular);
+	glm_vec3_copy((vec3){ ambient->x, ambient->y, ambient->z }, light->ambient);
+	glm_vec3_copy((vec3){ diffuse->x, diffuse->y, diffuse->z }, light->diffuse);
+	glm_vec3_copy((vec3){ specular->x, specular->y, specular->z }, light->specular);
 
 	return light;
 }

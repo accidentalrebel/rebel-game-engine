@@ -134,8 +134,24 @@ C_return(v);"))
 
 ;; LIGHT
 ;; =====
-(define-foreign-record-type (light Light)
-  ((c-pointer (struct "Vec3")) diffuse Light-diffuse Light-diffuse!))
+;; (define-foreign-record-type (light Light)
+;;   ((c-pointer (struct "vec3")) diffuse Light-diffuse Light-diffuse!))
+
+(define Light-diffuse!
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Light")) a0)
+    (float a1)
+    (float a2)
+    (float a3))
+   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->diffuse);"))
+
+(define Light-diffuse
+  (foreign-lambda*
+   (c-pointer (struct "Vec3"))
+   (((c-pointer (struct "Light")) a0))
+    "Vec3* v = Vec3Create(a0->diffuse[0], a0->diffuse[1], a0->diffuse[2]);
+C_return(v);"))
 
 (define (light:ambient! light vec)
   (set! (Light-ambient light) (list_to_vec3 vec)))

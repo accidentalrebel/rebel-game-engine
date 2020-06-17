@@ -5,9 +5,9 @@
 
 typedef struct Light
 {
-	Vec3* ambient;
-	Vec3* diffuse;
-	Vec3* specular;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
 } Light;
 
 typedef struct DirectionLight
