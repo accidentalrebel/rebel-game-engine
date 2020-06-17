@@ -1,4 +1,3 @@
-(import bind)
 (import (srfi-1))
 (import (chicken gc))
 (import (chicken string))
@@ -16,9 +15,6 @@
 ;;
 ;; For the most part you'll only have to use the gc-tracked one. The other one is for when
 ;; you need more control over your memory allocations.
-
-(bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
-;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3:x and vec3:x!).
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
