@@ -28,6 +28,22 @@
 (foreign-declare "#include \"input/keyboard.h\"")
 (foreign-declare "#include \"input/mouse.h\"")
 
+;; MACROS
+;; ======
+(define-syntax make_vector_setter
+  (syntax-rules ()
+    ((make_vector_setter function-name struct-name body ...)
+     (define function-name
+      (foreign-lambda*
+       void
+       (((c-pointer (struct struct-name)) a0)
+	(float a1)
+	(float a2)
+	(float a3))
+       "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);")))))
+
+(make_vector_setter Material-color! "Material")
+
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
@@ -163,14 +179,14 @@ C_return(v);"))
 (define-foreign-record-type (point-light PointLight)
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
 
-(define Material-color!
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Material")) a0)
-    (float a1)
-    (float a2)
-    (float a3))
-   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
+;; (define Material-color!
+;;   (foreign-lambda*
+;;    void
+;;    (((c-pointer (struct "Material")) a0)
+;;     (float a1)
+;;     (float a2)
+;;     (float a3))
+;;    "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
 
 (define PointLight-position!
   (foreign-lambda*
@@ -264,14 +280,20 @@ C_return(v);"))
   (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
   (float shininess Material-shininess Material-shininess!))
 
-(define Material-color!
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Material")) a0)
-    (float a1)
-    (float a2)
-    (float a3))
-   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
+(define-syntax displaytest
+  (syntax-rules ()
+    ((displaytest num body ...)
+     (display num))))
+(displaytest 0 "TEST")
+
+;; (define Material-color!
+;;   (foreign-lambda*
+;;    void
+;;    (((c-pointer (struct "Material")) a0)
+;;     (float a1)
+;;     (float a2)
+;;     (float a3))
+;;    "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
 
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))

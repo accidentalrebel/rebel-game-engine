@@ -73,6 +73,9 @@
   (material:texture_specular! *tile* (texture:load "assets/textures/container-specular.png"))
   (material:shininess! *tile* 12.0)
 
+  ;; NOTE; TEST:
+  (material:color! *tile* '(1 0 0))
+
   ;; (set! *cube* (cube:create))
   ;; (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   ;; (material:texture_diffuse! *cube* (texture:load "assets/textures/container.png"))
