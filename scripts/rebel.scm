@@ -6,6 +6,9 @@
 
 (set-gc-report! #t)
 
+;; TODO; Move Vec3 declaration from C to Scheme
+
+;; TODO; Note below might be outdated
 ;; Note; Some functions have two versions. One of them has an underscore (vec3:create%),
 ;; another does not (vec3:create).
 ;;
@@ -258,7 +261,6 @@ C_return(v);")))))
 
 (define (material:color renderer) (Material-color (Renderer-material renderer)))
 
-;; TODO; Make a macro for "(first color) (second color) (third color)"
 (define (material:color! renderer color)
   (Material-color! (Renderer-material renderer) (first color) (second color) (third color)))
 
