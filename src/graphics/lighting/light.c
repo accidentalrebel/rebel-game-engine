@@ -15,7 +15,7 @@ Light* LightCreate(Vec3* ambient, Vec3* diffuse, Vec3* specular)
 PointLight* PointLightCreate(Vec3* position, Vec3* ambient, Vec3* diffuse, Vec3* specular, float constant, float linear, float quadratic)
 {
 	PointLight* pointLight = (PointLight*)malloc(sizeof(PointLight));
-	pointLight->position = Vec3Create(position->x, position->y, position->z);
+	glm_vec3_copy((vec3){position->x, position->y, position->z}, pointLight->position);
 	pointLight->constant = constant;
 	pointLight->linear = linear;
 	pointLight->quadratic = quadratic;

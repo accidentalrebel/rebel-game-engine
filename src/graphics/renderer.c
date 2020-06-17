@@ -191,9 +191,8 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 	{
 		PointLight* pointLight = g_rebel.pointLights[i];
 
-		Vec3ToGlm(pointLight->position, temp);
 		sprintf(base, "pointLights[%u].position", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->position);
 
 		Vec3ToGlm(pointLight->light->ambient, temp);
 		sprintf(base, "pointLights[%u].ambient", i);
@@ -312,9 +311,8 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 	{
 		PointLight* pointLight = g_rebel.pointLights[i];
 
-		Vec3ToGlm(pointLight->position, temp);
 		sprintf(base, "pointLights[%u].position", i);
-		ShaderSetVec3(shaderToUse, base, temp);
+		ShaderSetVec3(shaderToUse, base, pointLight->position);
 
 		Vec3ToGlm(pointLight->light->ambient, temp);
 		sprintf(base, "pointLights[%u].ambient", i);

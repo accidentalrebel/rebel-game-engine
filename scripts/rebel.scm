@@ -145,8 +145,32 @@ C_return(v);"))
 ;; DIRECTIONAL_LIGHT
 ;; =================
 (define-foreign-record-type (point-light PointLight)
-  ((c-pointer (struct "Vec3")) position PointLight-position PointLight-position!)
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
+
+(define Material-color!
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Material")) a0)
+    (float a1)
+    (float a2)
+    (float a3))
+   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
+
+(define PointLight-position!
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "PointLight")) a0)
+    (float a1)
+    (float a2)
+    (float a3))
+   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->position);"))
+
+(define PointLight-position
+  (foreign-lambda*
+   (c-pointer (struct "Vec3"))
+   (((c-pointer (struct "PointLight")) a0))
+   "Vec3* v = Vec3Create(a0->position[0], a0->position[1], a0->position[2]);
+C_return(v);"))
 
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
@@ -176,7 +200,7 @@ C_return(v);"))
 
 (define (light:point:light point-light) (PointLight-light point-light))
 (define (light:point:position point-light)
-  (vec3_to_list (PointLight-position point-light)))
+  (vec3_to_list2 (PointLight-position point-light)))
 (define (light:point:diffuse point-light)
   (light:diffuse (light:point:light point-light)))
 (define (light:directional:light light) (DirectionLight-light light))

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../data/vec3.h"
+#include "../../external/cglm/cglm.h"
 
 typedef struct Light
 {
@@ -17,7 +18,7 @@ typedef struct DirectionLight
 
 typedef struct PointLight
 {
-	Vec3* position;
+	vec3 position;
 	Light* light;
 
 	float constant;
