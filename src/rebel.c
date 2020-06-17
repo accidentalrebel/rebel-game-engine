@@ -1,5 +1,4 @@
 #include "rebel.h"
-#include "input/mouse.h"
 #include "graphics/mesh.h"
 #include "graphics/model.h"
 #include "graphics/renderer.h"

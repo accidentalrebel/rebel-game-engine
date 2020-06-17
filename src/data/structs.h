@@ -39,13 +39,6 @@ typedef struct PointLight
 	float quadratic;
 } PointLight;
 
-typedef struct Mouse
-{
-	unsigned int initialized;
-	double xPos;
-	double yPos;
-} Mouse;
-
 typedef struct Shader {
 	unsigned int id;
 } Shader;

@@ -269,6 +269,11 @@ C_return(v);"))
 
 ;; MOUSE
 ;; =====
+(define-foreign-record-type (mouse Mouse)
+  (unsigned-integer initialized Mouse-initialized Mouse-initialized!)
+  (double xPos Mouse-xPos Mouse-xPos!)
+  (double yPos Mouse-yPos Mouse-yPos!))
+
 (define mouse:enable (foreign-lambda void "MouseEnable"))
 (define mouse:instance (foreign-lambda c-pointer "MouseGetInstance"))
 (define (mouse:x) (Mouse-xPos (mouse:instance)))
