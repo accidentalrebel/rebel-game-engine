@@ -159,13 +159,7 @@ C_return(v);")))))
 ;;   ((c-pointer (struct "vec3")) diffuse Light-diffuse Light-diffuse!))
 
 (make_vec3_setter Light-diffuse! "Light" "diffuse")
-
-(define Light-diffuse
-  (foreign-lambda*
-   (c-pointer (struct "Vec3"))
-   (((c-pointer (struct "Light")) a0))
-    "Vec3* v = Vec3Create(a0->diffuse[0], a0->diffuse[1], a0->diffuse[2]);
-C_return(v);"))
+(make_vec3_getter Light-diffuse "Light" "diffuse")
 
 (define (light:ambient! light vec)
   (set! (Light-ambient light) (list_to_vec3 vec)))
@@ -178,13 +172,7 @@ C_return(v);"))
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
 
 (make_vec3_setter PointLight-position! "PointLight" "position")
-
-(define PointLight-position
-  (foreign-lambda*
-   (c-pointer (struct "Vec3"))
-   (((c-pointer (struct "PointLight")) a0))
-   "Vec3* v = Vec3Create(a0->position[0], a0->position[1], a0->position[2]);
-C_return(v);"))
+(make_vec3_getter PointLight-position "PointLight" "position")
 
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
