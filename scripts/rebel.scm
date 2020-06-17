@@ -32,7 +32,7 @@
 ;; ======
 (define-syntax make_vector_setter
   (syntax-rules ()
-    ((make_vector_setter function-name struct-name body ...)
+    ((make_vector_setter function-name struct-name variable-name body ...)
      (define function-name
       (foreign-lambda*
        void
@@ -40,9 +40,7 @@
 	(float a1)
 	(float a2)
 	(float a3))
-       "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);")))))
-
-(make_vector_setter Material-color! "Material")
+       "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->"variable-name");")))))
 
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
@@ -153,14 +151,7 @@ C_return(v);"))
 ;; (define-foreign-record-type (light Light)
 ;;   ((c-pointer (struct "vec3")) diffuse Light-diffuse Light-diffuse!))
 
-(define Light-diffuse!
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Light")) a0)
-    (float a1)
-    (float a2)
-    (float a3))
-   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->diffuse);"))
+(make_vector_setter Light-diffuse! "Light" "diffuse")
 
 (define Light-diffuse
   (foreign-lambda*
@@ -179,23 +170,7 @@ C_return(v);"))
 (define-foreign-record-type (point-light PointLight)
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
 
-;; (define Material-color!
-;;   (foreign-lambda*
-;;    void
-;;    (((c-pointer (struct "Material")) a0)
-;;     (float a1)
-;;     (float a2)
-;;     (float a3))
-;;    "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
-
-(define PointLight-position!
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "PointLight")) a0)
-    (float a1)
-    (float a2)
-    (float a3))
-   "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->position);"))
+(make_vector_setter PointLight-position! "PointLight" "position")
 
 (define PointLight-position
   (foreign-lambda*
@@ -233,6 +208,8 @@ C_return(v);"))
 (define (light:point:light point-light) (PointLight-light point-light))
 (define (light:point:position point-light)
   (vec3_to_list2 (PointLight-position point-light)))
+(define (light:point:position! point-light pos)
+  (PointLight-position! point-light (first pos) (second pos) (third pos)))
 (define (light:point:diffuse point-light)
   (light:diffuse (light:point:light point-light)))
 (define (light:directional:light light) (DirectionLight-light light))
@@ -280,20 +257,7 @@ C_return(v);"))
   (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
   (float shininess Material-shininess Material-shininess!))
 
-(define-syntax displaytest
-  (syntax-rules ()
-    ((displaytest num body ...)
-     (display num))))
-(displaytest 0 "TEST")
-
-;; (define Material-color!
-;;   (foreign-lambda*
-;;    void
-;;    (((c-pointer (struct "Material")) a0)
-;;     (float a1)
-;;     (float a2)
-;;     (float a3))
-;;    "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->color);"))
+(make_vector_setter Material-color! "Material" "color")
 
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))

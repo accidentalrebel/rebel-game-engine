@@ -67,14 +67,14 @@
 	  '(1.0 1.0 0.2)
 	  1.0 0.7 1.8)))
 
+  ;; TEST
+  (light:point:position! (first *point-lights*) '(0 2 0))
+
   (set! *tile* (cube:create))
   (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *tile* (texture:load "assets/textures/tile.png"))
   (material:texture_specular! *tile* (texture:load "assets/textures/container-specular.png"))
   (material:shininess! *tile* 12.0)
-
-  ;; NOTE; TEST:
-  (material:color! *tile* '(1 0 0))
 
   ;; (set! *cube* (cube:create))
   ;; (set! *cube-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
@@ -90,6 +90,9 @@
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
+
+  ;; NOTE; TEST:
+  (material:color! *tile* '(1 0 0))
 
   ;; (set! *cube-positions*
   ;; 	(list (vec3:create 0.0 0.0 0.0)
