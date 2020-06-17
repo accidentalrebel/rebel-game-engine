@@ -41,7 +41,7 @@
 	 (move-speed (* MOVEMENT_SPEED (time:elapsed))))
     
     (when (key:up? keys/C)
-      (if (= current-projection camera-projection/PERSPECTIVE)
+      (if (eq? current-projection camera-projection/PERSPECTIVE)
 	  (camera:projection! main-camera camera-projection/ORTHOGRAPHIC)
 	  (camera:projection! main-camera camera-projection/PERSPECTIVE)))
     
