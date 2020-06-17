@@ -12,7 +12,7 @@ typedef struct Light
 
 typedef struct DirectionLight
 {
-	Vec3* direction;
+	vec3 direction;
 	Light* light;
 } DirectionLight;
 

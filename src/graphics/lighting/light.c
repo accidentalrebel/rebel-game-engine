@@ -36,7 +36,7 @@ DirectionLight* DirectionLightCreate(Vec3* direction, Vec3* ambient, Vec3* diffu
 
 	// We make a new Vector3 and copied the values from the Vec3's passed from the script
 	// This is so that those pointers can be safely cleaned up by the GC without affecting these values
-	directionLight->direction = Vec3Create(direction->x, direction->y, direction->z);
+	glm_vec3_copy((vec3){direction->x, direction->y, direction->z}, directionLight->direction);
 
 	directionLight->light = LightCreate(ambient, diffuse, specular);
 
