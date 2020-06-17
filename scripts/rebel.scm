@@ -30,9 +30,9 @@
 
 ;; MACROS
 ;; ======
-(define-syntax make_vector_setter
+(define-syntax make_vec3_setter
   (syntax-rules ()
-    ((make_vector_setter function-name struct-name variable-name body ...)
+    ((make_vec3_setter function-name struct-name variable-name body ...)
      (define function-name
       (foreign-lambda*
        void
@@ -42,9 +42,9 @@
 	(float a3))
        "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->"variable-name");")))))
 
-(define-syntax make_vector_getter
+(define-syntax make_vec3_getter
   (syntax-rules ()
-    ((make_vector_setter function-name struct-name variable-name body ...)
+    ((make_vec3_setter function-name struct-name variable-name body ...)
      (define function-name
        (foreign-lambda*
 	(c-pointer (struct "Vec3"))
@@ -57,7 +57,7 @@ C_return(v);")))))
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
-(define (free_vector_debug% v)
+(define (free_vec3_debug% v)
   (display "FREED: ")
   (display (vec3:x v))
   (display " ")
@@ -134,7 +134,7 @@ C_return(v);")))))
   (float pitch Camera-pitch Camera-pitch!)
   (float yaw Camera-yaw Camera-yaw!))
 
-(make_vector_getter Camera-position "Camera" "position")
+(make_vec3_getter Camera-position "Camera" "position")
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
@@ -158,7 +158,7 @@ C_return(v);")))))
 ;; (define-foreign-record-type (light Light)
 ;;   ((c-pointer (struct "vec3")) diffuse Light-diffuse Light-diffuse!))
 
-(make_vector_setter Light-diffuse! "Light" "diffuse")
+(make_vec3_setter Light-diffuse! "Light" "diffuse")
 
 (define Light-diffuse
   (foreign-lambda*
@@ -177,7 +177,7 @@ C_return(v);"))
 (define-foreign-record-type (point-light PointLight)
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
 
-(make_vector_setter PointLight-position! "PointLight" "position")
+(make_vec3_setter PointLight-position! "PointLight" "position")
 
 (define PointLight-position
   (foreign-lambda*
@@ -264,7 +264,7 @@ C_return(v);"))
   (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
   (float shininess Material-shininess Material-shininess!))
 
-(make_vector_setter Material-color! "Material" "color")
+(make_vec3_setter Material-color! "Material" "color")
 
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))
