@@ -20,8 +20,6 @@
 (bind-options mutable-fields: #t) ;; Allows the generation of setter procedures on structured definitions
 ;; Note; The bind egg (extension) has a feature where it automatically generates getter and setter functions to Structs. Take a look at the getter and setter fuctions of Vec3 (vec3:x and vec3:x!).
 
-(bind* "#include \"data/structs.h\"") ;; stub.h is where c declarations used by the defines below are found
-
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
 (foreign-declare "#include \"data/vec3.h\"")

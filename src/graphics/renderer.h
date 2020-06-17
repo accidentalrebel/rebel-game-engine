@@ -1,5 +1,4 @@
 #pragma once
-#include "../data/structs.h"
 #include "mesh.h"
 #include "model.h"
 #include "material.h"

@@ -3,7 +3,6 @@
 #include "external/glad/include/glad/glad.h"
 #include "core/window.h"
 #include "input/mouse.h"
-#include "data/structs.h"
 #include "graphics/shader.h"
 #include "graphics/camera.h"
 #include "graphics/lighting/light.h"

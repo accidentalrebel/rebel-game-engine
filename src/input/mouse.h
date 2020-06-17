@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../data/structs.h"
 #include "../external/glad/include/glad/glad.h"
 #include "../core/window.h"
 

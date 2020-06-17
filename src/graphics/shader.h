@@ -5,7 +5,6 @@
 
 #include "../external/glad/include/glad/glad.h"
 #include "../external/cglm/cglm.h"
-#include "../data/structs.h"
 #include "../external/stb_image.h"
 
 #include <string.h>

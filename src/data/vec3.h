@@ -1,6 +1,5 @@
 #pragma once
 
-#include "structs.h"
 #include "../external/cglm/cglm.h"
 
 typedef struct Vec3

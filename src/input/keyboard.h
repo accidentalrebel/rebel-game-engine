@@ -1,5 +1,4 @@
 #pragma once
-#include "../data/structs.h"
 
 enum Keys {
 	KEY_UNKNOWN = -1,
