@@ -58,6 +58,11 @@
 
 ;; VECTORS
 ;; =======
+(define-foreign-record-type (vec3 Vec3)
+  (float x Vec3-x Vec3-x!)
+  (float y Vec3-y Vec3-y!)
+  (float z Vec3-z Vec3-z!))
+
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 
 (define (vec3:x vec) (Vec3-x vec))
@@ -90,6 +95,15 @@
 
 ;; CAMERA
 ;; ======
+(define-foreign-enum-type (direction unsigned-integer)
+  (direction->unsigned-integer unsigned-integer->direction)
+  ((forward direction/FORWARD) FORWARD)
+  ((backward direction/BACKWARD) BACKWARD)
+  ((right direction/RIGHT) RIGHT)
+  ((left direction/LEFT) LEFT)
+  ((up direction/UP) UP)
+  ((down direction/DOWN) DOWN))
+
 (define-foreign-enum-type (camera-projection unsigned-integer)
   (camera-projection->unsigned-integer unsigned-integer->camera-projection)
   ((perspective camera-projection/PERSPECTIVE) PERSPECTIVE)
@@ -126,6 +140,9 @@ C_return(v);"))
 
 ;; LIGHT
 ;; =====
+(define-foreign-record-type (light Light)
+  ((c-pointer (struct "Vec3")) diffuse Light-diffuse Light-diffuse!))
+
 (define (light:ambient! light vec)
   (set! (Light-ambient light) (list_to_vec3 vec)))
 (define (light:diffuse light)
@@ -133,6 +150,10 @@ C_return(v);"))
 
 ;; DIRECTIONAL_LIGHT
 ;; =================
+(define-foreign-record-type (point-light PointLight)
+  ((c-pointer (struct "Vec3")) position PointLight-position PointLight-position!)
+  ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
+
 (define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
 						 (c-pointer (struct "Vec3"))
 						 (c-pointer (struct "Vec3"))

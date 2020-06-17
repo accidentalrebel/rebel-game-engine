@@ -3,6 +3,14 @@
 #include "structs.h"
 #include "../external/cglm/cglm.h"
 
+typedef struct Vec3
+{
+	float x;
+	float y;
+	float z;
+} Vec3;
+
+
 Vec3* Vec3Create(float x, float y, float z);
 Vec3* Vec3Copy(Vec3* from);
 void Vec3Set(Vec3* vec, float x, float y, float z);

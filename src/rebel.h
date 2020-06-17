@@ -6,6 +6,7 @@
 #include "data/structs.h"
 #include "graphics/shader.h"
 #include "graphics/camera.h"
+#include "graphics/lighting/light.h"
 
 typedef struct Rebel {
 	Shader *defaultShader;

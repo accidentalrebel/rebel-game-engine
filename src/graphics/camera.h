@@ -2,6 +2,15 @@
 #include "../data/structs.h"
 #include "../external/cglm/cglm.h"
 
+enum Direction {
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 enum CameraProjection {
 	PERSPECTIVE = 0,
 	ORTHOGRAPHIC

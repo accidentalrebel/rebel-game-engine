@@ -10,6 +10,11 @@
 
 #include <string.h>
 
+typedef struct Shader
+{
+	unsigned int id;
+} Shader;
+
 Shader* ShaderDefault();
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath);
 void ShaderUse(Shader *shader);
