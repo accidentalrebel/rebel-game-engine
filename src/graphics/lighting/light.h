@@ -26,6 +26,7 @@ typedef struct PointLight
 	float quadratic;
 } PointLight;
 
-Light* LightCreate();
-DirectionLight* DirectionLightCreate(vec3 direction, Vec3* ambient, Vec3* diffuse, Vec3* specular);
-PointLight* PointLightCreate(Vec3* position, Vec3* ambient, Vec3* diffuse, Vec3* specular, float constant, float linear, float quadratic);
+
+Light* LightCreate(vec3 ambient, vec3 diffuse, vec3 specular);
+DirectionLight* DirectionLightCreate(vec3 direction, vec3 ambient, vec3 diffuse, vec3 specular);
+PointLight* PointLightCreate(vec3 position, vec3 ambient, vec3 diffuse, vec3 specular, float constant, float linear, float quadratic);
