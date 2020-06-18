@@ -1,7 +1,5 @@
 (include-relative "extensions/fpcam") ;; Setup first person camera movement
 
-;; TODO; Point lights debugging should be done in the engine
-
 (define *cube*)
 (define *sprite*)
 (define *tile*)
@@ -67,9 +65,6 @@
 	  '(1.0 1.0 0.2)
 	  1.0 0.7 1.8)))
 
-  ;; TEST
-  (light:point:position! (first *point-lights*) '(0 2 0))
-
   (set! *tile* (cube:create))
   (set! *tile-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *tile* (texture:load "assets/textures/tile.png"))
@@ -90,9 +85,6 @@
   (set! *sprite* (sprite:create))
   (set! *sprite-shader*	(shader:create "shaders/simple.vs" "shaders/simple.fs"))
   (material:texture_diffuse! *sprite* (texture:load "assets/textures/awesomeface.png"))
-
-  ;; NOTE; TEST:
-  (material:color! *tile* '(1 0 0))
 
   ;; (set! *cube-positions*
   ;; 	(list (vec3:create 0.0 0.0 0.0)
