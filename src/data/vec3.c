@@ -3,33 +3,8 @@
 Vec3* Vec3Create(float x, float y, float z)
 {
 	Vec3* v = (Vec3*)malloc(sizeof(Vec3));
-	Vec3Set(v, x, y, z);
-	return v;
-}
-
-Vec3* Vec3Copy(Vec3* from)
-{
-	return Vec3Create(from->x, from->y, from->z);
-}
-
-void Vec3Set(Vec3* v, float x, float y, float z)
-{
 	v->x = x;
 	v->y = y;
 	v->z = z;
-}
-
-void Vec3ToGlm(Vec3* vec, vec3 to)
-{
-	glm_vec3_zero(to);
-	to[0] = vec->x;
-	to[1] = vec->y;
-	to[2] = vec->z;
-}
-
-void Vec3FromGlm(Vec3* to, vec3 from)
-{
-	to->x = from[0];
-	to->y = from[1];
-	to->z = from[2];
+	return v;
 }
