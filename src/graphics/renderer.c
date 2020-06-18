@@ -366,6 +366,4 @@ void RendererDraw2(Model* modelObject, vec3 position, float width, float height)
 	}
 
 	glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
-
-	free(position);
 }

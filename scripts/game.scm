@@ -113,6 +113,8 @@
   
   ;; (shader:use *tile-shader*)
 
+  (renderer:draw2 *cube-model* '(0.0 2.0 0.0) 1.0 1.0)
+
   (let ((current-col 0)
   	(current-row 0))
     (for-each

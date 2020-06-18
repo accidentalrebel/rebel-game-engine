@@ -256,6 +256,19 @@ C_return(v);")))))
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
+(define renderer:draw2_
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Model")) a0)
+    (float a1)
+    (float a2)
+    (float a3)
+    (float a4)
+    (float a5))
+   "RendererDraw2(a0, (vec3){ a1, a2, a3 }, a4, a5);"))
+(define (renderer:draw2 a b c d)
+  (renderer:draw2_ a (first b) (second b) (third b) c d))
+
 (define-foreign-record-type (renderer Renderer)
   ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
 
