@@ -26,10 +26,9 @@ run:
 	output/game
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o tmp/ffi-test.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/vec3.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o
 
 objs:
-	$(CC) -c src/ffi-test.c $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/ffi-test.o
 	$(CC) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
 	$(CC) -c src/data/vec3.c $(INCLUDE_FLAGS) -o tmp/vec3.o
 	$(CC) -c src/rebel.c $(INCLUDE_FLAGS) -o tmp/rebel.o
