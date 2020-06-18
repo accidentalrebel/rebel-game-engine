@@ -2,7 +2,6 @@
 #include "graphics/mesh.h"
 #include "graphics/model.h"
 #include "graphics/renderer.h"
-#include "data/vec3.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "external/stb_image.h"

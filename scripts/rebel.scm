@@ -36,7 +36,6 @@ Vec3* Vec3Create(float x, float y, float z)
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
-(foreign-declare "#include \"data/vec3.h\"")
 (foreign-declare "#include \"core/window.h\"")
 (foreign-declare "#include \"graphics/shader.h\"")
 (foreign-declare "#include \"graphics/camera.h\"")
@@ -45,7 +44,6 @@ Vec3* Vec3Create(float x, float y, float z)
 (foreign-declare "#include \"graphics/lighting/light.h\"")
 (foreign-declare "#include \"input/keyboard.h\"")
 (foreign-declare "#include \"input/mouse.h\"")
-
 
 ;; MACROS
 ;; ======

@@ -1,6 +1,5 @@
 #include "../rebel.h"
 
-#include "../data/vec3.h"
 #include "camera.h"
 
 Camera* CameraCreate()

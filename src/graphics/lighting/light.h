@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../data/vec3.h"
 #include "../../external/cglm/cglm.h"
 
 typedef struct Light

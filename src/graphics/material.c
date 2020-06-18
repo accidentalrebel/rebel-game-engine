@@ -1,6 +1,5 @@
 #include "material.h"
 #include <stdlib.h>
-#include "../data/vec3.h"
 
 Material* MaterialCreate()
 {

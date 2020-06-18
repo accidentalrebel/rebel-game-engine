@@ -2,7 +2,6 @@
 #include "mesh.h"
 #include "model.h"
 #include "material.h"
-#include "../data/vec3.h"
 #include "../external/cglm/cglm.h"
 
 typedef struct Renderer
