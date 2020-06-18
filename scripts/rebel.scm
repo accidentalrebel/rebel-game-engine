@@ -265,7 +265,12 @@ C_return(v);")))))
 
 ;; MODEL
 ;; =====
+(define-foreign-record-type (model Model)
+  ((c-pointer (struct "Material")) material Model-material Model-material!))
+
 (define model:load_from_mesh (foreign-lambda (c-pointer (struct "Model")) "ModelLoadFromMesh" (c-pointer (struct "Mesh"))))
+(define (model:texture_diffuse! model texture)
+  (Material-textureDiffuse1! (Model-material model) texture))
 
 ;; MATERIAL
 ;; ========
