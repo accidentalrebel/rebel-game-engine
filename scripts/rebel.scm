@@ -6,17 +6,8 @@
 
 (set-gc-report! #t)
 
-;; TODO; Note below might be outdated
-;; Note; Some functions have two versions. One of them has an underscore (vec3:create%),
-;; another does not (vec3:create).
-;;
-;; The one without underscores return pointer objects that are automatically tracked
-;; by the garbage collector. The one with underscores are not and you'd have to manually
-;; free them after using them using the (free) function below.
-;;
-;; For the most part you'll only have to use the gc-tracked one. The other one is for when
-;; you need more control over your memory allocations.
-
+;; DECLARATIONS
+;; ============
 (foreign-declare "
 typedef struct Vec3
 {
