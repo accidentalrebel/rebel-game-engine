@@ -31,6 +31,7 @@ Vec3* Vec3Create(float x, float y, float z)
 (foreign-declare "#include \"graphics/shader.h\"")
 (foreign-declare "#include \"graphics/camera.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
+(foreign-declare "#include \"graphics/model.h\"")
 (foreign-declare "#include \"graphics/mesh.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
@@ -261,6 +262,10 @@ C_return(v);")))))
 ;; MESH
 ;; ====
 (define mesh:generate_cube (foreign-lambda (c-pointer (struct "Mesh")) "MeshGenerateCube" float float float))
+
+;; MODEL
+;; =====
+(define model:load_from_mesh (foreign-lambda (c-pointer (struct "Model")) "ModelLoadFromMesh" (c-pointer (struct "Mesh"))))
 
 ;; MATERIAL
 ;; ========
