@@ -173,14 +173,17 @@ C_return(v);")))))
 (make_vec3_setter PointLight-position! "PointLight" "position")
 (make_vec3_getter PointLight-position "PointLight" "position")
 
-(define light:directional:create_ (foreign-lambda c-pointer "DirectionLightCreate"
-						 (c-pointer (struct "Vec3"))
-						 (c-pointer (struct "Vec3"))
-						 (c-pointer (struct "Vec3"))
-						 (c-pointer (struct "Vec3"))))
+(define light:directional:create_
+  (foreign-lambda*
+   (c-pointer (struct "DirectionLight"))
+   ((float a0) (float a1) (float a2)
+    ((c-pointer (struct "Vec3")) a3)
+    ((c-pointer (struct "Vec3")) a4)
+    ((c-pointer (struct "Vec3")) a5))
+   "DirectionLightCreate((vec3){ a0, a1, a2 }, a3, a4, a5);"))
 (define (light:directional:create direction ambient diffuse specular)
   (light:directional:create_
-   (list_to_vec3 direction)
+   (first direction) (second direction) (third direction)
    (list_to_vec3 ambient)
    (list_to_vec3 diffuse)
    (list_to_vec3 specular)))
