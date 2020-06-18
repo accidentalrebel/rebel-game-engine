@@ -31,6 +31,7 @@ Vec3* Vec3Create(float x, float y, float z)
 (foreign-declare "#include \"graphics/shader.h\"")
 (foreign-declare "#include \"graphics/camera.h\"")
 (foreign-declare "#include \"graphics/renderer.h\"")
+(foreign-declare "#include \"graphics/mesh.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
 (foreign-declare "#include \"input/keyboard.h\"")
@@ -256,6 +257,10 @@ C_return(v);")))))
 
 (define-foreign-record-type (renderer Renderer)
   ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
+
+;; MESH
+;; ====
+(define mesh:generate_cube (foreign-lambda (c-pointer (struct "Mesh")) "MeshGenerateCube" float float float))
 
 ;; MATERIAL
 ;; ========
