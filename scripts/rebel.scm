@@ -6,8 +6,6 @@
 
 (set-gc-report! #t)
 
-;; TODO; Move Vec3 declaration from C to Scheme
-
 ;; TODO; Note below might be outdated
 ;; Note; Some functions have two versions. One of them has an underscore (vec3:create%),
 ;; another does not (vec3:create).
@@ -18,6 +16,23 @@
 ;;
 ;; For the most part you'll only have to use the gc-tracked one. The other one is for when
 ;; you need more control over your memory allocations.
+
+(foreign-declare "
+typedef struct Vec3
+{
+  float x;
+  float y;
+  float z;
+} Vec3;
+Vec3* Vec3Create(float x, float y, float z)
+{
+  Vec3* v = (Vec3*)malloc(sizeof(Vec3));
+  v->x = x;
+  v->y = y;
+  v->z = z;
+  return v;
+}
+");
 
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
@@ -30,6 +45,7 @@
 (foreign-declare "#include \"graphics/lighting/light.h\"")
 (foreign-declare "#include \"input/keyboard.h\"")
 (foreign-declare "#include \"input/mouse.h\"")
+
 
 ;; MACROS
 ;; ======

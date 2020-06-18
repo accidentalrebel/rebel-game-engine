@@ -29,7 +29,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 
 void RebelDraw()
 {
-	RendererDraw2(model, Vec3Create(0, 0, 0), 1.0f, 1.0f);
+
 }
 
 void InputProcess()

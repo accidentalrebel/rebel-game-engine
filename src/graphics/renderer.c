@@ -258,7 +258,7 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);
 }
 
-void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height)
+void RendererDraw2(Model* modelObject, vec3 position, float width, float height)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
@@ -290,7 +290,7 @@ void RendererDraw2(Model* modelObject, Vec3 *position, float width, float height
 
 	glm_scale(model, (vec3){ width, height, height });
 
-	glm_translate(model, (vec3) { position->x / width, position->y / height, position->z / height});
+	glm_translate(model, position);
 
 	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
 
