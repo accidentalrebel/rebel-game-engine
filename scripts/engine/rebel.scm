@@ -96,7 +96,7 @@ C_return(v);")))))
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
 
 (define (vec3:x vec) (Vec3-x vec))
-(define (vec3:x! vec x) (set! (Vec3-x vec) x))
+(define (vec3:x! vec x) (Vec3-x! vec x))
 
 (define (vec3:y vec) (Vec3-y vec))
 (define (vec3:y! vec y) (set! (Vec3-y vec) y))

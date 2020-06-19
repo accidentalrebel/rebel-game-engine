@@ -3,6 +3,7 @@
 (define *cube*)
 (define *box-shader*)
 (define *light-shader*)
+(define *angle* 6.282)
 
 (define *point-lights* '())
 
@@ -40,6 +41,17 @@
 
   (shader:use *light-shader*)
 
+  (set! *angle* (- *angle*
+		   (* 2 (time:elapsed))))
+
+  (let* ((point-light (first *point-lights*))
+	 (pos (light:point:position point-light)))
+    (light:point:position! point-light
+			   (list
+			    (* (cos *angle*) 4)
+			    (second pos)
+			    (* (sin *angle*) 4))))
+  
   ;; Draw each point-light
   (for-each
    (lambda (point-light)
