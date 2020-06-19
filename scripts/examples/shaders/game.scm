@@ -3,8 +3,14 @@
 (define *box*)
 (define *box-shader*)
 
+(define *point-lights* '())
+
 (define (init)
-  (light:point:create2 '(-1.0 1.0 1.0) '(1.0 0.0 0.0))
+  (set! *point-lights*
+	(list 
+	 (light:point:create2 '(-1.0 1.0 1.0) '(1.0 0.0 0.0))
+	 (light:point:create2 '(0.0 1.0 1.0) '(0.0 1.0 0.0))
+	 (light:point:create2 '(1.0 1.0 1.0) '(0.0 0.0 1.0))))
   
   ;; Generate a cube mesh and load it as a model
   ;; TODO; Fix the mesh normals
@@ -23,7 +29,7 @@
   )
 
 (define (render)
-  (window:clear '(1.0 1.0 1.0))
+  (window:clear '(0.1 0.1 0.1))
 
   (shader:use *box-shader*)
 

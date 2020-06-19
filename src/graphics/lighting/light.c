@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 const float POINT_LIGHT_CONSTANT = 1.0f;
-const float POINT_LIGHT_LINEAR = 0.14f;
-const float POINT_LIGHT_QUADRATIC = 0.07f;
+const float POINT_LIGHT_LINEAR = 0.7f; //0.14f;
+const float POINT_LIGHT_QUADRATIC = 1.8f; //0.07f;
 
 Light* LightCreate(vec3 ambient, vec3 diffuse, vec3 specular)
 {
