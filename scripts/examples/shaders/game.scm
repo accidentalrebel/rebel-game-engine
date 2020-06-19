@@ -9,7 +9,8 @@
 
 (define (init)
   (set! *point-lights*
-	(list 
+	(list
+	 (light:point:create2 '(0.0 1.0 0.0) '(1.0 1.0 1.0))
 	 (light:point:create2 '(-1.0 1.0 1.0) '(1.0 0.0 0.0))
 	 (light:point:create2 '(0.0 1.0 -1.0) '(0.0 1.0 0.0))
 	 (light:point:create2 '(1.0 1.0 1.0) '(0.0 0.0 1.0))))
@@ -44,13 +45,11 @@
   (set! *angle* (- *angle*
 		   (* 2 (time:elapsed))))
 
-  (let* ((point-light (first *point-lights*))
-	 (pos (light:point:position point-light)))
-    (light:point:position! point-light
-			   (list
-			    (* (cos *angle*) 4)
-			    (second pos)
-			    (* (sin *angle*) 4))))
+
+  (orbit_point_light (first *point-lights*) 1.0 2.0)
+  (orbit_point_light (second *point-lights*) -0.6 2.0)
+  (orbit_point_light (third *point-lights*) 0.2 2.0)
+  (orbit_point_light (fourth *point-lights*) 0.35 2.0)
   
   ;; Draw each point-light
   (for-each
@@ -62,3 +61,12 @@
 
   (window:swap)
   )
+
+(define (orbit_point_light point-light multiplier distance)
+  ;TODO; Possibly leaking memory
+  (let* ((pos (light:point:position point-light)))
+    (light:point:position! point-light
+			   (list
+			    (* (cos (* *angle* multiplier)) distance)
+			    (second pos)
+			    (* (sin (* *angle* multiplier)) distance)))))
