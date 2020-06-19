@@ -13,7 +13,7 @@ Model* ModelLoadFromMesh(Mesh* mesh)
 	return model;
 }
 
-void ModelDraw(Model* modelObject, vec3 position)
+void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
@@ -99,8 +99,7 @@ void ModelDraw(Model* modelObject, vec3 position)
 	
 	glBindVertexArray(modelObject->meshes[0]->VAO);
 
-	if ( modelObject->material->color != NULL )
-		ShaderSetVec3(shaderToUse, "material.color", modelObject->material->color);
+	ShaderSetVec3(shaderToUse, "material.color", color);
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 	glActiveTexture(GL_TEXTURE0);
