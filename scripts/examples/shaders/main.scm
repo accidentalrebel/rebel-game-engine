@@ -1,4 +1,4 @@
-(include-relative "engine/rebel")
+(include-relative "../../engine/rebel")
 
 (rebel:init 800 600 "Rebel Engine")
 
@@ -31,4 +31,3 @@
 
 (init)
 (loop-program)
-
