@@ -42,9 +42,9 @@ unsigned int WindowCanClose()
 	return glfwWindowShouldClose(g_rebel.window.glWindow);
 }
 
-void WindowClear()
+void WindowClear(vec3 color)
 {
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 

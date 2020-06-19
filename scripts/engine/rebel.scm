@@ -231,7 +231,15 @@ C_return(v);")))))
 (define (window:close?)
   (if (= (window:can_close) 1)
       #t #f))
-(define window:clear (foreign-lambda void "WindowClear"))
+
+(define window:clear_
+  (foreign-lambda*
+   void
+   ((float a0) (float a1) (float a2))
+   "WindowClear((vec3){a0, a1, a2});"))
+(define (window:clear color)
+  (window:clear_ (first color) (second color) (third color)))
+  
 (define window:swap (foreign-lambda void "WindowSwap"))
 (define window:destroy (foreign-lambda void "WindowDestroy"))
 

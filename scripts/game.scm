@@ -106,7 +106,7 @@
     (newline)))
 
 (define (render)
-  (window:clear)
+  (window:clear '(0.1 0.1 0.1))
 
   (shader:use *tile-shader*)
   (rebel:draw)

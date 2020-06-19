@@ -34,7 +34,7 @@
   )
 
 (define (render)
-  (window:clear)
+  (window:clear '(1.0 1.0 1.0))
 
   (shader:use *box-shader*)
 
