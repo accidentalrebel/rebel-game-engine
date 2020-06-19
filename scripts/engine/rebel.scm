@@ -206,13 +206,24 @@ C_return(v);")))))
     (float a13)
     (float a14))
    "C_return(PointLightCreate((vec3){ a0, a1, a2}, (vec3){ a3, a4, a5}, (vec3){ a6, a7, a8}, (vec3){a9, a10, a11}, a12, a13, a14));"))
-(define (light:point:create direction ambient diffuse specular constant linear quadratic)
+(define (light:point:create position ambient diffuse specular constant linear quadratic)
   (light:point:create_
-   (first direction) (second direction) (third direction)
+   (first position) (second position) (third position)
    (first ambient) (second ambient) (third ambient)
    (first diffuse) (second diffuse) (third diffuse)
    (first specular) (second specular) (third specular)
    constant linear quadratic))
+
+(define light:point:create2_
+  (foreign-lambda*
+   (c-pointer (struct "PointLight"))
+   ((float a0) (float a1) (float a2)
+    (float a3) (float a4) (float a5))
+   "C_return(PointLightCreate2((vec3){ a0, a1, a2}, (vec3){ a3, a4, a5}));"))
+(define (light:point:create2 position color)
+  (light:point:create2_
+   (first position) (second position) (third position)
+   (first color) (second color) (third color)))
 
 (define (light:point:light point-light) (PointLight-light point-light))
 (define (light:point:position point-light)
