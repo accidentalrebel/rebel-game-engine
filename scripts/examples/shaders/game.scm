@@ -10,13 +10,13 @@
   (set! *point-lights*
 	(list 
 	 (light:point:create2 '(-1.0 1.0 1.0) '(1.0 0.0 0.0))
-	 (light:point:create2 '(0.0 5.0 1.0) '(0.0 1.0 0.0))
+	 (light:point:create2 '(0.0 1.0 -1.0) '(0.0 1.0 0.0))
 	 (light:point:create2 '(1.0 1.0 1.0) '(0.0 0.0 1.0))))
   
   ;; Generate a cube mesh and load it as a model
   ;; TODO; Fix the mesh normals
   (set! *cube* (model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
-  (set! *light-cube* (model:load_from_mesh (mesh:generate_cube 0.5 0.5 0.5)))
+  (set! *light-cube* (model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
 
   ;; Load the texture and assign is as a texture diffuse
   (model:texture_diffuse! *cube* (texture:load "assets/textures/texel-checker.png"))
@@ -40,9 +40,13 @@
 
   (shader:use *light-shader*)
 
-  (model:draw *light-cube*
-	      (light:point:position (first *point-lights*))
-	      (light:point:diffuse (first *point-lights*)))
+  ;; Draw each point-light
+  (for-each
+   (lambda (point-light)
+     (model:draw *light-cube*
+		 (light:point:position point-light)
+		 (light:point:diffuse point-light)))
+   *point-lights*)
 
   (window:swap)
   )
