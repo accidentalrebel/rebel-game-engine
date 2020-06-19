@@ -4,12 +4,19 @@
 (define *box-shader*)
 
 (define (init)
-  ;; TODO; Should still work even without directional light
-  (light:directional:create
-   '(1.0 -1.0 1.0)
-   '(0.05 0.05 0.05)
-   '(0.1 0.1 0.1)
-   '(0.2 0.2 0.2))
+  (light:point:create
+   '(-2.0 -0.25 2.0)
+   '(1.0 1.0 1.0)
+   '(0.8 0.8 0.8)
+   '(1.0 1.0 1.0)
+   1.0 0.7 1.8)
+  
+  (light:point:create
+   '(2.0 -0.25 2.0)
+   '(1.0 0.05 0.05)
+   '(0.8 0.2 0.2)
+   '(1.0 0.2 0.2)
+   1.0 0.7 1.8) 
   
   ;; Generate a cube mesh and load it as a model
   (set! *box* (model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))

@@ -220,11 +220,6 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 		ShaderSetVec3(shaderToUse, "directionLight.specular", g_rebel.directionLight->light->specular);
 		ShaderSetVec3(shaderToUse, "directionLight.direction", g_rebel.directionLight->direction);
 	}
-	else
-	{
-		// TODO: The renderer should still work even without a direction light
-		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
-	}
 
 	ShaderSetVec3(shaderToUse, "viewPos", g_rebel.mainCamera->position);
 	ShaderSetMat4(shaderToUse, "projection", projection);
@@ -329,11 +324,6 @@ void RendererDraw2(Model* modelObject, vec3 position, float width, float height)
 		ShaderSetVec3(shaderToUse, "directionLight.diffuse", g_rebel.directionLight->light->diffuse);
 		ShaderSetVec3(shaderToUse, "directionLight.specular", g_rebel.directionLight->light->specular);
 		ShaderSetVec3(shaderToUse, "directionLight.direction", g_rebel.directionLight->direction);
-	}
-	else
-	{
-		// TODO: The renderer should still work even without a direction light
-		printf("ERROR::RENDERER::THERE IS NO EXISTING DIRECTION LIGHT. CREATE ONE USING DirectionLightCreate.\n");
 	}
 
 	ShaderSetVec3(shaderToUse, "viewPos", g_rebel.mainCamera->position);
