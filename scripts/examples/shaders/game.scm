@@ -5,20 +5,14 @@
 
 (define (init)
   (light:point:create
-   '(-2.0 -0.25 2.0)
-   '(1.0 1.0 1.0)
-   '(0.8 0.8 0.8)
-   '(1.0 1.0 1.0)
-   1.0 0.7 1.8)
-  
-  (light:point:create
-   '(2.0 -0.25 2.0)
-   '(1.0 0.05 0.05)
-   '(0.8 0.2 0.2)
-   '(1.0 0.2 0.2)
-   1.0 0.7 1.8) 
+   '(-1.0 1.0 1.0)
+   '(0.1 0.1 0.1)
+   '(1.0 0.0 0.0)
+   '(0.0 0.0 0.0)
+   1.0 0.14 0.07)
   
   ;; Generate a cube mesh and load it as a model
+  ;; TODO; Fix the mesh normals
   (set! *box* (model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
 
   ;; Load the texture and assign is as a texture diffuse
