@@ -8,3 +8,4 @@ typedef struct Model {
 } Model;
 
 Model* ModelLoadFromMesh(Mesh* mesh);
+void ModelDraw(Model* modelObject, vec3 position);

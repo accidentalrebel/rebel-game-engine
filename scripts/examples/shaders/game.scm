@@ -33,8 +33,7 @@
 
   (shader:use *box-shader*)
 
-  ;; TODO; Change to use renderer:draw
-  (renderer:draw2 *box* '(0.0 0.0 0.0) 1.0 1.0)
+  (model:draw *box* '(0.0 0.0 0.0))
 
   (window:swap)
   )
