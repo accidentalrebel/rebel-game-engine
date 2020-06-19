@@ -1,5 +1,5 @@
 ;; (include-relative "ffi-test")
-(include-relative "rebel")
+(include-relative "engine/rebel")
 
 (rebel:init 800 600 "Rebel Engine")
 
