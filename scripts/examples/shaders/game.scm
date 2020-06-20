@@ -16,7 +16,6 @@
 	 (light:point:create2 '(1.0 1.0 1.0) '(0.0 0.0 1.0))))
   
   ;; Generate a cube mesh and load it as a model
-  ;; TODO; Fix the mesh normals
   (set! *cube* (model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
   (set! *light-cube* (model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
 
@@ -25,13 +24,10 @@
 
   ;; TODO; Make own shader for this example only
   (set! *box-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
-  (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs"))
-  )
+  (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs")))
 
 (define (update)
-  (fpcam:update)
-  #t
-  )
+  (fpcam:update))
 
 (define (render)
   (window:clear '(0.1 0.1 0.1))
@@ -39,12 +35,12 @@
   (shader:use *box-shader*)
 
   (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
+  (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
+  (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))
 
   (shader:use *light-shader*)
 
-  (set! *angle* (- *angle*
-		   (* 2 (time:elapsed))))
-
+  (set! *angle* (- *angle* (* 2 (time:elapsed))))
 
   (orbit_point_light (first *point-lights*) 1.0 2.0)
   (orbit_point_light (second *point-lights*) -0.6 2.0)
@@ -59,8 +55,7 @@
 		 (light:point:diffuse point-light)))
    *point-lights*)
 
-  (window:swap)
-  )
+  (window:swap))
 
 (define (orbit_point_light point-light multiplier distance)
   ;TODO; Possibly leaking memory
