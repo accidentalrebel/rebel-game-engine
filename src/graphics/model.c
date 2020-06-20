@@ -3,9 +3,6 @@
 #include "material.h"
 #include "shader.h"
 #include "../rebel.h"
-#include <assimp/cimport.h>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
@@ -23,6 +20,31 @@ void ModelLoad(const char* path)
 	{
 		printf("ERROR::ASSIMP::%s\n", aiGetErrorString());
 		return;
+	}
+
+	ModelProcessNode(scene->mRootNode, scene);
+}
+
+void ModelProcessNode(const struct aiNode* node, const struct aiScene* scene)
+{
+	for(unsigned int i = 0; i < node->mNumMeshes; i++)
+	{
+		struct aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		ModelProcessMesh(mesh, scene);
+	}
+	for(unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		ModelProcessNode(node->mChildren[i], scene);
+	}
+}
+
+void ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
+{
+	for(unsigned int i = 0; i < mesh->mNumVertices; i++)
+	{
+		Vertex vertex;
+		glm_vec3_copy((vec3) { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, vertex.position);
+		printf("Vertex: %f,%f,%f\n", vertex.position[0], vertex.position[1], vertex.position[2]);
 	}
 }
 

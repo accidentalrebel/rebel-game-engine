@@ -27,7 +27,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 
 	printf("Rebel Engine Initialized\n");
 
-	ModelLoad("test");
+	ModelLoad("assets/models/backpack/backpack.obj");
 }
 
 void RebelDraw()
