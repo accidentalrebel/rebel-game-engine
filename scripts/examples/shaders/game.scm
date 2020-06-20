@@ -1,5 +1,3 @@
-(include-relative "../../extensions/fpcam")
-
 (define *cube*)
 (define *box-shader*)
 (define *light-shader*)
@@ -7,7 +5,11 @@
 
 (define *point-lights* '())
 
+; Setup the first person camera extension
+(include-relative "../../extensions/fpcam")
+
 (define (init)
+  ; Setup the point lights
   (set! *point-lights*
 	(list
 	 (light:point:create2 '(0.0 1.0 0.0) '(1.0 1.0 1.0))
@@ -22,7 +24,7 @@
   ;; Load the texture and assign is as a texture diffuse
   (model:texture_diffuse! *cube* (texture:load "assets/textures/texel-checker.png"))
 
-  ;; TODO; Make own shader for this example only
+  ;; Setup the shaders
   (set! *box-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs")))
 
@@ -58,7 +60,6 @@
   (window:swap))
 
 (define (orbit_point_light point-light multiplier distance)
-  ;TODO; Possibly leaking memory
   (let* ((pos (light:point:position point-light)))
     (light:point:position! point-light
 			   (list
