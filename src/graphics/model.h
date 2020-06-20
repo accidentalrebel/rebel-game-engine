@@ -7,5 +7,6 @@ typedef struct Model {
 	Material* material;
 } Model;
 
+void ModelLoad(const char* path);
 Model* ModelLoadFromMesh(Mesh* mesh);
 void ModelDraw(Model* modelObject, vec3 position, vec3 color);

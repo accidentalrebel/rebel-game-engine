@@ -5,6 +5,8 @@
 
 (define *point-lights* '())
 
+; TODO; Update wiki to add 'assimp' library
+
 ; Setup the first person camera extension
 (include-relative "../../extensions/fpcam")
 

@@ -3,6 +3,9 @@
 #include "material.h"
 #include "shader.h"
 #include "../rebel.h"
+#include <assimp/cimport.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
@@ -11,6 +14,16 @@ Model* ModelLoadFromMesh(Mesh* mesh)
 	model->meshes[0] = mesh;
 	model->material = MaterialCreate();
 	return model;
+}
+
+void ModelLoad(const char* path)
+{
+	const struct aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	if ( !scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
+	{
+		printf("ERROR::ASSIMP::%s\n", aiGetErrorString());
+		return;
+	}
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)

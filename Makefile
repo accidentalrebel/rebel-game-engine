@@ -9,12 +9,12 @@ LINKER_FLAGS = -L../libs/ -L -lrebel -L/usr/lib
 
 ifeq ($(PLATFORM),linux)
 	CSC = chicken-csc
-	LINKER_FLAGS += -L/usr/lib -L -lglfw
+	LINKER_FLAGS += -L/usr/lib -L -lglfw -L -lassimp
 else ifeq ($(PLATFORM),macosx)
-	LINKER_FLAGS += -L/usr/local/lib -L -lglfw
+	LINKER_FLAGS += -L/usr/local/lib -L -lglfw -L -lassimp
 	PREDEFINES += -D PLATFORM=$(PLATFORM)
 else ifeq ($(PLATFORM),windows)
-	LINKER_FLAGS += -L/c/msys64/mingw64/lib -L -lglfw3
+	LINKER_FLAGS += -L/c/msys64/mingw64/lib -L -lglfw3 -L -lassimp
 endif
 
 all:	run

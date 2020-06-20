@@ -26,6 +26,8 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 
 	printf("Rebel Engine Initialized\n");
+
+	ModelLoad("test");
 }
 
 void RebelDraw()
