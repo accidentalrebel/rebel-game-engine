@@ -38,6 +38,9 @@
 
   (shader:use *box-shader*)
 
+  ;; TESTing the model drawing
+  (rebel:draw)
+
   (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))

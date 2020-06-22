@@ -13,29 +13,43 @@ Model* ModelLoadFromMesh(Mesh* mesh)
 	return model;
 }
 
-void ModelLoad(const char* path)
+Model* ModelLoad(const char* path)
 {
+	Model* model = (Model*)malloc(sizeof(Model));
+	model->meshes = (Mesh**)calloc(1, sizeof(Mesh));
+	model->material = MaterialCreate();
+	
 	const struct aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	if ( !scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
 	{
 		printf("ERROR::ASSIMP::%s\n", aiGetErrorString());
-		return;
+		return NULL;
 	}
 
-	ModelProcessNode(scene->mRootNode, scene);
+	unsigned int currentMeshIndex = 0;
+	ModelProcessNode(model, scene->mRootNode, scene, &currentMeshIndex);
+
+	return model;
 }
 
-void ModelProcessNode(const struct aiNode* node, const struct aiScene* scene)
+void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex)
 {
+	printf("NUM MESHES: %i\n", node->mNumMeshes);
 	for(unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
+		printf("Processing mesh at %i\n", i);
 		struct aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 		Mesh* m = ModelProcessMesh(mesh, scene);
-		printf(">>>>>> %f,%f,%f\n", m->vertices[0]->position[0], m->vertices[0]->position[1], m->vertices[0]->position[2]);
+		MeshSetup(m);
+		printf("Adding to index %i\n", *currentMeshIndex);
+		model->meshes[*currentMeshIndex] = m;
+		printf("VAO is now %i\n", m->VAO);
+		(*currentMeshIndex)++;
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		ModelProcessNode(node->mChildren[i], scene);
+		printf("RECURSING...\n");
+		ModelProcessNode(model, node->mChildren[i], scene, currentMeshIndex);
 	}
 }
 
@@ -47,6 +61,8 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 	{
 		m->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
 		glm_vec3_copy((vec3) { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, m->vertices[i]->position);
+
+		printf(">>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]);		
 	}
 	return m;
 }
