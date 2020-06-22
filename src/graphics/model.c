@@ -29,10 +29,6 @@ Model* ModelLoad(const char* path)
 	unsigned int currentMeshIndex = 0;
 	ModelProcessNode(model, scene->mRootNode, scene, &currentMeshIndex);
 
-	Mesh* m = model->meshes[0];
-	for(unsigned int i = 0; i < 3 ; i++ )
-		printf("DONE >>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]);
-
 	return model;
 }
 
@@ -61,9 +57,11 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 {
 	Mesh* m = MeshCreate();
 	m->vertices = (Vertex**)calloc(mesh->mNumVertices, sizeof(Vertex));
+	m->verticesSize = mesh->mNumVertices;
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		m->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
+
 		glm_vec3_copy((vec3) { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, m->vertices[i]->position);
 		glm_vec3_copy((vec3) { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z }, m->vertices[i]->normal);
 

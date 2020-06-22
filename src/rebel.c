@@ -25,16 +25,22 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	model = ModelLoadFromMesh(mesh);
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 
+	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
+	
 	printf("Rebel Engine Initialized\n");
 
 	model = ModelLoad("assets/models/royalty_free_box/RoyaltyFreeBox.obj");
 	/* model = ModelLoad("assets/models/backpack/backpack.obj"); */
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
+
+	Mesh* m = model->meshes[0];
+	for(unsigned int i = 0; i < 3 ; i++ )
+		printf("DONE >>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]);
 }
 
 void RebelDraw()
 {
-	ModelDraw(model, (vec3){ 0, 2, 0}, (vec3){ 1, 0, 1 });
+	ModelDraw(model, (vec3){ 0, 2, 0}, (vec3){ 1, 1, 1 });
 }
 
 void InputProcess()
