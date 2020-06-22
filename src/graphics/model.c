@@ -30,7 +30,8 @@ void ModelProcessNode(const struct aiNode* node, const struct aiScene* scene)
 	for(unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		struct aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		ModelProcessMesh(mesh, scene);
+		Mesh* m = ModelProcessMesh(mesh, scene);
+		printf(">>>>>> %f,%f,%f\n", m->vertices[0]->position[0], m->vertices[0]->position[1], m->vertices[0]->position[2]);
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 	{
@@ -38,14 +39,16 @@ void ModelProcessNode(const struct aiNode* node, const struct aiScene* scene)
 	}
 }
 
-void ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
+Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 {
+	Mesh* m = MeshCreate();
+	m->vertices = (Vertex**)calloc(mesh->mNumVertices, sizeof(Vertex));
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
-		Vertex vertex;
-		glm_vec3_copy((vec3) { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, vertex.position);
-		printf("Vertex: %f,%f,%f\n", vertex.position[0], vertex.position[1], vertex.position[2]);
+		m->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
+		glm_vec3_copy((vec3) { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, m->vertices[i]->position);
 	}
+	return m;
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)
