@@ -56,9 +56,15 @@ void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiSc
 Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 {
 	Mesh* m = MeshCreate();
-	m->vertices = (Vertex**)calloc(mesh->mNumVertices, sizeof(Vertex));
 	m->verticesSize = mesh->mNumVertices;
-	for(unsigned int i = 0; i < mesh->mNumVertices; i++)
+
+	printf(">>>>>> Num faces: %i\n", mesh->mNumFaces);
+	m->indicesSize = mesh->mNumFaces * 3;
+
+	m->vertices = (Vertex**)calloc(m->verticesSize, sizeof(Vertex));
+	m->indices = (unsigned int*)calloc(m->indicesSize, sizeof(unsigned int));
+
+	for(unsigned int i = 0; i < m->verticesSize; i++)
 	{
 		m->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
 
@@ -70,10 +76,24 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 		else
 			glm_vec2_copy((vec3){0, 0}, m->vertices[i]->texCoords);
 
+		printf(">>>>>> At index: %i\n", i);
 		printf(">>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]);
 		printf(">>>>>> %f,%f,%f\n", m->vertices[i]->normal[0], m->vertices[i]->normal[1], m->vertices[i]->normal[2]);
 		printf(">>>>>> %f,%f\n\n", m->vertices[i]->texCoords[0], m->vertices[i]->texCoords[1]);
 	}
+
+	for(unsigned int i = 0; i < mesh->mNumFaces; i++)
+	{
+		struct aiFace face = mesh->mFaces[i];
+		printf("NUM INDICES %i\n: ", face.mNumIndices);
+		for(unsigned int j = 0; j < face.mNumIndices; j++)
+		{
+			printf("INDEX %i: ", (i * 3) + j);
+			m->indices[(i * 3) + j] = face.mIndices[j];
+			printf("%i\n", m->indices[(i * 3) + j]);
+		}
+	}
+	printf("END");
 	return m;
 }
 
@@ -161,7 +181,6 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
 	
-	glBindVertexArray(modelObject->meshes[0]->VAO);
 
 	ShaderSetVec3(shaderToUse, "material.color", color);
 
@@ -176,5 +195,10 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 		glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1);
 	}
 
+	glBindVertexArray(modelObject->meshes[0]->VAO);
+	
+	/* glDrawElements(GL_TRIANGLES, modelObject->meshes[0]->indicesSize, GL_UNSIGNED_INT, 0); */
 	glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
+
+	glBindVertexArray(0);
 }

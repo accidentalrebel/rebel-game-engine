@@ -15,6 +15,8 @@ typedef struct Vertex {
 typedef struct Mesh {
 	Vertex** vertices;
 	unsigned int verticesSize;
+	unsigned int* indices;
+	unsigned int indicesSize;
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
