@@ -85,7 +85,7 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		struct aiFace face = mesh->mFaces[i];
-		printf("NUM INDICES %i\n: ", face.mNumIndices);
+		printf("NUM INDICES: %i\n", face.mNumIndices);
 		for(unsigned int j = 0; j < face.mNumIndices; j++)
 		{
 			printf("INDEX %i: ", (i * 3) + j);
@@ -197,8 +197,10 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 
 	glBindVertexArray(modelObject->meshes[0]->VAO);
 	
-	/* glDrawElements(GL_TRIANGLES, modelObject->meshes[0]->indicesSize, GL_UNSIGNED_INT, 0); */
-	glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
+	if ( modelObject->meshes[0]->indicesSize )
+		glDrawElements(GL_TRIANGLES, modelObject->meshes[0]->indicesSize, GL_UNSIGNED_INT, 0);
+	else 
+		glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
 
 	glBindVertexArray(0);
 }

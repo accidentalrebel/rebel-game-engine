@@ -6,6 +6,8 @@
 Mesh* MeshCreate()
 {
 	Mesh* mesh = (Mesh*)malloc(sizeof(Mesh));
+	mesh->verticesSize = 0;
+	mesh->indicesSize = 0;
 	return mesh;
 }
 
@@ -13,6 +15,7 @@ void MeshSetup(Mesh* mesh)
 {
 	glGenVertexArrays(1, &mesh->VAO);
 	glGenBuffers(1, &mesh->VBO);
+	glGenBuffers(1, &mesh->EBO);
 	
 	glBindVertexArray(mesh->VAO);
 
@@ -34,6 +37,10 @@ void MeshSetup(Mesh* mesh)
 	}
 
 	glBufferData(GL_ARRAY_BUFFER, mesh->verticesSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->indicesSize * sizeof(unsigned int), mesh->indices, GL_STATIC_DRAW);
+	
 	free(vertices);
 
 	glEnableVertexAttribArray(0);
