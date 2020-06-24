@@ -17,3 +17,6 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color);
 
 void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex);
 Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene);
+
+void LoadMaterialTextures(const struct aiMaterial *mat, enum aiTextureType type, char* typeName);
+void TextureFromFile(char* path);

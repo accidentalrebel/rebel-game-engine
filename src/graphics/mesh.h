@@ -4,6 +4,7 @@
 typedef struct Texture {
 	unsigned int id;
 	char* type;
+	char* path;
 } Texture;
 
 typedef struct Vertex {

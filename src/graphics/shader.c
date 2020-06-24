@@ -125,7 +125,7 @@ unsigned int TextureLoad(const char* filePath)
 	}
 	else
 	{
-		printf("ERROR: Texture failed to load at path: %s", filePath);
+		printf("ERROR::SHADER::Texture failed to load at path: %s\n", filePath);
 		stbi_image_free(data);
 	}
 	return textureID;

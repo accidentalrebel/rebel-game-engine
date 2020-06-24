@@ -2,6 +2,7 @@
 
 #include "../external/cglm/cglm.h"
 
+// TODO: Should accept multiple textures
 typedef struct Material
 {
 	unsigned int textureDiffuse1;

@@ -60,6 +60,8 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 	m->vertices = (Vertex**)calloc(m->verticesSize, sizeof(Vertex));
 	m->indices = (unsigned int*)calloc(m->indicesSize, sizeof(unsigned int));
 
+	// Process Vertices
+	//
 	for(unsigned int i = 0; i < m->verticesSize; i++)
 	{
 		m->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
@@ -73,6 +75,8 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 			glm_vec2_copy((vec3){0, 0}, m->vertices[i]->texCoords);
 	}
 
+	// Process Indices
+	//
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		struct aiFace face = mesh->mFaces[i];
@@ -87,7 +91,27 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 			m->indices[(i * 3) + j] = face.mIndices[j];
 		}
 	}
+
+	// Process Materials
+	//
+	const struct aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+	LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	
 	return m;
+}
+
+// NOTE: Used this https://github.com/mgerdes/exercises/blob/9380001d5b75a80813fda6e9bdb436d0cbf12c95/opengl-learning/objects/model.c as reference for how to use the C-API for assimp
+void LoadMaterialTextures(const struct aiMaterial *mat, enum aiTextureType type, char* typeName)
+{
+	struct aiString path;
+	aiGetMaterialTexture(mat, type, 0, &path, 0, 0, 0, 0, 0, 0);
+
+	Texture* texture = (Texture*)malloc(sizeof(Texture));
+	texture->id = TextureLoad(path.data);
+	texture->type = typeName;
+	texture->path = path.data;
+
+	printf("Loaded texture %i: %s %s\n", texture->id, texture->type, texture->path);
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)
@@ -177,6 +201,8 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 	ShaderSetVec3(shaderToUse, "material.color", color);
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
+
+	// TODO: Make a ModelDraw function
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureDiffuse1);
 	
