@@ -37,21 +37,16 @@ Model* ModelLoad(const char* path)
 
 void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex)
 {
-	printf("NUM MESHES: %i\n", node->mNumMeshes);
 	for(unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		printf("Processing mesh at %i\n", i);
 		struct aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 		Mesh* m = ModelProcessMesh(mesh, scene);
 		MeshSetup(m);
-		printf("Adding to index %i\n", *currentMeshIndex);
 		model->meshes[*currentMeshIndex] = m;
-		printf("VAO is now %i\n", m->VAO);
 		(*currentMeshIndex)++;
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		printf("RECURSING...\n");
 		ModelProcessNode(model, node->mChildren[i], scene, currentMeshIndex);
 	}
 }
@@ -60,8 +55,6 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 {
 	Mesh* m = MeshCreate();
 	m->verticesSize = mesh->mNumVertices;
-
-	printf(">>>>>> Num faces: %i\n", mesh->mNumFaces);
 	m->indicesSize = mesh->mNumFaces * 3;
 
 	m->vertices = (Vertex**)calloc(m->verticesSize, sizeof(Vertex));
@@ -78,30 +71,22 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 			glm_vec2_copy((vec3){mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y}, m->vertices[i]->texCoords);
 		else
 			glm_vec2_copy((vec3){0, 0}, m->vertices[i]->texCoords);
-
-		/* printf(">>>>>> At index: %i\n", i); */
-		/* printf(">>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]); */
-		/* printf(">>>>>> %f,%f,%f\n", m->vertices[i]->normal[0], m->vertices[i]->normal[1], m->vertices[i]->normal[2]); */
-		/* printf(">>>>>> %f,%f\n\n", m->vertices[i]->texCoords[0], m->vertices[i]->texCoords[1]); */
 	}
 
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		struct aiFace face = mesh->mFaces[i];
-		/* printf("NUM INDICES: %i\n", face.mNumIndices); */
 
-		// This is a test to make sure that the numIndices is 3. I'll get informed if one is not.
+		// This is a test to make sure that the numIndices is 3.
+		// This shouldn't happen but we're just making sure
 		if ( face.mNumIndices != 3 )
-			printf("WARNING! mNumIndices is %i!\n", face.mNumIndices);
+			printf("WARNING::MODELPROCESSMESH::mNumIndices is %i!\n", face.mNumIndices);
 		
 		for(unsigned int j = 0; j < face.mNumIndices; j++)
 		{
-			/* printf("INDEX %i: ", (i * 3) + j); */
 			m->indices[(i * 3) + j] = face.mIndices[j];
-			/* printf("%i\n", m->indices[(i * 3) + j]); */
 		}
 	}
-	printf("END");
 	return m;
 }
 
