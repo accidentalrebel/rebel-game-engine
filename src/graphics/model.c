@@ -7,7 +7,8 @@
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
-	model->meshes = (Mesh**)calloc(1, sizeof(Mesh));
+	model->meshesSize = 1;
+	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
 	model->meshes[0] = mesh;
 	model->material = MaterialCreate();
 	return model;
@@ -16,7 +17,6 @@ Model* ModelLoadFromMesh(Mesh* mesh)
 Model* ModelLoad(const char* path)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
-	model->meshes = (Mesh**)calloc(1, sizeof(Mesh));
 	model->material = MaterialCreate();
 	
 	const struct aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -25,6 +25,9 @@ Model* ModelLoad(const char* path)
 		printf("ERROR::ASSIMP::%s\n", aiGetErrorString());
 		return NULL;
 	}
+
+	model->meshesSize = scene->mNumMeshes;
+	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
 
 	unsigned int currentMeshIndex = 0;
 	ModelProcessNode(model, scene->mRootNode, scene, &currentMeshIndex);
@@ -76,21 +79,26 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 		else
 			glm_vec2_copy((vec3){0, 0}, m->vertices[i]->texCoords);
 
-		printf(">>>>>> At index: %i\n", i);
-		printf(">>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]);
-		printf(">>>>>> %f,%f,%f\n", m->vertices[i]->normal[0], m->vertices[i]->normal[1], m->vertices[i]->normal[2]);
-		printf(">>>>>> %f,%f\n\n", m->vertices[i]->texCoords[0], m->vertices[i]->texCoords[1]);
+		/* printf(">>>>>> At index: %i\n", i); */
+		/* printf(">>>>>> %f,%f,%f\n", m->vertices[i]->position[0], m->vertices[i]->position[1], m->vertices[i]->position[2]); */
+		/* printf(">>>>>> %f,%f,%f\n", m->vertices[i]->normal[0], m->vertices[i]->normal[1], m->vertices[i]->normal[2]); */
+		/* printf(">>>>>> %f,%f\n\n", m->vertices[i]->texCoords[0], m->vertices[i]->texCoords[1]); */
 	}
 
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		struct aiFace face = mesh->mFaces[i];
-		printf("NUM INDICES: %i\n", face.mNumIndices);
+		/* printf("NUM INDICES: %i\n", face.mNumIndices); */
+
+		// This is a test to make sure that the numIndices is 3. I'll get informed if one is not.
+		if ( face.mNumIndices != 3 )
+			printf("WARNING! mNumIndices is %i!\n", face.mNumIndices);
+		
 		for(unsigned int j = 0; j < face.mNumIndices; j++)
 		{
-			printf("INDEX %i: ", (i * 3) + j);
+			/* printf("INDEX %i: ", (i * 3) + j); */
 			m->indices[(i * 3) + j] = face.mIndices[j];
-			printf("%i\n", m->indices[(i * 3) + j]);
+			/* printf("%i\n", m->indices[(i * 3) + j]); */
 		}
 	}
 	printf("END");
@@ -180,7 +188,6 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 	mat4 inversedModel;
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
-	
 
 	ShaderSetVec3(shaderToUse, "material.color", color);
 
@@ -195,12 +202,16 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 		glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1);
 	}
 
-	glBindVertexArray(modelObject->meshes[0]->VAO);
+	for ( unsigned int i = 0; i < modelObject->meshesSize ; i++ )
+	{
+		glBindVertexArray(modelObject->meshes[i]->VAO);
 	
-	if ( modelObject->meshes[0]->indicesSize )
-		glDrawElements(GL_TRIANGLES, modelObject->meshes[0]->indicesSize, GL_UNSIGNED_INT, 0);
-	else 
-		glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[0]->verticesSize);
+		if ( modelObject->meshes[i]->indicesSize )
+			glDrawElements(GL_TRIANGLES, modelObject->meshes[i]->indicesSize, GL_UNSIGNED_INT, 0);
+		else 
+			glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[i]->verticesSize);
+	}
 
 	glBindVertexArray(0);
+	glActiveTexture(GL_TEXTURE0);
 }

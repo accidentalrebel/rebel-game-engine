@@ -29,8 +29,8 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 	
 	printf("Rebel Engine Initialized\n");
 
-	model = ModelLoad("assets/models/royalty_free_box/RoyaltyFreeBox.obj");
-	/* model = ModelLoad("assets/models/backpack/backpack.obj"); */
+	/* model = ModelLoad("assets/models/royalty_free_box/RoyaltyFreeBox.obj"); */
+	model = ModelLoad("assets/models/backpack/backpack.obj");
 	model->material->textureDiffuse1 = TextureLoad("assets/textures/tile.png");
 
 	Mesh* m = model->meshes[0];

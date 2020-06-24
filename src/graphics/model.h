@@ -7,6 +7,7 @@
 
 typedef struct Model {
 	Mesh** meshes;
+	unsigned int meshesSize;
 	Material* material;
 } Model;
 
