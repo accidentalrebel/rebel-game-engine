@@ -3,6 +3,7 @@
 #include "material.h"
 #include "shader.h"
 #include "../rebel.h"
+#include "../utils/string_utils.h"
 
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
@@ -18,6 +19,9 @@ Model* ModelLoad(const char* path)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
 	model->material = MaterialCreate();
+
+	char directory[50];
+	GetDirectoryFromPath(directory, path);
 	
 	const struct aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	if ( !scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
@@ -30,28 +34,29 @@ Model* ModelLoad(const char* path)
 	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
 
 	unsigned int currentMeshIndex = 0;
-	ModelProcessNode(model, scene->mRootNode, scene, &currentMeshIndex);
+	
+	ModelProcessNode(model, scene->mRootNode, scene, &currentMeshIndex, directory);
 
 	return model;
 }
 
-void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex)
+void ModelProcessNode(Model* model, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex, char* directory)
 {
 	for(unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		struct aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		Mesh* m = ModelProcessMesh(mesh, scene);
+		Mesh* m = ModelProcessMesh(mesh, scene, directory);
 		MeshSetup(m);
 		model->meshes[*currentMeshIndex] = m;
 		(*currentMeshIndex)++;
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		ModelProcessNode(model, node->mChildren[i], scene, currentMeshIndex);
+		ModelProcessNode(model, node->mChildren[i], scene, currentMeshIndex, directory);
 	}
 }
 
-Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
+Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene, char* directory)
 {
 	Mesh* m = MeshCreate();
 	m->verticesSize = mesh->mNumVertices;
@@ -95,19 +100,24 @@ Mesh* ModelProcessMesh(const struct aiMesh* mesh, const struct aiScene* scene)
 	// Process Materials
 	//
 	const struct aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-	LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", directory);
 	
 	return m;
 }
 
 // NOTE: Used this https://github.com/mgerdes/exercises/blob/9380001d5b75a80813fda6e9bdb436d0cbf12c95/opengl-learning/objects/model.c as reference for how to use the C-API for assimp
-void LoadMaterialTextures(const struct aiMaterial *mat, enum aiTextureType type, char* typeName)
+void LoadMaterialTextures(const struct aiMaterial *mat, enum aiTextureType type, char* typeName, char* directory)
 {
 	struct aiString path;
 	aiGetMaterialTexture(mat, type, 0, &path, 0, 0, 0, 0, 0, 0);
 
 	Texture* texture = (Texture*)malloc(sizeof(Texture));
-	texture->id = TextureLoad(path.data);
+
+	char fullPath[100];
+	strcat(fullPath, directory);
+	strcat(fullPath, path.data);
+	
+	texture->id = TextureLoad(fullPath);
 	texture->type = typeName;
 	texture->path = path.data;
 
