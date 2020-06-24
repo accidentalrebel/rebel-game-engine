@@ -121,7 +121,7 @@ void LoadMaterialTextures(const struct aiMaterial *mat, enum aiTextureType type,
 	texture->type = typeName;
 	texture->path = path.data;
 
-	printf("Loaded texture %i: %s %s\n", texture->id, texture->type, texture->path);
+	printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)
