@@ -9,12 +9,13 @@ typedef struct Model {
 	Mesh** meshes;
 	unsigned int meshesSize;
 	Material* material;
+	Texture* loadedTextures[100];
+	unsigned int loadedTexturesIndex;
 } Model;
 
 typedef struct ModelProcessing {
 	Model* model;
 	char* directory;
-	Texture* loadedTextures;
 } ModelProcessing;
 
 Model* ModelLoad(const char* path);

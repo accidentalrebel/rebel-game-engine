@@ -21,6 +21,7 @@ Model* ModelLoad(const char* path)
 
 	Model* model = (Model*)malloc(sizeof(Model));
 	model->material = MaterialCreate();
+	model->loadedTexturesIndex = 0;
 	processing.model = model;
 
 	processing.directory = (char*)malloc(sizeof(char*) * 50);
@@ -126,6 +127,8 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 	texture->type = typeName;
 	texture->path = path.data;
 
+	processing->model->loadedTextures[processing->model->loadedTexturesIndex++] = texture;
+	
 	printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
 }
 
