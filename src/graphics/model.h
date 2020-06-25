@@ -9,7 +9,7 @@ typedef struct Model {
 	Mesh** meshes;
 	unsigned int meshesSize;
 	Material* material;
-	Texture* loadedTextures[100];
+	Texture** loadedTextures;
 	unsigned int loadedTexturesIndex;
 } Model;
 
@@ -27,3 +27,5 @@ Mesh* ModelProcessMesh(ModelProcessing* processing, const struct aiMesh* mesh, c
 
 void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *mat, enum aiTextureType type, char* typeName);
 void TextureFromFile(char* path);
+//unsigned int IsTextureAlreadyLoaded(Texture** loadedTextures, const char* path);
+unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path);

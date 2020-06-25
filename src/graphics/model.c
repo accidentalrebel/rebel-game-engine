@@ -21,7 +21,12 @@ Model* ModelLoad(const char* path)
 
 	Model* model = (Model*)malloc(sizeof(Model));
 	model->material = MaterialCreate();
+
+	// TODO: Should get the amount of textures to load from assimp
+	model->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
+	
 	model->loadedTexturesIndex = 0;
+	
 	processing.model = model;
 
 	processing.directory = (char*)malloc(sizeof(char*) * 50);
@@ -117,19 +122,31 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 	struct aiString path;
 	aiGetMaterialTexture(mat, type, 0, &path, 0, 0, 0, 0, 0, 0);
 
-	Texture* texture = (Texture*)malloc(sizeof(Texture));
+	if ( !IsTextureAlreadyLoaded(processing, path.data) )
+	{
+		Texture* texture = (Texture*)malloc(sizeof(Texture));
 
-	char fullPath[100];
-	strcat(fullPath, processing->directory);
-	strcat(fullPath, path.data);
+		char fullPath[100];
+		strcat(fullPath, processing->directory);
+		strcat(fullPath, path.data);
 	
-	texture->id = TextureLoad(fullPath);
-	texture->type = typeName;
-	texture->path = path.data;
+		texture->id = TextureLoad(fullPath);
+		texture->type = typeName;
+		texture->path = path.data;
 
-	processing->model->loadedTextures[processing->model->loadedTexturesIndex++] = texture;
-	
-	printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
+		processing->model->loadedTextures[processing->model->loadedTexturesIndex++] = texture;
+		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
+	}
+}
+
+unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path)
+{
+	for(unsigned int i = 0 ; i < processing->model->loadedTexturesIndex; i++ )
+	{
+		if ( strcmp(processing->model->loadedTextures[i]->path, path) == 0)
+			return 1;
+	}
+	return 0;
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)
