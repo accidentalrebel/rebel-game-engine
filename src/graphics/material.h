@@ -1,12 +1,16 @@
 #pragma once
 
 #include "../external/cglm/cglm.h"
+#include "mesh.h"
 
-// TODO: Should accept multiple textures
 typedef struct Material
 {
 	unsigned int textureDiffuse1;
 	unsigned int textureSpecular1;
+
+	Texture** loadedTextures;
+	unsigned int loadedTexturesIndex;
+	
 	float shininess;
 	vec3 color;
 } Material;

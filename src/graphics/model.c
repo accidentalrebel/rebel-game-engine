@@ -23,9 +23,9 @@ Model* ModelLoad(const char* path)
 	model->material = MaterialCreate();
 
 	// TODO: Should get the amount of textures to load from assimp
-	model->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
+	model->material->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
 	
-	model->loadedTexturesIndex = 0;
+	model->material->loadedTexturesIndex = 0;
 	
 	processing.model = model;
 
@@ -134,16 +134,16 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 		texture->type = typeName;
 		texture->path = path.data;
 
-		processing->model->loadedTextures[processing->model->loadedTexturesIndex++] = texture;
+		processing->model->material->loadedTextures[processing->model->material->loadedTexturesIndex++] = texture;
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
 	}
 }
 
 unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path)
 {
-	for(unsigned int i = 0 ; i < processing->model->loadedTexturesIndex; i++ )
+	for(unsigned int i = 0 ; i < processing->model->material->loadedTexturesIndex; i++ )
 	{
-		if ( strcmp(processing->model->loadedTextures[i]->path, path) == 0)
+		if ( strcmp(processing->model->material->loadedTextures[i]->path, path) == 0)
 			return 1;
 	}
 	return 0;
@@ -239,7 +239,7 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 
 	// TODO: Make a ModelDraw function
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureDiffuse1);
+	glBindTexture(GL_TEXTURE_2D, modelObject->material->loadedTextures[0]->id);
 	
 	if ( modelObject->material->textureSpecular1 > 0 )
 	{

@@ -41,6 +41,11 @@
   ;; TESTing the model drawing
   (rebel:draw)
 
+  
+  (window:swap))
+
+(define (test)
+
   (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))

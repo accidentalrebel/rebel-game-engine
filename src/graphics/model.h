@@ -9,8 +9,6 @@ typedef struct Model {
 	Mesh** meshes;
 	unsigned int meshesSize;
 	Material* material;
-	Texture** loadedTextures;
-	unsigned int loadedTexturesIndex;
 } Model;
 
 typedef struct ModelProcessing {
