@@ -17,27 +17,26 @@ Model* ModelLoadFromMesh(Mesh* mesh)
 
 Model* ModelLoad(const char* path)
 {
-	ModelProcessing processing;
-
-	Model* model = (Model*)malloc(sizeof(Model));
-	model->material = MaterialCreate();
-
-	// TODO: Should get the amount of textures to load from assimp
-	model->material->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
-	
-	model->material->loadedTexturesIndex = 0;
-	
-	processing.model = model;
+	ModelProcessing processing;	
 
 	processing.directory = (char*)malloc(sizeof(char*) * 50);
 	GetDirectoryFromPath(processing.directory, path);
-	
+
 	const struct aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	if ( !scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
 	{
 		printf("ERROR::ASSIMP::%s\n", aiGetErrorString());
+		free(processing.directory);
 		return NULL;
 	}
+
+	Model* model = (Model*)malloc(sizeof(Model));
+	model->material = MaterialCreate();
+	processing.model = model;
+
+	// TODO: Should get the amount of textures to load from assimp
+	model->material->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
+	model->material->loadedTexturesIndex = 0;
 
 	model->meshesSize = scene->mNumMeshes;
 	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
