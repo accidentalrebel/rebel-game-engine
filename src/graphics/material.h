@@ -9,7 +9,7 @@ typedef struct Material
 	unsigned int textureSpecular1;
 
 	Texture** loadedTextures;
-	unsigned int loadedTexturesIndex;
+	unsigned int loadedTexturesCount;
 	
 	float shininess;
 	vec3 color;

@@ -32,11 +32,12 @@ Model* ModelLoad(const char* path)
 
 	Model* model = (Model*)malloc(sizeof(Model));
 	model->material = MaterialCreate();
+	
 	processing.model = model;
+	processing.loadedTexturesIndex = 0;
 
-	// TODO: Should get the amount of textures to load from assimp
-	model->material->loadedTextures = (Texture**)malloc(100 * sizeof(Texture));
-	model->material->loadedTexturesIndex = 0;
+	model->material->loadedTextures = (Texture**)malloc(scene->mNumTextures * sizeof(Texture));
+	model->material->loadedTexturesCount = scene->mNumTextures;
 
 	model->meshesSize = scene->mNumMeshes;
 	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
@@ -133,14 +134,14 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 		texture->type = typeName;
 		texture->path = path.data;
 
-		processing->model->material->loadedTextures[processing->model->material->loadedTexturesIndex++] = texture;
+		processing->model->material->loadedTextures[processing->loadedTexturesIndex++] = texture;
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
 	}
 }
 
 unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path)
 {
-	for(unsigned int i = 0 ; i < processing->model->material->loadedTexturesIndex; i++ )
+	for(unsigned int i = 0 ; i < processing->loadedTexturesIndex; i++ )
 	{
 		if ( strcmp(processing->model->material->loadedTextures[i]->path, path) == 0)
 			return 1;
