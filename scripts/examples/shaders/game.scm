@@ -1,6 +1,7 @@
 (define *cube*)
 (define *box-shader*)
 (define *light-shader*)
+(define *model-shader*)
 (define *angle* 6.282)
 
 (define *point-lights* '())
@@ -27,6 +28,7 @@
   (model:texture_diffuse! *cube* (texture:load "assets/textures/texel-checker.png"))
 
   ;; Setup the shaders
+  (set! *model-shader* (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
   (set! *box-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs")))
 
@@ -36,7 +38,7 @@
 (define (render)
   (window:clear '(0.1 0.1 0.1))
 
-  (shader:use *box-shader*)
+  (shader:use *model-shader*)
 
   ;; TESTing the model drawing
   (rebel:draw)

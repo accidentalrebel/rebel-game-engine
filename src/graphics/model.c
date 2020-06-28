@@ -239,20 +239,22 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 
 	ShaderSetVec3(shaderToUse, "material.color", color);
 
-	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
-
 	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, modelObject->material->loadedTextures[i]->id);
+
+		unsigned int id = modelObject->material->loadedTextures[i]->id;
+
+		ShaderSetInt(shaderToUse, "texture_diffuse1", i);
+		glBindTexture(GL_TEXTURE_2D, id);
 	}
 	
-	if ( modelObject->material->textureSpecular1 > 0 )
-	{
-		ShaderSetInt(shaderToUse, "material.texture_specular1", 1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1);
-	}
+	/* if ( modelObject->material->textureSpecular1 > 0 ) */
+	/* { */
+	/* 	ShaderSetInt(shaderToUse, "material.texture_specular1", 1); */
+	/* 	glActiveTexture(GL_TEXTURE1); */
+	/* 	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1); */
+	/* } */
 
 	for ( unsigned int i = 0; i < modelObject->meshesSize ; i++ )
 	{
