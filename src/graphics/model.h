@@ -14,7 +14,6 @@ typedef struct Model {
 typedef struct ModelProcessing {
 	Model* model;
 	char* directory;
-	unsigned int loadedTexturesIndex;
 } ModelProcessing;
 
 Model* ModelLoad(const char* path);

@@ -5,6 +5,8 @@
 #include "../rebel.h"
 #include "../utils/string_utils.h"
 
+#define MAX_TEXTURES_COUNT 10
+
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
@@ -34,10 +36,9 @@ Model* ModelLoad(const char* path)
 	model->material = MaterialCreate();
 	
 	processing.model = model;
-	processing.loadedTexturesIndex = 0;
 
-	model->material->loadedTextures = (Texture**)malloc(scene->mNumTextures * sizeof(Texture));
-	model->material->loadedTexturesCount = scene->mNumTextures;
+	model->material->loadedTextures = (Texture**)malloc(MAX_TEXTURES_COUNT * sizeof(Texture));
+	model->material->loadedTexturesCount = 0;
 
 	model->meshesSize = scene->mNumMeshes;
 	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
@@ -112,6 +113,7 @@ Mesh* ModelProcessMesh(ModelProcessing* processing, const struct aiMesh* mesh, c
 	//
 	const struct aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
 	LoadMaterialTextures(processing, material, aiTextureType_DIFFUSE, "texture_diffuse");
+	LoadMaterialTextures(processing, material, aiTextureType_SPECULAR, "texture_specular");
 	
 	return m;
 }
@@ -134,16 +136,18 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 		texture->type = typeName;
 		texture->path = path.data;
 
-		processing->model->material->loadedTextures[processing->loadedTexturesIndex++] = texture;
+		Material* material = processing->model->material;
+		material->loadedTextures[material->loadedTexturesCount++] = texture;
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
 	}
 }
 
 unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path)
 {
-	for(unsigned int i = 0 ; i < processing->loadedTexturesIndex; i++ )
+	Material* material = processing->model->material;
+	for(unsigned int i = 0 ; i < material->loadedTexturesCount; i++ )
 	{
-		if ( strcmp(processing->model->material->loadedTextures[i]->path, path) == 0)
+		if ( strcmp(material->loadedTextures[i]->path, path) == 0)
 			return 1;
 	}
 	return 0;
@@ -237,9 +241,11 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 
 	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
 
-	// TODO: Make a ModelDraw function
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, modelObject->material->loadedTextures[0]->id);
+	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, modelObject->material->loadedTextures[i]->id);
+	}
 	
 	if ( modelObject->material->textureSpecular1 > 0 )
 	{
