@@ -43,6 +43,22 @@
   ;; TESTing the model drawing
   (rebel:draw)
 
+  (shader:use *light-shader*)
+
+  (set! *angle* (- *angle* (* 2 (time:elapsed))))
+
+  (orbit_point_light (first *point-lights*) 1.0 2.0)
+  (orbit_point_light (second *point-lights*) -0.6 2.0)
+  (orbit_point_light (third *point-lights*) 0.2 2.0)
+  (orbit_point_light (fourth *point-lights*) 0.35 2.0)
+
+  ;; Draw each point-light
+  (for-each
+   (lambda (point-light)
+     (model:draw *light-cube*
+		 (light:point:position point-light)
+		 (light:point:diffuse point-light)))
+   *point-lights*)
   
   (window:swap))
 
@@ -52,22 +68,8 @@
   (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))
 
-  (shader:use *light-shader*)
-
-  (set! *angle* (- *angle* (* 2 (time:elapsed))))
-
-  (orbit_point_light (first *point-lights*) 1.0 2.0)
-  (orbit_point_light (second *point-lights*) -0.6 2.0)
-  (orbit_point_light (third *point-lights*) 0.2 2.0)
-  (orbit_point_light (fourth *point-lights*) 0.35 2.0)
   
-  ;; Draw each point-light
-  (for-each
-   (lambda (point-light)
-     (model:draw *light-cube*
-		 (light:point:position point-light)
-		 (light:point:diffuse point-light)))
-   *point-lights*)
+
 
   (window:swap))
 

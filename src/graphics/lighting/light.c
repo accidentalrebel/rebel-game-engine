@@ -41,7 +41,7 @@ PointLight* PointLightCreate2(vec3 position, vec3 color)
 
 	pointLight->light = LightCreate((vec3) { 0.1f, 0.1f, 0.1f },
 																	color,
-																	(vec3){ 0, 0, 0 });
+																	color);
 
 	g_rebel.pointLights[g_rebel.pointLightCount++] = pointLight;
 	

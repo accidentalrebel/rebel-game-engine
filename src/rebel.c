@@ -42,7 +42,7 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 
 void RebelDraw()
 {
-	ModelDraw(model, (vec3){ 0, 2, 0}, (vec3){ 1, 1, 1 });
+	ModelDraw(model, (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1 });
 }
 
 void InputProcess()
