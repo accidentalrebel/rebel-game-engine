@@ -128,27 +128,33 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 	{
 		Texture* texture = (Texture*)malloc(sizeof(Texture));
 
-		char fullPath[100];
+		char fullPath[100] = "";
 		strcat(fullPath, processing->directory);
 		strcat(fullPath, path.data);
-	
+
 		texture->id = TextureLoad(fullPath);
 		texture->type = typeName;
-		texture->path = path.data;
+		texture->path = malloc(strlen(path.data)+1);
+		strcpy(texture->path, path.data);
 
 		Material* material = processing->model->material;
-		material->loadedTextures[material->loadedTexturesCount++] = texture;
+		material->loadedTextures[material->loadedTexturesCount] = texture;
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
+
+		material->loadedTexturesCount++;
 	}
 }
 
 unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path)
 {
 	Material* material = processing->model->material;
+
 	for(unsigned int i = 0 ; i < material->loadedTexturesCount; i++ )
 	{
 		if ( strcmp(material->loadedTextures[i]->path, path) == 0)
+		{
 			return 1;
+		}
 	}
 	return 0;
 }

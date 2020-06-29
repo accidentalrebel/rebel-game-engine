@@ -38,7 +38,7 @@
 (define (render)
   (window:clear '(0.1 0.1 0.1))
 
-  (shader:use *model-shader*)
+  (shader:use *box-shader*)
 
   ;; TESTing the model drawing
   (rebel:draw)
