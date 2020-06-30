@@ -1,12 +1,6 @@
 #pragma once
 #include "../external/cglm/cglm.h"
 
-typedef struct Texture {
-	unsigned int id;
-	char* type;
-	char* path;
-} Texture;
-
 typedef struct Vertex {
 	vec3 position;
 	vec3 normal;
