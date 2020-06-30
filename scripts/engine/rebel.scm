@@ -275,18 +275,6 @@ C_return(v);")))))
 (define (renderer:draw a b c d)
   (renderer:draw_ a (first b) (second b) (third b) c d))
 
-(define model:draw_
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Model")) a0)
-    (float a1) (float a2) (float a3)
-    (float a4) (float a5) (float a6))
-   "ModelDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
-(define (model:draw a b c)
-  (model:draw_ a
-	       (first b) (second b) (third b)
-	       (first c) (second c) (third c)))
-
 (define-foreign-record-type (renderer Renderer)
   ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
 
@@ -302,6 +290,20 @@ C_return(v);")))))
 (define model:load_from_mesh (foreign-lambda (c-pointer (struct "Model")) "ModelLoadFromMesh" (c-pointer (struct "Mesh"))))
 (define (model:texture_diffuse! model texture)
   (Material-textureDiffuse1! (Model-material model) texture))
+
+(define model:draw_
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Model")) a0)
+    (float a1) (float a2) (float a3)
+    (float a4) (float a5) (float a6))
+   "ModelDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
+(define (model:draw a b c)
+  (model:draw_ a
+	       (first b) (second b) (third b)
+	       (first c) (second c) (third c)))
+
+(define model:load (foreign-lambda (c-pointer (struct "Model")) "ModelLoad" c-string))
 
 ;; MATERIAL
 ;; ========

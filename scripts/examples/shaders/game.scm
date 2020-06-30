@@ -1,5 +1,6 @@
 (define *cube*)
-(define *box-shader*)
+(define *backpack*)
+(define *model-shader*)
 (define *light-shader*)
 (define *model-shader*)
 (define *angle* 6.282)
@@ -27,9 +28,10 @@
   ;; Load the texture and assign is as a texture diffuse
   (model:texture_diffuse! *cube* (texture:load "assets/textures/texel-checker.png"))
 
+  (set! *backpack* (model:load "assets/models/backpack/backpack.obj"))
+
   ;; Setup the shaders
-  (set! *model-shader* (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
-  (set! *box-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
+  (set! *model-shader* (shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
   (set! *light-shader* (shader:create "shaders/light-shader.vs" "shaders/light-shader.fs")))
 
 (define (update)
@@ -38,10 +40,13 @@
 (define (render)
   (window:clear '(0.1 0.1 0.1))
 
-  (shader:use *box-shader*)
+  (shader:use *model-shader*)
+  
+  (model:draw *backpack* '(0 0 0) '(1 1 1))
 
-  ;; TESTing the model drawing
-  (rebel:draw)
+  ;; (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
+  ;; (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
+  ;; (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))
 
   (shader:use *light-shader*)
 
@@ -60,17 +65,6 @@
 		 (light:point:diffuse point-light)))
    *point-lights*)
   
-  (window:swap))
-
-(define (test)
-
-  (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
-  (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
-  (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))
-
-  
-
-
   (window:swap))
 
 (define (orbit_point_light point-light multiplier distance)
