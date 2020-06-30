@@ -5,8 +5,6 @@
 #include "../rebel.h"
 #include "../utils/string_utils.h"
 
-#define MAX_TEXTURES_COUNT 10
-
 Model* ModelLoadFromMesh(Mesh* mesh)
 {
 	Model* model = (Model*)malloc(sizeof(Model));
@@ -37,7 +35,6 @@ Model* ModelLoad(const char* path)
 	
 	processing.model = model;
 
-	model->material->loadedTextures = (Texture**)malloc(MAX_TEXTURES_COUNT * sizeof(Texture));
 	model->material->loadedTexturesCount = 0;
 
 	model->meshesSize = scene->mNumMeshes;
