@@ -304,6 +304,7 @@ C_return(v);")))))
 	       (first c) (second c) (third c)))
 
 (define model:load (foreign-lambda (c-pointer (struct "Model")) "ModelLoad" c-string))
+(define model:add_texture (foreign-lambda void "ModelAddTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
 
 ;; MATERIAL
 ;; ========
@@ -314,6 +315,10 @@ C_return(v);")))))
 
 (make_vec3_setter Material-color! "Material" "color")
 
+;; TODO; Change the third parameter into an enum
+(define material:load_texture (foreign-lambda (c-pointer (struct "Texture")) "MaterialLoadTexture" c-string c-string c-string))
+
+;; TODO; Do we need the following functions anymore?
 (define (material:texture_diffuse! renderer texture)
   (Material-textureDiffuse1! (Renderer-material renderer) texture))
 

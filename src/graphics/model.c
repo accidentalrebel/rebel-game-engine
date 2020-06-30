@@ -123,13 +123,10 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 
 	if ( !IsTextureAlreadyLoaded(processing, path.data) )
 	{
-		Material* material = processing->model->material;
 		Texture* texture = MaterialLoadTexture(processing->directory, path.data, typeName);
 
-		MaterialAddTexture(material, texture);
+		ModelAddTexture(processing->model, texture);
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
-
-		material->loadedTexturesCount++;
 	}
 }
 
@@ -145,6 +142,13 @@ unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* pat
 		}
 	}
 	return 0;
+}
+
+void ModelAddTexture(Model* model, Texture* texture)
+{
+	Material* material = model->material;
+	material->loadedTextures[material->loadedTexturesCount] = texture;
+	material->loadedTexturesCount++;
 }
 
 void ModelDraw(Model* modelObject, vec3 position, vec3 color)

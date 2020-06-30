@@ -18,11 +18,6 @@ Material* MaterialCreate()
 	return mat;
 }
 
-void MaterialAddTexture(Material* material, Texture* texture)
-{
-	material->loadedTextures[material->loadedTexturesCount] = texture;
-}
-
 Texture* MaterialLoadTexture(const char* directory, const char* fileName, char* typeName)
 {
 	Texture* texture = (Texture*)malloc(sizeof(Texture));

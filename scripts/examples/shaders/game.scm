@@ -26,7 +26,8 @@
   (set! *light-cube* (model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
 
   ;; Load the texture and assign is as a texture diffuse
-  (model:texture_diffuse! *cube* (texture:load "assets/textures/texel-checker.png"))
+  (model:add_texture *cube*
+		     (material:load_texture "assets/textures/" "texel-checker.png" "texture_diffuse"))
 
   (set! *backpack* (model:load "assets/models/backpack/backpack.obj"))
 
@@ -41,12 +42,10 @@
   (window:clear '(0.1 0.1 0.1))
 
   (shader:use *model-shader*)
-  
   (model:draw *backpack* '(0 0 0) '(1 1 1))
 
-  ;; (model:draw *cube* '(0.0 0.0 0.0) '(1.0 1.0 1.0))
-  ;; (model:draw *cube* '(1.5 0.0 0.0) '(1.0 1.0 1.0))
-  ;; (model:draw *cube* '(-1.5 0.0 0.0) '(1.0 1.0 1.0))
+  (model:draw *cube* '(2.5 0.0 0.0) '(1.0 1.0 1.0))
+  (model:draw *cube* '(-2.5 0.0 0.0) '(1.0 1.0 1.0))
 
   (shader:use *light-shader*)
 

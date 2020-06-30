@@ -22,5 +22,4 @@ typedef struct Material
 } Material;
 
 Material* MaterialCreate();
-void MaterialAddTexture(Material* material, Texture* texture);
 Texture* MaterialLoadTexture(const char* directory, const char* fileName, char* typeName);
