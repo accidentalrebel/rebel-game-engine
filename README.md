@@ -10,28 +10,39 @@ For more information check out [the wiki](https://github.com/accidentalrebel/reb
 ![screenshot-1](https://raw.githubusercontent.com/accidentalrebel/rebel-game-engine/master/images/rebel-screenshot-1.png)
 
 ## Sample Code
-Simple program that displays a sprite with keyboard movement.
+Simple program that loads a 3d model and draws it. Also has first person camera movement.
 
 ```scheme
-   (define *box-sprite*)
-   (define *box-pos*)
+(define *basic-shader*)
+(define *backpack*)
 
-   (define (init)
-     (set! *box-sprite* (sprite:create "assets/textures" "tile.png"))
-     (set! *box-pos* (vec3:create 400 300 0)))
+;; Setup the first person camera extension
+(include-relative "../../extensions/fpcam")
 
-   (define (update)
-     (window:clear)
+(define (init)
+  ;; Load the model object
+  ;; model:load also loads the textures automatically
+  (set! *backpack* 
+	(model:load "assets/models/backpack/backpack.obj"))
 
-     (when (key:down? KEY_A)
-       (vec3_x! *box-pos* (+ (vec3_x *box-pos*) 1)))
-     (when (key:down? KEY_D)
-       (vec3_x! *box-pos* (- (vec3_x *box-pos*) 1)))
+  ;; Load a basic shader
+  (set! *basic-shader* 
+	(shader:create "shaders/model-loading.vs" "shaders/model-loading.fs")))
 
-     (let ((tint (vec3:create 1 0 1)))
-       (sprite:draw *box-sprite* *box-pos* 50 50 tint #f))
+(define (update)
+  ;; This is needed for the first person camera extension to work
+  (fpcam:update))
 
-     (window:swap))
+(define (render)
+  (window:clear '(0.1 0.1 0.1))
+
+  ;; Use the basic-shader
+  (shader:use *basic-shader*)
+
+  ;; Draw the backpack model
+  (model:draw *backpack* '(0 0 0) '(1 1 1))
+  
+  (window:swap))
 ```
 
 ## Roadmap
@@ -43,9 +54,9 @@ v1.0
 - [x] Multiplatform development
 - [x] Camera System
 - [x] Basic Lighting
+- [x] Model loading
 - [ ] Sprite transparency
 - [ ] Cubemaps
-- [ ] Loading 3D models
 - [ ] Scenes
 - [ ] Text
 - [ ] Audio
@@ -56,6 +67,8 @@ v1.0
 ## Getting started
 Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).
 
+You could also check out the examples folder.
+
 ## Dependencies / External Libraries
 As much as I want to implement everything myself, these libraries are just better so no need to re-invent the wheel.
 
@@ -65,6 +78,7 @@ As much as I want to implement everything myself, these libraries are just bette
   * [stb_image](https://github.com/nothings/stb) - Image loader
   * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
   * [chicken-scheme](https://www.call-cc.org/) - Enables lisp scripting
+  * [assimp][https://www.assimp.org/] - For loading 3d models
 
 ## Many thanks
 This project wouldn't be possible without these:
