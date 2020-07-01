@@ -7,10 +7,12 @@
 (define (init)
   ;; Load the model object
   ;; model:load also loads the textures automatically
-  (set! *backpack* (model:load "assets/models/backpack/backpack.obj"))
+  (set! *backpack*
+	(model:load "assets/models/backpack/backpack.obj"))
 
   ;; Load a basic shader
-  (set! *basic-shader* (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs")))
+  (set! *basic-shader*
+	(shader:create "shaders/model-loading.vs" "shaders/model-loading.fs")))
 
 (define (update)
   ;; This is needed for the first person camera extension to work
