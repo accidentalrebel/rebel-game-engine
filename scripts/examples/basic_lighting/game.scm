@@ -7,8 +7,6 @@
 
 (define *point-lights* '())
 
-; TODO; Update wiki to add 'assimp' library
-
 ; Setup the first person camera extension
 (include-relative "../../extensions/fpcam")
 
@@ -41,16 +39,19 @@
 (define (render)
   (window:clear '(0.1 0.1 0.1))
 
+  ;; Draw the backpack and cube models
   (shader:use *model-shader*)
   (model:draw *backpack* '(0 0 0) '(1 1 1))
 
   (model:draw *cube* '(2.5 0.0 0.0) '(1.0 1.0 1.0))
   (model:draw *cube* '(-2.5 0.0 0.0) '(1.0 1.0 1.0))
 
+  ;; Setup shader for point lights
   (shader:use *light-shader*)
 
   (set! *angle* (- *angle* (* 2 (time:elapsed))))
 
+  ;; Let the point lights orbit around
   (orbit_point_light (first *point-lights*) 1.0 2.0)
   (orbit_point_light (second *point-lights*) -0.6 2.0)
   (orbit_point_light (third *point-lights*) 0.2 2.0)
@@ -66,6 +67,7 @@
   
   (window:swap))
 
+;; Makes the given point-light orbit around the origin
 (define (orbit_point_light point-light multiplier distance)
   (let* ((pos (light:point:position point-light)))
     (light:point:position! point-light
