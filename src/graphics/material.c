@@ -12,6 +12,7 @@ Material* MaterialCreate()
 	mat->textureSpecular1 = 0;
 	mat->shininess = 1.0f;
 	mat->loadedTextures = (Texture**)malloc(MAX_TEXTURES_COUNT * sizeof(Texture));
+	mat->loadedTexturesCount = 0;
 
 	glm_vec3_zero(mat->color);
 	

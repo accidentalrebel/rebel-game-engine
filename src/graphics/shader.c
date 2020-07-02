@@ -25,7 +25,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-		sprintf("ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n", infoLog);
+		printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	// FRAGMENT
@@ -37,7 +37,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-		sprintf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED %s\n", infoLog);
+		printf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED %s\n", infoLog);
 	}
 
 	Shader *shader = (Shader*)malloc(sizeof(Shader));
@@ -52,7 +52,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetProgramInfoLog(shader->id, 512, NULL, infoLog);
-		sprintf("ERROR::SHADER::PROGRAM::LINKING_FAILED %s\n", infoLog);
+		printf("ERROR::SHADER::PROGRAM::LINKING_FAILED %s\n", infoLog);
 	}
 
 	glDeleteShader(vertex);

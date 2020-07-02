@@ -35,8 +35,6 @@ Model* ModelLoad(const char* path)
 	
 	processing.model = model;
 
-	model->material->loadedTexturesCount = 0;
-
 	model->meshesSize = scene->mNumMeshes;
 	model->meshes = (Mesh**)calloc(model->meshesSize, sizeof(Mesh));
 
@@ -158,7 +156,7 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 		shaderToUse = g_rebel.currentShader;
 	else
 		shaderToUse = g_rebel.defaultShader;
-		
+
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
 
@@ -255,6 +253,7 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 			glBindTexture(GL_TEXTURE_2D, id);
 		}
 	}
+
 	
 	/* if ( modelObject->material->textureSpecular1 > 0 ) */
 	/* { */
@@ -272,6 +271,7 @@ void ModelDraw(Model* modelObject, vec3 position, vec3 color)
 		else 
 			glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[i]->verticesSize);
 	}
+
 
 	glBindVertexArray(0);
 	glActiveTexture(GL_TEXTURE0);

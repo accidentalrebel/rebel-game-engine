@@ -20,8 +20,11 @@
 	 (light:point:create2 '(1.0 1.0 1.0) '(0.0 0.0 1.0))))
   
   ;; Generate a cube mesh and load it as a model
-  (set! *cube* (model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
-  (set! *light-cube* (model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
+  (set! *cube*
+	(model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
+  
+  (set! *light-cube*
+	(model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
 
   ;; Load the texture and assign is as a texture diffuse
   (model:add_texture *cube*

@@ -1,6 +1,8 @@
 (include-relative "../../engine/rebel")
 
+(display ">> OH")
 (rebel:init 800 600 "Rebel Engine")
+(display ">> HA")
 
 (include-relative "game")
 
@@ -29,5 +31,6 @@
   (rebel:destroy)
   (print "Program exited."))
 
+(display ">> 88");
 (init)
 (loop-program)
