@@ -14,7 +14,7 @@
   		     (material:load_texture "assets/textures/" "awesomeface.png" "texture_diffuse"))
 
   (set! *model-shader*
-	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
+	(shader:create "shaders/image-loading.vs" "shaders/image-loading.fs"))
    	;; (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
   )
 
@@ -28,6 +28,7 @@
 
   (shader:use *model-shader*)
 
+  (model:draw *sprite* '(0.5 0 -0.5) '(1 1 1))
   (model:draw *sprite* '(0 0 0) '(1 1 1))
   
   (window:swap))
