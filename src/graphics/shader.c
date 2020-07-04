@@ -9,8 +9,8 @@ Shader* ShaderDefault()
 
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 {
-	const char* vShaderCode = UtilsReadFile(vertexPath);
-	const char* fShaderCode = UtilsReadFile(fragmentPath);
+	char* vShaderCode = UtilsReadFile(vertexPath);
+	char* fShaderCode = UtilsReadFile(fragmentPath);
 
 	unsigned int vertex, fragment;
 	int success;
@@ -18,7 +18,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 
 	// VERTEX
 	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glShaderSource(vertex, 1, (const GLchar **)&vShaderCode, NULL);
 	glCompileShader(vertex);
 
 	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
@@ -30,7 +30,7 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 
 	// FRAGMENT
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glShaderSource(fragment, 1, (const GLchar **)&fShaderCode, NULL);
 	glCompileShader(fragment);
 
 	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
@@ -57,6 +57,9 @@ Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+
+	free(vShaderCode);
+	free(fShaderCode);
 
 	return shader;
 }
