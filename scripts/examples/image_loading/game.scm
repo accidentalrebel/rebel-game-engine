@@ -6,7 +6,7 @@
 
 (define (init)
   (set! *sprite*
-	(model:load_from_mesh (mesh:generate_cube 1.0 1.0 1.0)))
+	(model:load_from_mesh (mesh:generate_plane 1.0 1.0)))
 
   ;; TODO; Not specifying the third parameter for material:load_texture should default to "texture_diffuse"
   ;; TODO; Consider changing the third parameter to an Enum
@@ -15,7 +15,7 @@
 
   (set! *model-shader*
 	(shader:create "shaders/simple-3d.vs" "shaders/simple.fs"))
-  	;; (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
+   	;; (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
   )
 
 (define (update)
