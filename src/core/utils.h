@@ -7,7 +7,7 @@ char* UtilsReadFile(const char* filename) {
   long int size = ftell(fp);
   rewind(fp);
 
-  char* result = (char*)malloc(size);
+  char* result = (char*)malloc(size+1);
 
   int index = 0;
   int c;
