@@ -21,4 +21,5 @@ Mesh* MeshCreate();
 void MeshSetup(Mesh* mesh);
 void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride);
 
+Mesh* MeshGeneratePlane(float width, float height);
 Mesh* MeshGenerateCube(float width, float height, float length);

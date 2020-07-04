@@ -281,6 +281,7 @@ C_return(v);")))))
 ;; MESH
 ;; ====
 (define mesh:generate_cube (foreign-lambda (c-pointer (struct "Mesh")) "MeshGenerateCube" float float float))
+(define mesh:generate_plane (foreign-lambda (c-pointer (struct "Mesh")) "MeshGeneratePlane" float float))
 
 ;; MODEL
 ;; =====

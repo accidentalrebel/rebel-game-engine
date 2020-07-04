@@ -74,6 +74,24 @@ void ParseVertex(Mesh* mesh, float *vertices, int verticesSize, int stride)
 	}
 }
 
+Mesh* MeshGeneratePlane(float width, float height)
+{
+	float vertices[] = {
+    -width/2, -height/2, 0.0f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		width/2, -height/2, 0.0f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
+		width/2,  height/2, 0.0f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+		width/2,  height/2, 0.0f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+    -width/2,  height/2, 0.0f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+    -width/2, -height/2, 0.0f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f
+	};
+
+	Mesh* mesh = MeshCreate();
+ 	ParseVertex(mesh, vertices, 6, 8);
+	MeshSetup(mesh);
+
+	return mesh;
+}
+
 Mesh* MeshGenerateCube(float width, float height, float length)
 {
 	float vertices[] = {
