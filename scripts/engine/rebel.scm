@@ -254,30 +254,6 @@ C_return(v);")))))
 (define window:swap (foreign-lambda void "WindowSwap"))
 (define window:destroy (foreign-lambda void "WindowDestroy"))
 
-;; RENDERER
-;; ========
-(define cube:create% (foreign-lambda c-pointer "CubeCreate"))
-(define (cube:create) (set-finalizer! (cube:create%) free%))
-
-(define sprite:create% (foreign-lambda c-pointer "SpriteCreate"))
-(define (sprite:create) (set-finalizer! (sprite:create%) free%))
-
-(define renderer:draw_
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Renderer")) a0)
-    (float a1)
-    (float a2)
-    (float a3)
-    (float a4)
-    (float a5))
-   "RendererDraw(a0, (vec3){ a1, a2, a3 }, a4, a5);"))
-(define (renderer:draw a b c d)
-  (renderer:draw_ a (first b) (second b) (third b) c d))
-
-(define-foreign-record-type (renderer Renderer)
-  ((c-pointer (struct "Material")) material Renderer-material Renderer-material!))
-
 ;; MESH
 ;; ====
 (define mesh:generate_cube (foreign-lambda (c-pointer (struct "Mesh")) "MeshGenerateCube" float float float))
@@ -292,15 +268,15 @@ C_return(v);")))))
 (define (model:texture_diffuse! model texture)
   (Material-textureDiffuse1! (Model-material model) texture))
 
-(define model:draw_
+(define renderer:draw_
   (foreign-lambda*
    void
    (((c-pointer (struct "Model")) a0)
     (float a1) (float a2) (float a3)
     (float a4) (float a5) (float a6))
-   "ModelDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
-(define (model:draw a b c)
-  (model:draw_ a
+   "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
+(define (renderer:draw a b c)
+  (renderer:draw_ a
 	       (first b) (second b) (third b)
 	       (first c) (second c) (third c)))
 
@@ -318,23 +294,6 @@ C_return(v);")))))
 
 ;; TODO; Change the third parameter into an enum
 (define material:load_texture (foreign-lambda (c-pointer (struct "Texture")) "MaterialLoadTexture" c-string c-string c-string))
-
-;; TODO; Do we need the following functions anymore?
-(define (material:texture_diffuse! renderer texture)
-  (Material-textureDiffuse1! (Renderer-material renderer) texture))
-
-(define (material:texture_specular! renderer texture)
-  (Material-textureSpecular1! (Renderer-material renderer) texture))
-
-(define (material:color renderer) (Material-color (Renderer-material renderer)))
-
-(define (material:color! renderer color)
-  (Material-color! (Renderer-material renderer) (first color) (second color) (third color)))
-
-(define (material:shininess renderer) (Material-shininess (Renderer-material renderer)))
-
-(define (material:shininess! renderer shine)
-  (Material-shininess! (Renderer-material renderer) shine))
 
 ;; SHADER
 ;; ======

@@ -44,10 +44,10 @@
 
   ;; Draw the backpack and cube models
   (shader:use *model-shader*)
-  (model:draw *backpack* '(0 0 0) '(1 1 1))
+  (renderer:draw *backpack* '(0 0 0) '(1 1 1))
 
-  (model:draw *cube* '(2.5 0.0 0.0) '(1.0 1.0 1.0))
-  (model:draw *cube* '(-2.5 0.0 0.0) '(1.0 1.0 1.0))
+  (renderer:draw *cube* '(2.5 0.0 0.0) '(1.0 1.0 1.0))
+  (renderer:draw *cube* '(-2.5 0.0 0.0) '(1.0 1.0 1.0))
 
   ;; Setup shader for point lights
   (shader:use *light-shader*)
@@ -63,7 +63,7 @@
   ;; Draw each point-light
   (for-each
    (lambda (point-light)
-     (model:draw *light-cube*
+     (renderer:draw *light-cube*
 		 (light:point:position point-light)
 		 (light:point:diffuse point-light)))
    *point-lights*)

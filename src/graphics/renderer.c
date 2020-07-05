@@ -1,161 +1,15 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <string.h>
-
 #include "renderer.h"
-#include "material.h"
-#include "../external/stb_image.h"
-#include "../rebel.h"
 #include "shader.h"
+#include "../rebel.h"
 
-Renderer* CubeCreate()
-{
-	float vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,  0.0f, 0.0f,
-
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f
-	}; 
-
-	unsigned int attributeSizes[] = { 3, 3, 2 };	
-	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 36, 8, attributeSizes, sizeof(attributeSizes));
-
-	stbi_set_flip_vertically_on_load(true);
-	return renderer;
-}
-
-Renderer* SpriteCreate()
-{
-	float vertices[] = {  
-		// positions   // texCoords
-		-0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  1.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  1.0f, 1.0f
-	};
-
-	unsigned int attributeSizes[] = { 2, 2 };
-	Renderer* renderer = RendererCreate(vertices, sizeof(vertices), 6, 4, attributeSizes, sizeof(attributeSizes));
-	
-	stbi_set_flip_vertically_on_load(true);
-	
-	return renderer;
-}
-
-Renderer* RendererCreate(float *vertices, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
-{
-	Renderer* renderer = (Renderer*)malloc(sizeof(Renderer));
-	renderer->indicesSize = indicesSize;
-	renderer->material = MaterialCreate();
-	
-	glGenVertexArrays(1, &renderer->VAO);
-	glGenBuffers(1, &renderer->VBO);
-	
-	glBindVertexArray(renderer->VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, renderer->VBO);
-	glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
-
-	unsigned int pointerPos = 0;
- 	for ( unsigned int i = 0 ; i < attributeCount ; i++ )
-	{
-		void* p = 0;
-		if ( i > 0 )
-		{
-			pointerPos += attributeSizes[i-1];
-			p = (void*)(pointerPos * sizeof(float));
-		}
-
-		glVertexAttribPointer(i, attributeSizes[i], GL_FLOAT, GL_FALSE, stride * sizeof(float), p);
-		glEnableVertexAttribArray(i);
-	}
-
-	glBindVertexArray(0);
-	
-	return renderer;
-}
-
-Renderer* RendererCreate2(Mesh* mesh, int verticesSize, int indicesSize, int stride, unsigned int* attributeSizes, unsigned int attributeCount)
-{
-	Renderer* renderer = (Renderer*)malloc(sizeof(Renderer));
-	renderer->indicesSize = indicesSize;
-	renderer->material = MaterialCreate();
-	
-	glGenVertexArrays(1, &mesh->VAO);
-	glGenBuffers(1, &mesh->VBO);
-	
-	glBindVertexArray(mesh->VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
-	glBufferData(GL_ARRAY_BUFFER, verticesSize, mesh->vertices[0], GL_STATIC_DRAW);
-
-	unsigned int pointerPos = 0;
- 	for ( unsigned int i = 0 ; i < attributeCount ; i++ )
-	{
-		void* p = 0;
-		if ( i > 0 )
-		{
-			pointerPos += attributeSizes[i-1];
-			p = (void*)(pointerPos * sizeof(float));
-		}
-
-		glVertexAttribPointer(i, attributeSizes[i], GL_FLOAT, GL_FALSE, stride * sizeof(float), p);
-		glEnableVertexAttribArray(i);
-	}
-
-	glBindVertexArray(0);
-	
-	return renderer;
-}
-
-void RendererDraw(Renderer *rendererObject, vec3 position, float width, float height)
+void RendererDraw(Model* modelObject, vec3 position, vec3 color)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
 		shaderToUse = g_rebel.currentShader;
 	else
 		shaderToUse = g_rebel.defaultShader;
-		
+
 	float windowWidth = g_rebel.window.width;
 	float windowHeight = g_rebel.window.height;
 
@@ -178,11 +32,9 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 	glm_vec3_add(g_rebel.mainCamera->position, g_rebel.mainCamera->front, temp);
 	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
-	glm_scale(model, (vec3){ width, height, height });
+	glm_translate(model, position);
 
-	glm_translate(model, (vec3) { position[0] / width, position[1] / height, position[2] / height});
-
-	ShaderSetFloat(shaderToUse, "material.shininess", rendererObject->material->shininess);
+	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
 
 	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
 
@@ -233,22 +85,47 @@ void RendererDraw(Renderer *rendererObject, vec3 position, float width, float he
 	mat4 inversedModel;
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
-	
-	glBindVertexArray(rendererObject->VAO);
 
-	if ( rendererObject->material->color != NULL )
-		ShaderSetVec3(shaderToUse, "material.color", rendererObject->material->color);
+	ShaderSetVec3(shaderToUse, "material.color", color);
 
-	ShaderSetInt(shaderToUse, "material.texture_diffuse1", 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureDiffuse1);
-	
-	if ( rendererObject->material->textureSpecular1 > 0 )
+	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
-		ShaderSetInt(shaderToUse, "material.texture_specular1", 1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, rendererObject->material->textureSpecular1);
+		Texture* texture = modelObject->material->loadedTextures[i];
+		unsigned int id = texture->id;
+
+		if ( strcmp(texture->type, "texture_diffuse" ) )
+		{
+			glActiveTexture(GL_TEXTURE0);
+			ShaderSetInt(shaderToUse, "material.texture_diffuse1", i);
+			glBindTexture(GL_TEXTURE_2D, id);
+		}
+		else if ( strcmp(texture->type, "texture_specular" ) )
+		{
+			glActiveTexture(GL_TEXTURE1);
+			ShaderSetInt(shaderToUse, "material.texture_specular1", i);
+			glBindTexture(GL_TEXTURE_2D, id);
+		}
 	}
 
-	glDrawArrays(GL_TRIANGLES, 0, rendererObject->indicesSize);
+	
+	/* if ( modelObject->material->textureSpecular1 > 0 ) */
+	/* { */
+	/* 	ShaderSetInt(shaderToUse, "material.texture_specular1", 1); */
+	/* 	glActiveTexture(GL_TEXTURE1); */
+	/* 	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1); */
+	/* } */
+
+	for ( unsigned int i = 0; i < modelObject->meshesSize ; i++ )
+	{
+		glBindVertexArray(modelObject->meshes[i]->VAO);
+	
+		if ( modelObject->meshes[i]->indicesSize )
+			glDrawElements(GL_TRIANGLES, modelObject->meshes[i]->indicesSize, GL_UNSIGNED_INT, 0);
+		else 
+			glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[i]->verticesSize);
+	}
+
+
+	glBindVertexArray(0);
+	glActiveTexture(GL_TEXTURE0);
 }

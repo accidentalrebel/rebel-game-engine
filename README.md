@@ -40,7 +40,7 @@ Simple program that loads a 3d model and draws it. Also has first person camera 
   (shader:use *basic-shader*)
 
   ;; Draw the backpack model
-  (model:draw *backpack* '(0 0 0) '(1 1 1))
+  (renderer:draw *backpack* '(0 0 0) '(1 1 1))
   
   (window:swap))
 ```

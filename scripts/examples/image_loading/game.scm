@@ -28,7 +28,7 @@
 
   (shader:use *model-shader*)
 
-  (model:draw *sprite* '(0.5 0 -0.5) '(1 1 1))
-  (model:draw *sprite* '(0 0 0) '(1 1 1))
+  (renderer:draw *sprite* '(0.5 0 -0.5) '(1 1 1))
+  (renderer:draw *sprite* '(0 0 0) '(1 1 1))
   
   (window:swap))
