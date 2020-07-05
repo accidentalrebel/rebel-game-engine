@@ -5,8 +5,9 @@
 (include-relative "../../extensions/fpcam")
 
 (define (init)
-  (set! *sprite*
-	(model:load_from_mesh (mesh:generate_plane 1.0 1.0)))
+  ;; sprite:create is just a convenience method for creating sprites
+  ;; it stull uses the model/mesh system
+  (set! *sprite* (sprite:create 1.0 1.0))
 
   ;; TODO; Not specifying the third parameter for material:load_texture should default to "texture_diffuse"
   ;; TODO; Consider changing the third parameter to an Enum
@@ -15,7 +16,6 @@
 
   (set! *model-shader*
 	(shader:create "shaders/image-loading.vs" "shaders/image-loading.fs"))
-   	;; (shader:create "shaders/model-loading.vs" "shaders/model-loading.fs"))
   )
 
 (define (update)

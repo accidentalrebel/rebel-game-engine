@@ -254,6 +254,23 @@ C_return(v);")))))
 (define window:swap (foreign-lambda void "WindowSwap"))
 (define window:destroy (foreign-lambda void "WindowDestroy"))
 
+;; RENDERER
+;; ========
+(define renderer:draw_
+  (foreign-lambda*
+   void
+   (((c-pointer (struct "Model")) a0)
+    (float a1) (float a2) (float a3)
+    (float a4) (float a5) (float a6))
+   "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
+
+(define (renderer:draw a b c)
+  (renderer:draw_ a
+	       (first b) (second b) (third b)
+	       (first c) (second c) (third c)))
+
+(define sprite:create (foreign-lambda (c-pointer "Model") "SpriteCreate" float float))
+
 ;; MESH
 ;; ====
 (define mesh:generate_cube (foreign-lambda (c-pointer (struct "Mesh")) "MeshGenerateCube" float float float))
@@ -267,18 +284,6 @@ C_return(v);")))))
 (define model:load_from_mesh (foreign-lambda (c-pointer (struct "Model")) "ModelLoadFromMesh" (c-pointer (struct "Mesh"))))
 (define (model:texture_diffuse! model texture)
   (Material-textureDiffuse1! (Model-material model) texture))
-
-(define renderer:draw_
-  (foreign-lambda*
-   void
-   (((c-pointer (struct "Model")) a0)
-    (float a1) (float a2) (float a3)
-    (float a4) (float a5) (float a6))
-   "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 });"))
-(define (renderer:draw a b c)
-  (renderer:draw_ a
-	       (first b) (second b) (third b)
-	       (first c) (second c) (third c)))
 
 (define model:load (foreign-lambda (c-pointer (struct "Model")) "ModelLoad" c-string))
 (define model:add_texture (foreign-lambda void "ModelAddTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
