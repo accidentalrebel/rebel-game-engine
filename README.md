@@ -67,7 +67,7 @@ v1.0
 ## Getting started
 Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).
 
-You could also check out the examples folder.
+You could also check out the [examples folder](https://github.com/accidentalrebel/rebel-game-engine/tree/master/scripts/examples).
 
 ## Dependencies / External Libraries
 As much as I want to implement everything myself, these libraries are just better so no need to re-invent the wheel.
