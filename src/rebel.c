@@ -22,16 +22,12 @@ void RebelInit(unsigned int windowWidth, unsigned int windowHeight, const char* 
 
 	stbi_set_flip_vertically_on_load(true);
 
-	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
-	
 	printf("Rebel Engine Initialized\n");
-
-	/* test_texture = MaterialLoadTexture("assets/textures/awesomeface.png", "assets/textures/awesomeface.png", "texture_diffuse"); */
 } 
 
 void RebelDraw()
 {
-	//DrawTexture(test_texture, 0, 0);
+	// Intentionally left blank. Mostly used for debugging.
 }
 
 void InputProcess()

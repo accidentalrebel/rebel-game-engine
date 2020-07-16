@@ -21,6 +21,12 @@
 (define (update)
   ;; This is needed for the first person camera extension to work
   (fpcam:update)
+
+  (when (key:up? keys/M)
+    (if (mouse:cursor_enabled?)
+	(mouse:cursor_disable)
+	(mouse:cursor_enable)))
+  
   #t)
 
 (define (render)
