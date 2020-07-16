@@ -5,9 +5,14 @@ The engine is an application of the lessons I've learned researching game engine
 
 For more information check out [the wiki](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started) for more info.
 
-### Engine is still under heavy development
-
 ![screenshot-1](https://raw.githubusercontent.com/accidentalrebel/rebel-game-engine/master/images/rebel-screenshot-1.png)
+
+## Writeups
+* [#1 - Thinking of adding Lisp to my custom game engine](https://www.accidentalrebel.com/thinking-of-adding-lisp-to-my-custom-game-engine.html)
+* [#2 - Implemented basic Scheme scripting for Rebel Game Engine](https://www.accidentalrebel.com/implemented-basic-scheme-scripting-for-rebel-game-engine.html)
+* [#3 - Rebel Game Engine now works on different platforms](https://www.accidentalrebel.com/rebel-game-engine-now-works-on-different-platforms.html)
+* [#4 - Following Lispy conventions](https://www.accidentalrebel.com/following-lispy-conventions.html)
+* [#5 - Switching from C/C++ to C](https://www.accidentalrebel.com/switching-from-c-c---to-c.html)
 
 ## Sample Code
 Simple program that loads a 3d model and draws it. Also has first person camera movement.
@@ -45,8 +50,7 @@ Simple program that loads a 3d model and draws it. Also has first person camera 
   (window:swap))
 ```
 
-## Roadmap
-v1.0
+## Features
 - [x] Window management
 - [x] Drawing sprites
 - [x] Coordinate system
@@ -55,14 +59,7 @@ v1.0
 - [x] Camera System
 - [x] Basic Lighting
 - [x] Model loading
-- [ ] Sprite transparency
-- [ ] Cubemaps
-- [ ] Scenes
-- [ ] Text
-- [ ] Audio
-- [ ] Save system
-- [ ] Scheme examples
-- [ ] Deployment
+- [x] Sprite transparency
 
 ## Getting started
 Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).
@@ -78,7 +75,7 @@ As much as I want to implement everything myself, these libraries are just bette
   * [stb_image](https://github.com/nothings/stb) - Image loader
   * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
   * [chicken-scheme](https://www.call-cc.org/) - Enables lisp scripting
-  * [assimp][https://www.assimp.org/] - For loading 3d models
+  * [assimp](https://www.assimp.org/) - For loading 3d models
 
 ## Many thanks
 This project wouldn't be possible without these:
@@ -89,4 +86,3 @@ This project wouldn't be possible without these:
   * [Raylib](https://www.raylib.com/) - An excellent game programming library that has very simple and readable code.
   * [Raylib-Chibi](https://github.com/VincentToups/raylib-chibi) - A chibi-scheme implementation for the Raylib library. Scripting on my engine won't be possible without this as a reference.
   * [Myriad Game Engine](https://github.com/jobtalle/Myriad) - A bare bones game engine that I used to learn about OpenGL loading without GLFW.
-
