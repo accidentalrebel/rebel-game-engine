@@ -1,0 +1,6 @@
+(define (debug:update)
+  (when (key:up? keys/M)
+    (if (mouse:cursor_enabled?)
+	(mouse:cursor_disable)
+	(mouse:cursor_enable)))
+  )
