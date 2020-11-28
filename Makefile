@@ -30,7 +30,7 @@ debug: 	lib
 debug: 	all
 
 run:
-	cd src ; $(CSC) -cxx $(CC) ../scripts/examples/image_loading/main.scm -o ../output/game $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
+	cd src ; $(CSC) -cxx $(CC) ../scripts/examples/basic_lighting/main.scm -o ../output/game $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
 	output/game
 
 lib: 	objs
