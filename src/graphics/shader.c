@@ -10,7 +10,18 @@ Shader* ShaderDefault()
 Shader* ShaderCreate(const char* vertexPath, const char* fragmentPath)
 {
 	char* vShaderCode = UtilsReadFile(vertexPath);
+	if (vShaderCode == NULL)
+	{
+		printf("ERROR::SHADER::VERTEX::SHADER_LOAD_FAILED %s\n", vertexPath);
+		exit(1);
+	}
+		
 	char* fShaderCode = UtilsReadFile(fragmentPath);
+	if (fShaderCode == NULL)
+	{
+		printf("ERROR::SHADER::VERTEX::SHADER_LOAD_FAILED %s\n", fragmentPath);
+		exit(1);
+	}
 
 	unsigned int vertex, fragment;
 	int success;

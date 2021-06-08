@@ -3,7 +3,10 @@
 char* UtilsReadFile(const char* filename) {
   FILE* fp = fopen(filename, "rb");
 	if ( fp == NULL )
+	{
 		printf("ERROR::UTILS::UTILS_READ_FILE::FILE_READ_ERROR %s\n", filename);
+		return NULL;
+	}
 
   fseek(fp, 0, SEEK_END);
   long int size = ftell(fp);
