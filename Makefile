@@ -33,7 +33,6 @@ debug: 	all
 
 run:
 	cd src ; $(CSC) -cxx $(CC) $(MAIN_FILE) -o $(OUTPUT_FILE) $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
-	$(OUTPUT_FILE)
 
 lib: 	objs
 	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o
