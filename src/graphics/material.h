@@ -2,12 +2,7 @@
 
 #include "../external/cglm/cglm.h"
 #include "mesh.h"
-
-typedef struct Texture {
-	unsigned int id;
-	char* type;
-	char* path;
-} Texture;
+#include "texture.h"
 
 typedef struct Material
 {
@@ -22,4 +17,3 @@ typedef struct Material
 } Material;
 
 Material* MaterialCreate();
-Texture* MaterialLoadTexture(const char* directory, const char* fileName, char* typeName);

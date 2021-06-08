@@ -109,7 +109,7 @@ void ShaderSetMat4(Shader *shader, const char* name, mat4 mat)
 	glUniformMatrix4fv(glGetUniformLocation(shader->id, name), 1, GL_FALSE, (float*)mat);
 }
 
-unsigned int TextureLoad(const char* filePath)
+unsigned int ShaderTextureLoad(const char* filePath)
 {
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
@@ -145,7 +145,7 @@ unsigned int TextureLoad(const char* filePath)
 	return textureID;
 }
 
-void TextureUnload(unsigned int textureId)
+void ShaderTextureUnload(unsigned int textureId)
 {
 	if ( textureId > 0 )
 		glDeleteTextures(1, &textureId);

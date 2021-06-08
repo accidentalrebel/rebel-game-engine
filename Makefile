@@ -35,7 +35,7 @@ run:
 	cd src ; $(CSC) -cxx $(CC) $(MAIN_FILE) -o $(OUTPUT_FILE) $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/shader.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/shader.o tmp/texture.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o
 
 objs:
 	$(CC) $(DEBUG) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
@@ -43,6 +43,7 @@ objs:
 	$(CC) $(DEBUG) -c src/graphics/model.c $(INCLUDE_FLAGS) -o tmp/model.o	
 	$(CC) $(DEBUG) -c src/graphics/mesh.c $(INCLUDE_FLAGS) -o tmp/mesh.o
 	$(CC) $(DEBUG) -c src/graphics/shader.c $(INCLUDE_FLAGS) -o tmp/shader.o
+	$(CC) $(DEBUG) -c src/graphics/texture.c $(INCLUDE_FLAGS) -o tmp/texture.o
 	$(CC) $(DEBUG) -c src/graphics/renderer.c $(INCLUDE_FLAGS) -o tmp/renderer.o
 	$(CC) $(DEBUG) -c src/graphics/camera.c $(INCLUDE_FLAGS) -o tmp/camera.o
 	$(CC) $(DEBUG) -c src/graphics/material.c $(INCLUDE_FLAGS) -o tmp/material.o

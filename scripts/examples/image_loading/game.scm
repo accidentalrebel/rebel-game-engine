@@ -10,10 +10,10 @@
   ;; it stull uses the model/mesh system
   (set! *sprite* (sprite:create 1.0 1.0))
 
-  ;; TODO; Not specifying the third parameter for material:load_texture should default to "texture_diffuse"
+  ;; TODO; Not specifying the third parameter for textrue:load should default to "texture_diffuse"
   ;; TODO; Consider changing the third parameter to an Enum
   (model:add_texture *sprite*
-  		     (material:load_texture "assets/textures/" "awesomeface.png" "texture_diffuse"))
+  		     (texture:load "assets/textures/" "awesomeface.png" "texture_diffuse"))
 
   (set! *model-shader*
 	(shader:create "shaders/image-loading.vs" "shaders/image-loading.fs"))

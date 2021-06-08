@@ -298,7 +298,7 @@ C_return(v);")))))
 (make_vec3_setter Material-color! "Material" "color")
 
 ;; TODO; Change the third parameter into an enum
-(define material:load_texture (foreign-lambda (c-pointer (struct "Texture")) "MaterialLoadTexture" c-string c-string c-string))
+(define texture:load (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
 
 ;; SHADER
 ;; ======
@@ -306,11 +306,8 @@ C_return(v);")))))
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create vertexPath fragmentPath) (set-finalizer! (shader:create% vertexPath fragmentPath) free%))
-
-;; TEXTURE
-;; =======
-(define texture:load (foreign-lambda unsigned-integer "TextureLoad" c-string))
-(define texture:unload (foreign-lambda void "TextureUnload" unsigned-integer))
+(define shader:texture_load (foreign-lambda unsigned-integer "ShaderTextureLoad" c-string))
+(define shader:texture_unload (foreign-lambda void "ShaderTextureUnload" unsigned-integer))
 
 ;; KEYBOARD
 ;; ========

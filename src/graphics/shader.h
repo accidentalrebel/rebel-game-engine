@@ -25,5 +25,5 @@ void ShaderSetVec3Ex(Shader *shader, const char* name, float v1, float v2, float
 void ShaderSetVec3(Shader *shader, const char* name, vec3 v);
 void ShaderSetMat4(Shader *shader, const char* name, mat4 mat);
 
-unsigned int TextureLoad(const char* filePath);
-void TextureUnload(unsigned int textureId);
+unsigned int ShaderTextureLoad(const char* filePath);
+void ShaderTextureUnload(unsigned int textureId);

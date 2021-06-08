@@ -2,6 +2,7 @@
 #include "mesh.h"
 #include "material.h"
 #include "shader.h"
+#include "texture.h"
 #include "../rebel.h"
 #include "../utils/string_utils.h"
 
@@ -121,7 +122,7 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 
 	if ( !IsTextureAlreadyLoaded(processing, path.data) )
 	{
-		Texture* texture = MaterialLoadTexture(processing->directory, path.data, typeName);
+		Texture* texture = TextureLoad(processing->directory, path.data, typeName);
 
 		ModelAddTexture(processing->model, texture);
 		printf("INFO::MODEL::Loaded texture: ID(%i): type(%s) path(%s)\n", texture->id, texture->type, texture->path);
