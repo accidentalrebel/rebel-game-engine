@@ -25,14 +25,14 @@ void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 
 void CursorEnable()
 {
-	printf("Enabling cursor.");
+	printf("INFO::MOUSE::Enabling cursor.\n");
 	glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	g_rebel.mouse->cursorEnabled = 1;
 }
 
 void CursorDisable()
 {
-	printf("Disabling cursor.");
+	printf("INFO::MOUSE::Disabling cursor.\n");
 	glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	g_rebel.mouse->cursorEnabled = 0;
 }
