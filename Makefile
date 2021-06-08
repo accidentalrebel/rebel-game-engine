@@ -2,6 +2,8 @@
 # If this Makefile seems a little weird. Don't worry I am aware that I don't know how to properly make a Makefile.
 # I'll work on improving this in the future.
 
+# SPECIFY $(MAIN_FILE) and $(OUTPUT_FILE)
+
 PLATFORM = linux
 CC = gcc
 CSC = csc
@@ -30,7 +32,7 @@ debug: 	lib
 debug: 	all
 
 run:
-	cd src ; $(CSC) -cxx $(CC) ../scripts/examples/basic_lighting/main.scm -o ../output/game $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
+	cd src ; $(CSC) -cxx $(CC) $(MAIN_FILE) -o $(OUTPUT_FILE) $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
 	output/game
 
 lib: 	objs
