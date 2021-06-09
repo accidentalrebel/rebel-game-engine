@@ -2,7 +2,7 @@
 #include "shader.h"
 #include "../rebel.h"
 
-void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec4 color)
+void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
@@ -33,6 +33,7 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec4 color)
 	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
 	glm_translate(model, position);
+	glm_scale(model, scale);
 
 	// Rotation
 	// ========

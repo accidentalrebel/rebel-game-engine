@@ -14,6 +14,17 @@
 (define (render)
   (window:clear '(1 1 1))
   (shader:use (shader:default))
+
+  (renderer:draw *sprite*
+		 position:'(-1 1 0))
+
+  (renderer:draw *sprite*
+		 position:'(0 1 0)
+		 scale: '(0.75 0.75 0.75))
+
+  (renderer:draw *sprite*
+		 position:'(1 1 0)
+		 scale: '(0.5 0.5 0.5))
   
   (renderer:draw *sprite*
 		 position:'(1 0 0)
