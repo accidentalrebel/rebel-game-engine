@@ -266,11 +266,11 @@ C_return(v);")))))
     (float a7) (float a8) (float a9) (float a10))
    "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 }, (vec4){ a7, a8, a9, a10 });"))
 
-(define (renderer:draw a b c d)
-  (renderer:draw_ a
-	       (first b) (second b) (third b)
-	       (first c) (second c) (third c)
-	       (first d) (second d) (third d) (fourth d)))
+(define (renderer:draw model #!key (postion '(0 0 0)) (rotation '(0 0 0)) ((color '(1 1 1 1)))
+  (renderer:draw_ model
+	       (first position) (second position) (third position)
+	       (first rotation) (second rotation) (third rotation)
+	       (first color) (second color) (third color) (fourth color)))
 
 ;; SPRITE
 ;; ======
