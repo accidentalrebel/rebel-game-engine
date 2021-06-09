@@ -34,6 +34,26 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 color)
 
 	glm_translate(model, position);
 
+	vec3 rotation;
+	glm_vec3_copy((vec3){1.0f, 0.0f, 1.0f}, rotation);
+	if ( rotation[0] != 0.0f )
+	{
+		glm_vec3_copy((vec3){rotation[0], 0.0f, 0.0f}, temp);
+		glm_rotate(model, (float)glfwGetTime(), temp);
+	}
+
+	if ( rotation[1] != 0.0f )
+	{
+		glm_vec3_copy((vec3){0.0f, rotation[1], 0.0f}, temp);
+		glm_rotate(model, (float)glfwGetTime(), temp);
+	}
+
+	if ( rotation[2] != 0.0f )
+	{
+		glm_vec3_copy((vec3){0.0f, 0.0f, rotation[2]}, temp);
+		glm_rotate(model, (float)glfwGetTime(), temp);
+	}
+
 	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
 
 	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
