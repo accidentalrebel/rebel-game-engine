@@ -263,14 +263,14 @@ C_return(v);")))))
    (((c-pointer (struct "Model")) a0)
     (float a1) (float a2) (float a3)
     (float a4) (float a5) (float a6)
-    (float a7) (float a8) (float a9))
-   "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 }, (vec3){ a7, a8, a9 });"))
+    (float a7) (float a8) (float a9) (float a10))
+   "RendererDraw(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 }, (vec4){ a7, a8, a9, a10 });"))
 
 (define (renderer:draw a b c d)
   (renderer:draw_ a
 	       (first b) (second b) (third b)
 	       (first c) (second c) (third c)
-	       (first d) (second d) (third d)))
+	       (first d) (second d) (third d) (fourth d)))
 
 ;; SPRITE
 ;; ======

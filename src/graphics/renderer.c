@@ -2,7 +2,7 @@
 #include "shader.h"
 #include "../rebel.h"
 
-void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec3 color)
+void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec4 color)
 {
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
@@ -105,7 +105,7 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec3 color)
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
 
-	ShaderSetVec3(shaderToUse, "material.color", color);
+	ShaderSetVec4(shaderToUse, "material.color", color);
 
 	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
@@ -126,14 +126,6 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec3 color)
 		}
 	}
 
-	
-	/* if ( modelObject->material->textureSpecular1 > 0 ) */
-	/* { */
-	/* 	ShaderSetInt(shaderToUse, "material.texture_specular1", 1); */
-	/* 	glActiveTexture(GL_TEXTURE1); */
-	/* 	glBindTexture(GL_TEXTURE_2D, modelObject->material->textureSpecular1); */
-	/* } */
-
 	for ( unsigned int i = 0; i < modelObject->meshesSize ; i++ )
 	{
 		glBindVertexArray(modelObject->meshes[i]->VAO);
@@ -143,7 +135,6 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec3 color)
 		else 
 			glDrawArrays(GL_TRIANGLES, 0, modelObject->meshes[i]->verticesSize);
 	}
-
 
 	glBindVertexArray(0);
 	glActiveTexture(GL_TEXTURE0);

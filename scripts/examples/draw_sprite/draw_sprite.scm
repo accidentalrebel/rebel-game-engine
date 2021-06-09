@@ -12,12 +12,16 @@
   #t)
 
 (define (render)
-  (window:clear '(0.1 0.1 0.1))
+  (window:clear '(1 1 1))
 
   (shader:use (shader:default))
-  (renderer:draw *sprite* '(-1 0 0) '(0 0 0) '(1 1 1))
-  (renderer:draw *sprite* '(0 0 0) '(0 0 90) '(1 1 1))
-  (renderer:draw *sprite* '(1 0 0) '(0 0 180) '(1 1 1))
+  (renderer:draw *sprite* '(0.5 0 0) '(0 0 180) '(1 1 1 0.5))
+  (renderer:draw *sprite* '(0 0 0) '(0 0 90) '(1 1 1 0.75))
+  (renderer:draw *sprite* '(-0.5 0 0) '(0 0 0) '(1 1 1 1))
+
+  (renderer:draw *sprite* '(1 -1 0) '(0 0 180) '(0 0 1 1))
+  (renderer:draw *sprite* '(0 -1 0) '(0 0 90) '(0 1 0 1))
+  (renderer:draw *sprite* '(-1 -1 0) '(0 0 0) '(1 0 0 1))
   
   (window:swap))
 

@@ -4,4 +4,4 @@
 #include "material.h"
 #include "../external/cglm/cglm.h"
 
-void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec3 color);
+void RendererDraw(Model* modelObject, vec3 position, vec3 rotation, vec4 color);

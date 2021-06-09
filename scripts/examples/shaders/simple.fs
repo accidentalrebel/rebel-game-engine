@@ -7,6 +7,7 @@ struct Material
 {
 	sampler2D texture_diffuse1;
 	sampler2D texture_specular1;
+	vec4 color;
 };
 
 uniform Material material;
@@ -17,5 +18,5 @@ void main()
 	if(textureColor.a < 0.1)
 		discard;
 
-	FragColor = textureColor;
+	FragColor = textureColor * material.color;
 }
