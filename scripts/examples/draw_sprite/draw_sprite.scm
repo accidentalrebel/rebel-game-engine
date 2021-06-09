@@ -1,10 +1,12 @@
 (define *sprite*)
+(define *texture*)
 
 (define (init)
   (set! *sprite*
 	(sprite:create 1.0 1.0))
-  (sprite:load_texture *sprite* 
-		      (texture:load "assets/textures/" "awesomeface.png" "texture_diffuse")))
+  (set! *texture*
+	(texture:load "assets/textures/" "awesomeface.png" "texture_diffuse"))
+  (sprite:load_texture *sprite* *texture*))
 
 (define (update)
   #t)
@@ -18,5 +20,4 @@
   (window:swap))
 
 (define (destroy)
-  
-  )
+  (texture:unload *texture*))

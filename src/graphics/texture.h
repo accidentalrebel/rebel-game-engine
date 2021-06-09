@@ -7,3 +7,4 @@ typedef struct Texture {
 } Texture;
 
 Texture* TextureLoad(const char* directory, const char* fileName, char* typeName);
+void TextureUnload();

@@ -303,6 +303,7 @@ C_return(v);")))))
 
 ;; TODO; Change the third parameter into an enum
 (define texture:load (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
+(define texture:unload (foreign-lambda void "TextureUnload" (c-pointer (struct "Texture"))))
 
 ;; SHADER
 ;; ======

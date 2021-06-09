@@ -17,3 +17,9 @@ Texture* TextureLoad(const char* directory, const char* fileName, char* typeName
 
 	return texture;
 }
+
+void TextureUnload(Texture* texture)
+{
+	ShaderTextureUnload(texture->id);
+	free(texture);
+}
