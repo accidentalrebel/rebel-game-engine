@@ -304,7 +304,17 @@ C_return(v);")))))
 (make_vec3_setter Material-color! "Material" "color")
 
 ;; TODO; Change the third parameter into an enum
-(define texture:load (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
+(define texture:load_ (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
+(define (texture:load path type-name)
+  (let ((splitted-path (string-split path "/")))
+    (texture:load_ (string-append (car (flatten (string-intersperse (take splitted-path
+									  (- (length splitted-path)
+									     1))
+								    "/")))
+				  "/")
+		   (last splitted-path)
+		   type-name)))
+
 (define texture:unload (foreign-lambda void "TextureUnload" (c-pointer (struct "Texture"))))
 
 ;; SHADER
