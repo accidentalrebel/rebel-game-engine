@@ -8,7 +8,7 @@ Model* SpriteCreate(float width, float height)
 	return ModelLoadFromMesh(MeshGeneratePlane(width, height));
 }
 
-void SpriteAddTexture(Model* sprite, Texture* texture)
+void SpriteLoadTexture(Model* sprite, Texture* texture)
 {
-	ModelAddTexture(sprite, texture);
+	ModelLoadTexture(sprite, texture);
 }

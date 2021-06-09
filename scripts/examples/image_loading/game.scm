@@ -12,7 +12,7 @@
 
   ;; TODO; Not specifying the third parameter for textrue:load should default to "texture_diffuse"
   ;; TODO; Consider changing the third parameter to an Enum
-  (model:add_texture *sprite*
+  (model:load_texture *sprite*
   		     (texture:load "assets/textures/" "awesomeface.png" "texture_diffuse"))
 
   (set! *model-shader*

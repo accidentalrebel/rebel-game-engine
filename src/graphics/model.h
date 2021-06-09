@@ -18,7 +18,7 @@ typedef struct ModelProcessing {
 
 Model* ModelLoad(const char* path);
 Model* ModelLoadFromMesh(Mesh* mesh);
-void ModelAddTexture(Model* model, Texture* texture);
+void ModelLoadTexture(Model* model, Texture* texture);
 void ModelDraw(Model* modelObject, vec3 position, vec3 color);
 
 void ModelProcessNode(ModelProcessing* processing, const struct aiNode* node, const struct aiScene* scene, unsigned int *currentMeshIndex);

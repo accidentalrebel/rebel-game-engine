@@ -273,7 +273,7 @@ C_return(v);")))))
 ;; SPRITE
 ;; ======
 (define sprite:create (foreign-lambda (c-pointer "Model") "SpriteCreate" float float))
-(define sprite:add_texture (foreign-lambda void "SpriteAddTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
+(define sprite:load_texture (foreign-lambda void "SpriteLoadTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
 
 ;; MESH
 ;; ====
@@ -290,7 +290,7 @@ C_return(v);")))))
   (Material-textureDiffuse1! (Model-material model) texture))
 
 (define model:load (foreign-lambda (c-pointer (struct "Model")) "ModelLoad" c-string))
-(define model:add_texture (foreign-lambda void "ModelAddTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
+(define model:load_texture (foreign-lambda void "ModelLoadTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
 
 ;; MATERIAL
 ;; ========

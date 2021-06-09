@@ -27,7 +27,7 @@
 	(model:load_from_mesh (mesh:generate_cube 0.25 0.25 0.25)))
 
   ;; Load the texture and assign is as a texture diffuse
-  (model:add_texture *cube*
+  (model:load_texture *cube*
 		     (texture:load "assets/textures/" "texel-checker.png" "texture_diffuse"))
 
   (set! *backpack* (model:load "assets/models/backpack/backpack.obj"))

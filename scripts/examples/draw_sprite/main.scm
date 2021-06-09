@@ -26,6 +26,7 @@
       ))
 
 (define (exit-program)
+  (destroy)
   (rebel:destroy)
   (print "Program exited."))
 
