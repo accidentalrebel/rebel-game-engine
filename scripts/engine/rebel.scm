@@ -270,7 +270,10 @@ C_return(v);")))))
 	       (first b) (second b) (third b)
 	       (first c) (second c) (third c)))
 
+;; SPRITE
+;; ======
 (define sprite:create (foreign-lambda (c-pointer "Model") "SpriteCreate" float float))
+(define sprite:add_texture (foreign-lambda void "SpriteAddTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
 
 ;; MESH
 ;; ====
