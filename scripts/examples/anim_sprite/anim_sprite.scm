@@ -11,11 +11,10 @@
   (camera:projection! (camera:main) camera-projection/ORTHOGRAPHIC)
   
   (set! *texture* (texture:load "assets/textures/animated-sprite.png"
-				       "texture_diffuse"))
+				"texture_diffuse"))
   (set! *sprite* (sprite:create 128 128))
   (sprite:load_texture *sprite*
-		       *texture*)
-  )
+		       *texture*))
 
 (define (update)
   (debug:update)
@@ -25,10 +24,7 @@
     (set! *current-frame-index* (+ *current-frame-index* 1))
     (when (>= *current-frame-index* 6)
       (set! *current-frame-index* 0))
-    (set! *countdown* *ANIM_DURATION*)
-    (display "\n#########################")
-    (display *current-frame-index*))
-  #t)
+    (set! *countdown* *ANIM_DURATION*)))
 
 (define (render)
   (window:clear '(1 1 1))
