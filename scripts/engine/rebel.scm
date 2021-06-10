@@ -313,8 +313,8 @@ C_return(v);")))))
 ;; TEXTURE
 ;; =======
 (define-foreign-record-type (texture Texture)
-  (integer width texture:width)
-  (integer height texture:height))
+  (float width texture:width)
+  (float height texture:height))
 
 ;; (define (texture:width texture) (Texture-width texture))
 ;; (make_vec3_getter Texture-width "Texture" "width")
