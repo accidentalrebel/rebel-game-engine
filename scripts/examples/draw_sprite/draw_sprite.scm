@@ -1,3 +1,5 @@
+(include-relative "../../extensions/debug")
+
 (define *sprite*)
 (define *texture*)
 
@@ -13,6 +15,7 @@
 		       *texture*))
 
 (define (update)
+  (debug:update)
   #t)
 
 (define (render)

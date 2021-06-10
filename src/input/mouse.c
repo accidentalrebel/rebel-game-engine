@@ -7,7 +7,10 @@ Mouse* MouseInit()
 	mouse->xPos = 0.0f;
 	mouse->yPos = 0.0f;
 	mouse->initialized = false;
+	
 	mouse->cursorEnabled = 0;
+	glfwSetInputMode(g_rebel.window.glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	return mouse;
 }
 
