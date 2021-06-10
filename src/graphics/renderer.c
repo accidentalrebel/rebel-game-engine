@@ -120,13 +120,6 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
 	ShaderSetVec4(shaderToUse, "material.color", color);
 		
-	// 800 x 600
-	//400x300
-	//400/800
-	//scale = 0.5
-	//
-	ShaderSetVec4Ex(shaderToUse, "texRect", 0.5f, 0.5f, 0.5f, 0.5f);
-
 	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
 		Texture* texture = modelObject->material->loadedTextures[i];
@@ -144,6 +137,19 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 			ShaderSetInt(shaderToUse, "material.texture_specular1", i);
 			glBindTexture(GL_TEXTURE_2D, id);
 		}
+
+		// HANDLE DRAW RECT
+		// ================
+		vec4 drawRect;
+		vec4 texRect;
+		glm_vec4_copy((vec4){0, 0, 238, 238}, drawRect);
+
+		if ( drawRect == NULL )
+			glm_vec4_copy((vec4){0, 0, 1, 1}, texRect);
+		else
+			glm_vec4_copy((vec4){drawRect[0] / texture->width, drawRect[1] / texture->height, drawRect[2] / texture->width, drawRect[3] / texture->height}, texRect);
+
+		ShaderSetVec4(shaderToUse, "texRect", texRect);
 	}
 
 	for ( unsigned int i = 0; i < modelObject->meshesSize ; i++ )
