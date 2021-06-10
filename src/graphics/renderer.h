@@ -10,7 +10,7 @@ typedef struct Renderer
 } Renderer;
 
 Renderer* RendererInit();
-void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, vec4 color);
+void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color);
 
 bool RendererIsWireFrameEnabled();
 void RendererSetWireFrameMode(bool status);

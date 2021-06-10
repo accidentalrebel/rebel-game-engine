@@ -9,7 +9,7 @@ Renderer* RendererInit()
 	return renderer;
 }
 
-void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, vec4 color)
+void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
 	if ( g_rebel.renderer->isWireFrameMode )
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -140,11 +140,12 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 
 		// HANDLE DRAW RECT
 		// ================
-		vec4 drawRect;
 		vec4 texRect;
-		glm_vec4_copy((vec4){0, 0, 238, 238}, drawRect);
-
-		if ( drawRect == NULL )
+		
+		if ( drawRect[0] == 0 &&
+				 drawRect[1] == 0 &&
+				 drawRect[2] == 0 &&
+				 drawRect[3] == 0 )
 			glm_vec4_copy((vec4){0, 0, 1, 1}, texRect);
 		else
 			glm_vec4_copy((vec4){drawRect[0] / texture->width, drawRect[1] / texture->height, drawRect[2] / texture->width, drawRect[3] / texture->height}, texRect);
