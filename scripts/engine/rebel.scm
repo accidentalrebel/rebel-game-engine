@@ -90,20 +90,11 @@ C_return(v);")))))
 ;; VECTORS
 ;; =======
 (define-foreign-record-type (vec3 Vec3)
-  (float x Vec3-x Vec3-x!)
-  (float y Vec3-y Vec3-y!)
-  (float z Vec3-z Vec3-z!))
+  (float x vec3:x vec3:x!)
+  (float y vec3:y vec3:y!)
+  (float z vec3:z vec3:z!))
 
 (define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
-
-(define (vec3:x vec) (Vec3-x vec))
-(define (vec3:x! vec x) (Vec3-x! vec x))
-
-(define (vec3:y vec) (Vec3-y vec))
-(define (vec3:y! vec y) (set! (Vec3-y vec) y))
-
-(define (vec3:z vec) (Vec3-z vec))
-(define (vec3:z! vec z) (set! (Vec3-z vec) z))
 
 ;; VEC3 CONVERTERS
 ;; ===============
@@ -137,28 +128,29 @@ C_return(v);")))))
   ((orthographic camera-projection/ORTHOGRAPHIC) ORTHOGRAPHIC))
 
 (define-foreign-record-type (camera Camera)
-  (unsigned-integer projection Camera-projection Camera-projection!)
-  (float pitch Camera-pitch Camera-pitch!)
-  (float yaw Camera-yaw Camera-yaw!))
+  (unsigned-integer projection camera:projection camera:projection!)
+  (float pitch camera:pitch camera:pitch!)
+  (float yaw camera:yaw camera:yaw!))
 
 (make_vec3_getter Camera-position "Camera" "position")
 
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
-(define (camera:projection! camera value) (Camera-projection! camera value))
-(define (camera:projection camera) (Camera-projection camera))
 
 (define (camera:position camera)
   (vec3_to_list (Camera-position camera)))
 
-;(define (camera:position! camera value) (set! (Camera-position camera) value))
-(define (camera:front camera) (Camera-front camera))
-(define (camera:front! camera value) (set! (Camera-front camera) value))
-(define (camera:yaw camera) (Camera-yaw camera))
-(define (camera:yaw! camera value) (Camera-yaw! camera value))
-(define (camera:pitch camera) (Camera-pitch camera))
-(define (camera:pitch! camera value) (Camera-pitch! camera value))
+(define (camera:position! camera value)
+  (set! (Camera-position camera)
+	(list_to_vec3 value)))
+
+(define (camera:front camera)
+  (vec3_to_list (Camera-front camera)))
+
+(define (camera:front! camera value)
+  (set! (Camera-front camera)
+	(list_to_vec3 value)))
 
 ;; LIGHT
 ;; =====
