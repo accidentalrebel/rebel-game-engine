@@ -6,6 +6,11 @@
 	(sprite:create 1.0 1.0))
   (set! *texture*
 	(texture:load "assets/textures/awesomeface.png" "texture_diffuse"))
+  (display (conc (texture:width *texture*)
+		 " "
+		 (texture:height *texture*)
+		 "\n"))
+  
   (sprite:load_texture *sprite* *texture*))
 
 (define (update)

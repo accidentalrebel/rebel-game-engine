@@ -305,6 +305,21 @@ C_return(v);")))))
 
 (make_vec3_setter Material-color! "Material" "color")
 
+;; TEXTURE
+;; =======
+(define-foreign-record-type (texture Texture)
+  (integer width texture:width)
+  (integer height texture:height))
+
+;; (define (texture:width texture) (Texture-width texture))
+;; (make_vec3_getter Texture-width "Texture" "width")
+;; (make_vec3_getter Texture-height "Texture" "height")
+
+;; (define (texture:width texture)
+;;   (Texture-width texture))
+;; (define (texture:height texture)
+;;   (Texture-height texture))
+
 ;; TODO; Change the third parameter into an enum
 (define texture:load_ (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
 (define (texture:load path type-name)
@@ -325,8 +340,6 @@ C_return(v);")))))
 (define shader:default (foreign-lambda c-pointer "ShaderDefault"))
 (define shader:create% (foreign-lambda c-pointer "ShaderCreate" c-string c-string))
 (define (shader:create vertexPath fragmentPath) (set-finalizer! (shader:create% vertexPath fragmentPath) free%))
-(define shader:texture_load (foreign-lambda unsigned-integer "ShaderTextureLoad" c-string))
-(define shader:texture_unload (foreign-lambda void "ShaderTextureUnload" unsigned-integer))
 
 ;; KEYBOARD
 ;; ========
