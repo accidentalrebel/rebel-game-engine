@@ -2,8 +2,20 @@
 #include "shader.h"
 #include "../rebel.h"
 
+Renderer* RendererInit()
+{
+	Renderer* renderer = (Renderer*)malloc(sizeof(Renderer));
+	renderer->isWireFrameMode = 0;
+	return renderer;
+}
+
 void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
+	if ( g_rebel.renderer->isWireFrameMode )
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
 	Shader* shaderToUse;
 	if ( g_rebel.currentShader != NULL )
 		shaderToUse = g_rebel.currentShader;
@@ -139,4 +151,14 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 
 	glBindVertexArray(0);
 	glActiveTexture(GL_TEXTURE0);
+}
+
+bool RendererIsWireFrameEnabled()
+{
+	return g_rebel.renderer->isWireFrameMode;
+}
+
+void RendererSetWireFrameMode(bool status)
+{
+	g_rebel.renderer->isWireFrameMode = status;
 }

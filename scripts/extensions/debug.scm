@@ -3,4 +3,8 @@
     (if (mouse:cursor_enabled?)
 	(mouse:cursor_disable)
 	(mouse:cursor_enable)))
+  (when (key:up? keys/W)
+    (if (renderer:wireframe?)
+	(renderer:wireframe! #f)
+	(renderer:wireframe! #t)))
   )

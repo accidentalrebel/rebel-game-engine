@@ -5,6 +5,7 @@
 #include "input/mouse.h"
 #include "graphics/shader.h"
 #include "graphics/camera.h"
+#include "graphics/renderer.h"
 #include "graphics/lighting/light.h"
 
 typedef struct Rebel {
@@ -18,6 +19,7 @@ typedef struct Rebel {
 	DirectionLight* directionLight;
 	PointLight* pointLights[4];
 	unsigned int pointLightCount;
+	Renderer *renderer;
 } Rebel;
 
 extern Rebel g_rebel;

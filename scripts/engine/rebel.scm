@@ -263,6 +263,9 @@ C_return(v);")))))
 
 ;; RENDERER
 ;; ========
+(define renderer:wireframe? (foreign-lambda bool "RendererIsWireFrameEnabled"))
+(define renderer:wireframe! (foreign-lambda void "RendererSetWireFrameMode" bool))
+
 (define renderer:draw_
   (foreign-lambda*
    void
@@ -357,6 +360,7 @@ C_return(v);")))))
   ((g keys/G) KEY_G)
   ((m keys/M) KEY_M)
   ((o keys/O) KEY_O)
+  ((w keys/W) KEY_W)
   ((comma keys/COMMA) KEY_COMMA))
 
 (define key:is_down (foreign-lambda unsigned-integer "KeyIsDown" (enum "Keys")))
