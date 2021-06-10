@@ -41,6 +41,32 @@ Vec3* Vec3Create(float x, float y, float z)
 
 ;; MACROS
 ;; ======
+
+;; This is an explanation for make_vec3_getter and make_vec3_setter:
+;;
+;; Say we have a C struct below:
+;;; typedef struct Duck {
+;;;   vec3 direction;
+;;; }
+;;
+;; We then define a lisp function to get the value of direction as shown below:
+;;; (make_vec3_getter Duck-direction "Duck" "direction")
+;;; (define (duck:direction duck)
+;;;   (vec3_to_list (Duck-direction duck)))
+(define-syntax make_vec3_getter
+  (syntax-rules ()
+    ((make_vec3_setter function-name struct-name variable-name body ...)
+     (define function-name
+       (foreign-lambda*
+	(c-pointer (struct "Vec3"))
+	(((c-pointer (struct struct-name)) a0))
+	"Vec3* v = Vec3Create(a0->"variable-name"[0], a0->"variable-name"[1], a0->"variable-name"[2]);
+C_return(v);")))))
+
+;; To set the direction, we do the following:
+;;; (make_vec3_getter Duck-direction "Duck" "direction")
+;;; (define (duck:direction! duck value)
+;;;   (set! (Duck-direction duck) (list_to_vec3 value)))
 (define-syntax make_vec3_setter
   (syntax-rules ()
     ((make_vec3_setter function-name struct-name variable-name body ...)
@@ -53,15 +79,6 @@ Vec3* Vec3Create(float x, float y, float z)
 	(float a3))
        "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->"variable-name");")))))
 
-(define-syntax make_vec3_getter
-  (syntax-rules ()
-    ((make_vec3_setter function-name struct-name variable-name body ...)
-     (define function-name
-       (foreign-lambda*
-	(c-pointer (struct "Vec3"))
-	(((c-pointer (struct struct-name)) a0))
-	"Vec3* v = Vec3Create(a0->"variable-name"[0], a0->"variable-name"[1], a0->"variable-name"[2]);
-C_return(v);")))))
 
 ;; UTILS
 ;; =====
@@ -132,12 +149,11 @@ C_return(v);")))))
   (float pitch camera:pitch camera:pitch!)
   (float yaw camera:yaw camera:yaw!))
 
-(make_vec3_getter Camera-position "Camera" "position")
-
 (define camera:main (foreign-lambda c-pointer "CameraGetMain"))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
 
+(make_vec3_getter Camera-position "Camera" "position")
 (define (camera:position camera)
   (vec3_to_list (Camera-position camera)))
 
@@ -154,9 +170,6 @@ C_return(v);")))))
 
 ;; LIGHT
 ;; =====
-;; (define-foreign-record-type (light Light)
-;;   ((c-pointer (struct "vec3")) diffuse Light-diffuse Light-diffuse!))
-
 (make_vec3_setter Light-diffuse! "Light" "diffuse")
 (make_vec3_getter Light-diffuse "Light" "diffuse")
 
