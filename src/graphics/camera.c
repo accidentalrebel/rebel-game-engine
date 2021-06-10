@@ -6,7 +6,7 @@ Camera* CameraCreate()
 {
 	Camera *camera = (Camera*)malloc(sizeof(Camera));
 	camera->projection = PERSPECTIVE;
-	camera->size = 5;
+	camera->size = 1;
 	camera->fov = 45;
 	glm_vec3_copy((vec3){0, 0, 10}, camera->position);
 	glm_vec3_copy((vec3){0, 0, 1}, camera->front);

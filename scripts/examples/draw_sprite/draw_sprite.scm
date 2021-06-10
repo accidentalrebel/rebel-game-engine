@@ -2,16 +2,15 @@
 (define *texture*)
 
 (define (init)
-  (set! *sprite*
-	(sprite:create 1.0 1.0))
-  (set! *texture*
-	(texture:load "assets/textures/awesomeface.png" "texture_diffuse"))
-  (display (conc (texture:width *texture*)
-		 " "
-		 (texture:height *texture*)
-		 "\n"))
+  (camera:projection! (camera:main) camera-projection/ORTHOGRAPHIC)
   
-  (sprite:load_texture *sprite* *texture*))
+  (set! *texture* (texture:load "assets/textures/awesomeface.png"
+				"texture_diffuse"))
+  (set! *sprite* (sprite:create 100
+				100))
+
+  (sprite:load_texture *sprite*
+		       *texture*))
 
 (define (update)
   #t)
@@ -21,20 +20,20 @@
   (shader:use (shader:default))
 
   (renderer:draw *sprite*
-		 position:'(-1 1 0))
+		 position:'(-100 100 0))
 
   (renderer:draw *sprite*
-		 position:'(0 1 0)
+		 position:'(0 100 0)
 		 rotation:'(0 0 90)
 		 scale: '(0.75 0.75 0.75))
 
   (renderer:draw *sprite*
-		 position:'(1 1 0)
+		 position:'(100 100 0)
 		 rotation:'(0 0 180)
 		 scale: '(0.5 0.5 0.5))
   
   (renderer:draw *sprite*
-		 position:'(1 0 0)
+		 position:'(100 0 0)
 		 rotation:'(0 0 180)
 		 color:'(1 1 1 0.5))
   
@@ -43,20 +42,20 @@
 		 color:'(1 1 1 0.75))
   
   (renderer:draw *sprite*
-		 position:'(-1 0 0))
+		 position:'(-100 0 0))
 
   (renderer:draw *sprite*
-		 position:'(1 -1 0)
+		 position:'(100 -100 0)
 		 rotation:'(0 0 180)
 		 color:'(0 0 1 1))
   
   (renderer:draw *sprite*
-		 position:'(0 -1 0)
+		 position:'(0 -100 0)
 		 rotation:'(0 0 90)
 		 color:'(0 1 0 1))
   
   (renderer:draw *sprite*
-		 position:'(-1 -1 0)
+		 position:'(-100 -100 0)
 		 color:'(1 0 0 1))
   
   (window:swap))

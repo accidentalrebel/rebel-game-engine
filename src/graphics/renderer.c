@@ -25,7 +25,7 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 		glm_perspective(zoom, screenRatio, 0.1f, 100.0f, projection);
 	}
 	else {
-		glm_ortho(-windowWidth / 30 / size, windowWidth / 30 / size, -windowHeight / 30 / size, windowHeight / 30 / size, -100.0f, 100.0f, projection);
+		glm_ortho(-windowWidth / size / 2, windowWidth / size / 2, -windowHeight / size / 2, windowHeight / size / 2, -100.0f, 100.0f, projection);
 	}
 
 	vec3 temp;
