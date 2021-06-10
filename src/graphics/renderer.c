@@ -70,6 +70,7 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
 	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
 
+
 	char base[30];
 	for ( unsigned int i = 0 ; i < g_rebel.pointLightCount ; i++ )
 	{
@@ -117,8 +118,14 @@ void RendererDraw(Model* modelObject, vec3 position, vec3 scale, vec3 rotation, 
 	mat4 inversedModel;
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
-
 	ShaderSetVec4(shaderToUse, "material.color", color);
+		
+	// 800 x 600
+	//400x300
+	//400/800
+	//scale = 0.5
+	//
+	ShaderSetVec4Ex(shaderToUse, "texRect", 0.5f, 0.5f, 0.5f, 0.5f);
 
 	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
