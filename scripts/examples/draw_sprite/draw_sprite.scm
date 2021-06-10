@@ -20,10 +20,12 @@
 
   (renderer:draw *sprite*
 		 position:'(0 1 0)
+		 rotation:'(0 0 90)
 		 scale: '(0.75 0.75 0.75))
 
   (renderer:draw *sprite*
 		 position:'(1 1 0)
+		 rotation:'(0 0 180)
 		 scale: '(0.5 0.5 0.5))
   
   (renderer:draw *sprite*
