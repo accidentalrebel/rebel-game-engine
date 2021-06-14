@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "shader.h"
+#include "sprite.h"
 #include "../rebel.h"
 
 Renderer* RendererInit()
@@ -165,6 +166,11 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 
 	glBindVertexArray(0);
 	glActiveTexture(GL_TEXTURE0);
+}
+
+void RendererDrawText(Text* text)
+{
+	//RendererDraw(sprite, (vec4){0, 0, 100, 100}, (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
 }
 
 bool RendererIsWireFrameEnabled()

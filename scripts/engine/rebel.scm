@@ -286,6 +286,8 @@ C_return(v);")))))
 		  (first rotation) (second rotation) (third rotation)
 		  (first color) (second color) (third color) (fourth color)))
 
+(define renderer:draw_text (foreign-lambda void "RendererDrawText" (c-pointer (struct "Text"))))
+
 ;; SPRITE
 ;; ======
 (define sprite:create (foreign-lambda (c-pointer "Model") "SpriteCreate" float float))
@@ -357,6 +359,8 @@ C_return(v);")))))
 			       "/")
 		(last splitted-path)
 		type-name)))
+
+(define text:create (foreign-lambda (c-pointer (struct "Text")) "TextCreate" c-string))
 
 ;; SHADER
 ;; ======
