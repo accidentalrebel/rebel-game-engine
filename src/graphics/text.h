@@ -14,6 +14,8 @@ typedef struct Text {
 } Text;
 
 Text* TextCreate(char* string);
+void TextLoadFont(Text* text, Font *font);
+	
 Font* FontLoad(const char* directory, const char* filename, char* typeName);
 void FontUnload(Font* font);
 

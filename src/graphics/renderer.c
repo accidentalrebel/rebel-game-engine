@@ -170,7 +170,7 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 
 void RendererDrawText(Text* text)
 {
-	//RendererDraw(sprite, (vec4){0, 0, 100, 100}, (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
+	RendererDraw(text->canvas, (vec4){0, 0, 500, 500}, (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
 }
 
 bool RendererIsWireFrameEnabled()

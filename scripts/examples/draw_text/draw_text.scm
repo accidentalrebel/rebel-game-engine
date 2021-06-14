@@ -7,6 +7,9 @@
   (set! *font* (font:load "assets/fonts/font.png"
 			  "texture_diffuse"))
   (set! *text* (text:create "test"))
+  
+  (text:load_font *text*
+		  *font*)
   #t)
   
 (define (update)
@@ -15,8 +18,9 @@
 
 (define (render)
   (window:clear '(1 1 1))
+  (shader:use (shader:default))
 
-  (renderer:draw_text *text*)
+  (renderer:draw (text:canvas *text*))
   
   (window:swap))
 

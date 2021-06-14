@@ -361,6 +361,9 @@ C_return(v);")))))
 		type-name)))
 
 (define text:create (foreign-lambda (c-pointer (struct "Text")) "TextCreate" c-string))
+(define text:load_font (foreign-lambda void "TextLoadFont" (c-pointer (struct "Text")) (c-pointer (struct "Font"))))
+(define-foreign-record-type (text Text)
+  ((c-pointer (struct "Model")) canvas text:canvas text:canvas!))
 
 ;; SHADER
 ;; ======
