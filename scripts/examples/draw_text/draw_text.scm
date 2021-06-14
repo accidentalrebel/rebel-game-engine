@@ -4,10 +4,12 @@
 (define *text*)
 
 (define (init)
+  (camera:projection! (camera:main) camera-projection/ORTHOGRAPHIC)
+  
   (set! *font* (font:load "assets/fonts/font.png"
 			  "texture_diffuse"))
   (set! *text* (text:create "test"))
-  
+
   (text:load_font *text*
 		  *font*)
   #t)
@@ -20,7 +22,7 @@
   (window:clear '(1 1 1))
   (shader:use (shader:default))
 
-  (renderer:draw (text:canvas *text*))
+  (renderer:draw_text *text*)
   
   (window:swap))
 
