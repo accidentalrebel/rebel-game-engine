@@ -172,10 +172,10 @@ void RendererDrawText(Text* text)
 {
 	float textureWidth = text->font->fontTexture->width;
 	float textureHeight = text->font->fontTexture->height;
-	float rectX = 1;
-	float rectY = 18;
-	float rectWidth = 8;
-	float rectHeight = 16;
+	float rectX = 241;
+	float rectY = 209;
+	float rectWidth = 27;
+	float rectHeight = 37;
 	RendererDraw(text->canvas, (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
 							 (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
 }

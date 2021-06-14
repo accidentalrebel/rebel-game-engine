@@ -19,7 +19,7 @@
   #t)
 
 (define (render)
-  (window:clear '(1 1 1))
+  (window:clear '(0 0 0))
   (shader:use (shader:default))
 
   (renderer:draw_text *text*)
