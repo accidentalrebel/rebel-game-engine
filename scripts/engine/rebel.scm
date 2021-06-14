@@ -35,6 +35,7 @@ Vec3* Vec3Create(float x, float y, float z)
 (foreign-declare "#include \"graphics/model.h\"")
 (foreign-declare "#include \"graphics/mesh.h\"")
 (foreign-declare "#include \"graphics/material.h\"")
+(foreign-declare "#include \"graphics/text.h\"")
 (foreign-declare "#include \"graphics/lighting/light.h\"")
 (foreign-declare "#include \"input/keyboard.h\"")
 (foreign-declare "#include \"input/mouse.h\"")
@@ -342,8 +343,20 @@ C_return(v);")))))
 				  "/")
 		   (last splitted-path)
 		   type-name)))
-
 (define texture:unload (foreign-lambda void "TextureUnload" (c-pointer (struct "Texture"))))
+
+;; TEXT
+;; ====
+(define font:load_ (foreign-lambda (c-pointer (struct "Font")) "FontLoad" c-string c-string c-string))
+(define (font:load path type-name)
+  (let ((splitted-path (string-split path "/")))
+    (font:load_ (string-append (car (flatten (string-intersperse (take splitted-path
+									  (- (length splitted-path)
+									     1))
+								    "/")))
+			       "/")
+		(last splitted-path)
+		type-name)))
 
 ;; SHADER
 ;; ======
