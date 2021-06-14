@@ -7,13 +7,6 @@ For more information check out [the wiki](https://github.com/accidentalrebel/reb
 
 ![screenshot-1](https://raw.githubusercontent.com/accidentalrebel/rebel-game-engine/master/images/rebel-screenshot-1.png)
 
-## Writeups
-* [#1 - Thinking of adding Lisp to my custom game engine](https://www.accidentalrebel.com/thinking-of-adding-lisp-to-my-custom-game-engine.html)
-* [#2 - Implemented basic Scheme scripting for Rebel Game Engine](https://www.accidentalrebel.com/implemented-basic-scheme-scripting-for-rebel-game-engine.html)
-* [#3 - Rebel Game Engine now works on different platforms](https://www.accidentalrebel.com/rebel-game-engine-now-works-on-different-platforms.html)
-* [#4 - Following Lispy conventions](https://www.accidentalrebel.com/following-lispy-conventions.html)
-* [#5 - Switching from C/C++ to C](https://www.accidentalrebel.com/switching-from-c-c---to-c.html)
-
 ## Sample Code
 Simple program that loads a 3d model and draws it. Also has first person camera movement.
 
@@ -60,6 +53,8 @@ Simple program that loads a 3d model and draws it. Also has first person camera 
 - [x] Basic Lighting
 - [x] Model loading
 - [x] Sprite transparency
+- [ ] Bitmap text rendering
+- [ ] Playimg audio
 
 ## Getting started
 Details on how to download the engine, build, and run a sample program can be found on the wiki [here](https://github.com/accidentalrebel/rebel-game-engine/wiki/Getting-Started).
@@ -76,6 +71,13 @@ As much as I want to implement everything myself, these libraries are just bette
   * [shader.h](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h) - LearnOpenGL's shader class
   * [chicken-scheme](https://www.call-cc.org/) - Enables lisp scripting
   * [assimp](https://www.assimp.org/) - For loading 3d models
+
+## Writeups
+* [#1 - Thinking of adding Lisp to my custom game engine](https://www.accidentalrebel.com/thinking-of-adding-lisp-to-my-custom-game-engine.html)
+* [#2 - Implemented basic Scheme scripting for Rebel Game Engine](https://www.accidentalrebel.com/implemented-basic-scheme-scripting-for-rebel-game-engine.html)
+* [#3 - Rebel Game Engine now works on different platforms](https://www.accidentalrebel.com/rebel-game-engine-now-works-on-different-platforms.html)
+* [#4 - Following Lispy conventions](https://www.accidentalrebel.com/following-lispy-conventions.html)
+* [#5 - Switching from C/C++ to C](https://www.accidentalrebel.com/switching-from-c-c---to-c.html)
 
 ## Many thanks
 This project wouldn't be possible without these:
