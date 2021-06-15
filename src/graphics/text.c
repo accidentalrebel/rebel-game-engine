@@ -40,16 +40,17 @@ void TextLoadFont(Text* text, Font *font) {
 	{
 		struct json_object_s* charObjE = charObj->value->payload;
 		struct json_object_element_s* current = charObjE->start;
-
+		
 		text->font->fontChar[i] = (FontChar*)malloc(sizeof(FontChar));
 		
 		while ( current != NULL )
 		{
 			const char* str = ((struct json_string_s*)current->value->payload)->string;
 			int value = atoi(str);
+
 			if ( strcmp(current->name->string, "id") == 0 )
 				text->font->fontChar[i]->id = value;
- 			else if ( strcmp(current->name->string, "x") == 0 )
+			else if ( strcmp(current->name->string, "x") == 0 )
 				text->font->fontChar[i]->x = value;
 			else if ( strcmp(current->name->string, "y") == 0 )
 				text->font->fontChar[i]->y = value;
@@ -68,7 +69,16 @@ void TextLoadFont(Text* text, Font *font) {
 		assert(charObj->value->type == json_type_object);
 	}
 
-	printf("TEST: %d, %d, %d\n", text->font->fontChar[maxArrayCount-1]->id, text->font->fontChar[maxArrayCount-1]->width, text->font->fontChar[maxArrayCount-1]->width);
+	// We then populate the character map.
+	// 
+	unsigned int lastId = text->font->fontChar[maxArrayCount - 1]->id;
+	text->font->charMap = (unsigned short*)calloc(lastId, sizeof(unsigned short));
+		
+	for ( unsigned int i = 0; i < maxArrayCount ; i++ )
+	{
+		unsigned int currentId = text->font->fontChar[i]->id;
+		text->font->charMap[currentId] = i;
+	}
 	
 	free(root);
 }
