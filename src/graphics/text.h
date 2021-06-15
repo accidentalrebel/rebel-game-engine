@@ -3,8 +3,15 @@
 #include "texture.h"
 #include "model.h"
 
+typedef struct FontChar {
+	int id;
+	int width;
+	int height;
+} FontChar;
+
 typedef struct Font {
 	Texture* fontTexture;
+	FontChar* fontChar;
 } Font;
 
 typedef struct Text {
