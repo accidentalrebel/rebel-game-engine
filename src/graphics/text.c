@@ -93,3 +93,9 @@ void FontUnload(Font* font) {
 	TextureUnload(font->fontTexture);
 	free(font);
 }
+
+FontChar* GetFontChar(Font* font, unsigned short id)
+{
+	unsigned short fontCharIndex = font->charMap[id];
+	return font->fontChar[fontCharIndex];
+}
