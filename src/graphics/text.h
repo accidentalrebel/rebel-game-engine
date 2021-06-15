@@ -5,6 +5,8 @@
 
 typedef struct FontChar {
 	int id;
+	int x;
+	int y;
 	int width;
 	int height;
 } FontChar;

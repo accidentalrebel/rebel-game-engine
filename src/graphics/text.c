@@ -49,6 +49,10 @@ void TextLoadFont(Text* text, Font *font) {
 			int value = atoi(str);
 			if ( strcmp(current->name->string, "id") == 0 )
 				text->font->fontChar[i]->id = value;
+ 			else if ( strcmp(current->name->string, "x") == 0 )
+				text->font->fontChar[i]->x = value;
+			else if ( strcmp(current->name->string, "y") == 0 )
+				text->font->fontChar[i]->y = value;
 			else if ( strcmp(current->name->string, "width") == 0 )
 				text->font->fontChar[i]->width = value;
 			else if ( strcmp(current->name->string, "height") == 0 )
