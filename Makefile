@@ -35,7 +35,7 @@ run:
 	cd src ; $(CSC) -cxx $(CC) $(MAIN_FILE) -o $(OUTPUT_FILE) $(LINKER_FLAGS) -I../src/ $(DEBUG_CHICKEN) -static
 
 lib: 	objs
-	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/shader.o tmp/sprite.o tmp/texture.o tmp/text.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o
+	ar rvs libs/librebel.a tmp/rebel.o tmp/window.o tmp/shader.o tmp/sprite.o tmp/texture.o tmp/text.o tmp/camera.o tmp/renderer.o tmp/glad.o tmp/keyboard.o tmp/mouse.o tmp/light.o tmp/material.o tmp/mesh.o tmp/model.o tmp/utils.o
 
 objs:
 	$(CC) $(DEBUG) -c src/external/glad/src/glad.c $(INCLUDE_FLAGS) -o tmp/glad.o
@@ -53,6 +53,7 @@ objs:
 	$(CC) $(DEBUG) -c src/input/keyboard.c $(INCLUDE_FLAGS) -o tmp/keyboard.o
 	$(CC) $(DEBUG) -c src/input/mouse.c $(INCLUDE_FLAGS) -o tmp/mouse.o
 	$(CC) $(DEBUG) -c src/core/window.c $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/window.o
+	$(CC) $(DEBUG) -c src/core/utils.c $(INCLUDE_FLAGS) $(PREDEFINES) -o tmp/utils.o
 
 clean:
 	rm ./tmp/*.*
