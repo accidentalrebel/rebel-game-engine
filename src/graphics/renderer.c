@@ -194,9 +194,16 @@ void RendererDrawText(Text* text)
 
 		RendererDraw(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){ currentXOffset - 380,
+								 (vec3){
+									 // X positioning
+									 currentXOffset - 400
+									 + (rectWidth / 2)
+									 + fontChar->xOffset
+									 , 
+
+									 // Y positioning
 									 /* -300 // Move to the bottom of the screen. For checking of alignment.*/
-									 + (rectHeight / 2)    // Move the character above the linebo
+									 + (rectHeight / 2)    // Move the character above the line
 									 + (50 - rectHeight)   // Align the characters from the top
 									 - fontChar->yOffset   // Apply the offset
 									 + 5                   // Magic number to make it align back down to the line
