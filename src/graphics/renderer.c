@@ -188,9 +188,20 @@ void RendererDrawText(Text* text)
 		float heightScale = (float)rectHeight / 50.0f;
 		float widthScale = (float)rectWidth / 35.0f;
 
+		float adjustedHeight = 50 * heightScale;
+		float adjustedWidth = 35 * widthScale;
+
+		printf("%c = rectHeight: %d, heightScale: %f, adjustedHeight: %f\n", character, rectHeight, heightScale, adjustedHeight);
+
 		RendererDraw(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){ currentXOffset - 380, -fontChar->yOffset / 2, 0}, //-50 + (fontChar->yOffset * heightScale), 0},
+								 (vec3){ currentXOffset - 380,
+									 -300
+									 + (rectHeight / 2)
+									 + (50 - rectHeight)
+									 - fontChar->yOffset
+									 + 5
+										 , 0}, 
 								 (vec3){ widthScale, heightScale, 1},
 								 (vec3){ 0, 0, 0 },
 								 (vec4){ 1, 1, 1, 1 });

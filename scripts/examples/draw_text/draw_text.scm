@@ -8,7 +8,7 @@
   
   (set! *font* (font:load "assets/fonts/font.png"
 			  "texture_diffuse"))
-  (set! *text* (text:create "Test. ABQDqEpWx"))
+  (set! *text* (text:create "AopBQD"))
 
   (text:load_font *text*
 		  *font*)
