@@ -4,11 +4,14 @@
 #include "model.h"
 
 typedef struct FontChar {
-	int id;
-	int x;
-	int y;
-	int width;
-	int height;
+	unsigned short id;
+	unsigned short x;
+	unsigned short y;
+	unsigned short width;
+	unsigned short height;
+	unsigned short xAdvance;
+	unsigned short xOffset;
+	unsigned short yOffset;
 } FontChar;
 
 typedef struct Font {

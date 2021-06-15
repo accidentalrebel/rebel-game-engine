@@ -172,23 +172,27 @@ void RendererDrawText(Text* text)
 {
 	Font* font = text->font;
 
-	float currentXOffset = 0;
+	unsigned short currentXOffset = 0;
 	unsigned int stringLength = strlen(text->string);
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
 		FontChar* fontChar = GetFontChar(font, (unsigned short)character);
 	
-		float textureHeight = text->font->fontTexture->height;
-		float rectX = fontChar->x;
-		float rectY = fontChar->y;
-		float rectWidth = fontChar->width;
-		float rectHeight = fontChar->height;
-		
-		RendererDraw(text->canvas, (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){ currentXOffset, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
+		unsigned short textureHeight = text->font->fontTexture->height;
+		unsigned short rectX = fontChar->x;
+		unsigned short rectY = fontChar->y;
+		unsigned short rectWidth = fontChar->width;
+		unsigned short rectHeight = fontChar->height;
 
-		currentXOffset += rectWidth;
+		RendererDraw(text->canvas,
+								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
+								 (vec3){ currentXOffset - 380, 0, 0},
+								 (vec3){ 1, 1, 1},
+								 (vec3){ 0, 0, 0 },
+								 (vec4){ 1, 1, 1, 1 });
+
+		currentXOffset += fontChar->xAdvance + fontChar->xOffset + 1;
 	}
 }
 

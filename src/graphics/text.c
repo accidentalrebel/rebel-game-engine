@@ -7,7 +7,7 @@
 
 Text* TextCreate(char* string) {
 	Text* text = (Text*)malloc(sizeof(Text));
-	text->canvas = SpriteCreate(27, 37);
+	text->canvas = SpriteCreate(35, 50);
 	text->string = malloc(strlen(string) + 1);
 	strcpy(text->string, string);
 	
@@ -47,7 +47,7 @@ void TextLoadFont(Text* text, Font *font) {
 		while ( current != NULL )
 		{
 			const char* str = ((struct json_string_s*)current->value->payload)->string;
-			int value = atoi(str);
+			unsigned short value = (unsigned short)atoi(str);
 
 			if ( strcmp(current->name->string, "id") == 0 )
 				text->font->fontChar[i]->id = value;
@@ -59,6 +59,12 @@ void TextLoadFont(Text* text, Font *font) {
 				text->font->fontChar[i]->width = value;
 			else if ( strcmp(current->name->string, "height") == 0 )
 				text->font->fontChar[i]->height = value;
+			else if ( strcmp(current->name->string, "xadvance") == 0 )
+				text->font->fontChar[i]->xAdvance = value;
+			else if ( strcmp(current->name->string, "xoffset") == 0 )
+				text->font->fontChar[i]->xOffset = value;
+			else if ( strcmp(current->name->string, "yoffset") == 0 )
+				text->font->fontChar[i]->yOffset = value;
 		
 			current = current->next;
 		}
