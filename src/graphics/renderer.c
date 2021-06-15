@@ -185,14 +185,17 @@ void RendererDrawText(Text* text)
 		unsigned short rectWidth = fontChar->width;
 		unsigned short rectHeight = fontChar->height;
 
+		float heightScale = (float)rectHeight / 50.0f;
+		float widthScale = (float)rectWidth / 35.0f;
+
 		RendererDraw(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){ currentXOffset - 380, 0, 0},
-								 (vec3){ 1, 1, 1},
+								 (vec3){ currentXOffset - 380, -fontChar->yOffset / 2, 0}, //-50 + (fontChar->yOffset * heightScale), 0},
+								 (vec3){ widthScale, heightScale, 1},
 								 (vec3){ 0, 0, 0 },
 								 (vec4){ 1, 1, 1, 1 });
 
-		currentXOffset += fontChar->xAdvance + fontChar->xOffset + 1;
+		currentXOffset += fontChar->xAdvance;
 	}
 }
 
