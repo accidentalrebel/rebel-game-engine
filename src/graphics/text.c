@@ -8,7 +8,8 @@
 Text* TextCreate(char* string) {
 	Text* text = (Text*)malloc(sizeof(Text));
 	text->canvas = SpriteCreate(27, 37);
-	text->string = string;
+	text->string = malloc(strlen(string) + 1);
+	strcpy(text->string, string);
 	
 	return text;
 }

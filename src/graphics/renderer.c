@@ -171,16 +171,25 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 void RendererDrawText(Text* text)
 {
 	Font* font = text->font;
-	FontChar* fontChar = GetFontChar(font, 99);
+
+	float currentXOffset = 0;
+	unsigned int stringLength = strlen(text->string);
+	for ( unsigned int i = 0; i < stringLength; i++ )
+	{
+		char character = text->string[i];
+		FontChar* fontChar = GetFontChar(font, (unsigned short)character);
 	
-	float textureWidth = text->font->fontTexture->width;
-	float textureHeight = text->font->fontTexture->height;
-	float rectX = fontChar->x;
-	float rectY = fontChar->y;
-	float rectWidth = fontChar->width;
-	float rectHeight = fontChar->height;
-	RendererDraw(text->canvas, (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-							 (vec3){ 0, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
+		float textureHeight = text->font->fontTexture->height;
+		float rectX = fontChar->x;
+		float rectY = fontChar->y;
+		float rectWidth = fontChar->width;
+		float rectHeight = fontChar->height;
+		
+		RendererDraw(text->canvas, (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
+								 (vec3){ currentXOffset, 0, 0}, (vec3){ 1, 1, 1}, (vec3){ 0, 0, 0 }, (vec4){ 1, 1, 1, 1 });
+
+		currentXOffset += rectWidth;
+	}
 }
 
 bool RendererIsWireFrameEnabled()
