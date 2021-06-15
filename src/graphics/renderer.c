@@ -180,27 +180,26 @@ void RendererDrawText(Text* text)
 		FontChar* fontChar = GetFontChar(font, (unsigned short)character);
 	
 		unsigned short textureHeight = text->font->fontTexture->height;
+		unsigned short fontSize = 64;
+		
 		unsigned short rectX = fontChar->x;
 		unsigned short rectY = fontChar->y;
 		unsigned short rectWidth = fontChar->width;
 		unsigned short rectHeight = fontChar->height;
 
-		float heightScale = (float)rectHeight / 50.0f;
-		float widthScale = (float)rectWidth / 35.0f;
+		float heightScale = (float)rectHeight / fontSize;
+		float widthScale = (float)rectWidth / fontSize;
 
-		float adjustedHeight = 50 * heightScale;
-		float adjustedWidth = 35 * widthScale;
-
-		printf("%c = rectHeight: %d, heightScale: %f, adjustedHeight: %f\n", character, rectHeight, heightScale, adjustedHeight);
+		float adjustedHeight = fontSize * heightScale;
 
 		RendererDraw(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
 								 (vec3){ currentXOffset - 380,
-									 -300
-									 + (rectHeight / 2)
-									 + (50 - rectHeight)
-									 - fontChar->yOffset
-									 + 5
+									 /* -300 // Move to the bottom of the screen. For checking of alignment.*/
+									 + (rectHeight / 2)    // Move the character above the linebo
+									 + (50 - rectHeight)   // Align the characters from the top
+									 - fontChar->yOffset   // Apply the offset
+									 + 5                   // Magic number to make it align back down to the line
 										 , 0}, 
 								 (vec3){ widthScale, heightScale, 1},
 								 (vec3){ 0, 0, 0 },

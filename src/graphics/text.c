@@ -7,7 +7,7 @@
 
 Text* TextCreate(char* string) {
 	Text* text = (Text*)malloc(sizeof(Text));
-	text->canvas = SpriteCreate(35, 50);
+	text->canvas = SpriteCreate(64, 64);
 	text->string = malloc(strlen(string) + 1);
 	strcpy(text->string, string);
 	
