@@ -43,4 +43,6 @@
 (define (destroy)
   (text:destroy *text*)
   (text:destroy *mono-text*)
+  (font:unload *font*)
+  (font:unload *mono-font*)
   #t)

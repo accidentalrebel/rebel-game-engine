@@ -201,6 +201,7 @@
 			       "/")
 		(last splitted-path)
 		type-name)))
+(define font:unload (foreign-lambda void "FontUnload" (c-pointer (struct "Font"))))
 
 (define text:create (foreign-lambda (c-pointer (struct "Text")) "TextCreate" c-string))
 (define text:destroy (foreign-lambda void "TextDestroy" (c-pointer (struct "Text"))))

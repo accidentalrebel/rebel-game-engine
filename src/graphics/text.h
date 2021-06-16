@@ -17,7 +17,8 @@ typedef struct FontChar {
 typedef struct Font {
 	char* fontPath;
 	Texture* fontTexture;
-	FontChar** fontChar;
+	FontChar** fontChars;
+	unsigned short fontCharsSize;
 	unsigned short* charMap;
 	unsigned short baseHeight;
 } Font;

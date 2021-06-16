@@ -38,19 +38,18 @@ void TextLoadFont(Text* text, Font *font) {
 	assert(charsArrayValue->type == json_type_array);
 	struct json_array_s* charsArrayPayload = (struct json_array_s*)charsArrayValue->payload;
 
-	unsigned int maxArrayCount = charsArrayPayload->length;
-	
-	text->font->fontChar = (FontChar**)calloc(maxArrayCount, sizeof(FontChar));
+	text->font->fontCharsSize = charsArrayPayload->length;
+	text->font->fontChars = (FontChar**)calloc(text->font->fontCharsSize, sizeof(FontChar));
 
 	struct json_array_element_s* charObj = charsArrayPayload->start;
 	assert(charObj->value->type == json_type_object);
 
-	for ( unsigned int i = 0; i < maxArrayCount ; i++ )
+	for ( unsigned int i = 0; i < text->font->fontCharsSize ; i++ )
 	{
 		struct json_object_s* charObjE = charObj->value->payload;
 		struct json_object_element_s* current = charObjE->start;
 		
-		text->font->fontChar[i] = (FontChar*)malloc(sizeof(FontChar));
+		text->font->fontChars[i] = (FontChar*)malloc(sizeof(FontChar));
 		
 		while ( current != NULL )
 		{
@@ -58,21 +57,21 @@ void TextLoadFont(Text* text, Font *font) {
 			unsigned short value = (unsigned short)atoi(str);
 
 			if ( strcmp(current->name->string, "id") == 0 )
-				text->font->fontChar[i]->id = value;
+				text->font->fontChars[i]->id = value;
 			else if ( strcmp(current->name->string, "x") == 0 )
-				text->font->fontChar[i]->x = value;
+				text->font->fontChars[i]->x = value;
 			else if ( strcmp(current->name->string, "y") == 0 )
-				text->font->fontChar[i]->y = value;
+				text->font->fontChars[i]->y = value;
 			else if ( strcmp(current->name->string, "width") == 0 )
-				text->font->fontChar[i]->width = value;
+				text->font->fontChars[i]->width = value;
 			else if ( strcmp(current->name->string, "height") == 0 )
-				text->font->fontChar[i]->height = value;
+				text->font->fontChars[i]->height = value;
 			else if ( strcmp(current->name->string, "xadvance") == 0 )
-				text->font->fontChar[i]->xAdvance = value;
+				text->font->fontChars[i]->xAdvance = value;
 			else if ( strcmp(current->name->string, "xoffset") == 0 )
-				text->font->fontChar[i]->xOffset = value;
+				text->font->fontChars[i]->xOffset = value;
 			else if ( strcmp(current->name->string, "yoffset") == 0 )
-				text->font->fontChar[i]->yOffset = value;
+				text->font->fontChars[i]->yOffset = value;
 		
 			current = current->next;
 		}
@@ -86,12 +85,12 @@ void TextLoadFont(Text* text, Font *font) {
 
 	// We then populate the character map.
 	// 
-	unsigned int lastId = text->font->fontChar[maxArrayCount - 1]->id;
+	unsigned int lastId = text->font->fontChars[text->font->fontCharsSize - 1]->id;
 	text->font->charMap = (unsigned short*)calloc(lastId, sizeof(unsigned short));
 		
-	for ( unsigned int i = 0; i < maxArrayCount ; i++ )
+	for ( unsigned int i = 0; i < text->font->fontCharsSize ; i++ )
 	{
-		unsigned int currentId = text->font->fontChar[i]->id;
+		unsigned int currentId = text->font->fontChars[i]->id;
 		text->font->charMap[currentId] = i;
 	}
 
@@ -132,13 +131,20 @@ Font* FontLoad(const char* directory, const char* filename, char* typeName) {
 
 void FontUnload(Font* font) {
 	TextureUnload(font->fontTexture);
+
+	for ( unsigned int i = 0; i < font->fontCharsSize ; i++ )
+		free(font->fontChars[i]);
+	
+	free(font->fontChars);
+	free(font->fontPath);
+	free(font->charMap);
 	free(font);
 }
 
 FontChar* GetFontChar(Font* font, unsigned short id)
 {
 	unsigned short fontCharIndex = font->charMap[id];
-	return font->fontChar[fontCharIndex];
+	return font->fontChars[fontCharIndex];
 }
 
 void TextDestroy(Text* text)
