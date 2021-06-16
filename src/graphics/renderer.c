@@ -170,14 +170,12 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 
 void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
-	Font* font = text->font;
-
 	unsigned short currentXOffset = 0;
 	unsigned int stringLength = strlen(text->string);
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
-		FontChar* fontChar = GetFontChar(font, (unsigned short)character);
+		FontChar* fontChar = GetFontChar(text->font, (unsigned short)character);
 	
 		unsigned short textureHeight = text->font->fontTexture->height;
 		unsigned short fontSize = 64;
@@ -190,30 +188,28 @@ void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
-		float adjustedHeight = fontSize * heightScale;
-
 		RendererDraw(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
 								 (vec3){
 									 // X positioning
 									 position[0] + 
 									 currentXOffset
-									 + (rectWidth / 2)
-									 + fontChar->xOffset
+									 + ((rectWidth / 2)
+										+ fontChar->xOffset
+										 ) * scale[0]
 									 , 
 
 									 // Y positioning
 									 position[1]
-									 + (rectHeight / 2)    // Move the character above the line
-									 + (50 - rectHeight)   // Align the characters from the top
-									 - fontChar->yOffset   // Apply the offset
-									 + 5                   // Magic number to make it align back down to the line
+									 + (rectHeight / 2 * scale[1])         // Move the character above the line
+									 + (text->font->baseHeight - rectHeight) * scale[1]  // Align the characters from the top
+									 - fontChar->yOffset * scale[1]        // Apply the offset
 										 , 0}, 
-								 (vec3){ widthScale, heightScale, 1},
+								 (vec3){ widthScale * scale[0], heightScale * scale[1], scale[2]},
 								 rotation,
 								 color);
 
-		currentXOffset += fontChar->xAdvance;
+		currentXOffset += fontChar->xAdvance * scale[0];
 	}
 }
 

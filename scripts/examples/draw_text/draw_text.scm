@@ -32,9 +32,11 @@
   (shader:use (shader:default))
 
   (renderer:draw_text *text*
-		      position:'(-400 100 0))
+		      position:'(-400 32 0)
+		      scale:'(1 1 1))
   (renderer:draw_text *mono-text*
-		      position:'(-400 -100 0))
+		      position:'(-400 -32 0)
+		      scale:'(1 1 1))
   
   (window:swap))
 

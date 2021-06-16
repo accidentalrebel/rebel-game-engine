@@ -19,6 +19,7 @@ typedef struct Font {
 	Texture* fontTexture;
 	FontChar** fontChar;
 	unsigned short* charMap;
+	unsigned short baseHeight;
 } Font;
 
 typedef struct Text {

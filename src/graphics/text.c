@@ -29,6 +29,9 @@ void TextLoadFont(Text* text, Font *font) {
 	struct json_value_s* root = json_parse(fileContents, strlen(fileContents));
 	assert(root->type == json_type_object);
 	struct json_object_s* rootObj = (struct json_object_s*)root->payload;
+
+	// Getting the characters
+	// 
 	struct json_object_element_s* charsObj = rootObj->start;
 	assert(strcmp(charsObj->name->string, "chars") == 0);
 	struct json_value_s* charsArrayValue = charsObj->value;
@@ -91,6 +94,21 @@ void TextLoadFont(Text* text, Font *font) {
 		unsigned int currentId = text->font->fontChar[i]->id;
 		text->font->charMap[currentId] = i;
 	}
+
+	// Getting the common details
+	//
+	struct json_object_element_s* commonObj = charsObj->next;
+	assert(strcmp(commonObj->name->string, "common") == 0);
+
+	struct json_object_s* baseObj = commonObj->value->payload;
+	struct json_object_element_s* base = baseObj->start; 
+	base = base->next;
+	assert(strcmp(base->name->string, "base") == 0);
+
+	const char* baseChar = ((struct json_string_s*)base->value->payload)->string;
+	assert(strlen(baseChar) > 0);
+	unsigned short baseInt = atoi(baseChar);
+	text->font->baseHeight = baseInt;
 	
 	free(root);
 }
