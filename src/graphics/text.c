@@ -23,10 +23,11 @@ void TextLoadFont(Text* text, Font *font) {
 	strcat(pathWithExt, ".fnt");
 	
 	char* fileContents = UtilsReadFile(pathWithExt);
+	struct json_value_s* root = json_parse(fileContents, strlen(fileContents));
 
 	free(pathWithExt);
-
-	struct json_value_s* root = json_parse(fileContents, strlen(fileContents));
+	free(fileContents);
+	
 	assert(root->type == json_type_object);
 	struct json_object_s* rootObj = (struct json_object_s*)root->payload;
 
