@@ -8,23 +8,6 @@
 
 ;; DECLARATIONS
 ;; ============
-(foreign-declare "
-typedef struct Vec3
-{
-  float x;
-  float y;
-  float z;
-} Vec3;
-Vec3* Vec3Create(float x, float y, float z)
-{
-  Vec3* v = (Vec3*)malloc(sizeof(Vec3));
-  v->x = x;
-  v->y = y;
-  v->z = z;
-  return v;
-}
-");
-
 (foreign-declare "#include \"external/cglm/cglm.h\"")
 (foreign-declare "#include \"rebel.h\"")
 (foreign-declare "#include \"core/window.h\"")
@@ -40,61 +23,11 @@ Vec3* Vec3Create(float x, float y, float z)
 (foreign-declare "#include \"input/keyboard.h\"")
 (foreign-declare "#include \"input/mouse.h\"")
 
-;; MACROS
-;; ======
-
-;; This is an explanation for make_vec3_getter and make_vec3_setter:
-;;
-;; Say we have a C struct below:
-;;; typedef struct Duck {
-;;;   vec3 direction;
-;;; }
-;;
-;; We then define a lisp function to get the value of direction as shown below:
-;;; (make_vec3_getter Duck-direction "Duck" "direction")
-;;; (define (duck:direction duck)
-;;;   (vec3_to_list (Duck-direction duck)))
-(define-syntax make_vec3_getter
-  (syntax-rules ()
-    ((make_vec3_setter function-name struct-name variable-name body ...)
-     (define function-name
-       (foreign-lambda*
-	(c-pointer (struct "Vec3"))
-	(((c-pointer (struct struct-name)) a0))
-	"Vec3* v = Vec3Create(a0->"variable-name"[0], a0->"variable-name"[1], a0->"variable-name"[2]);
-C_return(v);")))))
-
-;; To set the direction, we do the following:
-;;; (make_vec3_getter Duck-direction "Duck" "direction")
-;;; (define (duck:direction! duck value)
-;;;   (set! (Duck-direction duck) (list_to_vec3 value)))
-(define-syntax make_vec3_setter
-  (syntax-rules ()
-    ((make_vec3_setter function-name struct-name variable-name body ...)
-     (define function-name
-      (foreign-lambda*
-       void
-       (((c-pointer (struct struct-name)) a0)
-	(float a1)
-	(float a2)
-	(float a3))
-       "glm_vec3_copy((vec3){ a1, a2, a3 }, a0->"variable-name");")))))
-
-
 ;; UTILS
 ;; =====
 ;; Used by functions that need a finalizer
 ;; Can also be called manually for freeing non-gc objects
 (define free% (foreign-lambda void "free" c-pointer))
-(define (free_vec3_debug% v)
-  (display "FREED: ")
-  (display (vec3:x v))
-  (display " ")
-  (display (vec3:y v))
-  (display " ")
-  (display (vec3:z v))
-  (newline)
-  (free% v))
 
 ;; REBEL
 ;; =====
@@ -104,30 +37,6 @@ C_return(v);")))))
 (define time:current (foreign-lambda double "GetCurrentTime"))
 (define (time:elapsed) elapsed-time)
 (define input:process (foreign-lambda void "InputProcess"))
-
-;; VECTORS
-;; =======
-(define-foreign-record-type (vec3 Vec3)
-  (float x vec3:x vec3:x!)
-  (float y vec3:y vec3:y!)
-  (float z vec3:z vec3:z!))
-
-(define vec3:create% (foreign-lambda c-pointer "Vec3Create" float float float))
-
-;; VEC3 CONVERTERS
-;; ===============
-(define (list_to_vec3 l)
-  (if (not (boolean? l))
-      (vec3:create% (first l) (second l) (third l))
-      l))
-
-;; Converts vec3 to list and then frees the vector afterwards
-(define (vec3_to_list v)
-  (if (not (boolean? v))
-      (let ((l (list (vec3:x v) (vec3:y v) (vec3:z v))))
-	(free% v)
-	l)
-      v))
 
 ;; CAMERA
 ;; ======
@@ -155,10 +64,6 @@ C_return(v);")))))
 (define camera:update_vectors (foreign-lambda void "CameraUpdateVectors" (c-pointer (struct "Camera"))))
 (define camera:move (foreign-lambda void "CameraMove" (c-pointer (struct "Camera")) (enum "Direction") float))
 
-(make_vec3_getter Camera-position "Camera" "position")
-(define (camera:position camera)
-  (vec3_to_list (Camera-position camera)))
-
 (define (camera:position! camera value)
   (set! (Camera-position camera)
 	(list_to_vec3 value)))
@@ -170,79 +75,11 @@ C_return(v);")))))
   (set! (Camera-front camera)
 	(list_to_vec3 value)))
 
-;; LIGHT
-;; =====
-(make_vec3_setter Light-diffuse! "Light" "diffuse")
-(make_vec3_getter Light-diffuse "Light" "diffuse")
-
-(define (light:ambient! light vec)
-  (set! (Light-ambient light) (list_to_vec3 vec)))
-(define (light:diffuse light)
-  (vec3_to_list (Light-diffuse light)))
 
 ;; DIRECTIONAL_LIGHT
 ;; =================
 (define-foreign-record-type (point-light PointLight)
   ((c-pointer (struct "Light")) light PointLight-light PointLight-light!))
-
-(make_vec3_setter PointLight-position! "PointLight" "position")
-(make_vec3_getter PointLight-position "PointLight" "position")
-
-(define light:directional:create_
-  (foreign-lambda*
-   (c-pointer (struct "DirectionLight"))
-   ((float a0) (float a1) (float a2)
-    (float a3) (float a4) (float a5)
-    (float a6) (float a7) (float a8)
-    (float a9) (float a10) (float a11))
-   "C_return(DirectionLightCreate((vec3){ a0, a1, a2}, (vec3){ a3, a4, a5}, (vec3){ a6, a7, a8}, (vec3){a9, a10, a11}));"))
-(define (light:directional:create direction ambient diffuse specular)
-  (light:directional:create_
-   (first direction) (second direction) (third direction)
-   (first ambient) (second ambient) (third ambient)
-   (first diffuse) (second diffuse) (third diffuse)
-   (first specular) (second specular) (third specular)))
-
-(define light:point:create_
-  (foreign-lambda*
-   (c-pointer (struct "PointLight"))
-   ((float a0) (float a1) (float a2)
-    (float a3) (float a4) (float a5)
-    (float a6) (float a7) (float a8)
-    (float a9) (float a10) (float a11)
-    (float a12)
-    (float a13)
-    (float a14))
-   "C_return(PointLightCreate((vec3){ a0, a1, a2}, (vec3){ a3, a4, a5}, (vec3){ a6, a7, a8}, (vec3){a9, a10, a11}, a12, a13, a14));"))
-(define (light:point:create position ambient diffuse specular constant linear quadratic)
-  (light:point:create_
-   (first position) (second position) (third position)
-   (first ambient) (second ambient) (third ambient)
-   (first diffuse) (second diffuse) (third diffuse)
-   (first specular) (second specular) (third specular)
-   constant linear quadratic))
-
-(define light:point:create2_
-  (foreign-lambda*
-   (c-pointer (struct "PointLight"))
-   ((float a0) (float a1) (float a2)
-    (float a3) (float a4) (float a5))
-   "C_return(PointLightCreate2((vec3){ a0, a1, a2}, (vec3){ a3, a4, a5}));"))
-(define (light:point:create2 position color)
-  (light:point:create2_
-   (first position) (second position) (third position)
-   (first color) (second color) (third color)))
-
-(define (light:point:light point-light) (PointLight-light point-light))
-(define (light:point:position point-light)
-  (vec3_to_list (PointLight-position point-light)))
-(define (light:point:position! point-light pos)
-  (PointLight-position! point-light (first pos) (second pos) (third pos)))
-(define (light:point:diffuse point-light)
-  (light:diffuse (light:point:light point-light)))
-(define (light:directional:light light) (DirectionLight-light light))
-(define (light:directional:ambient! light vec)
-  (light:ambient! (light:directional:light light) vec))
 
 ;; WINDOW
 ;; ======
@@ -332,22 +169,11 @@ C_return(v);")))))
   (unsigned-integer textureSpecular1 Material-textureSpecular1 Material-textureSpecular1!)
   (float shininess Material-shininess Material-shininess!))
 
-(make_vec3_setter Material-color! "Material" "color")
-
 ;; TEXTURE
 ;; =======
 (define-foreign-record-type (texture Texture)
   (float width texture:width)
   (float height texture:height))
-
-;; (define (texture:width texture) (Texture-width texture))
-;; (make_vec3_getter Texture-width "Texture" "width")
-;; (make_vec3_getter Texture-height "Texture" "height")
-
-;; (define (texture:width texture)
-;;   (Texture-width texture))
-;; (define (texture:height texture)
-;;   (Texture-height texture))
 
 ;; TODO; Change the third parameter into an enum
 (define texture:load_ (foreign-lambda (c-pointer (struct "Texture")) "TextureLoad" c-string c-string c-string))
