@@ -168,7 +168,7 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void RendererDrawText(Text* text)
+void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
 	Font* font = text->font;
 
@@ -196,21 +196,22 @@ void RendererDrawText(Text* text)
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
 								 (vec3){
 									 // X positioning
-									 currentXOffset - 400
+									 position[0] + 
+									 currentXOffset
 									 + (rectWidth / 2)
 									 + fontChar->xOffset
 									 , 
 
 									 // Y positioning
-									 /* -300 // Move to the bottom of the screen. For checking of alignment.*/
+									 position[1]
 									 + (rectHeight / 2)    // Move the character above the line
 									 + (50 - rectHeight)   // Align the characters from the top
 									 - fontChar->yOffset   // Apply the offset
 									 + 5                   // Magic number to make it align back down to the line
 										 , 0}, 
 								 (vec3){ widthScale, heightScale, 1},
-								 (vec3){ 0, 0, 0 },
-								 (vec4){ 1, 1, 1, 1 });
+								 rotation,
+								 color);
 
 		currentXOffset += fontChar->xAdvance;
 	}

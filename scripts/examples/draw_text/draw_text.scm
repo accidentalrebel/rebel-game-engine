@@ -10,17 +10,17 @@
   
   (set! *font* (font:load "assets/fonts/font"
 			  "texture_diffuse"))
-  (set! *text* (text:create "Aa.Bb Pp:Qq Gg>Hh"))
+  (set! *text* (text:create "Aa.Bb Pp*Qq Gg>Hh"))
 
   (text:load_font *text*
 		  *font*)
 
-  ;; (set! *mono-font* (font:load "assets/fonts/mono-font"
-  ;; 			  "texture_diffuse"))
-  ;; (set! *mono-text* (text:create "Aa.Bb Pp:Qq Gg>Hh"))
+  (set! *mono-font* (font:load "assets/fonts/mono-font"
+			  "texture_diffuse"))
+  (set! *mono-text* (text:create "Aa.Bb Pp:Qq Gg>Hh"))
 
-  ;; (text:load_font *mono-text*
-  ;; 		  *mono-font*)
+  (text:load_font *mono-text*
+		  *mono-font*)
   #t)
   
 (define (update)
@@ -31,8 +31,10 @@
   (window:clear '(0 0 0))
   (shader:use (shader:default))
 
-  (renderer:draw_text *text*)
-  ;; (renderer:draw_text *mono-text*)
+  (renderer:draw_text *text*
+		      position:'(-400 100 0))
+  (renderer:draw_text *mono-text*
+		      position:'(-400 -100 0))
   
   (window:swap))
 

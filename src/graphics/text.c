@@ -22,7 +22,6 @@ void TextLoadFont(Text* text, Font *font) {
 	strcpy(pathWithExt, text->font->fontPath);
 	strcat(pathWithExt, ".fnt");
 	
-	printf(">>>>>> Loading: %s\n", pathWithExt);
 	char* fileContents = UtilsReadFile(pathWithExt);
 
 	free(pathWithExt);
