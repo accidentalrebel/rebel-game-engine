@@ -13,10 +13,15 @@ Renderer* RendererInit()
 void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
 	RenderOptions renderOptions;
-	RendererDrawEx(modelObject, drawRect, position, scale, rotation, color, renderOptions);
+	glm_vec3_copy(position, renderOptions.position);
+	glm_vec3_copy(scale, renderOptions.scale);
+	glm_vec3_copy(rotation, renderOptions.rotation);
+	glm_vec4_copy(color, renderOptions.color);
+
+	RendererDrawEx(modelObject, drawRect, renderOptions);
 }
 
-void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color, RenderOptions renderOptions)
+void RendererDrawEx(Model* modelObject, vec4 drawRect, RenderOptions renderOptions)
 {
 	if ( g_rebel.renderer->isWireFrameMode )
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -51,8 +56,8 @@ void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale
 	glm_vec3_add(g_rebel.mainCamera->position, g_rebel.mainCamera->front, temp);
 	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
-	glm_translate(model, position);
-	glm_scale(model, scale);
+	glm_translate(model, renderOptions.position);
+	glm_scale(model, renderOptions.scale);
 
 	if ( renderOptions.viewRotation[2] != 0.0f )
 	{
@@ -62,22 +67,22 @@ void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale
 
 	// Rotation
 	// ========
-	if ( rotation[0] != 0.0f )
+	if ( renderOptions.rotation[0] != 0.0f )
 	{
-		glm_vec3_copy((vec3){rotation[0], 0.0f, 0.0f}, temp);
-		glm_rotate(model, glm_rad(rotation[0]), temp);
+		glm_vec3_copy((vec3){renderOptions.rotation[0], 0.0f, 0.0f}, temp);
+		glm_rotate(model, glm_rad(renderOptions.rotation[0]), temp);
 	}
 
-	if ( rotation[1] != 0.0f )
+	if ( renderOptions.rotation[1] != 0.0f )
 	{
-		glm_vec3_copy((vec3){0.0f, rotation[1], 0.0f}, temp);
-		glm_rotate(model, glm_rad(rotation[1]), temp);
+		glm_vec3_copy((vec3){0.0f, renderOptions.rotation[1], 0.0f}, temp);
+		glm_rotate(model, glm_rad(renderOptions.rotation[1]), temp);
 	}
 
-	if ( rotation[2] != 0.0f )
+	if ( renderOptions.rotation[2] != 0.0f )
 	{
-		glm_vec3_copy((vec3){0.0f, 0.0f, rotation[2]}, temp);
-		glm_rotate(model, glm_rad(rotation[2]), temp);
+		glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.rotation[2]}, temp);
+		glm_rotate(model, glm_rad(renderOptions.rotation[2]), temp);
 	}
 
 	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
@@ -131,7 +136,7 @@ void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale
 	mat4 inversedModel;
 	glm_mat4_inv(model, inversedModel);
 	ShaderSetMat4(shaderToUse, "inversedModel", inversedModel);
-	ShaderSetVec4(shaderToUse, "material.color", color);
+	ShaderSetVec4(shaderToUse, "material.color", renderOptions.color);
 		
 	for ( unsigned int i = 0 ; i < modelObject->material->loadedTexturesCount ; i++ )
 	{
@@ -184,8 +189,11 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 {
 	unsigned short currentXOffset = 0;
 	unsigned int stringLength = strlen(text->string);
-	vec3 position;
-	
+	vec3 origPosition;
+	glm_vec3_copy(renderOptions.position, origPosition);
+	vec3 origScale;
+	glm_vec3_copy(renderOptions.scale, origScale);
+		
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
@@ -202,27 +210,28 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
-		position[0] = renderOptions.position[0] + currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0];
-		position[1] = renderOptions.position[1] + (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
-			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]  // Align the characters from the top
-			- fontChar->yOffset * renderOptions.scale[1];        // Apply the offset
-
-		RendererDrawEx(text->canvas,
-								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){position[0], position[1] , 0},
-								 (vec3){ widthScale * renderOptions.scale[0], heightScale * renderOptions.scale[1], renderOptions.scale[2]},
-									 renderOptions.rotation,
-									 renderOptions.color,
-									 renderOptions);
+		renderOptions.position[0] += currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0];
+		renderOptions.position[1] += (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
+			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]             // Align the characters from the top
+			- fontChar->yOffset * renderOptions.scale[1];                                // Apply the offset
 
 		currentXOffset += fontChar->xAdvance * renderOptions.scale[0];
+		
+		renderOptions.scale[0] *= widthScale;
+		renderOptions.scale[1] *= heightScale;
+
+		RendererDrawEx(text->canvas,
+									 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
+									 renderOptions);
+		
+		glm_vec3_copy(origPosition, renderOptions.position);
+		glm_vec3_copy(origScale, renderOptions.scale);
 	}
 }
 
 void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec3 viewRotation, vec4 color)
 {
 	RenderOptions renderOptions;
-	glm_vec3_zero(renderOptions.position);
 	glm_vec3_copy(position, renderOptions.position);
 	glm_vec3_copy(scale, renderOptions.scale);
 	glm_vec3_copy(rotation, renderOptions.rotation);

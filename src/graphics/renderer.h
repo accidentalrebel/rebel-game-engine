@@ -21,7 +21,7 @@ typedef struct RenderOptions
 } RenderOptions;
 
 Renderer* RendererInit();
-void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color, RenderOptions renderOptions);
+void RendererDrawEx(Model* modelObject, vec4 drawRect, RenderOptions renderOptions);
 void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color);
 void RendererDrawTextEx(Text* text, RenderOptions renderOptions);
 void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec3 viewRotation, vec4 color);
