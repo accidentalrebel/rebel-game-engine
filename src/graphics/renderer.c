@@ -180,10 +180,12 @@ void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void RendererDrawTextEx(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4 color, RenderOptions renderOptions)
+void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 {
 	unsigned short currentXOffset = 0;
 	unsigned int stringLength = strlen(text->string);
+	vec3 position;
+	
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
@@ -200,38 +202,34 @@ void RendererDrawTextEx(Text* text, vec3 position, vec3 scale, vec3 rotation, ve
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
+		position[0] = renderOptions.position[0] + currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0];
+		position[1] = renderOptions.position[1] + (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
+			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]  // Align the characters from the top
+			- fontChar->yOffset * renderOptions.scale[1];        // Apply the offset
+
 		RendererDrawEx(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-								 (vec3){
-									 // X positioning
-									 position[0] + 
-									 currentXOffset
-									 + ((rectWidth / 2)
-										+ fontChar->xOffset
-										 ) * scale[0]
-									 , 
-
-									 // Y positioning
-									 position[1]
-									 + (rectHeight / 2 * scale[1])         // Move the character above the line
-									 + (text->font->baseHeight - rectHeight) * scale[1]  // Align the characters from the top
-									 - fontChar->yOffset * scale[1]        // Apply the offset
-										 , 0}, 
-								 (vec3){ widthScale * scale[0], heightScale * scale[1], scale[2]},
-									 rotation,
-									 color,
+								 (vec3){position[0], position[1] , 0},
+								 (vec3){ widthScale * renderOptions.scale[0], heightScale * renderOptions.scale[1], renderOptions.scale[2]},
+									 renderOptions.rotation,
+									 renderOptions.color,
 									 renderOptions);
 
-		currentXOffset += fontChar->xAdvance * scale[0];
+		currentXOffset += fontChar->xAdvance * renderOptions.scale[0];
 	}
 }
 
 void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec3 viewRotation, vec4 color)
 {
 	RenderOptions renderOptions;
+	glm_vec3_zero(renderOptions.position);
+	glm_vec3_copy(position, renderOptions.position);
+	glm_vec3_copy(scale, renderOptions.scale);
+	glm_vec3_copy(rotation, renderOptions.rotation);
 	glm_vec3_copy(viewRotation, renderOptions.viewRotation);
+	glm_vec4_copy(color, renderOptions.color);
 	
-	RendererDrawTextEx(text, position, scale, rotation, color, renderOptions);
+	RendererDrawTextEx(text, renderOptions);
 }
 
 bool RendererIsWireFrameEnabled()

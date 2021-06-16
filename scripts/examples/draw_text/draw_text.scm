@@ -33,12 +33,12 @@
 
   (renderer:draw_text *text*
 		      position:'(-400 32 0)
-		      scale:'(1 1 1)
-		      rotation:'(0 0 45))
+		      scale:'(1 1 1))
+		      ;; rotation:'(0 0 45))
   (renderer:draw_text *mono-text*
 		      position:'(-400 -32 0)
-		      scale:'(1 1 1)
-		      view-rotation:'(0 0 45))
+		      scale:'(1 1 1))
+		      ;; view-rotation:'(0 0 45))
   
   (window:swap))
 
