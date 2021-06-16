@@ -15,6 +15,7 @@ typedef struct FontChar {
 } FontChar;
 
 typedef struct Font {
+	char* fontPath;
 	Texture* fontTexture;
 	FontChar** fontChar;
 	unsigned short* charMap;

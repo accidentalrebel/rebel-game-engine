@@ -18,8 +18,14 @@ void TextLoadFont(Text* text, Font *font) {
 	text->font = font;
 	SpriteLoadTexture(text->canvas, text->font->fontTexture);
 
-	char* fileName = "assets/fonts/font.fnt";
-	char* fileContents = UtilsReadFile(fileName);
+	char* pathWithExt = malloc(strlen(text->font->fontPath) + 4 + 1);
+	strcpy(pathWithExt, text->font->fontPath);
+	strcat(pathWithExt, ".fnt");
+	
+	printf(">>>>>> Loading: %s\n", pathWithExt);
+	char* fileContents = UtilsReadFile(pathWithExt);
+
+	free(pathWithExt);
 
 	struct json_value_s* root = json_parse(fileContents, strlen(fileContents));
 	assert(root->type == json_type_object);
@@ -92,7 +98,18 @@ void TextLoadFont(Text* text, Font *font) {
 
 Font* FontLoad(const char* directory, const char* filename, char* typeName) {
 	Font* font = (Font*)malloc(sizeof(Font));
-	font->fontTexture = TextureLoad(directory, filename, typeName);
+
+	font->fontPath = malloc(strlen(directory) + strlen(filename) + 1);
+	strcpy(font->fontPath, directory);
+	strcat(font->fontPath, filename);
+	
+	char* fileNameWithExt = malloc(strlen(filename) + 4 + 1);
+	strcpy(fileNameWithExt, filename);
+	strcat(fileNameWithExt, ".png");
+	font->fontTexture = TextureLoad(directory, fileNameWithExt, typeName);
+
+	free(fileNameWithExt);
+
 	return font;
 }
 
