@@ -59,7 +59,6 @@ void RendererDrawEx(Model* modelObject, RenderOptions renderOptions)
 	glm_lookat(g_rebel.mainCamera->position, temp, g_rebel.mainCamera->up, view);
 
 	glm_translate(model, renderOptions.position);
-	glm_scale(model, renderOptions.scale);
 
 	if ( renderOptions.viewRotation[2] != 0.0f )
 	{
@@ -87,9 +86,10 @@ void RendererDrawEx(Model* modelObject, RenderOptions renderOptions)
 		glm_rotate(model, glm_rad(renderOptions.rotation[2]), temp);
 	}
 
+	glm_scale(model, renderOptions.scale);
+
 	ShaderSetFloat(shaderToUse, "material.shininess", modelObject->material->shininess);
 	ShaderSetInt(shaderToUse, "pointLightsCount", g_rebel.pointLightCount);
-
 
 	char base[30];
 	for ( unsigned int i = 0 ; i < g_rebel.pointLightCount ; i++ )
