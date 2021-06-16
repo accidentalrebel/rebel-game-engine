@@ -4,7 +4,7 @@
 #include "shader.h"
 
 Texture* TextureLoad(const char* directory, const char* fileName, char* typeName)
-{
+{	
 	Texture* texture = (Texture*)malloc(sizeof(Texture));
 	int width, height;
 	char fullPath[100] = "";
@@ -45,7 +45,8 @@ Texture* TextureLoad(const char* directory, const char* fileName, char* typeName
 		stbi_image_free(data);
 	}
 	
-	texture->type = typeName;
+	texture->type = malloc(strlen(typeName) + 1);
+	strcpy(texture->type, typeName);
 	texture->path = malloc(strlen(fileName)+1);
 	strcpy(texture->path, fileName);
 
