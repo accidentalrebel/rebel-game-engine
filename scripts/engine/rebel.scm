@@ -144,6 +144,7 @@
 ;; ======
 (define sprite:create (foreign-lambda (c-pointer "Model") "SpriteCreate" float float))
 (define sprite:load_texture (foreign-lambda void "SpriteLoadTexture" (c-pointer (struct "Model")) (c-pointer (struct "Texture"))))
+(define sprite:destroy (foreign-lambda void "ModelDestroy" (c-pointer (struct "Model"))))
 
 ;; MESH
 ;; ====
@@ -202,6 +203,7 @@
 		type-name)))
 
 (define text:create (foreign-lambda (c-pointer (struct "Text")) "TextCreate" c-string))
+(define text:destroy (foreign-lambda void "TextDestroy" (c-pointer (struct "Text"))))
 (define text:load_font (foreign-lambda void "TextLoadFont" (c-pointer (struct "Text")) (c-pointer (struct "Font"))))
 (define-foreign-record-type (text Text)
   ((c-pointer (struct "Model")) canvas text:canvas text:canvas!))

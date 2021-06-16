@@ -41,4 +41,6 @@
   (window:swap))
 
 (define (destroy)
+  (text:destroy *text*)
+  (text:destroy *mono-text*)
   #t)

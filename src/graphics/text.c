@@ -140,3 +140,9 @@ FontChar* GetFontChar(Font* font, unsigned short id)
 	unsigned short fontCharIndex = font->charMap[id];
 	return font->fontChar[fontCharIndex];
 }
+
+void TextDestroy(Text* text)
+{
+	free(text->string);
+	free(text);
+}

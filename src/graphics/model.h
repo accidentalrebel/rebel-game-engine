@@ -28,3 +28,5 @@ void LoadMaterialTextures(ModelProcessing* processing, const struct aiMaterial *
 void TextureFromFile(char* path);
 //unsigned int IsTextureAlreadyLoaded(Texture** loadedTextures, const char* path);
 unsigned int IsTextureAlreadyLoaded(ModelProcessing* processing, const char* path);
+
+void ModelDestroy(Model* model);

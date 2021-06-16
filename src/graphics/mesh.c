@@ -144,3 +144,12 @@ Mesh* MeshGenerateCube(float width, float height, float length)
 
 	return mesh;
 }
+
+void MeshDestroy(Mesh* mesh)
+{
+	for ( unsigned int i = 0; i < mesh->verticesSize ; i++ )
+		free(mesh->vertices[i]);
+
+	free(mesh->vertices);
+	free(mesh->indices);
+}

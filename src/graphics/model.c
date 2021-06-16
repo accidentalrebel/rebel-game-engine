@@ -149,3 +149,11 @@ void ModelLoadTexture(Model* model, Texture* texture)
 	material->loadedTextures[material->loadedTexturesCount] = texture;
 	material->loadedTexturesCount++;
 }
+
+void ModelDestroy(Model* model)
+{
+	for( unsigned int i = 0; i < model->meshesSize ; i++ )
+		MeshDestroy(model->meshes[0]);
+
+	free(model);
+}

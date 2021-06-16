@@ -29,11 +29,10 @@ typedef struct Text {
 } Text;
 
 Text* TextCreate(char* string);
+void TextDestroy(Text* text);
 void TextLoadFont(Text* text, Font *font);
 	
 Font* FontLoad(const char* directory, const char* filename, char* typeName);
 void FontUnload(Font* font);
 
 FontChar* GetFontChar(Font* font, unsigned short id);
-
-
