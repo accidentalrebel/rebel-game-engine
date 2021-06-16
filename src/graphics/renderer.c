@@ -13,15 +13,17 @@ Renderer* RendererInit()
 void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
 	RenderOptions renderOptions;
+	glm_vec4_copy(drawRect, renderOptions.drawRect);
 	glm_vec3_copy(position, renderOptions.position);
 	glm_vec3_copy(scale, renderOptions.scale);
 	glm_vec3_copy(rotation, renderOptions.rotation);
 	glm_vec4_copy(color, renderOptions.color);
+	glm_vec3_zero(renderOptions.viewRotation);
 
-	RendererDrawEx(modelObject, drawRect, renderOptions);
+	RendererDrawEx(modelObject, renderOptions);
 }
 
-void RendererDrawEx(Model* modelObject, vec4 drawRect, RenderOptions renderOptions)
+void RendererDrawEx(Model* modelObject, RenderOptions renderOptions)
 {
 	if ( g_rebel.renderer->isWireFrameMode )
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -160,13 +162,13 @@ void RendererDrawEx(Model* modelObject, vec4 drawRect, RenderOptions renderOptio
 		// ================
 		vec4 texRect;
 		
-		if ( drawRect[0] == 0 &&
-				 drawRect[1] == 0 &&
-				 drawRect[2] == 0 &&
-				 drawRect[3] == 0 )
+		if ( renderOptions.drawRect[0] == 0 &&
+				 renderOptions.drawRect[1] == 0 &&
+				 renderOptions.drawRect[2] == 0 &&
+				 renderOptions.drawRect[3] == 0 )
 			glm_vec4_copy((vec4){0, 0, 1, 1}, texRect);
 		else
-			glm_vec4_copy((vec4){drawRect[0] / texture->width, drawRect[1] / texture->height, drawRect[2] / texture->width, drawRect[3] / texture->height}, texRect);
+			glm_vec4_copy((vec4){renderOptions.drawRect[0] / texture->width, renderOptions.drawRect[1] / texture->height, renderOptions.drawRect[2] / texture->width, renderOptions.drawRect[3] / texture->height}, texRect);
 
 		ShaderSetVec4(shaderToUse, "texRect", texRect);
 	}
@@ -220,9 +222,9 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		renderOptions.scale[0] *= widthScale;
 		renderOptions.scale[1] *= heightScale;
 
-		RendererDrawEx(text->canvas,
-									 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
-									 renderOptions);
+		glm_vec4_copy((vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight}, renderOptions.drawRect);
+
+		RendererDrawEx(text->canvas, renderOptions);
 		
 		glm_vec3_copy(origPosition, renderOptions.position);
 		glm_vec3_copy(origScale, renderOptions.scale);
