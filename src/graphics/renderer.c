@@ -12,6 +12,12 @@ Renderer* RendererInit()
 
 void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color)
 {
+	RenderOptions renderOptions;
+	RendererDrawEx(modelObject, drawRect, position, scale, rotation, color, renderOptions);
+}
+
+void RendererDrawEx(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, vec3 rotation, vec4 color, RenderOptions renderOptions)
+{
 	if ( g_rebel.renderer->isWireFrameMode )
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
@@ -47,6 +53,12 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 
 	glm_translate(model, position);
 	glm_scale(model, scale);
+
+	if ( renderOptions.viewRotation[2] != 0.0f )
+	{
+		glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.viewRotation[2]}, temp);
+		glm_rotate(view, glm_rad(renderOptions.viewRotation[2]), temp);
+	}
 
 	// Rotation
 	// ========
@@ -168,7 +180,7 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4 color)
+void RendererDrawTextEx(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4 color, RenderOptions renderOptions)
 {
 	unsigned short currentXOffset = 0;
 	unsigned int stringLength = strlen(text->string);
@@ -188,7 +200,7 @@ void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
-		RendererDraw(text->canvas,
+		RendererDrawEx(text->canvas,
 								 (vec4){rectX, textureHeight - rectY - rectHeight, rectWidth, rectHeight},
 								 (vec3){
 									 // X positioning
@@ -206,11 +218,20 @@ void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec4
 									 - fontChar->yOffset * scale[1]        // Apply the offset
 										 , 0}, 
 								 (vec3){ widthScale * scale[0], heightScale * scale[1], scale[2]},
-								 rotation,
-								 color);
+									 rotation,
+									 color,
+									 renderOptions);
 
 		currentXOffset += fontChar->xAdvance * scale[0];
 	}
+}
+
+void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec3 viewRotation, vec4 color)
+{
+	RenderOptions renderOptions;
+	glm_vec3_copy(viewRotation, renderOptions.viewRotation);
+	
+	RendererDrawTextEx(text, position, scale, rotation, color, renderOptions);
 }
 
 bool RendererIsWireFrameEnabled()

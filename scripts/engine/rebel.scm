@@ -130,14 +130,16 @@
     (float a1) (float a2) (float a3)
     (float a4) (float a5) (float a6)
     (float a7) (float a8) (float a9)
-    (float a10) (float a11) (float a12) (float a13))
-   "RendererDrawText(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 }, (vec3){ a7, a8, a9}, (vec4){ a10, a11, a12, a13});"))
+    (float a10) (float a11) (float a12)
+    (float a13) (float a14) (float a15) (float a16))
+   "RendererDrawText(a0, (vec3){ a1, a2, a3 }, (vec3){ a4, a5, a6 }, (vec3){ a7, a8, a9}, (vec3){ a10, a11, a12}, (vec4){ a13, a14, a15, a16});"))
 
-(define (renderer:draw_text text #!key (position '(0 0 0)) (scale '(1 1 1)) (rotation '(0 0 0)) (color '(1 1 1 1)))
+(define (renderer:draw_text text #!key (position '(0 0 0)) (scale '(1 1 1)) (rotation '(0 0 0)) (view-rotation '(0 0 0)) (color '(1 1 1 1)))
   (renderer:draw_text_ text
 		  (first position) (second position) (third position)
 		  (first scale) (second scale) (third scale)
 		  (first rotation) (second rotation) (third rotation)
+		  (first view-rotation) (second view-rotation) (third view-rotation)
 		  (first color) (second color) (third color) (fourth color)))
 
 ;; SPRITE
