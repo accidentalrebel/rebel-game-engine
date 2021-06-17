@@ -16,6 +16,7 @@ typedef struct RenderOptions
 	vec3 position;
 	vec3 scale;
 	vec3 rotation;
+	vec3 pivot;
 	vec3 viewRotation;
 	vec4 color;
 	

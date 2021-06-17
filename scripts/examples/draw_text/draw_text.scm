@@ -10,7 +10,7 @@
   
   (set! *font* (font:load "assets/fonts/font"
 			  "texture_diffuse"))
-  (set! *text* (text:create "Aa.Bb Pp*Qq Gg>Hh"))
+  (set! *text* (text:create "ABC"))
 
   (text:load_font *text*
 		  *font*)
@@ -32,12 +32,12 @@
   (shader:use (shader:default))
 
   (renderer:draw_text *text*
-		      position:'(-400 32 0)
-		      scale:'(1 1 1))
-		      ;; rotation:'(0 0 45))
-  (renderer:draw_text *mono-text*
-		      position:'(-400 -32 0)
-		      scale:'(1 1 1))
+		      position:'(0 -300 0)
+		      scale:'(1 1 1)
+		      rotation:'(0 0 45))
+  ;; (renderer:draw_text *mono-text*
+  ;; 		      position:'(-400 -32 0)
+  ;; 		      scale:'(1 1 1))
 		      ;; view-rotation:'(0 0 45))
   
   (window:swap))

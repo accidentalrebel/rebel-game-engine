@@ -19,6 +19,7 @@ void RendererDraw(Model* modelObject, vec4 drawRect, vec3 position, vec3 scale, 
 	glm_vec3_copy(rotation, renderOptions.rotation);
 	glm_vec4_copy(color, renderOptions.color);
 	glm_vec3_zero(renderOptions.viewRotation);
+	glm_vec3_zero(renderOptions.pivot);
 
 	RendererDrawEx(modelObject, renderOptions);
 }
@@ -83,7 +84,13 @@ void RendererDrawEx(Model* modelObject, RenderOptions renderOptions)
 	if ( renderOptions.rotation[2] != 0.0f )
 	{
 		glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.rotation[2]}, temp);
-		glm_rotate(model, glm_rad(renderOptions.rotation[2]), temp);
+		
+		vec3 pivot;
+ 		pivot[0] = -renderOptions.pivot[0];
+ 		pivot[1] = -renderOptions.pivot[1];
+		pivot[2] = 0;
+
+		glm_rotate_at(model, pivot, glm_rad(renderOptions.rotation[2]), temp);
 	}
 
 	glm_scale(model, renderOptions.scale);
@@ -218,6 +225,15 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 			- fontChar->yOffset * renderOptions.scale[1];                                // Apply the offset
 
 		currentXOffset += fontChar->xAdvance * renderOptions.scale[0];
+
+		renderOptions.pivot[0] = renderOptions.position[0] - origPosition[0];
+		renderOptions.pivot[1] = renderOptions.position[1] - origPosition[1];
+		static int test = false;
+		if ( test < 3 )
+		{
+			printf("%f %f %f\n", origPosition[0], renderOptions.position[0], renderOptions.pivot[0]);
+			test++;
+		}
 		
 		renderOptions.scale[0] *= widthScale;
 		renderOptions.scale[1] *= heightScale;
