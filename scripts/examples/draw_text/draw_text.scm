@@ -1,5 +1,6 @@
 (include-relative "../../extensions/debug")
 
+(define *index* 0)
 (define *font*)
 (define *text*)
 (define *mono-font*)
@@ -10,7 +11,7 @@
   
   (set! *font* (font:load "assets/fonts/font"
 			  "texture_diffuse"))
-  (set! *text* (text:create "ABC"))
+  (set! *text* (text:create "BBBBB"))
 
   (text:load_font *text*
 		  *font*)
@@ -25,6 +26,9 @@
   
 (define (update)
   (debug:update)
+  (set! *index* (if (> *index* 720)
+		    0
+		    (+ *index* 0.5)))
   #t)
 
 (define (render)
@@ -32,9 +36,9 @@
   (shader:use (shader:default))
 
   (renderer:draw_text *text*
-		      position:'(0 -300 0)
+		      position:'(-400 -300 0)
 		      scale:'(1 1 1)
-		      rotation:'(0 0 45))
+		      rotation:(list 0 0 *index*))
   ;; (renderer:draw_text *mono-text*
   ;; 		      position:'(-400 -32 0)
   ;; 		      scale:'(1 1 1))
