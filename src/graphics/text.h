@@ -27,11 +27,15 @@ typedef struct Text {
 	Font* font;
 	Model* canvas;
 	char* string;
+	unsigned int textWidth;
+	unsigned int textHeight;
 } Text;
 
 Text* TextCreate(char* string);
 void TextDestroy(Text* text);
 void TextLoadFont(Text* text, Font *font);
+
+unsigned int TextGetWidth(Text* text);
 	
 Font* FontLoad(const char* directory, const char* filename, char* typeName);
 void FontUnload(Font* font);

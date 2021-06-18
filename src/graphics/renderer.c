@@ -203,8 +203,6 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 	vec3 origScale;
 	glm_vec3_copy(renderOptions.scale, origScale);
 
-	float totalWidth = 0;
-		
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
@@ -221,14 +219,13 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
-		renderOptions.position[0] += currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0] - 87.5f;
+		renderOptions.position[0] += currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0] - (text->textWidth / 2);
 		renderOptions.position[1] += (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
 			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]             // Align the characters from the top
 			- fontChar->yOffset * renderOptions.scale[1]                                 // Apply the offset
 			- rectHeight / 2;                                                            // Move to center the anchor
 
 		currentXOffset += fontChar->xAdvance * renderOptions.scale[0];
-		totalWidth = currentXOffset;
 
 		renderOptions.pivot[0] = renderOptions.position[0] - origPosition[0]; // + 49.5f;
 		renderOptions.pivot[1] = renderOptions.position[1] - origPosition[1]; // - (rectHeight / 2);
@@ -249,7 +246,6 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		glm_vec3_copy(origPosition, renderOptions.position);
 		glm_vec3_copy(origScale, renderOptions.scale);
 	}
-	printf("############################# %f", totalWidth);
 }
 
 void RendererDrawText(Text* text, vec3 position, vec3 scale, vec3 rotation, vec3 viewRotation, vec4 color)

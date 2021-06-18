@@ -39,10 +39,10 @@
 		      position:'(-400 -300 0)
 		      scale:'(1 1 1)
 		      rotation:(list 0 0 *index*))
-  ;; (renderer:draw_text *mono-text*
-  ;; 		      position:'(-400 -32 0)
-  ;; 		      scale:'(1 1 1))
-		      ;; view-rotation:'(0 0 45))
+  (renderer:draw_text *mono-text*
+		      position:'(0 0 0)
+		      scale:'(1 1 1)
+		      view-rotation:(list 0 0 *index*))
   
   (window:swap))
 

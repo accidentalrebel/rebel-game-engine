@@ -10,7 +10,7 @@ Text* TextCreate(char* string) {
 	text->canvas = SpriteCreate(64, 64);
 	text->string = malloc(strlen(string) + 1);
 	strcpy(text->string, string);
-	
+
 	return text;
 }
 
@@ -109,11 +109,30 @@ void TextLoadFont(Text* text, Font *font) {
 	assert(strlen(baseChar) > 0);
 	unsigned short baseInt = atoi(baseChar);
 	text->font->baseHeight = baseInt;
-	
+
 	free(root);
+
+	// Updating the text width and height
+	//
+	text->textWidth = TextGetWidth(text);
 }
 
-Font* FontLoad(const char* directory, const char* filename, char* typeName) {
+unsigned int TextGetWidth(Text* text)
+{
+	unsigned int stringLength = strlen(text->string);
+	unsigned int totalWidth = 0;
+	
+	for ( unsigned int i = 0; i < stringLength; i++ )
+	{
+		char character = text->string[i];
+		FontChar* fontChar = GetFontChar(text->font, (unsigned short)character);
+		totalWidth += fontChar->xAdvance;
+	}
+	return totalWidth;
+}
+
+Font* FontLoad(const char* directory, const char* filename, char* typeName)
+{
 	Font* font = (Font*)malloc(sizeof(Font));
 
 	font->fontPath = malloc(strlen(directory) + strlen(filename) + 1);
