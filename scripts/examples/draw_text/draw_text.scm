@@ -36,13 +36,11 @@
   (shader:use (shader:default))
 
   (renderer:draw_text *text*
-		      position:'(0 100 0)
-		      scale:'(1 1 1)
- 		      rotation:(list 0 0 *index*))
+		      position:'(0 260 0)
+		      scale:'(1 1 1))
   (renderer:draw_text *mono-text*
-		      position:'(0 -300 0)
-		      scale:'(1 1 1)
- 		      rotation:(list 0 0 *index*))
+		      position:'(0 190 0)
+		      scale:'(0.75 0.75 0.75))
   
   (window:swap))
 

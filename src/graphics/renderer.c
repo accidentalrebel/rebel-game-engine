@@ -219,7 +219,8 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		float heightScale = (float)rectHeight / fontSize;
 		float widthScale = (float)rectWidth / fontSize;
 
-		renderOptions.position[0] += currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0] - (text->textWidth / 2);
+		renderOptions.position[0] += currentXOffset + ((rectWidth / 2) + fontChar->xOffset) * renderOptions.scale[0]
+			- ((text->textWidth / 2) * renderOptions.scale[0]);
 		renderOptions.position[1] += (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
 			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]             // Align the characters from the top
 			- fontChar->yOffset * renderOptions.scale[1]                                 // Apply the offset
