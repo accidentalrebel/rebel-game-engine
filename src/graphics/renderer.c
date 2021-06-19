@@ -61,29 +61,29 @@ void RendererDrawEx(Model* modelObject, RenderOptions renderOptions)
 
 	glm_translate(model, renderOptions.position);
 
-	if ( renderOptions.viewRotation[2] != 0.0f )
-	{
-		glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.viewRotation[2]}, temp);
-		glm_rotate(view, glm_rad(renderOptions.viewRotation[2]), temp);
-	}
+	/* if ( renderOptions.viewRotation[2] != 0.0f ) */
+	/* { */
+	/* 	glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.viewRotation[2]}, temp); */
+	/* 	glm_rotate(view, glm_rad(renderOptions.viewRotation[2]), temp); */
+	/* } */
 
 	// Rotation
 	// ========
 	if ( renderOptions.rotation[0] != 0.0f )
 	{
-		glm_vec3_copy((vec3){renderOptions.rotation[0], 0.0f, 0.0f}, temp);
+		glm_vec3_copy((vec3){abs(renderOptions.rotation[0]), 0.0f, 0.0f}, temp);
 		glm_rotate(model, glm_rad(renderOptions.rotation[0]), temp);
 	}
 
 	if ( renderOptions.rotation[1] != 0.0f )
 	{
-		glm_vec3_copy((vec3){0.0f, renderOptions.rotation[1], 0.0f}, temp);
+		glm_vec3_copy((vec3){0.0f, abs(renderOptions.rotation[1]), 0.0f}, temp);
 		glm_rotate(model, glm_rad(renderOptions.rotation[1]), temp);
 	}
 
 	if ( renderOptions.rotation[2] != 0.0f )
 	{
-		glm_vec3_copy((vec3){0.0f, 0.0f, renderOptions.rotation[2]}, temp);
+		glm_vec3_copy((vec3){0.0f, 0.0f, abs(renderOptions.rotation[2])}, temp);
 		
 		vec3 pivot;
  		pivot[0] = -renderOptions.pivot[0];

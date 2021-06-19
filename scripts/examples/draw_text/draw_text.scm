@@ -1,6 +1,6 @@
 (include-relative "../../extensions/debug")
 
-(define *index* 0)
+(define *rotation-index* 0)
 (define *font*)
 (define *text*)
 (define *mono-font*)
@@ -26,9 +26,9 @@
   
 (define (update)
   (debug:update)
-  (set! *index* (if (> *index* 720)
+  (set! *rotation-index* (if (> *rotation-index* 720)
 		    0
-		    (+ *index* 0.5)))
+		    (+ *rotation-index* 0.5)))
   #t)
 
 (define (render)
@@ -39,9 +39,24 @@
 		      position:'(0 260 0)
 		      scale:'(1 1 1))
   (renderer:draw_text *mono-text*
-		      position:'(0 190 0)
-		      scale:'(0.75 0.75 0.75))
-  
+		      position:'(0 200 0)
+		      scale:'(0.75 0.75 0.75)
+		      color:'(1 0 0 1))
+  (renderer:draw_text *text*
+		      position:'(0 140 0)
+		      color:'(0 1 0 1))
+  (renderer:draw_text *mono-text*
+		      position:'(0 70 0)
+		      color:'(0 0 1 1))
+  (renderer:draw_text *text*
+		      position:'(-100 -70 0)
+		      color:'(1 1 1 0.5)
+		      rotation:(list 0 0 *rotation-index*))
+  (renderer:draw_text *mono-text*
+		      position:'(100 -70 0)
+		      color:'(1 1 1 0.5)
+		      rotation:(list 0 0 (* *rotation-index* -1)))
+   
   (window:swap))
 
 (define (destroy)
