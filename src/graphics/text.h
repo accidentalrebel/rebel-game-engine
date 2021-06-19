@@ -10,7 +10,7 @@ typedef struct FontChar {
 	unsigned short width;
 	unsigned short height;
 	unsigned short xAdvance;
-	unsigned short xOffset;
+	short xOffset;
 	unsigned short yOffset;
 } FontChar;
 

@@ -70,7 +70,7 @@ void TextLoadFont(Text* text, Font *font) {
 			else if ( strcmp(current->name->string, "xadvance") == 0 )
 				text->font->fontChars[i]->xAdvance = value;
 			else if ( strcmp(current->name->string, "xoffset") == 0 )
-				text->font->fontChars[i]->xOffset = value;
+				text->font->fontChars[i]->xOffset = (short)value;
 			else if ( strcmp(current->name->string, "yoffset") == 0 )
 				text->font->fontChars[i]->yOffset = value;
 		
