@@ -112,23 +112,27 @@ void TextLoadFont(Text* text, Font *font) {
 
 	free(root);
 
-	// Updating the text width and height
-	//
-	text->textWidth = TextGetWidth(text);
+	TextGetWidthAndHeight(text);
 }
 
-unsigned int TextGetWidth(Text* text)
+void TextGetWidthAndHeight(Text* text)
 {
 	unsigned int stringLength = strlen(text->string);
 	unsigned int totalWidth = 0;
+	unsigned int maxHeight = 0;
 	
 	for ( unsigned int i = 0; i < stringLength; i++ )
 	{
 		char character = text->string[i];
 		FontChar* fontChar = GetFontChar(text->font, (unsigned short)character);
 		totalWidth += fontChar->xAdvance;
+
+		unsigned int currentHeight = text->font->baseHeight - fontChar->yOffset;
+		if ( currentHeight > maxHeight )
+			maxHeight = currentHeight;
 	}
-	return totalWidth;
+	text->textWidth = totalWidth;
+	text->textHeight = maxHeight;
 }
 
 Font* FontLoad(const char* directory, const char* filename, char* typeName)

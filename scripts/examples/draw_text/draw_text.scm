@@ -11,14 +11,14 @@
   
   (set! *font* (font:load "assets/fonts/font"
 			  "texture_diffuse"))
-  (set! *text* (text:create "BBBBB"))
+  (set! *text* (text:create "abcdefghijklmnopqrstuvwxyz"))
 
   (text:load_font *text*
 		  *font*)
 
   (set! *mono-font* (font:load "assets/fonts/mono-font"
 			  "texture_diffuse"))
-  (set! *mono-text* (text:create "Aa.Bb Pp:Qq Gg>Hh"))
+  (set! *mono-text* (text:create "abcdefghijklmnopqrstuvwxyz"))
 
   (text:load_font *mono-text*
 		  *mono-font*)
@@ -36,13 +36,13 @@
   (shader:use (shader:default))
 
   (renderer:draw_text *text*
-		      position:'(-400 -300 0)
+		      position:'(0 100 0)
 		      scale:'(1 1 1)
-		      rotation:(list 0 0 *index*))
+ 		      rotation:(list 0 0 *index*))
   (renderer:draw_text *mono-text*
-		      position:'(0 0 0)
+		      position:'(0 -300 0)
 		      scale:'(1 1 1)
-		      view-rotation:(list 0 0 *index*))
+ 		      rotation:(list 0 0 *index*))
   
   (window:swap))
 

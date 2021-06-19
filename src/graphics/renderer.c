@@ -223,7 +223,10 @@ void RendererDrawTextEx(Text* text, RenderOptions renderOptions)
 		renderOptions.position[1] += (rectHeight / 2 * renderOptions.scale[1])         // Move the character above the line
 			+ (text->font->baseHeight - rectHeight) * renderOptions.scale[1]             // Align the characters from the top
 			- fontChar->yOffset * renderOptions.scale[1]                                 // Apply the offset
-			- rectHeight / 2;                                                            // Move to center the anchor
+			- text->textHeight / 2 * renderOptions.scale[1]
+			/* - rectHeight / 2 * heightScale * renderOptions.scale[1] */
+			/* - (text->font->baseHeight / 2)* renderOptions.scale[1];                                                            // Move to center the anchor */
+			;
 
 		currentXOffset += fontChar->xAdvance * renderOptions.scale[0];
 

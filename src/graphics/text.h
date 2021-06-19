@@ -35,7 +35,7 @@ Text* TextCreate(char* string);
 void TextDestroy(Text* text);
 void TextLoadFont(Text* text, Font *font);
 
-unsigned int TextGetWidth(Text* text);
+void TextGetWidthAndHeight(Text* text);
 	
 Font* FontLoad(const char* directory, const char* filename, char* typeName);
 void FontUnload(Font* font);
